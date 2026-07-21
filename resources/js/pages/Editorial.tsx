@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { heroImages, products, stores } from "../data/catalog";
 import { Eyebrow, MagneticButton, ProductCard } from "../components/ui";
 import { cn } from "../utils/cn";
+import Seo from "../components/Seo";
 
 type EditorialEntry = {
   id: string;
@@ -28,6 +29,7 @@ const featuredProduct = products[0];
 export default function Editorial() {
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Editorial - Gihanga Market" path="/editorial" description="Fashion editorial and style inspiration from GIHANGA, Rwanda's premium fashion marketplace." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(191,215,241,0.18),transparent_40%),radial-gradient(circle_at_50%_70%,rgba(255,213,234,0.12),transparent_40%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />

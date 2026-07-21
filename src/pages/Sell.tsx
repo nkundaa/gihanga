@@ -1,5 +1,6 @@
 import { BadgeCheck, BarChart3, ShieldCheck, Sparkles, Store, Truck } from "lucide-react";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 const benefits = [
   { icon: Store, title: "Premium storefront", copy: "A boutique page designed like an editorial spread — not a generic catalog row." },
@@ -20,6 +21,7 @@ const steps = [
 export default function Sell() {
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Sell on Gihanga Market" path="/sell" description="List your fashion store on GIHANGA and reach customers across Kigali. Join Rwanda's premium fashion marketplace today." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.22),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.18),transparent_32%)]" />
         <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#BFD7F1]/20" />

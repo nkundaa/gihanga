@@ -1,5 +1,6 @@
 import { CheckCircle2, Sparkles } from "lucide-react";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 const plans = [
   {
@@ -47,6 +48,7 @@ const plans = [
 export default function Plans() {
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Plans - Gihanga Market" path="/plans" description="Choose the right plan for your fashion store on GIHANGA marketplace. Start selling in Kigali today." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(191,215,241,0.18),transparent_32%),radial-gradient(circle_at_20%_80%,rgba(255,213,234,0.12),transparent_32%)]" />
         <div aria-hidden className="luxury-orb left-[5%] top-[15%] h-80 w-80 bg-[#BFD7F1]/15" />

@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
-import { HashRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
@@ -101,16 +102,18 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
+    <HelmetProvider>
     <AuthProvider>
       <CartProvider>
         <WishlistProvider>
-        <HashRouter>
+        <BrowserRouter>
           <div className="min-h-screen overflow-x-hidden bg-[#F8F9FA] text-[#111111]">
             <AnimatedRoutes />
           </div>
-        </HashRouter>
+        </BrowserRouter>
         </WishlistProvider>
       </CartProvider>
     </AuthProvider>
+    </HelmetProvider>
   );
 }

@@ -1,7 +1,41 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/sitemap.xml', function () {
+    $url = 'https://gihanga.vrt.rw';
+
+    $pages = [
+        ['loc' => '/', 'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['loc' => '/home', 'priority' => '0.9', 'changefreq' => 'weekly'],
+        ['loc' => '/shop', 'priority' => '0.8', 'changefreq' => 'daily'],
+        ['loc' => '/stores', 'priority' => '0.8', 'changefreq' => 'weekly'],
+        ['loc' => '/about', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['loc' => '/contact', 'priority' => '0.5', 'changefreq' => 'monthly'],
+        ['loc' => '/sell', 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['loc' => '/sell-apply', 'priority' => '0.5', 'changefreq' => 'monthly'],
+        ['loc' => '/plans', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['loc' => '/why-gihanga', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['loc' => '/editorial', 'priority' => '0.5', 'changefreq' => 'weekly'],
+    ];
+
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    foreach ($pages as $page) {
+        $xml .= '  <url>' . "\n";
+        $xml .= '    <loc>' . $url . $page['loc'] . '</loc>' . "\n";
+        $xml .= '    <changefreq>' . $page['changefreq'] . '</changefreq>' . "\n";
+        $xml .= '    <priority>' . $page['priority'] . '</priority>' . "\n";
+        $xml .= '  </url>' . "\n";
+    }
+
+    $xml .= '</urlset>';
+
+    return Response::make($xml, 200, ['Content-Type' => 'application/xml']);
+});
 
 Route::get('/setup', function () {
     $token = request('token');

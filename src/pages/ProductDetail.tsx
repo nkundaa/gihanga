@@ -7,6 +7,7 @@ import { api } from "../api";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { Breadcrumb, MagneticButton, ProductCard } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function ProductDetail() {
   const { slug = "" } = useParams();
@@ -71,6 +72,7 @@ export default function ProductDetail() {
 
   return (
     <div className="bg-[#F8F9FA] pt-28 lg:pt-32">
+      <Seo title="Product - Gihanga Market" path="/product" description="View product details on GIHANGA marketplace." />
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: "Shop", to: "/shop" }, { label: product.storeName, to: storeLink }, { label: product.name }]} />
       </div>

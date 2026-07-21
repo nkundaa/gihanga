@@ -1,12 +1,14 @@
 import { Heart } from "lucide-react";
 import { useWishlist } from "../context/WishlistContext";
 import { EmptyState, ProductCard, MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function Wishlist() {
   const { items, count, clearWishlist } = useWishlist();
 
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Wishlist - Gihanga Market" path="/wishlist" description="Your saved fashion items on GIHANGA marketplace." />
       <section className="relative flex min-h-[25svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 sm:min-h-[30svh] pt-28">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />

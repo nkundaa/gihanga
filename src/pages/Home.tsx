@@ -24,6 +24,7 @@ import { cn } from "../utils/cn";
 import { categories as mockCategories, heroImages, products as mockProducts, stores as mockStores, testimonials, type Product, type Store, type Category } from "../data/catalog";
 import { api } from "../api";
 import { MagneticButton, ProductCard, SectionHeader, StoreCard } from "../components/ui";
+import Seo from "../components/Seo";
 
 const iconByCategory: Record<string, typeof Shirt> = {
   shoes: Footprints,
@@ -64,6 +65,7 @@ export default function Home() {
 
   return (
     <>
+      <Seo title="Home - Gihanga Market" path="/home" description="Discover verified fashion boutiques and curated pieces from Kigali on GIHANGA, Rwanda's premium fashion marketplace." />
       <Hero products={fetchedProducts} />
       <Marquee />
       <CategoriesPreview categories={fetchedCategories} />

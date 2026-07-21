@@ -1,5 +1,6 @@
 import { BadgeCheck, BarChart3, ShieldCheck, Sparkles, Store, Truck } from "lucide-react";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 const benefits = [
   { icon: Store, title: "Premium storefront", copy: "A boutique page designed like an editorial spread — not a generic catalog row." },
@@ -13,6 +14,7 @@ const benefits = [
 export default function WhyGihanga() {
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Why Gihanga Market" path="/why-gihanga" description="Discover why GIHANGA is Rwanda's trusted fashion marketplace. Verified stores, secure payments, and fast delivery in Kigali." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_70%_80%,rgba(255,213,234,0.15),transparent_32%)]" />
         <div aria-hidden className="luxury-orb left-[8%] top-[25%] h-80 w-80 bg-[#BFD7F1]/15" />

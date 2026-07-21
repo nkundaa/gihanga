@@ -4,6 +4,7 @@ import { BadgeCheck, Clock, MapPin, Star } from "lucide-react";
 import { formatRwf, getStore as mockGetStore, products as mockProducts, type Product, type Store } from "../data/catalog";
 import { api } from "../api";
 import { Breadcrumb, MagneticButton, ProductCard } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function StoreDetail() {
   const { slug = "" } = useParams();
@@ -51,6 +52,7 @@ export default function StoreDetail() {
 
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Store - Gihanga Market" path="/store" description="View store details on GIHANGA marketplace." />
       <section className="relative overflow-hidden">
         <div className="relative h-[52vh] min-h-[24rem] overflow-hidden">
           <img src={store.cover} alt={store.name} className="absolute inset-0 h-full w-full object-cover" />

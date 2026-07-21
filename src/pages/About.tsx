@@ -1,6 +1,7 @@
 import { BadgeCheck, Compass, ShieldCheck, ShoppingBag, Store, Truck } from "lucide-react";
 import { heroImages } from "../data/catalog";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 const values = [
   { title: "Verified, always", copy: "Every boutique on GIHANGA is personally reviewed. No noise, no fakes, no guesswork.", icon: BadgeCheck },
@@ -36,6 +37,7 @@ const timeline = [
 export default function About() {
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="About - Gihanga Market" path="/about" description="Learn about GIHANGA, Rwanda's premium fashion marketplace connecting customers with verified fashion stores across Kigali." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_82%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />

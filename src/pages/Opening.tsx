@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { Compass, Sparkles } from "lucide-react";
 import { heroImages, products } from "../data/catalog";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function Opening() {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Opening() {
 
   return (
     <div className="relative flex h-[100svh] flex-col justify-between overflow-hidden bg-[#111111] text-white select-none">
+      <Seo title="Gihanga Market" description="GIHANGA is Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali. Shop the Gihanga market today." />
       <div aria-hidden className="absolute inset-0">
         <motion.img
           src={heroImages.hero}

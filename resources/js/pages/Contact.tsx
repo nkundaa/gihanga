@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CheckCircle2, Mail, MapPinned, MessageCircle, Phone } from "lucide-react";
 import { MagneticButton } from "../components/ui";
+import Seo from "../components/Seo";
 
 const faqs = [
   { q: "How do verified stores get approved?", a: "Each boutique is personally reviewed by the GIHANGA team for authenticity, quality of catalog and service commitment before listing." },
@@ -15,6 +16,7 @@ export default function Contact() {
 
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Contact - Gihanga Market" path="/contact" description="Get in touch with the GIHANGA team. We're here to help with your fashion marketplace experience in Rwanda." />
       <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl">

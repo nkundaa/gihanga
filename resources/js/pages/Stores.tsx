@@ -4,6 +4,7 @@ import { api } from "../api";
 import { cn } from "../utils/cn";
 import { MagneticButton, StoreCard } from "../components/ui";
 import { Link } from "react-router-dom";
+import Seo from "../components/Seo";
 import type { Store } from "../data/catalog";
 
 export default function Stores() {
@@ -34,6 +35,7 @@ export default function Stores() {
 
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Stores - Gihanga Market" path="/stores" description="Explore verified fashion boutiques and stores in Kigali on GIHANGA marketplace." />
       <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">

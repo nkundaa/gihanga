@@ -6,6 +6,7 @@ import { categories as mockCategories, products as mockProducts } from "../data/
 import { api } from "../api";
 import { cn } from "../utils/cn";
 import { MagneticButton, ProductCard } from "../components/ui";
+import Seo from "../components/Seo";
 import type { Product } from "../data/catalog";
 
 type Sort = "featured" | "low" | "high" | "rating";
@@ -69,6 +70,7 @@ export default function Shop() {
 
   return (
     <div className="bg-[#F8F9FA]">
+      <Seo title="Shop - Gihanga Market" path="/shop" description="Browse clothing, shoes, bags and accessories from verified stores across Kigali. Shop the Gihanga market for premium fashion in Rwanda." />
       <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
