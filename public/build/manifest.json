@@ -1,0 +1,20 @@
+{
+  "resources/js/index.css": {
+    "file": "assets/index-Cnv5H07n.css",
+    "src": "resources/js/index.css",
+    "isEntry": true,
+    "name": "index",
+    "names": [
+      "index.css"
+    ]
+  },
+  "resources/js/main.tsx": {
+    "file": "assets/main-0PKZC7Vo.js",
+    "name": "main",
+    "src": "resources/js/main.tsx",
+    "isEntry": true,
+    "css": [
+      "assets/index-Cnv5H07n.css"
+    ]
+  }
+}
