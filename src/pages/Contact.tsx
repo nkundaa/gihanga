@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Mail, MapPinned, MessageCircle, Phone } from "lucide-react";
+import { CheckCircle2, Globe, Mail, MapPinned, Phone } from "lucide-react";
 import { MagneticButton } from "../components/ui";
 import Seo from "../components/Seo";
 
@@ -69,10 +69,10 @@ export default function Contact() {
           </div>
 
           <aside data-reveal className="space-y-5">
-            <InfoCard icon={MapPinned} title="Visit us" lines={["GIHANGA HQ", "Kacyiru, Kigali, Rwanda"]} />
-            <InfoCard icon={Mail} title="Email" lines={["hello@gihanga.rw", "vendors@gihanga.rw"]} />
-            <InfoCard icon={Phone} title="Phone" lines={["+250 788 000 000", "Mon – Sat · 8:00 – 20:00 CAT"]} />
-            <InfoCard icon={MessageCircle} title="Social" lines={["@gihanga on Instagram", "chat with us on WhatsApp"]} />
+            <InfoCard icon={MapPinned} title="Visit us" lines={["GIHANGA HQ", "Kicukiro, Kigali, Rwanda"]} />
+            <InfoCard icon={Mail} title="Email" lines={["gihangamarket@gmail.com"]} />
+            <InfoCard icon={Phone} title="Phone" lines={["+250 799 576 704"]} />
+            <InfoCard icon={Globe} title="Social" lines={["instagram.com/gihangamarket"]} link="https://www.instagram.com/gihangamarket/" />
           </aside>
         </div>
       </section>
@@ -107,7 +107,7 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
   );
 }
 
-function InfoCard({ icon: Icon, title, lines }: { icon: typeof Mail; title: string; lines: string[] }) {
+function InfoCard({ icon: Icon, title, lines, link }: { icon: typeof Mail; title: string; lines: string[]; link?: string }) {
   return (
     <div className="flex items-start gap-4 rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.05)]">
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#111111] text-[#BFD7F1]">
@@ -115,7 +115,13 @@ function InfoCard({ icon: Icon, title, lines }: { icon: typeof Mail; title: stri
       </span>
       <div>
         <p className="font-display text-lg font-black tracking-[-0.03em]">{title}</p>
-        {lines.map((l) => <p key={l} className="text-sm text-[#666666]">{l}</p>)}
+        {lines.map((l) =>
+          link ? (
+            <a key={l} href={link} target="_blank" rel="noopener noreferrer" className="block text-sm text-[#666666] transition hover:text-[#BFD7F1]">{l}</a>
+          ) : (
+            <p key={l} className="text-sm text-[#666666]">{l}</p>
+          )
+        )}
       </div>
     </div>
   );
