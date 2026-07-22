@@ -68,30 +68,71 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const size = options.size ?? product.sizes?.[2] ?? product.sizes?.[0];
       const color = options.color ?? product.colors?.[0];
       const key = `${product.slug}-${size ?? "one"}-${color ?? "one"}`;
-      setLines((prev) => {
-        const existing = prev.find((l) => l.key === key);
-        if (existing) {
-          return prev.map((l) => (l.key === key ? { ...l, quantity: l.quantity + (options.quantity ?? 1) } : l));
-        }
-        return [...prev, { key, product, size, color, quantity: options.quantity ?? 1 }];
-      });
+
+      if (isAuthenticated && product.id) {
+        api.cart.add({
+          product_id: product.id,
+          size,
+          color,
+          quantity: options.quantity ?? 1,
+        }).then((res) => {
+          setLines((prev) => {
+            const existing = prev.find((l) => l.key === key);
+            if (existing) {
+              return prev.map((l) => (l.key === key ? { ...l, id: res.item.id, quantity: l.quantity + (options.quantity ?? 1) } : l));
+            }
+            return [...prev, { key, id: res.item.id, product_id: product.id, product, size, color, quantity: options.quantity ?? 1 }];
+          });
+        }).catch(() => {
+          setLines((prev) => {
+            const existing = prev.find((l) => l.key === key);
+            if (existing) {
+              return prev.map((l) => (l.key === key ? { ...l, quantity: l.quantity + (options.quantity ?? 1) } : l));
+            }
+            return [...prev, { key, product, size, color, quantity: options.quantity ?? 1 }];
+          });
+        });
+      } else {
+        setLines((prev) => {
+          const existing = prev.find((l) => l.key === key);
+          if (existing) {
+            return prev.map((l) => (l.key === key ? { ...l, quantity: l.quantity + (options.quantity ?? 1) } : l));
+          }
+          return [...prev, { key, product, size, color, quantity: options.quantity ?? 1 }];
+        });
+      }
+
       setToast(`Added ${product.name}`);
       setIsOpen(true);
     },
-    []
+    [isAuthenticated]
   );
 
   const removeItem = useCallback((key: string) => {
-    setLines((prev) => prev.filter((l) => l.key !== key));
-  }, []);
+    setLines((prev) => {
+      const item = prev.find((l) => l.key === key);
+      if (item?.id && isAuthenticated) {
+        api.cart.remove(item.id).catch(() => {});
+      }
+      return prev.filter((l) => l.key !== key);
+    });
+  }, [isAuthenticated]);
 
   const setQuantity = useCallback((key: string, quantity: number) => {
-    setLines((prev) =>
-      prev
+    setLines((prev) => {
+      const item = prev.find((l) => l.key === key);
+      if (item?.id && isAuthenticated) {
+        if (quantity === 0) {
+          api.cart.remove(item.id).catch(() => {});
+        } else {
+          api.cart.update(item.id, { quantity }).catch(() => {});
+        }
+      }
+      return prev
         .map((l) => (l.key === key ? { ...l, quantity: Math.max(0, quantity) } : l))
-        .filter((l) => l.quantity > 0)
-    );
-  }, []);
+        .filter((l) => l.quantity > 0);
+    });
+  }, [isAuthenticated]);
 
   const count = useMemo(() => lines.reduce((acc, l) => acc + l.quantity, 0), [lines]);
   const subtotal = useMemo(() => lines.reduce((acc, l) => acc + l.quantity * l.product.price, 0), [lines]);
