@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Product } from "../data/catalog";
 
 type WishlistContextValue = {
@@ -20,8 +20,8 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
-  useMemo(() => {
-    if (!toast) return undefined;
+  useEffect(() => {
+    if (!toast) return;
     const id = window.setTimeout(() => setToast(null), 2200);
     return () => window.clearTimeout(id);
   }, [toast]);

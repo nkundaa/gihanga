@@ -5,7 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
-import { CartDrawer, Footer, Navigation, PageTransition, ScrollRestoration, Toast } from "./components/shell";
+import { CartDrawer, Footer, Navigation, ScrollRestoration, Toast } from "./components/shell";
 import Opening from "./pages/Opening";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -68,30 +68,28 @@ function AnimatedRoutes() {
     <>
       <ScrollRestoration />
       {showShell ? <Navigation /> : null}
-      <AnimatePresence mode="wait">
-        <PageTransition routeKey={location.pathname}>
-          <Routes location={location}>
-            <Route path="/" element={<Opening />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/product/:slug" element={<ProductDetail />} />
-            <Route path="/stores" element={<Stores />} />
-            <Route path="/store/:slug" element={<StoreDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/sell" element={<Sell />} />
-            <Route path="/sell-apply" element={<SellApply />} />
-            <Route path="/plans" element={<Plans />} />
-            <Route path="/why-gihanga" element={<WhyGihanga />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/editorial" element={<Editorial />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Opening />} />
-          </Routes>
-        </PageTransition>
+      <AnimatePresence mode="popLayout">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Opening />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
+          <Route path="/stores" element={<Stores />} />
+          <Route path="/store/:slug" element={<StoreDetail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/sell-apply" element={<SellApply />} />
+          <Route path="/plans" element={<Plans />} />
+          <Route path="/why-gihanga" element={<WhyGihanga />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/editorial" element={<Editorial />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Opening />} />
+        </Routes>
       </AnimatePresence>
       {showShell ? <Footer /> : null}
       {showShell ? <CartDrawer /> : null}
