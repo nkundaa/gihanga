@@ -4,7 +4,7 @@ import { transformProduct, transformStore, transformCategory, transformReview, t
 
 export const api = {
   auth: {
-    register: (data: { name: string; email: string; password: string; password_confirmation: string; phone?: string; role?: string }) =>
+    register: (data: { name: string; email: string; password: string; password_confirmation: string; phone?: string; role?: string; store_name?: string; payment_number?: string; payment_provider?: string }) =>
       client.post("/register", data),
     login: (data: { email: string; password: string }) =>
       client.post("/login", data),

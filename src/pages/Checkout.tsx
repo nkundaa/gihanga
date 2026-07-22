@@ -50,7 +50,7 @@ export default function Checkout() {
     setSubmitting(true);
     setError("");
     try {
-      await api.orders.create({
+      const res = await api.orders.create({
         customer_name: form.name,
         customer_phone: form.phone,
         customer_email: form.email,
@@ -61,8 +61,14 @@ export default function Checkout() {
         longitude: location?.lng ?? null,
       });
       setSubmitted(true);
-    } catch {
-      setError("Failed to place order. Check your connection and try again.");
+    } catch (err: unknown) {
+      const data = (err as { response?: { data?: Record<string, unknown> } })?.response?.data;
+      const msg = typeof data?.message === "string" ? data.message
+        : data ? Object.values(data).flat().join(". ")
+        : "Failed to place order. Check your connection and try again.";
+      setError(msg);
+    } finally {
+      setSubmitting(false);
     } finally {
       setSubmitting(false);
     }

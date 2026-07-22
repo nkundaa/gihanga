@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Camera, CheckCircle2, ShieldCheck, Upload, User } from "lucide-react";
+import { Camera, CheckCircle2, ShieldCheck, Smartphone, Upload, User } from "lucide-react";
 import { MagneticButton } from "../components/ui";
+import { api } from "../api";
 
 const stepRequired: Record<number, string[]> = {
   0: ["fullName", "phone", "email", "storeName", "businessName"],
-  1: ["idFront", "idBack", "agreeVerification", "agreeSellerAgreement"],
+  1: ["paymentNumber", "paymentProvider"],
+  2: ["idFront", "idBack", "agreeVerification", "agreeSellerAgreement"],
 };
 
 type FormState = Record<string, string | boolean>;
@@ -12,6 +14,7 @@ type FormState = Record<string, string | boolean>;
 const initialForm: FormState = {
   fullName: "", phone: "", email: "",
   storeName: "", businessName: "",
+  paymentNumber: "", paymentProvider: "",
   idFront: "", idBack: "", selfie: "",
   agreeVerification: false, agreeSellerAgreement: false,
 };
@@ -24,10 +27,11 @@ export default function SellApply() {
   const [form, setForm] = useState<FormState>({ ...initialForm });
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [fileNames, setFileNames] = useState<Record<string, string>>({});
+  const [apiError, setApiError] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
     setForm((prev) => ({ ...prev, [target.id]: value }));
     if (errors[target.id]) setErrors((prev) => { const n = { ...prev }; delete n[target.id]; return n; });
   };
@@ -40,7 +44,7 @@ export default function SellApply() {
     }
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
     setTouched((prev) => ({ ...prev, [e.target.id]: true }));
     const value = e.target.type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
     const err = validateField(e.target.id, value as string | boolean);
@@ -56,6 +60,8 @@ export default function SellApply() {
       case "email": return !v ? "Email is required" : !/^\S+@\S+\.\S+$/.test(v.toString()) ? "Enter a valid email address" : "";
       case "storeName": return !v ? "Store name is required" : "";
       case "businessName": return !v ? "Business name is required" : "";
+      case "paymentNumber": return !v ? "Mobile money number is required" : !/^[\d\s\+\-\(\)]{7,}$/.test(v.toString()) ? "Enter a valid phone number" : "";
+      case "paymentProvider": return !v ? "Select a mobile money provider" : "";
       case "idFront": return !v ? "Upload front of ID / Passport" : "";
       case "idBack": return !v ? "Upload back of ID / Passport" : "";
       case "agreeVerification": return !v ? "You must agree to verification" : "";
@@ -64,7 +70,7 @@ export default function SellApply() {
     }
   };
 
-  const allRequired = (): string[] => ["fullName", "phone", "email", "storeName", "businessName", "idFront", "idBack", "agreeVerification", "agreeSellerAgreement"];
+  const allRequired = (): string[] => ["fullName", "phone", "email", "storeName", "businessName", "paymentNumber", "paymentProvider", "idFront", "idBack", "agreeVerification", "agreeSellerAgreement"];
 
   const validateStep = (s: number): boolean => {
     const ids = stepRequired[s] || [];
@@ -79,15 +85,37 @@ export default function SellApply() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleNext = () => { if (validateStep(step)) setStep((s) => Math.min(s + 1, 1)); };
+  const totalSteps = Object.keys(stepRequired).length;
+  const handleNext = () => { if (validateStep(step)) setStep((s) => Math.min(s + 1, totalSteps - 1)); };
   const handleBack = () => setStep((s) => Math.max(s - 1, 0));
 
   const handleSubmit = async () => {
     if (!validateStep(step)) return;
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setSubmitting(false);
-    setSubmitted(true);
+    setApiError("");
+
+    try {
+      const password = Math.random().toString(36).slice(-12);
+
+      await api.auth.register({
+        name: form.fullName as string,
+        email: form.email as string,
+        password,
+        password_confirmation: password,
+        phone: form.phone as string,
+        role: "seller",
+        store_name: form.storeName as string,
+        payment_number: form.paymentNumber as string,
+        payment_provider: form.paymentProvider as string,
+      });
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message ?? "Something went wrong. Please try again.";
+      setApiError(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -97,6 +125,7 @@ export default function SellApply() {
     setTouched({});
     setErrors({});
     setFileNames({});
+    setApiError("");
   };
 
   const inputCls = (id: string) =>
@@ -114,6 +143,20 @@ export default function SellApply() {
       <div>
         <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
         <input id={id} type={opts?.type || "text"} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)} placeholder={opts?.placeholder} />
+        {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
+      </div>
+    );
+  };
+
+  const renderSelect = (id: string, label: string, options: { value: string; label: string }[]) => {
+    const req = allRequired().includes(id);
+    return (
+      <div>
+        <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
+        <select id={id} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)}>
+          <option value="">Select provider</option>
+          {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
         {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
       </div>
     );
@@ -156,7 +199,7 @@ export default function SellApply() {
             Apply to sell on <span className="font-editorial normal-case text-[#BFD7F1">GIHANGA</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
-            Two-step KYC/KYB verification. Upload your ID and business details to become a verified seller.
+            Three-step registration. Set up your store, add your mobile money payout details, and complete KYC verification.
           </p>
         </div>
       </section>
@@ -179,13 +222,17 @@ export default function SellApply() {
                   <CheckCircle2 className="h-8 w-8 text-green-600" />
                 </div>
                 <p className="mt-5 font-display text-2xl font-black tracking-[-0.04em]">Application submitted for <span className="text-[#BFD7F1]">{form.storeName as string}</span></p>
-                <p className="mt-2 text-[#666666]">Your application ID: <b className="font-mono text-[#111]">GH-{Date.now().toString(36).toUpperCase()}</b></p>
-                <p className="mt-1 text-sm text-[#888]">We will verify your documents and contact <b>{form.email as string}</b> within 2 business days.</p>
+                <p className="mt-2 text-[#666666]">A verification email has been sent to <b>{form.email as string}</b></p>
+                <p className="mt-1 text-sm text-[#888]">We will verify your documents and contact you within 2 business days.</p>
                 <div className="mx-auto mt-8 h-px max-w-xs bg-black/[0.06]" />
                 <div className="mt-6 grid gap-3 text-left text-sm sm:grid-cols-3">
                   <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Name</dt><dd className="mt-1 font-bold">{form.fullName as string}</dd></div>
                   <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Store</dt><dd className="mt-1 font-bold">{form.storeName as string}</dd></div>
                   <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Phone</dt><dd className="mt-1 font-bold">{form.phone as string}</dd></div>
+                </div>
+                <div className="mx-auto mt-3 grid max-w-xs gap-3 text-left text-sm sm:grid-cols-2">
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Payment</dt><dd className="mt-1 font-bold">{form.paymentNumber as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Provider</dt><dd className="mt-1 font-bold capitalize">{form.paymentProvider as string}</dd></div>
                 </div>
                 <button onClick={resetForm} className="mt-6 text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] underline underline-offset-4 transition hover:text-[#111]">Submit another</button>
               </div>
@@ -193,11 +240,11 @@ export default function SellApply() {
               <div className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
                 <div className="border-b border-black/[0.06] px-6 py-5 sm:px-10">
                   <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#999]">Step {step + 1} of 2</p>
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#BFD7F1]">{step === 0 ? "50" : "100"}%</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#999]">Step {step + 1} of {totalSteps}</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#BFD7F1]">{Math.round(((step + 1) / totalSteps) * 100)}%</p>
                   </div>
                   <div className="mt-3 flex gap-1.5">
-                    {Array.from({ length: 2 }).map((_, i) => (
+                    {Array.from({ length: totalSteps }).map((_, i) => (
                       <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-[#BFD7F1]" : "bg-black/[0.08]"}`} />
                     ))}
                   </div>
@@ -225,6 +272,23 @@ export default function SellApply() {
                   {step === 1 && <div>
                     <div className="flex items-center gap-3">
                       <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#BFD7F1] text-xs font-black text-[#111]">02</span>
+                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#BFD7F1]"><Smartphone className="h-3.5 w-3.5" /> Mobile Money Payout</span>
+                    </div>
+                    <p className="mt-4 text-sm leading-6 text-[#666666]">Set up your mobile money payout details. This is where you will receive payments from customer orders.</p>
+                    <div className="mt-6 space-y-5">
+                      {renderField("paymentNumber", "Mobile Money Number", { type: "tel", placeholder: "+250 7XX XXX XXX" })}
+                      {renderSelect("paymentProvider", "Mobile Money Provider", [
+                        { value: "mtn", label: "MTN Mobile Money" },
+                        { value: "airtel", label: "Airtel Money" },
+                        { value: "mixx_by_bank", label: "Mixx by Bank" },
+                        { value: "cash", label: "Cash on Delivery" },
+                      ])}
+                    </div>
+                  </div>}
+
+                  {step === 2 && <div>
+                    <div className="flex items-center gap-3">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#BFD7F1] text-xs font-black text-[#111]">03</span>
                       <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#BFD7F1]"><ShieldCheck className="h-3.5 w-3.5" /> KYC/KYB Verification</span>
                     </div>
                     <div className="mt-6 space-y-5">
@@ -242,13 +306,17 @@ export default function SellApply() {
                     </div>
                   </div>}
 
+                  {apiError ? (
+                    <div className="mt-6 rounded-xl bg-red-50 p-4 text-xs font-bold text-red-600">{apiError}</div>
+                  ) : null}
+
                   <div className="mt-10 flex items-center justify-between border-t border-black/[0.06] pt-8">
                     {step > 0 ? (
                       <button type="button" onClick={handleBack} className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#666] transition hover:text-[#111]">
                         ← Back
                       </button>
                     ) : <div />}
-                    {step < 1 ? (
+                    {step < totalSteps - 1 ? (
                       <button type="button" onClick={handleNext} className="rounded-full bg-[#BFD7F1] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
                         Next step →
                       </button>
