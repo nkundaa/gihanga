@@ -164,7 +164,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             {product.storeName}
           </Link>
           <span className="inline-flex items-center gap-1 text-sm font-bold text-[#111111]">
-            <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {product.rating.toFixed(1)}
+            <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {Number(product.rating).toFixed(1)}
           </span>
         </div>
         <Link to={`/product/${product.slug}`} className="mt-3 font-display text-xl font-black leading-tight tracking-[-0.04em] text-[#111111] sm:text-2xl">
@@ -210,7 +210,7 @@ export function StoreCard({ store }: { store: Store }) {
         <p className="mt-2 text-sm text-[#666666]">{store.tagline}</p>
         <div className="mt-5 flex items-center justify-between gap-3 text-sm">
           <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
-            <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {store.rating.toFixed(1)}
+            <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {Number(store.rating).toFixed(1)}
           </span>
           <span className="text-[#666666]">{store.productCount} pieces</span>
           <span className="text-[#666666]">{store.location}</span>
@@ -248,6 +248,37 @@ export function EmptyState({ title, copy, action }: { title: string; copy: strin
         <p className="mt-3 max-w-md text-[#666666]">{copy}</p>
       </div>
       {action}
+    </div>
+  );
+}
+
+export function ProductCardSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="aspect-[3/4] rounded-xl bg-[#e8e8e8]" />
+      <div className="mt-2.5 space-y-2 px-0.5">
+        <div className="h-2.5 w-16 rounded-full bg-[#e8e8e8]" />
+        <div className="h-4 w-full rounded-full bg-[#e8e8e8]" />
+        <div className="h-4 w-20 rounded-full bg-[#e8e8e8]" />
+        <div className="h-3 w-14 rounded-full bg-[#e8e8e8]" />
+      </div>
+    </div>
+  );
+}
+
+export function StoreCardSkeleton() {
+  return (
+    <div className="animate-pulse overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+      <div className="h-36 bg-[#e8e8e8] sm:h-44" />
+      <div className="flex items-center justify-between px-4 py-3">
+        <div className="flex items-center gap-3">
+          <div className="h-8 w-8 rounded-full bg-[#e8e8e8]" />
+          <div>
+            <div className="h-3 w-24 rounded-full bg-[#e8e8e8]" />
+            <div className="mt-1 h-2.5 w-16 rounded-full bg-[#e8e8e8]" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
