@@ -162,7 +162,7 @@ function DashboardTab({ stats, recentOrders }: { stats: AdminStatsType; recentOr
     { label: "Products", value: stats.totalProducts, icon: Package, color: "bg-[#111111] text-[#BFD7F1]" },
     { label: "Stores", value: stats.totalStores, icon: Store, color: "bg-[#BFD7F1] text-[#111111]" },
     { label: "Active Stores", value: stats.activeStores, icon: Users, color: "bg-[#FFD5EA] text-[#111111]" },
-    { label: "Avg Rating", value: stats.averageRating.toFixed(1), icon: BarChart3, color: "bg-[#111111] text-[#BFD7F1]" },
+    { label: "Avg Rating", value: Number(stats.averageRating).toFixed(1), icon: BarChart3, color: "bg-[#111111] text-[#BFD7F1]" },
   ];
 
   return (
@@ -257,7 +257,7 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
                 <td className="px-5 py-4 text-[#666666]">{p.storeName}</td>
                 <td className="px-5 py-4"><span className="rounded-full border border-black/10 bg-[#F8F9FA] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em]">{p.category}</span></td>
                 <td className="px-5 py-4 font-display font-black">{formatRwf(p.price)}</td>
-                <td className="px-5 py-4 text-[#666666]">{p.rating.toFixed(1)}</td>
+                <td className="px-5 py-4 text-[#666666]">{Number(p.rating).toFixed(1)}</td>
                 <td className="px-5 py-4">
                   {p.featured ? <span className="rounded-full bg-[#BFD7F1] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Featured</span> : <span className="text-[#666666]">Active</span>}
                 </td>
@@ -306,7 +306,7 @@ function StoresTab({ stores }: { stores: typeof mockStores }) {
             </div>
             <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-[#666666]">
               <span>{s.productCount} products</span>
-              <span>{s.rating.toFixed(1)} rating</span>
+              <span>{Number(s.rating).toFixed(1)} rating</span>
               <span>Since {s.founded}</span>
             </div>
             <div className="mt-4 flex gap-2">
@@ -376,7 +376,12 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                     <p className="mt-2 text-sm font-bold capitalize">{order.payment.replace("_", " ")}</p>
                     <p className="text-sm text-[#666666]">{order.storeName}</p>
                     <div className="mt-3 flex gap-2">
-                      <select className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-bold outline-none" defaultValue={order.status}>
+                      <select className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-bold outline-none" value={order.status}
+                        onChange={async (e) => {
+                          try {
+                            await api.admin.updateOrderStatus(Number(order.id), e.target.value);
+                          } catch { /* ignore */ }
+                        }}>
                         {statuses.filter((s) => s !== "all").map((s) => <option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>

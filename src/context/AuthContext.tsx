@@ -50,7 +50,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     const response = await api.auth.login({ email, password });
-    const { user: u, token: t } = response.data;
+    const { user: u, token: t } = response.data ?? {};
+    if (!u || !t) throw new Error("Invalid login response");
     localStorage.setItem("auth_token", t);
     localStorage.setItem("auth_user", JSON.stringify(u));
     setToken(t);
@@ -59,7 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = useCallback(async (data: { name: string; email: string; password: string; password_confirmation: string; phone?: string; role?: string }) => {
     const response = await api.auth.register(data);
-    const { user: u, token: t } = response.data;
+    const { user: u, token: t } = response.data ?? {};
+    if (!u || !t) throw new Error("Invalid registration response");
     localStorage.setItem("auth_token", t);
     localStorage.setItem("auth_user", JSON.stringify(u));
     setToken(t);
