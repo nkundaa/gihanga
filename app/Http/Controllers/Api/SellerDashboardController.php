@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
 
 class SellerDashboardController extends Controller
@@ -131,6 +132,44 @@ class SellerDashboardController extends Controller
         $product->delete();
 
         return response()->json(['message' => 'Product deleted']);
+    }
+
+    public function notifications(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $notifications = $user->notifications()
+            ->latest()
+            ->take(50)
+            ->get()
+            ->map(fn(DatabaseNotification $n) => [
+                'id' => $n->id,
+                'type' => class_basename($n->type),
+                'data' => $n->data,
+                'read_at' => $n->read_at,
+                'created_at' => $n->created_at->diffForHumans(),
+            ]);
+
+        return response()->json(['notifications' => $notifications]);
+    }
+
+    public function markNotificationRead(Request $request, string $id): JsonResponse
+    {
+        $notification = $request->user()->notifications()->where('id', $id)->first();
+
+        if (!$notification) {
+            return response()->json(['message' => 'Notification not found'], 404);
+        }
+
+        $notification->markAsRead();
+
+        return response()->json(['message' => 'Notification marked as read']);
+    }
+
+    public function markAllNotificationsRead(Request $request): JsonResponse
+    {
+        $request->user()->unreadNotifications->markAsRead();
+
+        return response()->json(['message' => 'All notifications marked as read']);
     }
 
     public function storeProducts(Request $request): JsonResponse

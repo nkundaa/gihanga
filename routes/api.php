@@ -61,6 +61,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/products/{product}', [SellerDashboardController::class, 'updateProduct']);
         Route::delete('/products/{product}', [SellerDashboardController::class, 'destroyProduct']);
         Route::put('/store', [SellerDashboardController::class, 'updateStore']);
+        Route::get('/notifications', [SellerDashboardController::class, 'notifications']);
+        Route::put('/notifications/{id}/read', [SellerDashboardController::class, 'markNotificationRead']);
+        Route::put('/notifications/read-all', [SellerDashboardController::class, 'markAllNotificationsRead']);
     });
 
     Route::put('/stores/{store}/settings', [StoreController::class, 'update']);

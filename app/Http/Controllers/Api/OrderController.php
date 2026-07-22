@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Notifications\NewOrderNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -74,6 +75,11 @@ class OrderController extends Controller
             'status' => 'pending',
             'transaction_id' => 'TXN-' . strtoupper(bin2hex(random_bytes(8))),
         ]);
+
+        $seller = $order->store?->seller;
+        if ($seller?->user) {
+            $seller->user->notify(new NewOrderNotification($order->load('items')));
+        }
 
         $request->user()->cart()->delete();
 
