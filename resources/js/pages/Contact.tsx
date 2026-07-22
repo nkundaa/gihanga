@@ -6,7 +6,7 @@ import Seo from "../components/Seo";
 const faqs = [
   { q: "How do verified stores get approved?", a: "Each boutique is personally reviewed by the GIHANGA team for authenticity, quality of catalog and service commitment before listing." },
   { q: "Is GIHANGA available outside Kigali?", a: "Phase one is Kigali-first. Secondary cities are on the roadmap for 2027." },
-  { q: "What payments will be supported?", a: "Card and Mobile Money (MTN and Airtel) payments are designed for the checkout phase." },
+  { q: "How does payment work?", a: "Pay the full item price via mobile money directly to the store person upon delivery. A transport fee is automatically calculated and added based on your delivery location." },
   { q: "How fast is delivery?", a: "Kigali deliveries are targeted within 24 to 48 hours with live rider tracking." },
 ];
 

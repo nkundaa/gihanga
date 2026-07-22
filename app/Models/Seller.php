@@ -10,6 +10,8 @@ class Seller extends Model
         'user_id',
         'business_name',
         'phone',
+        'payment_number',
+        'payment_provider',
         'id_type',
         'id_number',
         'id_front_path',

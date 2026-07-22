@@ -21,6 +21,8 @@ class Store extends Model
         'cover',
         'avatar',
         'accent',
+        'payment_number',
+        'payment_provider',
         'hours',
         'founded',
         'is_active',

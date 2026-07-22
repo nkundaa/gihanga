@@ -40,6 +40,8 @@ export type Store = {
   cover: string;
   avatar: string;
   accent: string;
+  paymentNumber?: string;
+  paymentProvider?: string;
   hours: string;
   founded: string;
 };

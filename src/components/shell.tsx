@@ -422,9 +422,9 @@ export function Footer() {
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Contact</h3>
               <ul className="mt-5 space-y-4 text-sm text-white/60">
-                <li className="flex gap-3"><MapPinned className="h-5 w-5 text-[#BFD7F1]" /> Kigali, Rwanda</li>
-                <li className="flex gap-3"><Mail className="h-5 w-5 text-[#BFD7F1]" /> hello@gihanga.rw</li>
-                <li className="flex gap-3"><Phone className="h-5 w-5 text-[#BFD7F1]" /> +250 788 000 000</li>
+                <li className="flex gap-3"><MapPinned className="h-5 w-5 text-[#BFD7F1]" /> Kicukiro, Kigali, Rwanda</li>
+                <li className="flex gap-3"><Mail className="h-5 w-5 text-[#BFD7F1]" /> gihangamarket@gmail.com</li>
+                <li className="flex gap-3"><Phone className="h-5 w-5 text-[#BFD7F1]" /> +250 799 576 704</li>
               </ul>
             </div>
             <div>

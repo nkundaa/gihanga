@@ -36,6 +36,8 @@ interface ApiStore {
   cover: string;
   avatar: string;
   accent: string;
+  payment_number: string | null;
+  payment_provider: string | null;
   hours: string;
   founded: string;
   is_active: boolean;
@@ -144,6 +146,8 @@ export function transformStore(s: ApiStore): Store {
     cover: s.cover,
     avatar: s.avatar,
     accent: s.accent,
+    paymentNumber: s.payment_number ?? undefined,
+    paymentProvider: s.payment_provider ?? undefined,
     hours: s.hours,
     founded: s.founded,
   };

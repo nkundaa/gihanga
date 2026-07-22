@@ -77,4 +77,32 @@ class SellerDashboardController extends Controller
 
         return response()->json(['product' => $product->fresh()]);
     }
+
+    public function updateStore(Request $request): JsonResponse
+    {
+        $store = $request->user()->seller?->store;
+
+        if (!$store) {
+            return response()->json(['message' => 'No store found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'tagline' => 'sometimes|nullable|string|max:255',
+            'bio' => 'sometimes|nullable|string',
+            'category' => 'sometimes|nullable|string',
+            'location' => 'sometimes|nullable|string',
+            'hours' => 'sometimes|nullable|string',
+            'founded' => 'sometimes|nullable|string',
+            'cover' => 'sometimes|nullable|string',
+            'avatar' => 'sometimes|nullable|string',
+            'accent' => 'sometimes|nullable|string',
+            'payment_number' => 'sometimes|nullable|string|max:50',
+            'payment_provider' => 'sometimes|nullable|in:mtn,airtel,mixx_by_bank,cash',
+        ]);
+
+        $store->update($validated);
+
+        return response()->json(['store' => $store->fresh()]);
+    }
 }

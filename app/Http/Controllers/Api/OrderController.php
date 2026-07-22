@@ -71,14 +71,14 @@ class OrderController extends Controller
             'order_id' => $order->id,
             'method' => $validated['payment_method'],
             'amount' => $total,
-            'status' => 'completed',
+            'status' => 'pending',
             'transaction_id' => 'TXN-' . strtoupper(bin2hex(random_bytes(8))),
         ]);
 
         $request->user()->cart()->delete();
 
         return response()->json([
-            'order' => $order->load('items', 'payment'),
+            'order' => $order->load('items', 'payment', 'store'),
         ], 201);
     }
 
