@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SellerDashboardController extends Controller
 {
@@ -76,6 +78,72 @@ class SellerDashboardController extends Controller
         $product->update($validated);
 
         return response()->json(['product' => $product->fresh()]);
+    }
+
+    public function storeProduct(Request $request): JsonResponse
+    {
+        $store = $request->user()->seller?->store;
+
+        if (!$store) {
+            return response()->json(['message' => 'No store found'], 404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'original_price' => 'nullable|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'tag' => 'nullable|string',
+            'badge' => 'nullable|string',
+            'sizes' => 'nullable|array',
+            'sizes.*' => 'string',
+            'colors' => 'nullable|array',
+            'colors.*' => 'string',
+            'images' => 'nullable|array',
+            'images.*' => 'string',
+        ]);
+
+        $slug = Str::slug($validated['name']);
+        $baseSlug = $slug;
+        $counter = 1;
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter++;
+        }
+
+        $product = Product::create([
+            'store_id' => $store->id,
+            'slug' => $slug,
+            ...$validated,
+        ]);
+
+        return response()->json(['product' => $product->fresh()->load('category')], 201);
+    }
+
+    public function destroyProduct(Request $request, Product $product): JsonResponse
+    {
+        $store = $request->user()->seller?->store;
+
+        if (!$store || $product->store_id !== $store->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $product->delete();
+
+        return response()->json(['message' => 'Product deleted']);
+    }
+
+    public function storeProducts(Request $request): JsonResponse
+    {
+        $store = $request->user()->seller?->store;
+
+        if (!$store) {
+            return response()->json(['message' => 'No store found'], 404);
+        }
+
+        return response()->json([
+            'products' => Product::where('store_id', $store->id)->with('category')->latest()->get(),
+        ]);
     }
 
     public function updateStore(Request $request): JsonResponse

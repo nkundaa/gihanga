@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Seller;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -70,7 +72,41 @@ class AdminController extends Controller
     public function sellers(): JsonResponse
     {
         return response()->json([
-            'sellers' => \App\Models\Seller::with('user', 'store')->latest()->get(),
+            'sellers' => Seller::with('user', 'store')->latest()->get(),
         ]);
+    }
+
+    public function updateSeller(Request $request, Seller $seller): JsonResponse
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,verified,rejected,suspended',
+            'rejection_reason' => 'required_if:status,rejected|nullable|string',
+        ]);
+
+        $seller->update($validated);
+
+        if ($validated['status'] === 'verified' && $seller->store) {
+            $seller->store->update(['verified' => true, 'is_active' => true]);
+        }
+
+        if ($validated['status'] === 'rejected' || $validated['status'] === 'suspended') {
+            if ($seller->store) {
+                $seller->store->update(['is_active' => false]);
+            }
+        }
+
+        return response()->json(['seller' => $seller->fresh()->load('user', 'store')]);
+    }
+
+    public function updateStore(Request $request, Store $store): JsonResponse
+    {
+        $validated = $request->validate([
+            'verified' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
+        ]);
+
+        $store->update($validated);
+
+        return response()->json(['store' => $store->fresh()]);
     }
 }

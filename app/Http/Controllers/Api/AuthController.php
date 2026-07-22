@@ -24,6 +24,7 @@ class AuthController extends Controller
 
         if ($request->role === 'seller') {
             $rules['store_name'] = 'required|string|max:255';
+            $rules['business_name'] = 'required|string|max:255';
             $rules['payment_number'] = 'required|string|max:50';
             $rules['payment_provider'] = 'required|in:mtn,airtel,mixx_by_bank,cash';
         }
@@ -33,11 +34,12 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         $validated['role'] ??= 'customer';
 
-        $user = User::create($validated);
+        $userFields = array_intersect_key($validated, array_flip(['name', 'email', 'password', 'phone', 'role']));
+        $user = User::create($userFields);
 
         if ($request->role === 'seller') {
             $seller = $user->seller()->create([
-                'business_name' => $request->business_name ?? $request->name,
+                'business_name' => $request->business_name,
                 'phone' => $request->phone,
                 'payment_number' => $request->payment_number,
                 'payment_provider' => $request->payment_provider,

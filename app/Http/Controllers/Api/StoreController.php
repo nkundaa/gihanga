@@ -57,7 +57,6 @@ class StoreController extends Controller
             'accent' => 'sometimes|nullable|string',
             'payment_number' => 'sometimes|nullable|string|max:50',
             'payment_provider' => 'sometimes|nullable|in:mtn,airtel,mixx_by_bank,cash',
-            'is_active' => 'sometimes|boolean',
         ]);
 
         $store->update($validated);

@@ -63,7 +63,8 @@ class DatabaseSeeder extends Seeder
                 'status' => 'verified',
             ]);
 
-            Store::create([...$sData, 'seller_id' => $seller->id]);
+            $store = new Store();
+            $store->forceFill([...$sData, 'seller_id' => $seller->id])->save();
         }
 
         $stores = Store::all();
@@ -87,7 +88,8 @@ class DatabaseSeeder extends Seeder
 
         foreach ($productsData as $p) {
             $store = $storeList[$p['store_idx']];
-            Product::create([
+            $product = new Product();
+            $product->forceFill([
                 'store_id' => $store->id,
                 'category_id' => $catIds[$p['category_slug']],
                 'slug' => $p['slug'],
@@ -102,7 +104,7 @@ class DatabaseSeeder extends Seeder
                 'colors' => ['Berry', 'Mauve', 'Ink'],
                 'images' => $p['images'],
                 'featured' => $p['featured'],
-            ]);
+            ])->save();
         }
     }
 }

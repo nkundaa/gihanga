@@ -63,7 +63,7 @@ class OrderController extends Controller
                 'quantity' => $item->quantity,
                 'size' => $item->size,
                 'color' => $item->color,
-                'image' => $item->product->images[0] ?? null,
+                'image' => ($item->product->images ?? [])[0] ?? null,
             ]);
         }
 
@@ -82,23 +82,15 @@ class OrderController extends Controller
         ], 201);
     }
 
-    public function show(Order $order): JsonResponse
+    public function show(Request $request, Order $order): JsonResponse
     {
-        return response()->json([
-            'order' => $order->load('items', 'payment', 'store'),
-        ]);
-    }
-
-    public function all(Request $request): JsonResponse
-    {
-        $query = Order::with('items', 'user', 'store');
-
-        if ($request->status) {
-            $query->where('status', $request->status);
+        $user = $request->user();
+        if ($order->user_id !== $user->id && !$user->isAdmin()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
         }
 
         return response()->json([
-            'orders' => $query->latest()->get(),
+            'order' => $order->load('items', 'payment', 'store'),
         ]);
     }
 

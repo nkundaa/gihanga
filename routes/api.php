@@ -11,8 +11,8 @@ use App\Http\Controllers\Api\SellerDashboardController;
 use App\Http\Controllers\Api\StoreController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,60');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,60');
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{slug}', [CategoryController::class, 'show']);
@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/cart', [CartController::class, 'clear']);
 
     Route::get('/orders', [OrderController::class, 'index']);
-    Route::post('/orders', [OrderController::class, 'store']);
+    Route::post('/orders', [OrderController::class, 'store'])->middleware('throttle:10,60');
     Route::get('/orders/{order}', [OrderController::class, 'show']);
 
     Route::post('/products/{slug}/reviews', [ReviewController::class, 'store']);
@@ -49,14 +49,19 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/users', [AdminController::class, 'users']);
         Route::get('/sellers', [AdminController::class, 'sellers']);
         Route::put('/orders/{order}/status', [OrderController::class, 'updateStatus']);
+        Route::put('/sellers/{seller}', [AdminController::class, 'updateSeller']);
+        Route::put('/stores/{store}', [AdminController::class, 'updateStore']);
     });
 
     Route::prefix('seller')->middleware('role:seller')->group(function () {
         Route::get('/dashboard', [SellerDashboardController::class, 'stats']);
         Route::get('/orders', [SellerDashboardController::class, 'orders']);
+        Route::get('/products', [SellerDashboardController::class, 'storeProducts']);
+        Route::post('/products', [SellerDashboardController::class, 'storeProduct']);
         Route::put('/products/{product}', [SellerDashboardController::class, 'updateProduct']);
+        Route::delete('/products/{product}', [SellerDashboardController::class, 'destroyProduct']);
         Route::put('/store', [SellerDashboardController::class, 'updateStore']);
     });
 
-    Route::put('/stores/{store}', [StoreController::class, 'update']);
+    Route::put('/stores/{store}/settings', [StoreController::class, 'update']);
 });

@@ -14,8 +14,6 @@ class Product extends Model
         'description',
         'price',
         'original_price',
-        'rating',
-        'reviews_count',
         'tag',
         'badge',
         'sizes',

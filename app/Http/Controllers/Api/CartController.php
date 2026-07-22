@@ -47,6 +47,10 @@ class CartController extends Controller
 
     public function update(Request $request, Cart $cart): JsonResponse
     {
+        if ($cart->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $validated = $request->validate([
             'quantity' => 'required|integer|min:0',
         ]);
@@ -63,8 +67,12 @@ class CartController extends Controller
         ]);
     }
 
-    public function destroy(Cart $cart): JsonResponse
+    public function destroy(Request $request, Cart $cart): JsonResponse
     {
+        if ($cart->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
         $cart->delete();
 
         return response()->json(['message' => 'Item removed']);

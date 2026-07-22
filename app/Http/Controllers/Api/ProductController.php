@@ -47,13 +47,14 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
+        $priceQuery = clone $query;
         $products = $query->get();
 
         return response()->json([
             'products' => $products,
             'priceRange' => [
-                'min' => Product::where('is_active', true)->min('price') ?? 0,
-                'max' => Product::where('is_active', true)->max('price') ?? 0,
+                'min' => (clone $priceQuery)->min('price') ?? 0,
+                'max' => (clone $priceQuery)->max('price') ?? 0,
             ],
         ]);
     }

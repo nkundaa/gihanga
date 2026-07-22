@@ -39,9 +39,9 @@ Route::get('/sitemap.xml', function () {
 
 Route::get('/setup', function () {
     $token = request('token');
-    $expected = env('SETUP_TOKEN', 'gihanga-setup-2026');
+    $expected = env('SETUP_TOKEN');
 
-    if ($token !== $expected) {
+    if (!$token || !$expected || $token !== $expected) {
         abort(401, 'Invalid setup token');
     }
 
