@@ -1,6 +1,6 @@
 {
   "resources/js/index.css": {
-    "file": "assets/index-DOnskvdu.css",
+    "file": "assets/index-GjUBqIRb.css",
     "src": "resources/js/index.css",
     "isEntry": true,
     "name": "index",
@@ -9,12 +9,12 @@
     ]
   },
   "resources/js/main.tsx": {
-    "file": "assets/main-DwoMJ60z.js",
+    "file": "assets/main-KPDXjowA.js",
     "name": "main",
     "src": "resources/js/main.tsx",
     "isEntry": true,
     "css": [
-      "assets/index-DOnskvdu.css"
+      "assets/index-GjUBqIRb.css"
     ]
   }
 }
