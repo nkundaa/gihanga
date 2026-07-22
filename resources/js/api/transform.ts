@@ -111,6 +111,7 @@ interface ApiOrder {
 
 export function transformProduct(p: ApiProduct): Product {
   return {
+    id: p.id,
     slug: p.slug,
     name: p.name,
     storeSlug: p.store?.slug ?? "",
