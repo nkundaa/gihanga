@@ -29,6 +29,7 @@ export default function StoreDetail() {
       setStore(res.store);
       setStoreProducts(res.products);
       setOthers(res.otherStores.slice(0, 4));
+      setLoading(false);
     }).catch(fallback);
   }, [slug]);
 
