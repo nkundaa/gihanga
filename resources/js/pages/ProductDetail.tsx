@@ -43,7 +43,6 @@ export default function ProductDetail() {
       setProduct(res.product);
       setRelated(res.similar);
       setFromStore(res.storeProducts);
-      setLoading(false);
     }).catch(fallback);
 
     api.products.reviews(slug).then((res) => {

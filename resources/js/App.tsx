@@ -105,7 +105,7 @@ export default function App() {
       <CartProvider>
         <WishlistProvider>
         <BrowserRouter>
-          <div className="min-h-screen overflow-x-hidden bg-[#F8F9FA] text-[#111111] pb-16 lg:pb-0">
+          <div className="min-h-screen overflow-x-hidden bg-[#F8F9FA] text-[#111111]">
             <AnimatedRoutes />
           </div>
         </BrowserRouter>

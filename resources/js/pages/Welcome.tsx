@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { motion, AnimatePresence, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, useSpring } from "framer-motion";
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import * as THREE from "three";
@@ -132,8 +132,8 @@ export default function Welcome() {
           animate={introStep >= 1 ? { opacity: 0.045, scale: 1 } : {}}
           transition={{ duration: 1.8, ease: "easeOut" }}
           style={{
-            x: useTransform(springX, (v) => v * 0.4),
-            y: useTransform(springY, (v) => v * 0.4),
+            x: useSpring(useMemo(() => springX.get() * 0.4, [springX]), { stiffness: 90, damping: 28 }),
+            y: useSpring(useMemo(() => springY.get() * 0.4, [springY]), { stiffness: 90, damping: 28 }),
           }}
           className="font-display text-[15vw] font-black tracking-[-0.08em] text-white leading-none whitespace-nowrap select-none"
         >
