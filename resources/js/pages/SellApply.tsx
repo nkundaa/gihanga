@@ -317,7 +317,7 @@ export default function SellApply() {
                       </button>
                     ) : <div />}
                     {step < totalSteps - 1 ? (
-                      <button type="button" onClick={handleNext} className="rounded-full bg-[#BFD7F1] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
+                      <button type="button" onClick={handleNext} className="min-h-11 rounded-full bg-[#BFD7F1] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
                         Next step →
                       </button>
                     ) : (

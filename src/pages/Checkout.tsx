@@ -138,7 +138,7 @@ export default function Checkout() {
           <div className="space-y-8">
             <div className="flex gap-3">
               {(["details", "payment", "confirm"] as const).map((s, i) => (
-                <button key={s} type="button" onClick={() => setStep(s)} className={cn("flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.6rem] sm:px-4 sm:py-2 sm:text-xs font-bold uppercase tracking-[0.18em] transition", step === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666]")}>
+                <button key={s} type="button" onClick={() => setStep(s)} className={cn("flex min-h-11 min-w-11 items-center gap-2 rounded-full border px-3 py-1.5 text-[0.6rem] sm:px-4 sm:py-2 sm:text-xs font-bold uppercase tracking-[0.18em] transition", step === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666]")}>
                   <span className="flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-current text-[0.5rem] sm:text-[0.55rem] font-black text-[#F8F9FA]">{i + 1}</span>
                   {s === "details" ? "Details" : s === "payment" ? "Payment" : "Confirm"}
                 </button>
@@ -169,17 +169,17 @@ export default function Checkout() {
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Your location</label>
                     <div className="flex flex-col gap-2 sm:flex-row">
                       <input readOnly value={location ? `${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}` : ""} className="flex-1 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1] placeholder:text-[#aaa]" placeholder="Auto-detected coordinates" />
-                      <button type="button" onClick={detectLocation} disabled={detecting} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-black/10 bg-[#F8F9FA] px-4 py-3 text-sm font-bold text-[#111] transition hover:bg-[#BFD7F1]/20 hover:border-[#BFD7F1] disabled:opacity-50">
+                      <button type="button" onClick={detectLocation} disabled={detecting} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-black/10 bg-[#F8F9FA] px-4 py-3 text-sm font-bold text-[#111] transition hover:bg-[#BFD7F1]/20 hover:border-[#BFD7F1] disabled:opacity-50">
                         <MapPin className={cn("h-4 w-4 text-[#BFD7F1]", detecting && "animate-bounce")} /> {detecting ? "Detecting…" : "Detect"}
                       </button>
                     </div>
-                    {locError && <p className="mt-1.5 text-[11px] text-red-500">{locError}</p>}
+                    {locError && <p className="mt-1.5 text-xs text-red-500">{locError}</p>}
                     {location && (
-                      <a href={location.address} target="_blank" rel="noopener noreferrer" className="mt-1.5 inline-flex items-center gap-1.5 text-[11px] text-[#BFD7F1] underline underline-offset-2 transition hover:text-[#111]">
+                      <a href={location.address} target="_blank" rel="noopener noreferrer" className="mt-1.5 inline-flex items-center gap-1.5 text-xs text-[#BFD7F1] underline underline-offset-2 transition hover:text-[#111]">
                         <MapPin className="h-3 w-3" /> View on Google Maps
                       </a>
                     )}
-                    <p className="mt-1.5 text-[11px] text-[#888]">Click "Detect" to auto-detect your location via GPS. The delivery rider will use this exact pin.</p>
+                    <p className="mt-1.5 text-xs text-[#888]">Click "Detect" to auto-detect your location via GPS. The delivery rider will use this exact pin.</p>
                   </div>
                   <div className="sm:col-span-2">
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Delivery notes</label>

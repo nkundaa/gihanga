@@ -55,7 +55,7 @@ export default function StoreDetail() {
     <div className="bg-[#F8F9FA]">
       <Seo title="Store - Gihanga Market" path="/store" description="View store details on GIHANGA marketplace." />
       <section className="relative overflow-hidden">
-        <div className="relative h-[52vh] min-h-[24rem] overflow-hidden">
+        <div className="relative h-[40vh] min-h-[16rem] overflow-hidden sm:h-[52vh] sm:min-h-[24rem]">
           <img src={store.cover} alt={store.name} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/82" />
         </div>

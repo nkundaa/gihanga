@@ -146,7 +146,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
       onMouseMove={handleMove}
       onMouseLeave={() => tilt.set("perspective(900px) rotateX(0deg) rotateY(0deg)")}
     >
-      <Link to={`/product/${product.slug}`} className="relative block h-56 overflow-hidden bg-[#F8F9FA] sm:h-80">
+      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#F8F9FA] sm:h-80">
         <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
         {product.discount ? (
           <span className="absolute left-4 top-4 rounded-full bg-[#111111] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white">{product.discount}</span>

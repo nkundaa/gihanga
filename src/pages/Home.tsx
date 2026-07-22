@@ -96,11 +96,17 @@ function Hero({ products }: { products: Product[] }) {
     return () => window.removeEventListener("mousemove", handleMove);
   }, [reduceMotion]);
 
-  // Scroll scale and opacity transformation
+  // Scroll scale and opacity transformation — recalculates on resize for orientation change
   const { scrollY } = useScroll();
-  const heroScale = useTransform(scrollY, [0, window.innerHeight], [1, 0.9]);
-  const heroOpacity = useTransform(scrollY, [0, window.innerHeight * 0.7], [1, 0]);
-  const yOffset = useTransform(scrollY, [0, window.innerHeight], [0, 80]);
+  const [vh, setVh] = useState(window.innerHeight);
+  useEffect(() => {
+    const onResize = () => setVh(window.innerHeight);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  const heroScale = useTransform(scrollY, [0, vh], [1, 0.9]);
+  const heroOpacity = useTransform(scrollY, [0, vh * 0.7], [1, 0]);
+  const yOffset = useTransform(scrollY, [0, vh], [0, 80]);
 
   // Smooth springs for mouse parallax
   const springX = useSpring(mousePos.x, { stiffness: 60, damping: 15 });
@@ -415,7 +421,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
                 </div>
                 <div className="mt-10 overflow-hidden rounded-[1.6rem]">
                   <Link to={`/product/${current.slug}`} className="block">
-                    <img src={current.images[0]} alt={current.name} className="h-80 w-full object-cover" loading="lazy" />
+                    <img src={current.images[0]} alt={current.name} className="aspect-[4/3] w-full object-cover sm:h-80" loading="lazy" />
                   </Link>
                 </div>
                 <div className="mt-6 flex items-center justify-between gap-5">

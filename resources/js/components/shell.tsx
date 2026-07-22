@@ -250,7 +250,7 @@ export function Navigation() {
                   placeholder="Search pieces, stores, categories..."
                   className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-[#666666]/50"
                 />
-                <button type="button" onClick={() => setSearchOpen(false)} className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-[#666666] transition hover:bg-[#111111] hover:text-white">
+                <button type="button" onClick={() => setSearchOpen(false)} className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 text-[#666666] transition hover:bg-[#111111] hover:text-white">
                   <X className="h-4 w-4" />
                 </button>
               </div>
@@ -326,7 +326,7 @@ export function CartDrawer() {
                 <p className="text-xs font-black uppercase tracking-[0.3em] text-[#BFD7F1]">Your bag</p>
                 <h2 className="font-display text-xl font-black tracking-[-0.05em] sm:text-2xl">{count} item{count === 1 ? "" : "s"}</h2>
               </div>
-              <button type="button" onClick={closeCart} aria-label="Close cart" className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 transition hover:bg-[#111111] hover:text-white">
+              <button type="button" onClick={closeCart} aria-label="Close cart" className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 transition hover:bg-[#111111] hover:text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -345,7 +345,7 @@ export function CartDrawer() {
                 <ul className="space-y-4">
                   {lines.map((line) => (
                     <li key={line.key} className="flex gap-4 rounded-2xl bg-white p-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-                      <img src={line.product.images[0]} alt={line.product.name} className="h-24 w-24 shrink-0 rounded-xl object-cover" />
+                      <img src={line.product.images[0]} alt={line.product.name} className="h-20 w-20 shrink-0 rounded-xl object-cover sm:h-24 sm:w-24" />
                       <div className="flex flex-1 flex-col">
                         <div className="flex items-start justify-between gap-3">
                           <div>
@@ -358,11 +358,11 @@ export function CartDrawer() {
                         </div>
                         <div className="mt-auto flex items-center justify-between pt-2">
                           <div className="inline-flex items-center rounded-full border border-black/10">
-                            <button type="button" aria-label="Decrease quantity" className="flex h-8 w-8 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity - 1)}>
+                            <button type="button" aria-label="Decrease quantity" className="flex h-11 w-11 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity - 1)}>
                               <Minus className="h-3.5 w-3.5" />
                             </button>
-                            <span className="w-8 text-center text-sm font-bold">{line.quantity}</span>
-                            <button type="button" aria-label="Increase quantity" className="flex h-8 w-8 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity + 1)}>
+                            <span className="w-11 text-center text-sm font-bold">{line.quantity}</span>
+                            <button type="button" aria-label="Increase quantity" className="flex h-11 w-11 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity + 1)}>
                               <Plus className="h-3.5 w-3.5" />
                             </button>
                           </div>

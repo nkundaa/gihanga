@@ -144,7 +144,7 @@ export default function Shop() {
                   type="button"
                   onClick={() => setSort(value)}
                   className={cn(
-                    "rounded-full border px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition sm:px-4 sm:py-2 sm:text-xs",
+                    "min-h-11 rounded-full border px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition sm:px-4 sm:py-2 sm:text-xs",
                     sort === value ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
                   )}
                 >

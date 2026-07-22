@@ -160,7 +160,7 @@ export default function ProductDetail() {
                         type="button"
                         onClick={() => setColor(c)}
                         aria-label={c}
-                        className={cn("h-10 w-10 rounded-full border transition", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
+                        className={cn("h-11 w-11 rounded-full border transition", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
                         style={{ backgroundColor: swatch }}
                       />
                     );
