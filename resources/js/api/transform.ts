@@ -190,7 +190,7 @@ export function transformOrder(o: ApiOrder): Order {
     phone: o.customer_phone,
     email: o.customer_email,
     address: o.customer_address,
-    lines: o.items.map((i) => ({
+    lines: (o.items ?? []).map((i) => ({
       productSlug: "",
       productName: i.product_name,
       quantity: i.quantity,

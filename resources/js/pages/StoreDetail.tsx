@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BadgeCheck, Clock, MapPin, Star } from "lucide-react";
-import { formatRwf, getStore as mockGetStore, products as mockProducts, type Product, type Store } from "../data/catalog";
+import { formatRwf, getStore as mockGetStore, products as mockProducts, stores as mockStores, type Product, type Store } from "../data/catalog";
 import { api } from "../api";
-import { Breadcrumb, MagneticButton, ProductCard } from "../components/ui";
+import { Breadcrumb, MagneticButton, ProductCard, StoreCard } from "../components/ui";
 import Seo from "../components/Seo";
 
 export default function StoreDetail() {
   const { slug = "" } = useParams();
   const [store, setStore] = useState<Store | undefined>(undefined);
   const [storeProducts, setStoreProducts] = useState<Product[]>([]);
-  const [others, setOthers] = useState<Product[]>([]);
+  const [others, setOthers] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function StoreDetail() {
       setStore(s);
       if (s) {
         setStoreProducts(mockProducts.filter((p) => p.storeSlug === s.slug));
-        setOthers(mockProducts.filter((p) => p.storeSlug !== s.slug).slice(0, 4));
+        setOthers(mockStores.filter((st) => st.slug !== s.slug).slice(0, 4));
       }
       setLoading(false);
     };
@@ -29,6 +29,7 @@ export default function StoreDetail() {
       setStore(res.store);
       setStoreProducts(res.products);
       setOthers(res.otherStores.slice(0, 4));
+      setLoading(false);
     }).catch(fallback);
   }, [slug]);
 
@@ -144,7 +145,7 @@ export default function StoreDetail() {
             <Link to="/stores" className="text-sm font-bold underline-grow">All stores →</Link>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {others.map((p) => <ProductCard key={p.slug} product={p} />)}
+            {others.map((s) => <StoreCard key={s.slug} store={s} />)}
           </div>
         </div>
       </section>
