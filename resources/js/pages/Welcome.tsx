@@ -204,7 +204,7 @@ export default function Welcome() {
                   number="01"
                   label="Start Shopping"
                   description="Shop the curated product catalog."
-                  onClick={() => handleChoice("/shop")}
+                    onClick={() => handleChoice("/home")}
                 />
                 <JourneyActionRow
                   number="02"

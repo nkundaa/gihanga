@@ -3,7 +3,7 @@ import { ArrowRight, ChevronDown, Eye, Heart, Search, Sparkles, Star, TrendingUp
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { categories } from "../data/catalog";
+import { products, categories, stores } from "../data/catalog";
 import { MagneticButton, MobileProductCard } from "../components/ui";
 
 const heroSlides = [
@@ -35,6 +35,11 @@ function ScrollReveal({ children, className, delay = 0 }: { children: React.Reac
     </div>
   );
 }
+
+const featured = products.filter((p) => p.featured).slice(0, 4);
+const trending = products.filter((p) => !p.featured).slice(0, 4);
+const newest = [...products].reverse().slice(0, 4);
+const bestSellers = [...products].sort((a, b) => b.reviews - a.reviews).slice(0, 4);
 
 export default function Home() {
   const [slideIndex, setSlideIndex] = useState(0);
@@ -139,7 +144,7 @@ export default function Home() {
               type="button"
               role="tab"
               aria-selected={activeCategory === cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => { setActiveCategory(cat.id); navigate(cat.id === "all" ? "/shop" : `/shop?category=${cat.id}`); }}
               className={`category-chip flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold tracking-[-0.01em] transition ${
                 activeCategory === cat.id
                   ? "border-[#111111] bg-[#111111] text-white"
@@ -163,17 +168,17 @@ export default function Home() {
           <Link to="/shop" className="flex items-center gap-1 text-xs font-semibold text-[#D4AF37] transition hover:gap-2">View all <ArrowRight className="h-3.5 w-3.5" /></Link>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-          {[1, 2, 3, 4].map((i) => (
+          {featured.map((p) => (
             <MobileProductCard
-              key={i}
-              id={`featured-${i}`}
-              name={["Urban Silk Dress", "Kigali Loafer", "Crafted Leather Tote", "Signature Cuff"][i - 1]}
-              price={[125000, 89000, 210000, 45000][i - 1]}
-              originalPrice={[160000, 120000, 260000, 60000][i - 1]}
-              image={`https://images.unsplash.com/photo-${[1551232864, 1469334031218, 1544022613, 1490481651876][i - 1]}?w=400&q=80`}
-              rating={[4.8, 4.6, 4.9, 4.7][i - 1]}
-              storeName={["Moda House", "Urban Sole", "Leather Lab", "Bijoux"][i - 1]}
-              badge={i === 1 ? "-22%" : i === 3 ? "-19%" : undefined}
+              key={p.slug}
+              id={p.slug}
+              name={p.name}
+              price={p.price}
+              originalPrice={p.originalPrice}
+              image={p.images[0]}
+              rating={p.rating}
+              storeName={p.storeName}
+              badge={p.tag}
             />
           ))}
         </div>
@@ -189,16 +194,17 @@ export default function Home() {
           <Link to="/stores" className="flex items-center gap-1 text-xs font-semibold text-[#D4AF37] transition hover:gap-2">View all <ArrowRight className="h-3.5 w-3.5" /></Link>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-          {[1, 2, 3, 4].map((i) => (
+          {trending.map((p) => (
             <MobileProductCard
-              key={`trend-${i}`}
-              id={`trending-${i}`}
-              name={["The Kigali Blazer", "Nomad Sandal", "Weave Shoulder Bag", "Gold Cascade Earring"][i - 1]}
-              price={[180000, 65000, 145000, 38000][i - 1]}
-              image={`https://images.unsplash.com/photo-${[1594938298603, 1560343090, 1584917865442, 1522337360788][i - 1]}?w=400&q=80`}
-              rating={[4.7, 4.5, 4.8, 4.4][i - 1]}
-              storeName={["Atelier RW", "Nomad Sole", "Weave Studio", "Gold Haus"][i - 1]}
-              badge="Hot"
+              key={p.slug}
+              id={p.slug}
+              name={p.name}
+              price={p.price}
+              originalPrice={p.originalPrice}
+              image={p.images[0]}
+              rating={p.rating}
+              storeName={p.storeName}
+              badge={p.tag || "Hot"}
             />
           ))}
         </div>
@@ -214,16 +220,17 @@ export default function Home() {
           <Link to="/shop?sort=newest" className="flex items-center gap-1 text-xs font-semibold text-[#D4AF37] transition hover:gap-2">View all <ArrowRight className="h-3.5 w-3.5" /></Link>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-          {[1, 2, 3, 4].map((i) => (
+          {newest.map((p) => (
             <MobileProductCard
-              key={`new-${i}`}
-              id={`new-${i}`}
-              name={["Muse Silk Blouse", "Axis Boot", "Archive Leather Satchel", "Luna Cuff"][i - 1]}
-              price={[95000, 155000, 190000, 52000][i - 1]}
-              image={`https://images.unsplash.com/photo-${[1572804013309, 1489987707525, 1548036326, 1492705992476][i - 1]}?w=400&q=80`}
-              rating={[5.0, 4.9, 4.8, 4.6][i - 1]}
-              storeName={["Silk Studio", "Sole Collective", "Archive", "Bijoux"][i - 1]}
-              badge="New"
+              key={p.slug}
+              id={p.slug}
+              name={p.name}
+              price={p.price}
+              originalPrice={p.originalPrice}
+              image={p.images[0]}
+              rating={p.rating}
+              storeName={p.storeName}
+              badge={p.tag || "New"}
             />
           ))}
         </div>
@@ -294,17 +301,17 @@ export default function Home() {
           <Link to="/shop?sort=popular" className="flex items-center gap-1 text-xs font-semibold text-[#D4AF37] transition hover:gap-2">View all <ArrowRight className="h-3.5 w-3.5" /></Link>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-          {[1, 2, 3, 4].map((i) => (
+          {bestSellers.map((p) => (
             <MobileProductCard
-              key={`bs-${i}`}
-              id={`bestseller-${i}`}
-              name={["Signature Tailored Jacket", "The Platform Heel", "Weekender Duffel", "Artisan Hoops"][i - 1]}
-              price={[245000, 110000, 175000, 32000][i - 1]}
-              originalPrice={[300000, 140000, 220000, 40000][i - 1]}
-              image={`https://images.unsplash.com/photo-${[1529139574468, 1542296332, 1548036326, 1535639810183][i - 1]}?w=400&q=80`}
-              rating={[4.9, 4.7, 4.8, 4.5][i - 1]}
-              storeName={["Atelier RW", "Sole Collective", "Leather Lab", "Gold Haus"][i - 1]}
-              badge={["-18%", "-21%", "-20%", "-20%"][i - 1]}
+              key={p.slug}
+              id={p.slug}
+              name={p.name}
+              price={p.price}
+              originalPrice={p.originalPrice}
+              image={p.images[0]}
+              rating={p.rating}
+              storeName={p.storeName}
+              badge={p.discount || p.tag}
             />
           ))}
         </div>
@@ -320,23 +327,22 @@ export default function Home() {
           <Link to="/stores" className="flex items-center gap-1 text-xs font-semibold text-[#D4AF37] transition hover:gap-2">View all <ArrowRight className="h-3.5 w-3.5" /></Link>
         </div>
         <div className="mt-4 flex gap-3 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
-          {["Moda House", "Urban Sole", "Leather Lab", "Bijoux", "Atelier RW", "Nomad Sole"].map((name, i) => (
+          {stores.map((store) => (
             <motion.div
-              key={name}
+              key={store.slug}
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.06 }}
               className="snap-start shrink-0"
             >
               <Link
-                to={`/stores/${name.toLowerCase().replace(/\s+/g, "-")}`}
+                to={`/stores/${store.slug}`}
                 className="group flex w-40 flex-col items-center rounded-2xl border border-black/8 bg-white p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] sm:w-44"
               >
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#F8F9FA] text-lg font-black transition group-hover:bg-[#111111] group-hover:text-[#D4AF37] sm:h-20 sm:w-20 sm:text-2xl">
-                  {name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+                  {store.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
                 </span>
-                <p className="mt-2 text-xs font-bold sm:text-sm">{name}</p>
+                <p className="mt-2 text-xs font-bold sm:text-sm">{store.name}</p>
                 <span className="mt-1 inline-flex items-center gap-0.5 text-[0.5rem] text-[#D4AF37] font-semibold"><Verified className="h-2.5 w-2.5" /> Verified</span>
               </Link>
             </motion.div>
