@@ -84,18 +84,12 @@ function Hero({ products }: { products: Product[] }) {
 
   // Mouse move parameters for floating cards parallax
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [vh, setVh] = useState(window.innerHeight);
-  useEffect(() => {
-    const handleResize = () => setVh(window.innerHeight);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
   useEffect(() => {
     if (reduceMotion) return undefined;
     const handleMove = (e: MouseEvent) => {
       setMousePos({
         x: (e.clientX / window.innerWidth - 0.5) * 25,
-        y: (e.clientY / vh - 0.5) * 25,
+        y: (e.clientY / window.innerHeight - 0.5) * 25,
       });
     };
     window.addEventListener("mousemove", handleMove, { passive: true });
@@ -104,9 +98,9 @@ function Hero({ products }: { products: Product[] }) {
 
   // Scroll scale and opacity transformation
   const { scrollY } = useScroll();
-  const heroScale = useTransform(scrollY, [0, vh], [1, 0.9]);
-  const heroOpacity = useTransform(scrollY, [0, vh * 0.7], [1, 0]);
-  const yOffset = useTransform(scrollY, [0, vh], [0, 80]);
+  const heroScale = useTransform(scrollY, [0, window.innerHeight], [1, 0.9]);
+  const heroOpacity = useTransform(scrollY, [0, window.innerHeight * 0.7], [1, 0]);
+  const yOffset = useTransform(scrollY, [0, window.innerHeight], [0, 80]);
 
   // Smooth springs for mouse parallax
   const springX = useSpring(mousePos.x, { stiffness: 60, damping: 15 });

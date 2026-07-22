@@ -102,7 +102,7 @@ export function Navigation() {
         className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl sm:rounded-full sm:px-4 sm:py-3"
       >
         <Link to="/" className="group flex shrink-0 items-center gap-2 sm:gap-3" aria-label="GIHANGA home">
-          <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-12 lg:h-14" />
+          <img src="/images/logo.png" alt="" className="h-9 w-auto sm:h-12 lg:h-14" />
           <span className="hidden font-display text-lg font-black tracking-[-0.06em] text-[#111111] sm:inline-block sm:text-xl lg:text-2xl">GIHANGA</span>
         </Link>
 
@@ -163,10 +163,10 @@ export function Navigation() {
               <button
                 type="button"
                 onClick={() => setUserMenu(!userMenu)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
                 aria-label="User menu"
               >
-                <User className="h-5 w-5" />
+                <User className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
               <AnimatePresence>
                 {userMenu ? (
