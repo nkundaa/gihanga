@@ -108,6 +108,8 @@ export default function Shop() {
               <label className="relative flex-1">
                 <span className="sr-only">Search</span>
                 <input
+                  id="search-shop"
+                  name="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces or stores"
@@ -115,6 +117,8 @@ export default function Shop() {
                 />
               </label>
               <select
+                id="store-filter"
+                name="store"
                 value={store}
                 onChange={(e) => {
                   const next = new URLSearchParams(params);
