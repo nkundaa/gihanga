@@ -1,11 +1,10 @@
-import { motion, useMotionValue, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Heart, ShoppingBag, Star } from "lucide-react";
+import { motion, useReducedMotion, useMotionValue } from "framer-motion";
+import { ArrowUpRight, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { MouseEvent, ReactNode } from "react";
 import { cn } from "../utils/cn";
 import { formatRwf, type Product, type Store } from "../data/catalog";
 import { useCart } from "../context/CartContext";
-import { useWishlist } from "../context/WishlistContext";
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
@@ -38,7 +37,7 @@ export function SectionHeader({
   );
 }
 
-type MagneticVariant = "dark" | "light" | "berry" | "ghost" | "mauve" | "outline" | "gold";
+type MagneticVariant = "dark" | "light" | "berry" | "ghost" | "mauve";
 
 export function MagneticButton({
   href,
@@ -70,7 +69,10 @@ export function MagneticButton({
     y.set((event.clientY - rect.top - rect.height / 2) * 0.34);
   };
 
-  const handleLeave = () => { x.set(0); y.set(0); };
+  const handleLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   const classes = cn(
     "group relative inline-flex items-center gap-2 overflow-hidden rounded-full font-bold tracking-[-0.01em] transition-[border-radius,box-shadow,background,color] duration-500 hover:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BFD7F1] focus-visible:ring-offset-2",
@@ -80,8 +82,6 @@ export function MagneticButton({
     variant === "berry" && "bg-[#BFD7F1] text-[#111111] shadow-[0_18px_50px_rgba(191,215,241,0.32)]",
     variant === "mauve" && "bg-[#FFD5EA] text-[#111111] shadow-[0_18px_50px_rgba(255,213,234,0.36)]",
     variant === "ghost" && "border border-white/25 bg-white/10 text-white backdrop-blur-xl",
-    variant === "outline" && "border border-black/15 text-[#111111] hover:bg-[#111111] hover:text-white",
-    variant === "gold" && "bg-[#D4AF37] text-[#111111] hover:bg-[#111111] hover:text-[#D4AF37]",
     className
   );
 
@@ -122,7 +122,6 @@ export function MagneticButton({
   );
 }
 
-/* ── Original ProductCard (product prop) ── */
 export function ProductCard({ product, variant = "default" }: { product: Product; variant?: "default" | "editorial" }) {
   const { addItem } = useCart();
   const reduceMotion = Boolean(useReducedMotion());
@@ -190,100 +189,6 @@ export function ProductCard({ product, variant = "default" }: { product: Product
   );
 }
 
-/* ── Mobile ProductCard (individual props) ── */
-export function MobileProductCard({
-  id,
-  name,
-  price,
-  originalPrice,
-  image,
-  rating,
-  storeName,
-  badge,
-  className,
-}: {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  rating: number;
-  storeName: string;
-  badge?: string;
-  className?: string;
-}) {
-  const { toggleItem, isInWishlist } = useWishlist();
-  const { addItem, openCart } = useCart();
-  const inWishlist = isInWishlist(id);
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addItem({ id, name, price, images: [image], storeName }, 1);
-    openCart();
-  };
-
-  const handleToggleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleItem({ id, name, price, images: [image], storeName }, 1);
-  };
-
-  const discount = originalPrice ? Math.round((1 - price / originalPrice) * 100) : 0;
-
-  return (
-    <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("group relative rounded-2xl bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)]", className)}
-    >
-      <Link to={`/product/${id}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-2xl rounded-b-none">
-          <img src={image} alt={name} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-          {badge ? (
-            <span className={cn(
-              "absolute left-2 top-2 rounded-full px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-[0.1em] backdrop-blur-sm",
-              badge.startsWith("-") || badge.startsWith("%") ? "bg-red-500/90 text-white" :
-              badge === "New" || badge === "Hot" ? "bg-[#D4AF37]/90 text-[#111111]" : "bg-white/90 text-[#111111]"
-            )}>{badge}</span>
-          ) : null}
-          {originalPrice ? (
-            <span className="absolute bottom-2 left-2 rounded-full bg-black/70 px-2 py-0.5 text-[0.5rem] font-bold text-white backdrop-blur-sm">-{discount}%</span>
-          ) : null}
-          <button
-            type="button"
-            aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-            onClick={handleToggleWishlist}
-            className={cn(
-              "absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition",
-              inWishlist ? "bg-[#D4AF37] text-white" : "bg-white/80 text-[#666] hover:bg-white hover:text-[#111111]"
-            )}
-          >
-            <Heart className={cn("h-3.5 w-3.5", inWishlist && "fill-current")} />
-          </button>
-        </div>
-        <div className="p-3 sm:p-3.5">
-          <p className="text-[0.55rem] font-semibold uppercase tracking-[0.12em] text-[#999]">{storeName}</p>
-          <h3 className="mt-0.5 truncate font-display text-sm font-black tracking-[-0.02em]">{name}</h3>
-          <div className="mt-1 flex items-center gap-1">
-            <Star className="h-3 w-3 fill-current text-[#D4AF37]" />
-            <span className="text-[0.6rem] font-bold text-[#666]">{rating}</span>
-          </div>
-          <div className="mt-2 flex items-center justify-between">
-            <div>
-              <span className="font-display text-sm font-black tracking-[-0.02em]">{formatRwf(price)}</span>
-              {originalPrice ? <span className="ml-1.5 text-[0.6rem] text-[#999] line-through">{formatRwf(originalPrice)}</span> : null}
-            </div>
-            <button type="button" aria-label="Add to bag" onClick={handleAddToCart} className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#D4AF37] hover:text-[#111111]">
-              <ShoppingBag className="h-3.5 w-3.5" />
-            </button>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
 export function StoreCard({ store }: { store: Store }) {
   return (
     <Link
@@ -321,7 +226,9 @@ export function Breadcrumb({ items }: { items: Array<{ label: string; to?: strin
       {items.map((item, index) => (
         <span key={item.label} className="flex items-center gap-2">
           {item.to ? (
-            <Link to={item.to} className="underline-grow text-[#111111]/60 transition hover:text-[#111111]">{item.label}</Link>
+            <Link to={item.to} className="underline-grow text-[#111111]/60 transition hover:text-[#111111]">
+              {item.label}
+            </Link>
           ) : (
             <span className="text-[#111111]">{item.label}</span>
           )}
@@ -341,36 +248,6 @@ export function EmptyState({ title, copy, action }: { title: string; copy: strin
         <p className="mt-3 max-w-md text-[#666666]">{copy}</p>
       </div>
       {action}
-    </div>
-  );
-}
-
-/* ── Skeleton loaders ── */
-export function Skeleton({ className }: { className?: string }) {
-  return <div className={cn("animate-pulse rounded-lg bg-black/[0.06]", className)} />;
-}
-
-export function ProductSkeleton() {
-  return (
-    <div className="rounded-2xl bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
-      <Skeleton className="aspect-[3/4] w-full rounded-b-none" />
-      <div className="space-y-2 p-3">
-        <Skeleton className="h-3 w-16" />
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-3 w-20" />
-        <div className="flex items-center justify-between pt-1">
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-8 w-8 rounded-full" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ProductGridSkeleton({ count = 4 }: { count?: number }) {
-  return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4">
-      {Array.from({ length: count }, (_, i) => <ProductSkeleton key={i} />)}
     </div>
   );
 }
