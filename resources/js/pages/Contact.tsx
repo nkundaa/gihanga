@@ -15,9 +15,9 @@ export default function Contact() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
       <Seo title="Contact - Gihanga Market" path="/contact" description="Get in touch with the GIHANGA team. We're here to help with your fashion marketplace experience in Rwanda." />
-      <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#111111] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl">
           <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#BFD7F1] sm:text-xs sm:tracking-[0.42em]">Contact</p>
@@ -27,7 +27,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="px-5 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal>
             <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Send a message</p>
@@ -52,7 +52,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Topic</label>
-                  <select className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" defaultValue="general">
+                  <select className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" defaultValue="general">
                     <option value="general">General question</option>
                     <option value="vendor">Open a store</option>
                     <option value="press">Press & media</option>
@@ -61,9 +61,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]" htmlFor="msg">Message</label>
-                  <textarea id="msg" name="message" rows={5} required autoComplete="off" className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Tell us how we can help..." />
+                  <textarea id="msg" name="message" rows={5} required autoComplete="off" className="min-h-12 w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Tell us how we can help..." />
                 </div>
-                <MagneticButton type="submit" variant="berry" className="w-full sm:w-auto sm:justify-self-start px-6 py-3 text-sm">Send message</MagneticButton>
+                <MagneticButton type="submit" variant="berry" className="min-h-12 w-full sm:w-auto sm:justify-self-start px-6 py-3 text-sm">Send message</MagneticButton>
               </form>
             )}
           </div>
@@ -77,7 +77,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-white px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-4xl">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">FAQ</p>
           <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Frequently <span className="font-editorial text-[#BFD7F1]">asked</span>.</h2>
@@ -102,7 +102,7 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
   return (
     <div>
       <label htmlFor={name} className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">{label}</label>
-      <input id={name} name={name} type={type} required={required} autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
+      <input id={name} name={name} type={type} required={required} autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
     </div>
   );
 }
@@ -117,7 +117,7 @@ function InfoCard({ icon: Icon, title, lines, link }: { icon: typeof Mail; title
         <p className="font-display text-lg font-black tracking-[-0.03em]">{title}</p>
         {lines.map((l) =>
           link ? (
-            <a key={l} href={link} target="_blank" rel="noopener noreferrer" className="block text-sm text-[#666666] transition hover:text-[#BFD7F1]">{l}</a>
+            <a key={l} href={link} target="_blank" rel="noopener noreferrer" className="block py-1 text-sm text-[#666666] transition hover:text-[#BFD7F1]">{l}</a>
           ) : (
             <p key={l} className="text-sm text-[#666666]">{l}</p>
           )

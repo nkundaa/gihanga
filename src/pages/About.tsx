@@ -36,9 +36,9 @@ const timeline = [
 
 export default function About() {
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
       <Seo title="About - Gihanga Market" path="/about" description="Learn about GIHANGA, Rwanda's premium fashion marketplace connecting customers with verified fashion stores across Kigali." />
-      <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#111111] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_82%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
@@ -52,7 +52,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div data-reveal className="grid grid-cols-2 gap-4">
             <div className="col-span-2 overflow-hidden rounded-[2rem]">
@@ -75,18 +75,18 @@ export default function About() {
               <p>We are building GIHANGA as a premium layer for Rwanda's fashion economy: verified stores, considered product presentation, secure payments, and delivery you can actually watch arrive.</p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              <MagneticButton to="/shop" variant="dark" className="px-6 py-3 text-sm">Explore the shop</MagneticButton>
-              <MagneticButton to="/stores" variant="light" className="px-6 py-3 text-sm">Meet the boutiques</MagneticButton>
+              <MagneticButton to="/shop" variant="dark" className="min-h-12 px-6 py-3 text-sm">Explore the shop</MagneticButton>
+              <MagneticButton to="/stores" variant="light" className="min-h-12 px-6 py-3 text-sm">Meet the boutiques</MagneticButton>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Our values</p>
           <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Three principles, <span className="font-editorial text-[#BFD7F1]">non-negotiable</span>.</h2>
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => (
               <article key={v.title} data-reveal className="rounded-[2.4rem] border border-black/[0.08] bg-[#F8F9FA] p-8">
                 <p className="font-editorial text-5xl text-[#BFD7F1]">0{i + 1}</p>
@@ -101,7 +101,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-[#F8F9FA] px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-[#F8F9FA] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">How it works</p>
           <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">One premium flow for <span className="font-editorial text-[#BFD7F1]">buyers</span> and <span className="font-editorial text-[#BFD7F1]">sellers</span>.</h2>
@@ -139,11 +139,11 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Roadmap</p>
           <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Where we are <span className="font-editorial text-[#BFD7F1]">going</span>.</h2>
-          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {timeline.map((t, i) => (
               <article key={t.year} data-reveal className="relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6">
                 <p className="font-editorial text-6xl text-[#BFD7F1]">{t.year}</p>
@@ -156,15 +156,15 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-[#F8F9FA] px-5 pb-24 sm:px-6 lg:px-8">
+      <section className="bg-[#F8F9FA] px-4 pb-24 sm:px-6 lg:px-8">
         <div data-reveal className="mx-auto max-w-7xl overflow-hidden rounded-[2.8rem] bg-[#111111] px-8 py-16 text-white lg:px-16 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <h2 className="font-display text-[clamp(1.5rem,5vw,5.5rem)] font-black leading-[0.9] tracking-[-0.07em]">
               Ready to <span className="font-editorial text-[#BFD7F1]">join</span> the marketplace?
             </h2>
             <div className="flex flex-wrap gap-3 lg:justify-end">
-              <MagneticButton to="/sell" variant="berry" className="px-7 py-4">Open your store</MagneticButton>
-              <MagneticButton to="/shop" variant="ghost" className="px-7 py-4">Start shopping</MagneticButton>
+              <MagneticButton to="/sell" variant="berry" className="min-h-12 px-7 py-4">Open your store</MagneticButton>
+              <MagneticButton to="/shop" variant="ghost" className="min-h-12 px-7 py-4">Start shopping</MagneticButton>
             </div>
           </div>
         </div>

@@ -47,9 +47,9 @@ const plans = [
 
 export default function Plans() {
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
       <Seo title="Plans - Gihanga Market" path="/plans" description="Choose the right plan for your fashion store on GIHANGA marketplace. Start selling in Kigali today." />
-      <section className="relative overflow-hidden bg-[#111111] px-5 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#111111] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(191,215,241,0.18),transparent_32%),radial-gradient(circle_at_20%_80%,rgba(255,213,234,0.12),transparent_32%)]" />
         <div aria-hidden className="luxury-orb left-[5%] top-[15%] h-80 w-80 bg-[#BFD7F1]/15" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
@@ -66,14 +66,14 @@ export default function Plans() {
         </div>
       </section>
 
-      <section className="px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-3xl text-center" data-reveal>
             <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Plans</p>
             <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Pricing that <span className="font-editorial text-[#BFD7F1]">grows</span> with you.</h2>
             <p className="mt-5 text-base leading-7 text-[#666]">All plans include identity verification, fraud protection, and secure payouts.</p>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {plans.map((p) => (
               <article key={p.name} data-reveal className={`relative rounded-[2.4rem] p-7 transition hover:-translate-y-1 sm:p-8 ${p.featured ? "bg-[#111111] text-white shadow-[0_30px_110px_rgba(0,0,0,0.18)]" : "border border-black/[0.08] bg-white"}`}>
                 {p.featured ? <span className="absolute right-5 top-5 rounded-full bg-[#BFD7F1] px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-[#111]">Most popular</span> : null}
@@ -90,7 +90,7 @@ export default function Plans() {
                     </li>
                   ))}
                 </ul>
-                <MagneticButton to="/sell-apply" variant={p.featured ? "berry" : "light"} className="mt-8 w-full justify-center px-5 py-3 text-sm">
+                <MagneticButton to="/sell-apply" variant={p.featured ? "berry" : "light"} className="min-h-12 mt-8 w-full justify-center px-5 py-3 text-sm">
                   {p.cta}
                 </MagneticButton>
               </article>
@@ -101,15 +101,15 @@ export default function Plans() {
 
 
 
-      <section className="bg-[#111111] px-5 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-[#111111] px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-black leading-[0.9] tracking-[-0.06em] text-white">
             Ready to start <span className="font-editorial text-[#BFD7F1]">selling</span>?
           </h2>
           <p className="mt-5 text-base leading-7 text-white/70">Join Kigali's premium fashion marketplace. Get verified in minutes.</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <MagneticButton to="/sell-apply" variant="berry" className="px-8 py-4">Apply to sell</MagneticButton>
-            <MagneticButton to="/sell" variant="ghost" className="px-8 py-4">Learn more</MagneticButton>
+            <MagneticButton to="/sell-apply" variant="berry" className="min-h-12 px-8 py-4">Apply to sell</MagneticButton>
+            <MagneticButton to="/sell" variant="ghost" className="min-h-12 px-8 py-4">Learn more</MagneticButton>
           </div>
         </div>
       </section>

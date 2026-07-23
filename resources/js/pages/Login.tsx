@@ -29,7 +29,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-5 pt-28 sm:pt-32">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
       <div className="w-full max-w-md">
         <div className="rounded-[2rem] border border-black/[0.08] bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
           <div className="mb-8 text-center">
@@ -50,7 +50,7 @@ export default function Login() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
+                className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
                 placeholder="you@example.com"
               />
             </div>
@@ -63,23 +63,23 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 pr-10 text-sm outline-none transition focus:border-[#BFD7F1]"
+                  className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 pr-10 text-sm outline-none transition focus:border-[#BFD7F1]"
                   placeholder="Your password"
                 />
-                <button type="button" onClick={() => setShow(!show)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#666666]">
+                <button type="button" onClick={() => setShow(!show)} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-[#666666]">
                   {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            <MagneticButton type="submit" variant="berry" disabled={busy} className="w-full justify-center px-6 py-4">
+            <MagneticButton type="submit" variant="berry" disabled={busy} className="min-h-12 w-full justify-center px-6 py-4">
               {busy ? "Signing in…" : "Sign in"}
             </MagneticButton>
           </form>
 
           <p className="mt-6 text-center text-sm text-[#666666]">
             Don't have an account?{" "}
-            <Link to="/register" className="font-bold text-[#111111] underline-grow">
+            <Link to="/register" className="py-1 font-bold text-[#111111] underline-grow">
               Create one
             </Link>
           </p>

@@ -1,7 +1,4 @@
-import { api } from "../api";
-
 export type Category = {
-  id?: number;
   slug: string;
   title: string;
   copy: string;
@@ -31,7 +28,6 @@ export type Product = {
 };
 
 export type Store = {
-  id?: number;
   slug: string;
   name: string;
   tagline: string;
@@ -69,45 +65,6 @@ export type Testimonial = {
   quote: string;
 };
 
-export type OrderStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
-
-export type OrderLine = {
-  productSlug: string;
-  productName: string;
-  quantity: number;
-  price: number;
-  size?: string;
-  color?: string;
-  image: string;
-};
-
-export type Order = {
-  id: string;
-  customer: string;
-  phone: string;
-  email: string;
-  address: string;
-  lines: OrderLine[];
-  subtotal: number;
-  delivery: number;
-  total: number;
-  status: OrderStatus;
-  payment: "mobile_money" | "card";
-  createdAt: string;
-  storeSlug: string;
-  storeName: string;
-};
-
-export type AdminStats = {
-  totalProducts: number;
-  totalStores: number;
-  totalOrders: number;
-  totalRevenue: number;
-  pendingOrders: number;
-  activeStores: number;
-  averageRating: number;
-};
-
 const IMAGES = {
   hero: "/images/hero.jpg",
   clothes: "/images/clothes.jpg",
@@ -141,130 +98,6 @@ const IMAGES = {
 
 export const heroImages = IMAGES;
 
-export const apiFetch = {
-  categories: async (): Promise<Category[]> => {
-    try {
-      const res = await api.categories.list();
-      return res.data.categories;
-    } catch { return []; }
-  },
-
-  products: async (params?: Record<string, string | number | undefined>): Promise<Product[]> => {
-    try {
-      const res = await api.products.list(params);
-      const priceRange = res.data.priceRange;
-      const products = res.data.products.map(mapProduct);
-      return products;
-    } catch { return []; }
-  },
-
-  product: async (slug: string): Promise<{ product: Product | null; storeProducts: Product[]; similar: Product[] }> => {
-    try {
-      const res = await api.products.show(slug);
-      return {
-        product: mapProduct(res.data.product),
-        storeProducts: (res.data.storeProducts || []).map(mapProduct),
-        similar: (res.data.similar || []).map(mapProduct),
-      };
-    } catch { return { product: null, storeProducts: [], similar: [] }; }
-  },
-
-  stores: async (): Promise<Store[]> => {
-    try {
-      const res = await api.stores.list();
-      return res.data.stores.map(mapStore);
-    } catch { return []; }
-  },
-
-  store: async (slug: string): Promise<{ store: Store | null; otherStores: Store[] }> => {
-    try {
-      const res = await api.stores.show(slug);
-      return {
-        store: mapStore(res.data.store),
-        otherStores: (res.data.otherStores || []).map(mapStore),
-      };
-    } catch { return { store: null, otherStores: [] }; }
-  },
-
-  reviews: async (slug: string): Promise<Review[]> => {
-    try {
-      const res = await api.products.reviews(slug);
-      return res.data.reviews.map((r: Record<string, unknown>) => ({
-        id: String(r.id),
-        name: (r as { user?: { name?: string } }).user?.name || "Anonymous",
-        avatar: "/images/portraitOne.jpg",
-        rating: r.rating as number,
-        date: new Date(r.created_at as string).toLocaleDateString("en-US", { month: "short", year: "numeric" }),
-        text: (r.text as string) || "",
-        size: r.size as string | undefined,
-        color: r.color as string | undefined,
-      }));
-    } catch { return []; }
-  },
-
-  adminStats: async (): Promise<AdminStats> => {
-    try {
-      const res = await api.admin.stats();
-      return res.data.stats;
-    } catch {
-      return { totalProducts: 0, totalStores: 0, totalOrders: 0, totalRevenue: 0, pendingOrders: 0, activeStores: 0, averageRating: 0 };
-    }
-  },
-};
-
-function mapProduct(p: Record<string, unknown>): Product {
-  return {
-    id: p.id as number,
-    slug: p.slug as string,
-    name: p.name as string,
-    storeSlug: (p.store as Record<string, unknown>)?.slug as string || "",
-    storeName: (p.store as Record<string, unknown>)?.name as string || "",
-    category: (p.category as Record<string, unknown>)?.slug as string || p.category_id as string,
-    price: p.price as number,
-    originalPrice: p.original_price as number | undefined,
-    discount: p.original_price ? `-${Math.round((((p.original_price as number) - (p.price as number)) / (p.original_price as number)) * 100)}%` : undefined,
-    rating: p.rating as number,
-    reviews: p.reviews_count as number,
-    tag: p.tag as string | undefined,
-    badge: p.badge as string | undefined,
-    description: p.description as string,
-    sizes: p.sizes as string[] | undefined,
-    colors: p.colors as string[] | undefined,
-    images: p.images as string[],
-    featured: p.featured as boolean | undefined,
-  };
-}
-
-function mapStore(s: Record<string, unknown>): Store {
-  return {
-    id: s.id as number,
-    slug: s.slug as string,
-    name: s.name as string,
-    tagline: s.tagline as string,
-    bio: s.bio as string,
-    category: s.category as string,
-    location: s.location as string,
-    rating: s.rating as number,
-    reviews: s.reviews_count as number,
-    productCount: s.product_count as number,
-    verified: s.verified as boolean,
-    cover: s.cover as string,
-    avatar: s.avatar as string,
-    accent: s.accent as string,
-    hours: s.hours as string,
-    founded: s.founded as string,
-  };
-}
-
-export const formatRwf = (n: number) => `RWF ${n.toLocaleString("en-US")}`;
-
-export const testimonials: Testimonial[] = [
-  { name: "Aline Uwera", role: "Customer in Kimihurura", image: IMAGES.portraitOne, quote: "GIHANGA feels curated, calm and trustworthy. I found a dress from a real Kigali boutique and the experience felt premium from start to finish." },
-  { name: "Mireille Kayitesi", role: "Stylist and shopper", image: IMAGES.portraitTwo, quote: "The product presentation makes local fashion feel global. It is elegant, fast and easy to understand without losing the boutique feeling." },
-  { name: "Grace Ishimwe", role: "Accessories collector", image: IMAGES.portraitThree, quote: "I love that verified stores are central to the experience. It gives me confidence to discover new boutiques across Kigali." },
-];
-
-// Legacy mock data kept as fallback
 export const categories: Category[] = [
   { slug: "shoes", title: "Shoes", copy: "Statement sneakers, heels and leather classics.", count: 412, image: IMAGES.shoes },
   { slug: "clothes", title: "Clothes", copy: "Editorial fits from Kigali's sharpest boutiques.", count: 928, image: IMAGES.clothes },
@@ -275,22 +108,141 @@ export const categories: Category[] = [
 ];
 
 export const stores: Store[] = [
-  { slug: "inzuki-atelier", name: "Inzuki Atelier", tagline: "Contemporary Rwandan fashion house", bio: "A Kigali atelier crafting contemporary womenswear that bridges East African heritage and global editorial taste. Each collection is cut in-house and released in limited drops.", category: "Clothes", location: "Kimihurura, Kigali", rating: 4.9, reviews: 312, productCount: 64, verified: true, cover: IMAGES.boutiqueWindow, avatar: IMAGES.atelierOne, accent: "berry", hours: "Mon–Sat 9:00 – 19:00", founded: "2018" },
-  { slug: "kigali-carry", name: "Kigali Carry", tagline: "Considered bags for the modern commute", bio: "A bag studio designing totes, mini bags and travel pieces with vegetable-tanned leathers sourced through verified regional partners.", category: "Bags", location: "Nyarutarama, Kigali", rating: 4.8, reviews: 214, productCount: 38, verified: true, cover: IMAGES.bagsTote, avatar: IMAGES.atelierTwo, accent: "mauve", hours: "Mon–Fri 10:00 – 18:00", founded: "2020" },
-  { slug: "milles-collines-shoes", name: "Milles Collines Shoes", tagline: "Hand-finished footwear, made slowly", bio: "A footwear atelier where every pair is hand-finished in Kigali. Loafers, heels and sneakers designed to age beautifully.", category: "Shoes", location: "Kacyiru, Kigali", rating: 4.8, reviews: 186, productCount: 52, verified: true, cover: IMAGES.shoes, avatar: IMAGES.atelierFour, accent: "berry", hours: "Tue–Sat 10:00 – 18:30", founded: "2016" },
-  { slug: "nyamirambo-gems", name: "Nyamirambo Gems", tagline: "Artisan jewelry from Kigali's old town", bio: "An accessories house working with local goldsmiths to create everyday jewelry with an editorial point of view.", category: "Accessories", location: "Nyamirambo, Kigali", rating: 5, reviews: 274, productCount: 92, verified: true, cover: IMAGES.accessories, avatar: IMAGES.atelierThree, accent: "mauve", hours: "Mon–Sat 9:30 – 18:00", founded: "2014" },
-  { slug: "isano-movement", name: "Isano Movement", tagline: "Performance sportswear, Kigali-born", bio: "Sportswear engineered for Kigali's hills, climate and nightlife. Technical fabrics, tailored silhouettes.", category: "Sportswear", location: "Remera, Kigali", rating: 4.7, reviews: 148, productCount: 67, verified: true, cover: IMAGES.sportswear, avatar: IMAGES.streetTwo, accent: "berry", hours: "Daily 7:00 – 21:00", founded: "2021" },
-  { slug: "maison-kivu", name: "Maison Kivu", tagline: "Slow fashion for the whole wardrobe", bio: "A multi-category boutique with curated ready-to-wear, accessories and home textiles from Kigali's independent makers.", category: "Multi", location: "Gikondo, Kigali", rating: 4.9, reviews: 402, productCount: 128, verified: true, cover: IMAGES.boutiqueRack, avatar: IMAGES.boutiqueKnit, accent: "mauve", hours: "Mon–Sat 9:00 – 20:00", founded: "2015" },
+  {
+    slug: "inzuki-atelier",
+    name: "Inzuki Atelier",
+    tagline: "Contemporary Rwandan fashion house",
+    bio: "A Kigali atelier crafting contemporary womenswear that bridges East African heritage and global editorial taste. Each collection is cut in-house and released in limited drops.",
+    category: "Clothes",
+    location: "Kimihurura, Kigali",
+    rating: 4.9,
+    reviews: 312,
+    productCount: 64,
+    verified: true,
+    cover: IMAGES.boutiqueWindow,
+    avatar: IMAGES.atelierOne,
+    accent: "berry",
+    hours: "Mon–Sat 9:00 – 19:00",
+    founded: "2018",
+  },
+  {
+    slug: "kigali-carry",
+    name: "Kigali Carry",
+    tagline: "Considered bags for the modern commute",
+    bio: "A bag studio designing totes, mini bags and travel pieces with vegetable-tanned leathers sourced through verified regional partners.",
+    category: "Bags",
+    location: "Nyarutarama, Kigali",
+    rating: 4.8,
+    reviews: 214,
+    productCount: 38,
+    verified: true,
+    cover: IMAGES.bagsTote,
+    avatar: IMAGES.atelierTwo,
+    accent: "mauve",
+    hours: "Mon–Fri 10:00 – 18:00",
+    founded: "2020",
+  },
+  {
+    slug: "milles-collines-shoes",
+    name: "Milles Collines Shoes",
+    tagline: "Hand-finished footwear, made slowly",
+    bio: "A footwear atelier where every pair is hand-finished in Kigali. Loafers, heels and sneakers designed to age beautifully.",
+    category: "Shoes",
+    location: "Kacyiru, Kigali",
+    rating: 4.8,
+    reviews: 186,
+    productCount: 52,
+    verified: true,
+    cover: IMAGES.shoes,
+    avatar: IMAGES.atelierFour,
+    accent: "berry",
+    hours: "Tue–Sat 10:00 – 18:30",
+    founded: "2016",
+  },
+  {
+    slug: "nyamirambo-gems",
+    name: "Nyamirambo Gems",
+    tagline: "Artisan jewelry from Kigali's old town",
+    bio: "An accessories house working with local goldsmiths to create everyday jewelry with an editorial point of view.",
+    category: "Accessories",
+    location: "Nyamirambo, Kigali",
+    rating: 5,
+    reviews: 274,
+    productCount: 92,
+    verified: true,
+    cover: IMAGES.accessories,
+    avatar: IMAGES.atelierThree,
+    accent: "mauve",
+    hours: "Mon–Sat 9:30 – 18:00",
+    founded: "2014",
+  },
+  {
+    slug: "isano-movement",
+    name: "Isano Movement",
+    tagline: "Performance sportswear, Kigali-born",
+    bio: "Sportswear engineered for Kigali's hills, climate and nightlife. Technical fabrics, tailored silhouettes.",
+    category: "Sportswear",
+    location: "Remera, Kigali",
+    rating: 4.7,
+    reviews: 148,
+    productCount: 67,
+    verified: true,
+    cover: IMAGES.sportswear,
+    avatar: IMAGES.streetTwo,
+    accent: "berry",
+    hours: "Daily 7:00 – 21:00",
+    founded: "2021",
+  },
+  {
+    slug: "maison-kivu",
+    name: "Maison Kivu",
+    tagline: "Slow fashion for the whole wardrobe",
+    bio: "A multi-category boutique with curated ready-to-wear, accessories and home textiles from Kigali's independent makers.",
+    category: "Multi",
+    location: "Gikondo, Kigali",
+    rating: 4.9,
+    reviews: 402,
+    productCount: 128,
+    verified: true,
+    cover: IMAGES.boutiqueRack,
+    avatar: IMAGES.boutiqueKnit,
+    accent: "mauve",
+    hours: "Mon–Sat 9:00 – 20:00",
+    founded: "2015",
+  },
 ];
 
-const mk = (slug: string, name: string, storeSlug: string, storeName: string, category: string, price: number, originalPrice: number | undefined, tag: string | undefined, rating: number, reviews: number, images: string[], extras: Partial<Product> = {}): Product => ({
-  slug, name, storeSlug, storeName, category, price, originalPrice,
+const mk = (
+  slug: string,
+  name: string,
+  storeSlug: string,
+  storeName: string,
+  category: string,
+  price: number,
+  originalPrice: number | undefined,
+  tag: string | undefined,
+  rating: number,
+  reviews: number,
+  images: string[],
+  extras: Partial<Product> = {}
+): Product => ({
+  slug,
+  name,
+  storeSlug,
+  storeName,
+  category,
+  price,
+  originalPrice,
   discount: originalPrice ? `-${Math.round(((originalPrice - price) / originalPrice) * 100)}%` : undefined,
-  rating, reviews, tag,
-  description: "A considered piece from the GIHANGA network. Cut and finished by a verified Kigali atelier, with transparent pricing, tracked delivery and buyer protection built in.",
+  rating,
+  reviews,
+  tag,
+  description:
+    "A considered piece from the GIHANGA network. Cut and finished by a verified Kigali atelier, with transparent pricing, tracked delivery and buyer protection built in.",
   sizes: category === "Shoes" ? ["38", "39", "40", "41", "42", "43"] : category === "Clothes" ? ["XS", "S", "M", "L", "XL"] : undefined,
   colors: ["Berry", "Mauve", "Ink"],
-  images, ...extras,
+  images,
+  ...extras,
 });
 
 export const products: Product[] = [
@@ -350,7 +302,109 @@ export const reviews: Record<string, Review[]> = {
   ],
 };
 
-export const mockOrders: Order[] = [];
+export const testimonials: Testimonial[] = [
+  {
+    name: "Aline Uwera",
+    role: "Customer in Kimihurura",
+    image: IMAGES.portraitOne,
+    quote: "GIHANGA feels curated, calm and trustworthy. I found a dress from a real Kigali boutique and the experience felt premium from start to finish.",
+  },
+  {
+    name: "Mireille Kayitesi",
+    role: "Stylist and shopper",
+    image: IMAGES.portraitTwo,
+    quote: "The product presentation makes local fashion feel global. It is elegant, fast and easy to understand without losing the boutique feeling.",
+  },
+  {
+    name: "Grace Ishimwe",
+    role: "Accessories collector",
+    image: IMAGES.portraitThree,
+    quote: "I love that verified stores are central to the experience. It gives me confidence to discover new boutiques across Kigali.",
+  },
+];
+
+export const formatRwf = (n: number) => `RWF ${n.toLocaleString("en-US")}`;
+
+export type OrderStatus = "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled";
+
+export type OrderLine = {
+  productSlug: string;
+  productName: string;
+  quantity: number;
+  price: number;
+  size?: string;
+  color?: string;
+  image: string;
+};
+
+export type Order = {
+  id: string;
+  customer: string;
+  phone: string;
+  email: string;
+  address: string;
+  lines: OrderLine[];
+  subtotal: number;
+  delivery: number;
+  total: number;
+  status: OrderStatus;
+  payment: "mobile_money" | "card";
+  createdAt: string;
+  storeSlug: string;
+  storeName: string;
+};
+
+export type AdminStats = {
+  totalProducts: number;
+  totalStores: number;
+  totalOrders: number;
+  totalRevenue: number;
+  pendingOrders: number;
+  activeStores: number;
+  averageRating: number;
+};
+
+export const mockOrders: Order[] = [
+  {
+    id: "GH-2026-001", customer: "Aline Uwera", phone: "+250 788 111 222", email: "aline@example.com",
+    address: "Kimihurura, KG 5 Ave, Kigali", lines: [
+      { productSlug: "atelier-silk-co-ord", productName: "Atelier Silk Co-ord", quantity: 1, price: 68000, size: "M", color: "Berry", image: IMAGES.clothes },
+    ], subtotal: 68000, delivery: 0, total: 68000, status: "delivered", payment: "mobile_money", createdAt: "2026-06-28", storeSlug: "inzuki-atelier", storeName: "Inzuki Atelier",
+  },
+  {
+    id: "GH-2026-002", customer: "Mireille Kayitesi", phone: "+250 788 333 444", email: "mireille@example.com",
+    address: "Nyarutarama, KG 21 St, Kigali", lines: [
+      { productSlug: "kigali-leather-loafer", productName: "Kigali Leather Loafer", quantity: 1, price: 92000, size: "40", color: "Ink", image: IMAGES.shoes },
+      { productSlug: "gemma-signet", productName: "Gemma Signet", quantity: 1, price: 42000, color: "Berry", image: IMAGES.accessories },
+    ], subtotal: 134000, delivery: 0, total: 134000, status: "shipped", payment: "card", createdAt: "2026-07-02", storeSlug: "milles-collines-shoes", storeName: "Milles Collines Shoes",
+  },
+  {
+    id: "GH-2026-003", customer: "Grace Ishimwe", phone: "+250 788 555 666", email: "grace@example.com",
+    address: "Kacyiru, KG 128 Ave, Kigali", lines: [
+      { productSlug: "nyarutarama-mini-tote", productName: "Nyarutarama Mini Tote", quantity: 1, price: 74000, size: "One", color: "Mauve", image: IMAGES.bags },
+    ], subtotal: 74000, delivery: 0, total: 74000, status: "processing", payment: "mobile_money", createdAt: "2026-07-05", storeSlug: "kigali-carry", storeName: "Kigali Carry",
+  },
+  {
+    id: "GH-2026-004", customer: "Jean Pierre Mugabo", phone: "+250 788 777 888", email: "jean@example.com",
+    address: "Remera, KG 15 St, Kigali", lines: [
+      { productSlug: "rem-runner", productName: "Rem Runner", quantity: 2, price: 54000, size: "42", color: "Ink", image: IMAGES.sportswear },
+      { productSlug: "hill-tech-jacket", productName: "Hill Tech Jacket", quantity: 1, price: 78000, size: "L", color: "Ink", image: IMAGES.street },
+    ], subtotal: 186000, delivery: 0, total: 186000, status: "confirmed", payment: "card", createdAt: "2026-07-08", storeSlug: "isano-movement", storeName: "Isano Movement",
+  },
+  {
+    id: "GH-2026-005", customer: "Diane Mukamana", phone: "+250 788 999 000", email: "diane@example.com",
+    address: "Gikondo, KG 3 Ave, Kigali", lines: [
+      { productSlug: "maison-cream-coat", productName: "Maison Cream Coat", quantity: 1, price: 128000, size: "M", color: "Ink", image: IMAGES.clothesAlt },
+      { productSlug: "kivu-leather-tote", productName: "Kivu Leather Tote", quantity: 1, price: 96000, size: "One", color: "Berry", image: IMAGES.bagsTote },
+    ], subtotal: 224000, delivery: 0, total: 224000, status: "pending", payment: "mobile_money", createdAt: "2026-07-10", storeSlug: "maison-kivu", storeName: "Maison Kivu",
+  },
+  {
+    id: "GH-2026-006", customer: "Sandrine Niyonzima", phone: "+250 788 111 333", email: "sandrine@example.com",
+    address: "Kimihurura, KG 9 St, Kigali", lines: [
+      { productSlug: "ink-red-heel", productName: "Ink Red Heel", quantity: 1, price: 86000, size: "38", color: "Berry", image: IMAGES.shoesRed },
+    ], subtotal: 86000, delivery: 0, total: 86000, status: "pending", payment: "card", createdAt: "2026-07-11", storeSlug: "milles-collines-shoes", storeName: "Milles Collines Shoes",
+  },
+];
 
 export const getAdminStats = (): AdminStats => ({
   totalProducts: products.length,

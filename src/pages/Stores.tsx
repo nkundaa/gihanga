@@ -34,11 +34,11 @@ export default function Stores() {
   }, [filter, query, stores]);
 
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
       <Seo title="Stores - Gihanga Market" path="/stores" description="Explore verified fashion boutiques and stores in Kigali on GIHANGA marketplace." />
       <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#BFD7F1] sm:text-xs sm:tracking-[0.42em]">The network</p>
           <h1 className="mt-3 max-w-5xl font-display text-[clamp(1.3rem,5vw,5.2rem)] font-black uppercase leading-[0.94] tracking-[-0.08em] sm:mt-4">
             Verified <span className="font-editorial normal-case text-[#BFD7F1]">boutiques</span><br />
@@ -51,18 +51,18 @@ export default function Stores() {
       </section>
 
       {featured ? (
-      <section className="px-5 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <section className="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="mx-auto max-w-7xl">
           <Link to={`/store/${featured.slug}`} data-reveal className="group grid overflow-hidden rounded-[2.8rem] border border-black/[0.08] bg-white shadow-[0_30px_110px_rgba(0,0,0,0.08)] lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative min-h-[22rem] overflow-hidden">
+            <div className="relative min-h-[18rem] overflow-hidden sm:min-h-[22rem]">
               <img src={featured.cover} alt={featured.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <span className="absolute left-6 top-6 inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl">
-                <span className="h-2 w-2 rounded-full bg-[#BFD7F1]" /> Featured boutique
+              <span className="absolute left-6 top-6 inline-flex min-h-10 items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-[#BFD7F1]" /> Featured boutique
               </span>
             </div>
-            <div className="flex flex-col justify-center p-8 sm:p-12">
+            <div className="flex flex-col justify-center p-6 sm:p-12">
               <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">{featured.category} · {featured.location}</p>
-              <h2 className="mt-4 font-display text-3xl font-black leading-[0.9] tracking-[-0.06em] sm:text-4xl">{featured.name}</h2>
+              <h2 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[0.9] tracking-[-0.06em]">{featured.name}</h2>
               <p className="mt-4 max-w-md text-[#666666]">{featured.bio}</p>
               <div className="mt-6 flex flex-wrap gap-6 text-sm font-bold text-[#111111]">
                 <span>{featured.productCount} pieces</span>
@@ -70,7 +70,7 @@ export default function Stores() {
                 <span>Since {featured.founded}</span>
               </div>
               <div className="mt-8">
-                <MagneticButton to={`/store/${featured.slug}`} variant="dark" className="px-6 py-3 text-sm">Visit boutique</MagneticButton>
+                <MagneticButton to={`/store/${featured.slug}`} variant="dark" className="min-h-12 px-6 py-3 text-sm">Visit boutique</MagneticButton>
               </div>
             </div>
           </Link>
@@ -78,7 +78,7 @@ export default function Stores() {
       </section>
       ) : null}
 
-      <section className="px-5 pb-16 sm:pb-24 sm:px-6 lg:px-8">
+      <section className="px-4 pb-16 sm:px-6 lg:px-8 sm:pb-24">
         <div className="mx-auto max-w-7xl space-y-8">
           {loading ? (
             <div className="flex justify-center py-20">
@@ -86,7 +86,7 @@ export default function Stores() {
             </div>
           ) : (
             <>
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-between gap-4">
             <div className="flex flex-wrap gap-2">
               {allCategories.map((c) => (
                 <button
@@ -94,7 +94,7 @@ export default function Stores() {
                   type="button"
                   onClick={() => setFilter(c)}
                   className={cn(
-                    "rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition",
+                    "min-h-11 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition",
                     filter === c ? "border-[#BFD7F1] bg-[#BFD7F1] text-[#111111]" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
                   )}
                 >
@@ -106,14 +106,14 @@ export default function Stores() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search boutiques"
-              className="w-full sm:w-72 rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
+              className="min-h-12 w-full sm:w-72 rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
             />
           </div>
 
           {filtered.length === 0 ? (
             <p className="rounded-2xl border border-dashed border-black/10 bg-white/60 p-10 text-center text-[#666666]">No boutiques match that search yet.</p>
           ) : (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((s) => <StoreCard key={s.slug} store={s} />)}
             </div>
           )}

@@ -31,8 +31,8 @@ export function SectionHeader({
   return (
     <div data-reveal className={cn("mx-auto max-w-3xl", align === "center" && "text-center", className)}>
       <Eyebrow className={align === "center" ? "justify-center" : undefined}>{eyebrow}</Eyebrow>
-      <h2 className="mt-3 font-display text-[clamp(1.6rem,5vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#111111]">{title}</h2>
-      {copy ? <p className={cn("mt-3 text-sm leading-6 text-[#666666] sm:text-lg sm:leading-8", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
+      <h2 className="mt-3 sm:mt-4 font-display text-[clamp(1.6rem,5vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#111111]">{title}</h2>
+      {copy ? <p className={cn("mt-3 sm:mt-4 text-sm leading-6 text-[#666666] sm:text-lg sm:leading-8", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
     </div>
   );
 }
@@ -75,7 +75,7 @@ export function MagneticButton({
   };
 
   const classes = cn(
-    "group relative inline-flex items-center gap-2 overflow-hidden rounded-full font-bold tracking-[-0.01em] transition-[border-radius,box-shadow,background,color] duration-500 hover:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BFD7F1] focus-visible:ring-offset-2",
+    "group relative inline-flex w-full sm:w-auto items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 sm:px-8 sm:py-4 min-h-12 font-bold tracking-[-0.01em] transition-[border-radius,box-shadow,background,color] duration-500 hover:rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#BFD7F1] focus-visible:ring-offset-2",
     disabled && "pointer-events-none opacity-50",
     variant === "dark" && "bg-[#111111] text-white shadow-[0_20px_60px_rgba(0,0,0,0.18)]",
     variant === "light" && "border border-black/10 bg-white text-[#111111] shadow-[0_16px_45px_rgba(0,0,0,0.08)]",
@@ -89,7 +89,7 @@ export function MagneticButton({
     <>
       <span className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
       <span className="relative z-10">{children}</span>
-      <ArrowUpRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <ArrowUpRight className="relative z-10 h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
     </>
   );
 
@@ -135,16 +135,20 @@ export function ProductCard({ product, variant = "default" }: { product: Product
     tilt.set(`perspective(900px) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`);
   };
 
+  const handleLeave = () => {
+    tilt.set("perspective(900px) rotateX(0deg) rotateY(0deg)");
+  };
+
   return (
     <motion.article
       data-reveal
       className={cn(
-        "group flex flex-col overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.07)] transition-shadow duration-500 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]",
+        "group flex w-full flex-col overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.07)] transition-shadow duration-500 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]",
         variant === "editorial" && "rounded-[2.4rem]"
       )}
-      style={{ transform: tilt }}
+      style={{ transform: reduceMotion ? "none" : tilt }}
       onMouseMove={handleMove}
-      onMouseLeave={() => tilt.set("perspective(900px) rotateX(0deg) rotateY(0deg)")}
+      onMouseLeave={handleLeave}
     >
       <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#F8F9FA]">
         <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
@@ -154,11 +158,11 @@ export function ProductCard({ product, variant = "default" }: { product: Product
         {product.tag ? (
           <span className="absolute right-2 top-2 rounded-full bg-[#FFD5EA] px-2 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#111111]">{product.tag}</span>
         ) : null}
-        <span className="pointer-events-none absolute inset-x-2 bottom-2 translate-y-4 rounded-full bg-white/90 px-3 py-2 text-center text-xs font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="pointer-events-none absolute inset-x-2 bottom-2 flex min-h-12 sm:min-h-0 items-center justify-center rounded-full bg-white/90 px-3 py-3 sm:py-2 text-center text-xs font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
           View details
         </span>
       </Link>
-      <div className="flex flex-1 flex-col p-3">
+      <div className="flex flex-1 flex-col p-3 sm:p-4">
         <div className="flex items-center justify-between gap-2">
           <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#111111]/60 underline-grow">
             {product.storeName}
@@ -167,21 +171,21 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {product.rating.toFixed(1)}
           </span>
         </div>
-        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-sm font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
+        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
           {product.name}
         </Link>
         <div className="mt-auto flex items-end justify-between gap-3 pt-2">
           <div>
-            <p className="font-display text-sm font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
+            <p className="font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
             {product.originalPrice ? <p className="text-[0.6rem] text-[#666666] line-through">{formatRwf(product.originalPrice)}</p> : null}
           </div>
           <button
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={() => addItem(product)}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111]"
+            className="flex h-12 w-12 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111]"
           >
-            <ArrowUpRight className="h-3.5 w-3.5" />
+            <ArrowUpRight className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
           </button>
         </div>
       </div>
@@ -194,7 +198,7 @@ export function StoreCard({ store }: { store: Store }) {
     <Link
       to={`/store/${store.slug}`}
       data-reveal
-      className="group relative block overflow-hidden rounded-xl border sm:rounded-[2.4rem] border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]"
+      className="group relative block overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)] sm:rounded-[2.4rem]"
     >
       <div className="relative h-36 overflow-hidden sm:h-56">
         <img src={store.cover} alt={`${store.name} boutique`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
@@ -206,9 +210,9 @@ export function StoreCard({ store }: { store: Store }) {
       </div>
       <div className="p-4">
         <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">{store.category}</p>
-        <h3 className="mt-1 font-display text-sm font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
+        <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
         <p className="mt-1 text-xs text-[#666666]">{store.tagline}</p>
-        <div className="mt-3 flex items-center justify-between gap-2 text-xs">
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
           <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
             <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {store.rating.toFixed(1)}
           </span>

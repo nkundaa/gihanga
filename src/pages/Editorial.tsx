@@ -28,9 +28,9 @@ const featuredProduct = products[0];
 
 export default function Editorial() {
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
       <Seo title="Editorial - Gihanga Market" path="/editorial" description="Fashion editorial and style inspiration from GIHANGA, Rwanda's premium fashion marketplace." />
-      <section className="relative overflow-hidden bg-[#111111] px-5 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#111111] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(191,215,241,0.18),transparent_40%),radial-gradient(circle_at_50%_70%,rgba(255,213,234,0.12),transparent_40%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
@@ -42,13 +42,13 @@ export default function Editorial() {
             Curated visual stories from Kigali's fashion scene. Discover new drops, seasonal inspirations and boutique stories.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4">
-            <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-6 py-3 text-sm sm:w-auto" onClick={() => {}}>Shop the edit</MagneticButton>
-            <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-6 py-3 text-sm sm:w-auto" onClick={() => {}}>Explore boutiques</MagneticButton>
+            <MagneticButton to="/shop" variant="berry" className="min-h-12 w-full justify-center px-6 py-3 text-sm sm:w-auto" onClick={() => {}}>Shop the edit</MagneticButton>
+            <MagneticButton to="/stores" variant="ghost" className="min-h-12 w-full justify-center px-6 py-3 text-sm sm:w-auto" onClick={() => {}}>Explore boutiques</MagneticButton>
           </div>
         </div>
       </section>
 
-      <section className="px-5 py-12 sm:py-16 sm:px-6 lg:px-8 lg:py-24">
+      <section className="px-4 py-12 sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {entries.map((entry) => (
@@ -67,7 +67,7 @@ export default function Editorial() {
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Editorial</p>
-                    <h2 className="mt-2 font-display text-xl font-black leading-tight tracking-[-0.04em] sm:text-2xl">{entry.title}</h2>
+                    <h2 className="mt-2 font-display text-[clamp(1.1rem,3vw,1.5rem)] font-black leading-tight tracking-[-0.04em]">{entry.title}</h2>
                     <p className="mt-2 text-sm text-white/80">{entry.subtitle}</p>
                   </div>
                 </div>
@@ -77,43 +77,43 @@ export default function Editorial() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="overflow-x-hidden bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Featured boutique</p>
               <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Behind the <span className="font-editorial text-[#BFD7F1]">atelier</span></h2>
             </div>
-            <Link to={`/store/${featuredStore.slug}`} className="group inline-flex items-center gap-2 text-sm font-bold underline-grow">
+            <Link to={`/store/${featuredStore.slug}`} className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Visit {featuredStore.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </Link>
           </div>
           <div data-reveal className="grid overflow-hidden rounded-[2.8rem] border border-black/[0.08] bg-[#F8F9FA] shadow-[0_30px_110px_rgba(0,0,0,0.08)] lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="relative min-h-[20rem] overflow-hidden">
+            <div className="relative min-h-[16rem] overflow-hidden sm:min-h-[20rem]">
               <img src={featuredStore.cover} alt={featuredStore.name} className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
-            <div className="flex flex-col justify-center p-8 sm:p-12">
+            <div className="flex flex-col justify-center p-6 sm:p-12">
               <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">{featuredStore.category} · {featuredStore.location}</p>
-              <h3 className="mt-4 font-display text-3xl font-black leading-[0.9] tracking-[-0.06em] sm:text-4xl">{featuredStore.name}</h3>
+              <h3 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[0.9] tracking-[-0.06em]">{featuredStore.name}</h3>
               <p className="mt-4 text-[#666666] leading-relaxed">{featuredStore.bio}</p>
-              <div className="mt-6 flex gap-3">
-                <MagneticButton to={`/store/${featuredStore.slug}`} variant="dark" className="px-6 py-3 text-sm">Visit boutique</MagneticButton>
-                <MagneticButton to={`/product/${featuredProduct.slug}`} variant="light" className="px-6 py-3 text-sm">Featured piece</MagneticButton>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <MagneticButton to={`/store/${featuredStore.slug}`} variant="dark" className="min-h-12 px-6 py-3 text-sm">Visit boutique</MagneticButton>
+                <MagneticButton to={`/product/${featuredProduct.slug}`} variant="light" className="min-h-12 px-6 py-3 text-sm">Featured piece</MagneticButton>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#F8F9FA] px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section className="overflow-x-hidden bg-[#F8F9FA] px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">From the edit</p>
               <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Curated <span className="font-editorial text-[#BFD7F1]">pieces</span></h2>
             </div>
-            <Link to="/shop" className="group inline-flex items-center gap-2 text-sm font-bold underline-grow">
+            <Link to="/shop" className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Shop all <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </Link>
           </div>
@@ -123,7 +123,7 @@ export default function Editorial() {
         </div>
       </section>
 
-      <section className="bg-[#111111] px-5 py-12 text-white sm:py-16 sm:px-6 lg:px-8 lg:py-24">
+      <section className="overflow-x-hidden bg-[#111111] px-4 py-12 text-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl text-center">
           <Sparkles className="mx-auto h-8 w-8 text-[#BFD7F1]" />
           <h2 className="mt-6 font-display text-[clamp(1.5rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">
@@ -133,7 +133,7 @@ export default function Editorial() {
             The Kigali edit lands weekly. Sign up for the newsletter to get first access to new collections, exclusive drops and boutique stories.
           </p>
           <div className="mt-8 flex justify-center">
-            <MagneticButton to="/contact" variant="berry" className="px-6 py-3 text-sm">Get the edit</MagneticButton>
+            <MagneticButton to="/contact" variant="berry" className="min-h-12 px-6 py-3 text-sm">Get the edit</MagneticButton>
           </div>
         </div>
       </section>

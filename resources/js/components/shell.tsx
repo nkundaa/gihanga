@@ -53,6 +53,7 @@ export function Navigation() {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setOpen(false);
@@ -81,6 +82,26 @@ export function Navigation() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
+  useEffect(() => {
+    if (open && mobileMenuRef.current) {
+      const firstFocusable = mobileMenuRef.current.querySelector<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
+    }
+  }, [open]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -96,7 +117,7 @@ export function Navigation() {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-3 py-2.5 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 overflow-x-hidden px-3 py-2.5 sm:px-6 lg:px-8">
       <nav
         aria-label="Primary navigation"
         className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
@@ -135,7 +156,7 @@ export function Navigation() {
           <Link
             to="/wishlist"
             aria-label="Wishlist"
-            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+            className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
           >
             <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
             {wishlistCount > 0 ? (
@@ -159,7 +180,7 @@ export function Navigation() {
           </button>
 
           {isAuthenticated ? (
-            <div ref={userMenuRef} className="relative">
+            <div ref={userMenuRef} className="relative hidden lg:block">
               <button
                 type="button"
                 onClick={() => setUserMenu(!userMenu)}
@@ -198,20 +219,21 @@ export function Navigation() {
             <Link
               to="/login"
               aria-label="Sign in"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+              className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
             >
               <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
           )}
 
-          <MagneticButton to="/shop" variant="dark" className="hidden px-5 py-3 text-sm sm:inline-flex">
+          <MagneticButton to="/shop" variant="dark" className="hidden px-5 py-3 text-sm lg:inline-flex">
             Shop Now
           </MagneticButton>
           <button
             type="button"
             className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] lg:hidden sm:h-11 sm:w-11"
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
+            aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
@@ -261,37 +283,92 @@ export function Navigation() {
 
       <AnimatePresence>
         {open ? (
-          <motion.div
-            className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-[2rem] border border-white/40 bg-white/92 p-5 shadow-2xl backdrop-blur-2xl lg:hidden"
-            initial={{ opacity: 0, y: -16, clipPath: "inset(0 0 100% 0 round 2rem)" }}
-            animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0 round 2rem)" }}
-            exit={{ opacity: 0, y: -16, clipPath: "inset(0 0 100% 0 round 2rem)" }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="grid gap-1">
-              {links.map((link, index) => (
-                <motion.div key={link.to} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }}>
-                  <NavLink
-                    to={link.to}
-                    className={({ isActive }) =>
-                      cn(
-                        "flex items-center justify-between rounded-2xl px-3 py-3 text-base font-semibold transition",
-                        isActive ? "bg-black/[0.04] text-[#111111]" : "text-[#111111] hover:bg-black/[0.04]"
-                      )
-                    }
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[60] bg-[#111111]/50 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+              aria-hidden
+            />
+            <motion.aside
+              ref={mobileMenuRef}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-sm flex-col bg-white shadow-2xl"
+            >
+              <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
+                <span className="font-display text-lg font-black tracking-[-0.06em] text-[#111111]">Menu</span>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+              <nav className="flex-1 overflow-y-auto p-4" aria-label="Mobile navigation links">
+                <div className="grid gap-1">
+                  {links.map((link, index) => (
+                    <motion.div key={link.to} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.04 }}>
+                      <NavLink
+                        to={link.to}
+                        className={({ isActive }) =>
+                          cn(
+                            "flex min-h-12 items-center justify-between rounded-2xl px-3 py-3 text-base font-semibold transition",
+                            isActive ? "bg-black/[0.04] text-[#111111]" : "text-[#111111] hover:bg-black/[0.04]"
+                          )
+                        }
+                      >
+                        {link.label}
+                        <ArrowRight className="h-5 w-5 text-[#BFD7F1]" />
+                      </NavLink>
+                    </motion.div>
+                  ))}
+                </div>
+                <div className="mt-5">
+                  <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-5 py-4" onClick={() => setOpen(false)}>
+                    Shop Now
+                  </MagneticButton>
+                </div>
+              </nav>
+              <div className="border-t border-black/10 p-4">
+                {isAuthenticated ? (
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full bg-[#111111] text-white">
+                      <User className="h-5 w-5" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-sm font-black text-[#111111] truncate">{user?.name}</p>
+                      <p className="text-xs text-[#666666] capitalize truncate">{user?.role}</p>
+                    </div>
+                    <button type="button" onClick={() => { handleLogout(); setOpen(false); }} className="shrink-0 text-sm font-semibold text-red-600 transition hover:text-red-700 min-h-11 px-2">
+                      <LogOut className="h-4 w-4 sm:hidden" />
+                      <span className="hidden sm:inline">Sign out</span>
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-12 items-center gap-3 rounded-2xl px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-black/[0.04]"
                   >
-                    {link.label}
-                    <ArrowRight className="h-5 w-5 text-[#BFD7F1]" />
-                  </NavLink>
-                </motion.div>
-              ))}
-            </div>
-            <div className="mt-5">
-              <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-5 py-4">
-                Shop Now
-              </MagneticButton>
-            </div>
-          </motion.div>
+                    <LogIn className="h-5 w-5" />
+                    Sign in
+                  </Link>
+                )}
+              </div>
+            </motion.aside>
+          </>
         ) : null}
       </AnimatePresence>
     </header>
@@ -400,9 +477,9 @@ export function Footer() {
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#BFD7F1]/40 to-transparent" />
       <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="grid gap-6 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr]">
           <div>
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="inline-flex items-center gap-2">
               <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-16" />
               <span className="font-display text-lg font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
             </Link>
@@ -416,15 +493,15 @@ export function Footer() {
             </form>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-4">
             <FooterColumn title="Explore" items={[{ label: "Shop", to: "/shop" }, { label: "Stores", to: "/stores" }, { label: "Plans", to: "/plans" }, { label: "Why GIHANGA", to: "/why-gihanga" }, { label: "Sell", to: "/sell-apply" }]} />
             <FooterColumn title="Categories" items={[{ label: "Shoes", to: "/shop?category=shoes" }, { label: "Clothes", to: "/shop?category=clothes" }, { label: "Bags", to: "/shop?category=bags" }, { label: "Accessories", to: "/shop?category=accessories" }]} />
             <div>
               <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
               <ul className="mt-3 space-y-2 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
-                <li className="flex gap-2"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
-                <li className="flex gap-2"><Mail className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
-                <li className="flex gap-2"><Phone className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> +250 799 576 704</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Mail className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Phone className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> +250 799 576 704</li>
               </ul>
             </div>
             <div>
@@ -434,13 +511,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-white/45 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:pt-8 sm:text-sm">
+        <div className="mt-6 flex flex-col items-center gap-2 border-t border-white/10 pt-5 text-xs text-white/45 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:pt-8 sm:text-sm">
           <p>Copyright 2026 GIHANGA. All rights reserved.</p>
-          <div className="flex gap-3 sm:gap-5">
-            <a href="#" className="transition hover:text-white">Privacy</a>
-            <a href="#" className="transition hover:text-white">Terms</a>
-            <a href="/#/contact" className="transition hover:text-white">Support</a>
-            <Link to="/admin" className="transition hover:text-white">Admin</Link>
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
+            <a href="#" className="flex min-h-11 items-center transition hover:text-white">Privacy</a>
+            <a href="#" className="flex min-h-11 items-center transition hover:text-white">Terms</a>
+            <a href="/#/contact" className="flex min-h-11 items-center transition hover:text-white">Support</a>
+            <Link to="/admin" className="flex min-h-11 items-center transition hover:text-white">Admin</Link>
           </div>
         </div>
       </div>
@@ -455,7 +532,7 @@ function FooterColumn({ title, items }: { title: string; items: Array<{ label: s
       <ul className="mt-3 space-y-1.5 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
         {items.map((item) => (
           <li key={item.label}>
-            <Link to={item.to} className="transition hover:text-white">
+            <Link to={item.to} className="flex min-h-11 items-center justify-center sm:justify-start transition hover:text-white">
               {item.label}
             </Link>
           </li>

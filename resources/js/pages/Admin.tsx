@@ -31,13 +31,13 @@ export default function Admin() {
   const { isAdmin } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pt-24 lg:pt-28">
-      <div className="mx-auto flex max-w-7xl px-5 pb-24 sm:px-6 lg:px-8">
+    <div className="overflow-x-hidden min-h-screen bg-[#F8F9FA] pt-24 lg:pt-28">
+      <div className="mx-auto flex max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <aside className="hidden w-64 shrink-0 lg:block">
           <nav className="sticky top-28 space-y-1">
             <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Admin</p>
             <div className="pt-4">
-              <Link to="/" className="flex items-center gap-2 rounded-2xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#666666] transition hover:text-[#111111]">
+              <Link to="/" className="flex min-h-11 items-center gap-2 rounded-2xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#666666] transition hover:text-[#111111]">
                 <Eye className="h-4 w-4" /> View site
               </Link>
             </div>
@@ -50,17 +50,17 @@ export default function Admin() {
         <div className="min-w-0 flex-1 lg:pl-10">
           <div className="mb-8 flex items-center justify-between gap-4">
             <div>
-              <h1 className="font-display text-2xl font-black tracking-[-0.05em] capitalize sm:text-3xl">Admin</h1>
+              <h1 className="font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em] capitalize">Admin</h1>
               <p className="mt-1 text-sm text-[#666666]">GIHANGA administration panel</p>
             </div>
           </div>
 
           {!isAdmin ? (
-            <div className="rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
+            <div className="rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-16 text-center sm:py-20">
               <p className="font-editorial text-6xl text-[#BFD7F1]">🔒</p>
-              <h2 className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">Admin access required</h2>
+              <h2 className="mt-4 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Admin access required</h2>
               <p className="mt-2 text-sm text-[#666666]">Please sign in with an admin account to access this panel.</p>
-              <Link to="/login" className="mt-6 inline-flex rounded-full bg-[#111111] px-6 py-3 text-sm font-bold text-white">Sign in</Link>
+              <Link to="/login" className="mt-6 inline-flex min-h-12 rounded-full bg-[#111111] px-6 py-3 text-sm font-bold text-white items-center">Sign in</Link>
             </div>
           ) : (
             <AdminPanel />
@@ -133,13 +133,13 @@ function AdminPanel() {
 
   return (
     <>
-      <div className="mb-6 flex gap-2">
+      <div className="mb-6 flex flex-wrap gap-2">
         {tabs.map((t) => (
           <button
             key={t.id}
             type="button"
             onClick={() => setTab(t.id)}
-            className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", tab === t.id ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}
+            className={cn("min-h-12 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", tab === t.id ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}
           >
             <t.icon className="mr-1.5 inline h-3.5 w-3.5" /> {t.label}
           </button>
@@ -173,7 +173,7 @@ function DashboardTab({ stats, recentOrders }: { stats: AdminStatsType; recentOr
             <div className={cn("flex h-12 w-12 items-center justify-center rounded-2xl", c.color)}>
               <c.icon className="h-5 w-5" strokeWidth={1.8} />
             </div>
-            <p className="mt-5 font-display text-2xl font-black tracking-[-0.04em] sm:text-3xl">{c.value}</p>
+            <p className="mt-5 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">{c.value}</p>
             <p className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-[#666666]">{c.label}</p>
           </article>
         ))}
@@ -181,15 +181,15 @@ function DashboardTab({ stats, recentOrders }: { stats: AdminStatsType; recentOr
 
       <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
         <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Recent orders</p>
-        <h2 className="mt-3 font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Latest transactions</h2>
+        <h2 className="mt-3 font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Latest transactions</h2>
         <div className="mt-6 space-y-3">
           {recentOrders.slice(0, 4).map((order) => (
             <div key={order.id} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-black/[0.06] bg-[#F8F9FA] p-4">
-              <div>
-                <p className="font-display text-base font-black tracking-[-0.02em]">{order.id}</p>
-                <p className="text-sm text-[#666666]">{order.customer} · {order.storeName}</p>
+              <div className="min-w-0">
+                <p className="font-display text-base font-black tracking-[-0.02em] truncate">{order.id}</p>
+                <p className="text-sm text-[#666666] truncate">{order.customer} · {order.storeName}</p>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <span className={cn("rounded-full border px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.16em]", statusColors[order.status])}>{order.status}</span>
                 <span className="font-display font-black">{formatRwf(order.total)}</span>
               </div>
@@ -216,17 +216,17 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap gap-2">
           {cats.map((c) => (
-            <button key={c} type="button" onClick={() => setCategory(c)} className={cn("rounded-full border px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition", category === c ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}>
+            <button key={c} type="button" onClick={() => setCategory(c)} className={cn("min-h-11 rounded-full border px-3 py-2 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition", category === c ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}>
               {c === "all" ? "All" : c}
             </button>
           ))}
         </div>
-        <label className="relative">
+        <label className="relative w-full sm:w-auto">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666666]" />
-          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
         </label>
       </div>
 
@@ -234,13 +234,13 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-black/[0.08] text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#666666]">
-              <th className="px-5 py-4">Product</th>
-              <th className="px-5 py-4">Store</th>
-              <th className="px-5 py-4">Category</th>
-              <th className="px-5 py-4">Price</th>
-              <th className="px-5 py-4">Rating</th>
-              <th className="px-5 py-4">Status</th>
-              <th className="px-5 py-4" />
+              <th className="px-5 py-4 whitespace-nowrap">Product</th>
+              <th className="px-5 py-4 whitespace-nowrap">Store</th>
+              <th className="px-5 py-4 whitespace-nowrap">Category</th>
+              <th className="px-5 py-4 whitespace-nowrap">Price</th>
+              <th className="px-5 py-4 whitespace-nowrap">Rating</th>
+              <th className="px-5 py-4 whitespace-nowrap">Status</th>
+              <th className="px-5 py-4 whitespace-nowrap" />
             </tr>
           </thead>
           <tbody className="divide-y divide-black/[0.06]">
@@ -249,19 +249,19 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3">
                     <img src={p.images[0]} alt={p.name} className="h-10 w-10 shrink-0 rounded-xl object-cover" />
-                    <div>
-                      <Link to={`/product/${p.slug}`} className="font-display text-base font-black tracking-[-0.02em] hover:text-[#BFD7F1]">{p.name}</Link>
+                    <div className="min-w-0">
+                      <Link to={`/product/${p.slug}`} className="font-display text-base font-black tracking-[-0.02em] hover:text-[#BFD7F1] truncate block max-w-[10rem]">{p.name}</Link>
                     </div>
                   </div>
                 </td>
-                <td className="px-5 py-4 text-[#666666]">{p.storeName}</td>
-                <td className="px-5 py-4"><span className="rounded-full border border-black/10 bg-[#F8F9FA] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em]">{p.category}</span></td>
-                <td className="px-5 py-4 font-display font-black">{formatRwf(p.price)}</td>
-                <td className="px-5 py-4 text-[#666666]">{p.rating.toFixed(1)}</td>
-                <td className="px-5 py-4">
+                <td className="px-5 py-4 text-[#666666] whitespace-nowrap">{p.storeName}</td>
+                <td className="px-5 py-4 whitespace-nowrap"><span className="rounded-full border border-black/10 bg-[#F8F9FA] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em]">{p.category}</span></td>
+                <td className="px-5 py-4 font-display font-black whitespace-nowrap">{formatRwf(p.price)}</td>
+                <td className="px-5 py-4 text-[#666666] whitespace-nowrap">{Number(p.rating).toFixed(1)}</td>
+                <td className="px-5 py-4 whitespace-nowrap">
                   {p.featured ? <span className="rounded-full bg-[#BFD7F1] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Featured</span> : <span className="text-[#666666]">Active</span>}
                 </td>
-                <td className="px-5 py-4">
+                <td className="px-5 py-4 whitespace-nowrap">
                   <Link to={`/product/${p.slug}`} className="text-[#BFD7F1] transition hover:text-[#111111]"><Eye className="h-4 w-4" /></Link>
                 </td>
               </tr>
@@ -286,19 +286,19 @@ function StoresTab({ stores }: { stores: typeof mockStores }) {
 
   return (
     <div className="space-y-6">
-      <label className="relative">
+      <label className="relative block w-full sm:w-auto">
         <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666666]" />
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search stores..." className="w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
+        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search stores..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
       </label>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((s) => (
           <article key={s.slug} className="rounded-[2rem] border border-black/[0.08] bg-white p-5 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
             <div className="flex items-center gap-4">
               <img src={s.avatar} alt={s.name} className="h-14 w-14 shrink-0 rounded-2xl object-cover" />
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <Link to={`/store/${s.slug}`} className="font-display text-lg font-black tracking-[-0.03em] hover:text-[#BFD7F1]">{s.name}</Link>
+                  <Link to={`/store/${s.slug}`} className="font-display text-lg font-black tracking-[-0.03em] hover:text-[#BFD7F1] truncate block">{s.name}</Link>
                   {s.verified ? <CheckCircle2 className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> : null}
                 </div>
                 <p className="text-xs text-[#666666]">{s.location} · {s.category}</p>
@@ -310,8 +310,8 @@ function StoresTab({ stores }: { stores: typeof mockStores }) {
               <span>Since {s.founded}</span>
             </div>
             <div className="mt-4 flex gap-2">
-              <Link to={`/store/${s.slug}`} className="flex-1 rounded-full border border-black/10 bg-[#F8F9FA] py-2 text-center text-xs font-bold transition hover:bg-[#111111] hover:text-white">View</Link>
-              <Link to="/contact" className="flex-1 rounded-full border border-black/10 bg-[#F8F9FA] py-2 text-center text-xs font-bold transition hover:bg-[#111111] hover:text-white">Contact</Link>
+              <Link to={`/store/${s.slug}`} className="min-h-11 flex-1 rounded-full border border-black/10 bg-[#F8F9FA] py-2 text-center text-xs font-bold transition hover:bg-[#111111] hover:text-white flex items-center justify-center">View</Link>
+              <Link to="/contact" className="min-h-11 flex-1 rounded-full border border-black/10 bg-[#F8F9FA] py-2 text-center text-xs font-bold transition hover:bg-[#111111] hover:text-white flex items-center justify-center">Contact</Link>
             </div>
           </article>
         ))}
@@ -335,7 +335,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
     <div className="space-y-6">
       <div className="flex flex-wrap gap-2">
         {statuses.map((s) => (
-          <button key={s} type="button" onClick={() => setStatusFilter(s)} className={cn("rounded-full border px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition", statusFilter === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}>
+          <button key={s} type="button" onClick={() => setStatusFilter(s)} className={cn("min-h-11 rounded-full border px-3 py-2 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition", statusFilter === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}>
             {s}
           </button>
         ))}
@@ -344,20 +344,20 @@ function OrdersTab({ orders }: { orders: Order[] }) {
       <div className="space-y-3">
         {filtered.map((order) => (
           <div key={order.id} className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
-            <button type="button" onClick={() => setExpanded(expanded === order.id ? null : order.id)} className="flex w-full flex-wrap items-center justify-between gap-3 p-5 text-left">
-              <div className="flex items-center gap-4">
-                <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl", order.payment === "mobile_money" ? "bg-[#BFD7F1]/20" : "bg-[#FFD5EA]/30")}>
+            <button type="button" onClick={() => setExpanded(expanded === order.id ? null : order.id)} className="flex w-full flex-wrap items-center justify-between gap-3 p-5 text-left min-h-12">
+              <div className="flex items-center gap-4 min-w-0">
+                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", order.payment === "mobile_money" ? "bg-[#BFD7F1]/20" : "bg-[#FFD5EA]/30")}>
                   {order.payment === "mobile_money" ? <Truck className="h-4 w-4 text-[#111111]" /> : <BarChart3 className="h-4 w-4 text-[#111111]" />}
                 </div>
-                <div>
-                  <p className="font-display text-base font-black tracking-[-0.02em]">{order.id}</p>
-                  <p className="text-sm text-[#666666]">{order.customer} · {order.createdAt}</p>
+                <div className="min-w-0">
+                  <p className="font-display text-base font-black tracking-[-0.02em] truncate">{order.id}</p>
+                  <p className="text-sm text-[#666666] truncate">{order.customer} · {order.createdAt}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 <span className={cn("rounded-full border px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.16em]", statusColors[order.status])}>{order.status}</span>
                 <span className="font-display font-black">{formatRwf(order.total)}</span>
-                <ChevronDown className={cn("h-4 w-4 text-[#666666] transition", expanded === order.id ? "rotate-180" : "")} />
+                <ChevronDown className={cn("h-4 w-4 shrink-0 text-[#666666] transition", expanded === order.id ? "rotate-180" : "")} />
               </div>
             </button>
 
@@ -376,7 +376,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                     <p className="mt-2 text-sm font-bold capitalize">{order.payment.replace("_", " ")}</p>
                     <p className="text-sm text-[#666666]">{order.storeName}</p>
                     <div className="mt-3 flex gap-2">
-                      <select className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-bold outline-none" value={order.status}
+                      <select className="min-h-11 rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-bold outline-none" value={order.status}
                         onChange={async (e) => {
                           try {
                             await api.admin.updateOrderStatus(Number(order.id), e.target.value);
@@ -393,12 +393,12 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                   {order.lines.map((line, i) => (
                     <div key={i} className="flex items-center gap-3 rounded-2xl bg-[#F8F9FA] p-3">
                       <img src={line.image} alt={line.productName} className="h-12 w-12 shrink-0 rounded-xl object-cover" />
-                      <div className="flex flex-1 items-center justify-between gap-3">
-                        <div>
-                          <p className="text-sm font-bold">{line.productName}</p>
+                      <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold truncate">{line.productName}</p>
                           <p className="text-xs text-[#666666]">Qty {line.quantity}{line.size ? ` · ${line.size}` : ""}{line.color ? ` · ${line.color}` : ""}</p>
                         </div>
-                        <p className="text-sm font-bold">{formatRwf(line.price * line.quantity)}</p>
+                        <p className="text-sm font-bold shrink-0">{formatRwf(line.price * line.quantity)}</p>
                       </div>
                     </div>
                   ))}

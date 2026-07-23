@@ -40,7 +40,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] px-5 pt-28 sm:pt-32">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
       <div className="w-full max-w-md">
         <div className="rounded-[2rem] border border-black/[0.08] bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
           <div className="mb-8 text-center">
@@ -56,37 +56,37 @@ export default function Register() {
 
             <div>
               <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Full name</label>
-              <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Jean Baptiste Mugabo" />
+              <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Jean Baptiste Mugabo" />
             </div>
 
             <div>
               <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Email</label>
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="jean@example.com" />
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="jean@example.com" />
             </div>
 
             <div>
               <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Phone (optional)</label>
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="+250 788 000 000" />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="+250 788 000 000" />
             </div>
 
             <div>
               <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Password</label>
-              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Min 8 characters" />
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Min 8 characters" />
             </div>
 
             <div>
               <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Confirm password</label>
-              <input type="password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Repeat your password" />
+              <input type="password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Repeat your password" />
             </div>
 
-            <MagneticButton type="submit" variant="berry" disabled={busy} className="w-full justify-center px-6 py-4">
+            <MagneticButton type="submit" variant="berry" disabled={busy} className="min-h-12 w-full justify-center px-6 py-4">
               {busy ? "Creating account…" : "Create account"}
             </MagneticButton>
           </form>
 
           <p className="mt-6 text-center text-sm text-[#666666]">
             Already have an account?{" "}
-            <Link to="/login" className="font-bold text-[#111111] underline-grow">
+            <Link to="/login" className="py-1 font-bold text-[#111111] underline-grow">
               Sign in
             </Link>
           </p>

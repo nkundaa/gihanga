@@ -129,7 +129,7 @@ export default function SellApply() {
   };
 
   const inputCls = (id: string) =>
-    `w-full rounded-xl border px-4 py-3 text-sm outline-none transition ${
+    `min-h-12 w-full rounded-xl border px-4 py-3 text-sm outline-none transition ${
       touched[id] && errors[id]
         ? "border-red-400 focus:border-red-500"
         : "border-black/10 focus:border-[#BFD7F1]"
@@ -181,8 +181,8 @@ export default function SellApply() {
   };
 
   const renderCheckbox = (id: string, label: string) => (
-    <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#555]">
-      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-4 w-4 rounded border-black/20 accent-[#BFD7F1]" />
+    <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#555] min-h-12 py-2">
+      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-5 w-5 shrink-0 rounded border-black/20 accent-[#BFD7F1]" />
       <span>{label}</span>
     </label>
   );
@@ -192,7 +192,7 @@ export default function SellApply() {
     return (
       <div>
         <label className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <label htmlFor={id} className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed px-4 py-5 text-sm transition ${touched[id] && errors[id] ? "border-red-400 bg-red-50" : "border-black/15 bg-white hover:border-[#BFD7F1] hover:bg-[#BFD7F1]/5"}`}>
+        <label htmlFor={id} className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed px-4 py-5 text-sm transition ${touched[id] && errors[id] ? "border-red-400 bg-red-50" : "border-black/15 bg-white hover:border-[#BFD7F1] hover:bg-[#BFD7F1]/5"}`}>
           <span className="shrink-0 text-[#BFD7F1]">{icon}</span>
           <span className="text-[#888]">{fileNames[id] || "Click to upload"}</span>
           {fileNames[id] ? <CheckCircle2 className="ml-auto h-4 w-4 shrink-0 text-green-500" /> : null}
@@ -204,8 +204,8 @@ export default function SellApply() {
   };
 
   return (
-    <div className="bg-[#F8F9FA]">
-      <section className="relative overflow-hidden bg-[#111111] px-5 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
+    <div className="overflow-x-hidden bg-[#F8F9FA]">
+      <section className="relative overflow-hidden bg-[#111111] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.22),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.18),transparent_32%)]" />
         <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#BFD7F1]/20" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
@@ -214,7 +214,7 @@ export default function SellApply() {
             <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4" /> KYC/KYB verification
           </p>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.08em] sm:mt-6">
-            Apply to sell on <span className="font-editorial normal-case text-[#BFD7F1">GIHANGA</span>
+            Apply to sell on <span className="font-editorial normal-case text-[#BFD7F1]">GIHANGA</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
             Three-step registration. Set up your store, add your mobile money payout details, and complete KYC verification.
@@ -222,7 +222,7 @@ export default function SellApply() {
         </div>
       </section>
 
-      <section id="form" className="px-5 py-16 sm:py-20 sm:px-6 lg:px-8 lg:py-28">
+      <section id="form" className="px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-4xl text-center" data-reveal>
             <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">
@@ -235,11 +235,11 @@ export default function SellApply() {
 
           <div className="mx-auto mt-14 max-w-3xl" data-reveal>
             {submitted ? (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-8 text-center sm:p-12">
+              <div className="rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6 text-center sm:p-12">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <CheckCircle2 className="h-8 w-8 text-green-600" />
                 </div>
-                <p className="mt-5 font-display text-2xl font-black tracking-[-0.04em]">Application submitted for <span className="text-[#BFD7F1]">{form.storeName as string}</span></p>
+                <p className="mt-5 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Application submitted for <span className="text-[#BFD7F1]">{form.storeName as string}</span></p>
                 <p className="mt-2 text-[#666666]">A verification email has been sent to <b>{form.email as string}</b></p>
                 <p className="mt-1 text-sm text-[#888]">We will verify your documents and contact you within 2 business days.</p>
                 <div className="mx-auto mt-8 h-px max-w-xs bg-black/[0.06]" />
@@ -252,7 +252,7 @@ export default function SellApply() {
                   <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Payment</dt><dd className="mt-1 font-bold">{form.paymentNumber as string}</dd></div>
                   <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Provider</dt><dd className="mt-1 font-bold capitalize">{form.paymentProvider as string}</dd></div>
                 </div>
-                <button onClick={resetForm} className="mt-6 text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] underline underline-offset-4 transition hover:text-[#111]">Submit another</button>
+                <button onClick={resetForm} className="mt-6 min-h-11 text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] underline underline-offset-4 transition hover:text-[#111]">Submit another</button>
               </div>
             ) : (
               <div className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
@@ -330,16 +330,16 @@ export default function SellApply() {
 
                   <div className="mt-10 flex items-center justify-between border-t border-black/[0.06] pt-8">
                     {step > 0 ? (
-                      <button type="button" onClick={handleBack} className="flex items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#666] transition hover:text-[#111]">
+                      <button type="button" onClick={handleBack} className="flex min-h-11 items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#666] transition hover:text-[#111]">
                         ← Back
                       </button>
                     ) : <div />}
                     {step < totalSteps - 1 ? (
-                      <button type="button" onClick={handleNext} className="min-h-11 rounded-full bg-[#BFD7F1] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
+                      <button type="button" onClick={handleNext} className="min-h-12 rounded-full bg-[#BFD7F1] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
                         Next step →
                       </button>
                     ) : (
-                      <MagneticButton type="button" variant="berry" className="px-8 py-3.5" disabled={submitting} onClick={handleSubmit}>
+                      <MagneticButton type="button" variant="berry" className="min-h-12 px-8 py-3.5" disabled={submitting} onClick={handleSubmit}>
                         {submitting ? (
                           <span className="flex items-center gap-2"><span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" /> Submitting…</span>
                         ) : "Submit verification"}

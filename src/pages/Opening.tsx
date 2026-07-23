@@ -39,7 +39,7 @@ export default function Opening() {
         <div aria-hidden className="absolute inset-0 hidden opacity-70 lg:block"><OpeningScene /></div>
       </div>
 
-      <header className="relative z-20 flex items-center justify-between px-3 py-2.5 sm:px-10 sm:py-8">
+      <header className="relative z-20 flex items-center justify-between px-4 py-2.5 sm:px-6 sm:py-8 lg:px-8">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export default function Opening() {
         </motion.div>
       </header>
 
-      <main className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 items-center px-3 sm:px-8">
+      <main className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 items-center px-4 sm:px-6 lg:px-8">
         <div className="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
           <div className="max-w-3xl">
             <motion.div
@@ -106,13 +106,13 @@ export default function Opening() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
-              <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/shop")}>
+              <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/shop")}>
                 🛒 Shop Now
               </MagneticButton>
-              <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/stores")}>
+              <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/stores")}>
                 🏬 Explore Stores
               </MagneticButton>
-              <MagneticButton to="/sell" variant="mauve" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/sell")}>
+              <MagneticButton to="/sell" variant="mauve" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/sell")}>
                 📦 Sell With GIHANGA
               </MagneticButton>
             </motion.div>
@@ -168,13 +168,13 @@ export default function Opening() {
         </div>
       </main>
 
-      <footer className="relative z-20 flex w-full flex-col items-center justify-between gap-1 border-t border-white/10 px-3 py-2.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/45 sm:flex-row sm:px-10 sm:py-8 sm:text-xs">
+      <footer className="relative z-20 flex w-full flex-col items-center justify-between gap-1 border-t border-white/10 px-4 py-2.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/45 sm:flex-row sm:px-6 sm:py-8 sm:text-xs lg:px-8">
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>© 2026 GIHANGA. All rights reserved.</motion.p>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="flex items-center gap-4 sm:gap-6">
-          <a href="#" className="transition hover:text-white">Privacy</a>
-          <a href="#" className="transition hover:text-white">Terms</a>
+          <a href="#" className="py-2 transition hover:text-white">Privacy</a>
+          <a href="#" className="py-2 transition hover:text-white">Terms</a>
           <span className="hidden text-white/25 sm:inline">|</span>
-          <button type="button" onClick={() => handleNav("/home")} className="transition hover:text-white cursor-pointer">Enter</button>
+          <button type="button" onClick={() => handleNav("/home")} className="py-2 transition hover:text-white cursor-pointer">Enter</button>
         </motion.div>
       </footer>
     </div>

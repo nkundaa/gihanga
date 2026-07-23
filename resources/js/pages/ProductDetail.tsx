@@ -53,7 +53,7 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[80svh] items-center justify-center pt-36">
+      <div className="overflow-x-hidden flex min-h-[80svh] items-center justify-center pt-36">
         <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#BFD7F1] border-t-transparent" />
       </div>
     );
@@ -61,10 +61,10 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 px-6 pt-36 text-center">
+      <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
         <p className="font-editorial text-6xl text-[#BFD7F1]">404</p>
         <h1 className="font-display text-4xl font-black tracking-[-0.05em]">Piece not found.</h1>
-        <MagneticButton to="/shop" variant="berry" className="px-6 py-3 text-sm">Back to shop</MagneticButton>
+        <MagneticButton to="/shop" variant="berry" className="min-h-12 px-6 py-3 text-sm">Back to shop</MagneticButton>
       </div>
     );
   }
@@ -72,7 +72,7 @@ export default function ProductDetail() {
   const storeLink = `/store/${product.storeSlug}`;
 
   return (
-    <div className="bg-[#F8F9FA] pt-28 lg:pt-32">
+    <div className="overflow-x-hidden bg-[#F8F9FA] pt-28 lg:pt-32">
       <Seo title="Product - Gihanga Market" path="/product" description="View product details on GIHANGA marketplace." />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: "Shop", to: "/shop" }, { label: product.storeName, to: storeLink }, { label: product.name }]} />
@@ -85,7 +85,7 @@ export default function ProductDetail() {
             {product.discount ? (
               <span className="absolute left-5 top-5 rounded-full bg-[#111111] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white">{product.discount}</span>
             ) : null}
-            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#FFD5EA] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
+            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#FFD5EA] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
               <Heart className={cn("h-5 w-5", hasItem(product.slug) && "fill-[#111111]")} />
             </button>
           </div>
@@ -96,7 +96,7 @@ export default function ProductDetail() {
                   key={img + i}
                   type="button"
                   onClick={() => setActiveImage(i)}
-                  className={cn("overflow-hidden rounded-2xl border transition", activeImage === i ? "border-[#111111]" : "border-black/10 hover:border-black/30")}
+                  className={cn("overflow-hidden rounded-2xl border transition min-h-14", activeImage === i ? "border-[#111111]" : "border-black/10 hover:border-black/30")}
                   aria-label={`View image ${i + 1}`}
                 >
                   <img src={img} alt="" className="aspect-square w-full object-cover" loading="lazy" />
@@ -107,7 +107,7 @@ export default function ProductDetail() {
         </div>
 
         <div data-reveal className="lg:sticky lg:top-28 lg:self-start">
-          <Link to={storeLink} className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#111111]/60 underline-grow">
+          <Link to={storeLink} className="inline-flex min-h-11 items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#111111]/60 underline-grow">
             <BadgeCheck className="h-4 w-4 text-[#BFD7F1]" /> {product.storeName}
           </Link>
           <h1 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.4rem)] font-black leading-[0.92] tracking-[-0.055em]">{product.name}</h1>
@@ -117,7 +117,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="mt-4 flex items-baseline gap-4 sm:mt-8">
-            <p className="font-display text-xl font-black tracking-[-0.05em] sm:text-3xl">{formatRwf(product.price)}</p>
+            <p className="font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em]">{formatRwf(product.price)}</p>
             {product.originalPrice ? <p className="text-base text-[#666666] line-through sm:text-lg">{formatRwf(product.originalPrice)}</p> : null}
           </div>
 
@@ -125,7 +125,7 @@ export default function ProductDetail() {
             <div className="mt-5">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Size</p>
-                <button type="button" className="text-xs font-bold underline-grow">Size guide</button>
+                <button type="button" className="text-xs font-bold underline-grow min-h-11">Size guide</button>
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {product.sizes.map((s) => (
@@ -134,7 +134,7 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => setSize(s)}
                     className={cn(
-                      "h-9 min-w-9 rounded-full border px-3 text-xs font-bold transition sm:h-11 sm:min-w-11 sm:px-4 sm:text-sm",
+                      "min-h-11 min-w-11 rounded-full border px-3 text-xs font-bold transition sm:h-11 sm:min-w-11 sm:px-4 sm:text-sm",
                       size === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
                     )}
                   >
@@ -160,7 +160,7 @@ export default function ProductDetail() {
                         type="button"
                         onClick={() => setColor(c)}
                         aria-label={c}
-                        className={cn("h-9 w-9 rounded-full border transition sm:h-11 sm:w-11", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
+                        className={cn("min-h-11 min-w-11 rounded-full border transition sm:h-11 sm:w-11", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
                         style={{ backgroundColor: swatch }}
                       />
                     );
@@ -170,37 +170,37 @@ export default function ProductDetail() {
             );
           })() : null}
 
-          <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
-            <MagneticButton variant="berry" className="w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
+          <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:flex-row">
+            <MagneticButton variant="berry" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Add to bag
             </MagneticButton>
-            <MagneticButton variant="dark" className="w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
+            <MagneticButton variant="dark" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Buy now
             </MagneticButton>
           </div>
 
           <ul className="mt-8 grid gap-3 border-t border-black/10 pt-6 text-sm">
-            <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 text-[#BFD7F1]" /> Buyer protection on every order</li>
-            <li className="flex items-center gap-3"><Truck className="h-5 w-5 text-[#BFD7F1]" /> Kigali delivery in 24–48 hours</li>
-            <li className="flex items-center gap-3"><BadgeCheck className="h-5 w-5 text-[#BFD7F1]" /> Sold by a verified GIHANGA boutique</li>
+            <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Buyer protection on every order</li>
+            <li className="flex items-center gap-3"><Truck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Kigali delivery in 24–48 hours</li>
+            <li className="flex items-center gap-3"><BadgeCheck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Sold by a verified GIHANGA boutique</li>
           </ul>
 
           <details className="mt-4 rounded-2xl border border-black/10 bg-white p-4">
-            <summary className="cursor-pointer font-display text-base font-black tracking-[-0.04em]">Description</summary>
+            <summary className="min-h-11 cursor-pointer font-display text-base font-black tracking-[-0.04em]">Description</summary>
             <p className="mt-2 text-sm leading-6 text-[#666666]">{product.description}</p>
           </details>
         </div>
       </div>
 
       {fromStore.length > 0 ? (
-        <section className="border-t border-black/[0.08] bg-white px-5 py-20 sm:px-6 lg:px-8">
+        <section className="overflow-x-hidden border-t border-black/[0.08] bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">From the same boutique</p>
-                <h2 className="mt-3 font-display text-3xl font-black tracking-[-0.06em] sm:text-4xl">More from {product.storeName}</h2>
+                <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">More from {product.storeName}</h2>
               </div>
-              <Link to={storeLink} className="text-sm font-bold underline-grow">Visit store →</Link>
+              <Link to={storeLink} className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Visit store →</Link>
             </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {fromStore.map((p) => <ProductCard key={p.slug} product={p} />)}
@@ -209,14 +209,14 @@ export default function ProductDetail() {
         </section>
       ) : null}
 
-      <section className="bg-[#F8F9FA] px-5 py-20 sm:px-6 lg:px-8">
+      <section className="overflow-x-hidden bg-[#F8F9FA] px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">You may also like</p>
-              <h2 className="mt-3 font-display text-3xl font-black tracking-[-0.06em] sm:text-4xl">Similar <span className="font-editorial text-[#BFD7F1]">pieces</span></h2>
+              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Similar <span className="font-editorial text-[#BFD7F1]">pieces</span></h2>
             </div>
-            <Link to="/shop" className="text-sm font-bold underline-grow">Shop all →</Link>
+            <Link to="/shop" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Shop all →</Link>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p) => <ProductCard key={p.slug} product={p} />)}
@@ -226,12 +226,12 @@ export default function ProductDetail() {
 
       <ProductReviews reviews={productReviews} />
 
-      <section className="bg-[#111111] px-5 py-10 text-white sm:px-6 lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-8 text-sm">
-          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-[#BFD7F1]" /> Delivery in Kigali</span>
-          <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#BFD7F1]" /> Buyer protection</span>
-          <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-[#BFD7F1]" /> Verified boutique</span>
-          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 text-[#BFD7F1]" /> 4.9 average rating</span>
+      <section className="overflow-x-hidden bg-[#111111] px-4 py-8 text-white sm:px-6 lg:px-8 sm:py-10">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 text-sm">
+          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Delivery in Kigali</span>
+          <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Buyer protection</span>
+          <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Verified boutique</span>
+          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> 4.9 average rating</span>
         </div>
       </section>
     </div>
@@ -244,12 +244,12 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
   const avgRating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
 
   return (
-    <section className="bg-white px-5 py-20 sm:px-6 lg:px-8">
+    <section className="overflow-x-hidden bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Customer reviews</p>
-            <h2 className="mt-3 font-display text-3xl font-black tracking-[-0.06em] sm:text-4xl">
+            <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">
               {avgRating.toFixed(1)} <span className="font-editorial text-[#BFD7F1]">stars</span>
             </h2>
             <p className="mt-1 text-sm text-[#666666]">{reviews.length} review{reviews.length === 1 ? "" : "s"}</p>
@@ -259,9 +259,9 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
           {reviews.map((review) => (
             <article key={review.id} className="rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6">
               <div className="flex items-center gap-3">
-                <img src={review.avatar} alt={review.name} className="h-10 w-10 rounded-full object-cover" loading="lazy" />
-                <div>
-                  <p className="font-display text-base font-black tracking-[-0.02em]">{review.name}</p>
+                <img src={review.avatar} alt={review.name} className="h-10 w-10 shrink-0 rounded-full object-cover" loading="lazy" />
+                <div className="min-w-0">
+                  <p className="font-display text-base font-black tracking-[-0.02em] truncate">{review.name}</p>
                   <p className="text-xs text-[#666666]">{review.date}</p>
                 </div>
               </div>

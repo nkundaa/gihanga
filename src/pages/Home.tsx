@@ -82,7 +82,6 @@ function Hero({ products }: { products: Product[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = Boolean(useReducedMotion());
 
-  // Mouse move parameters for floating cards parallax
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -96,7 +95,6 @@ function Hero({ products }: { products: Product[] }) {
     return () => window.removeEventListener("mousemove", handleMove);
   }, [reduceMotion]);
 
-  // Scroll scale and opacity transformation — recalculates on resize for orientation change
   const { scrollY } = useScroll();
   const [vh, setVh] = useState(window.innerHeight);
   useEffect(() => {
@@ -108,18 +106,16 @@ function Hero({ products }: { products: Product[] }) {
   const heroOpacity = useTransform(scrollY, [0, vh * 0.7], [1, 0]);
   const yOffset = useTransform(scrollY, [0, vh], [0, 80]);
 
-  // Smooth springs for mouse parallax
   const springX = useSpring(mousePos.x, { stiffness: 60, damping: 15 });
   const springY = useSpring(mousePos.y, { stiffness: 60, damping: 15 });
 
-  // Floating showcases products
   const clothesProduct = products.find((p) => p.category === "clothes") || products[0];
   const shoesProduct = products.find((p) => p.category === "shoes") || products[1];
 
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-svh flex-col justify-center overflow-x-hidden bg-[#111111] text-white lg:min-h-[100svh] lg:items-center"
+      className="relative flex min-h-[90svh] flex-col items-center justify-center overflow-x-hidden bg-[#111111] text-white lg:min-h-[100svh]"
     >
       {/* Background with scroll scale and opacity */}
       <motion.div
@@ -142,9 +138,9 @@ function Hero({ products }: { products: Product[] }) {
         <div aria-hidden className="absolute inset-0 hidden opacity-70 lg:block"><HeroScene /></div>
       </motion.div>
 
-      {/* Hero Content Grid */}
+      {/* Hero Content - centered on mobile */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="flex flex-col items-center text-center lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:text-left">
           
           {/* Main Content Area */}
           <div className="max-w-3xl">
@@ -189,9 +185,9 @@ function Hero({ products }: { products: Product[] }) {
               Shop trending products, explore trusted stores, and connect with sellers across Rwanda.
             </motion.p>
 
-            {/* Three Premium Interactive Buttons */}
+            {/* Three Premium Interactive Buttons - full width stacked on mobile */}
             <motion.div
-              className="mt-4 flex flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
+              className="mt-4 flex w-full flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -208,7 +204,7 @@ function Hero({ products }: { products: Product[] }) {
             </motion.div>
           </div>
 
-          {/* Interactive Floating Product Showcase */}
+          {/* Interactive Floating Product Showcase - hidden on mobile */}
           <div className="relative hidden h-[500px] items-center justify-center lg:flex">
             {/* Float Card 1: Clothes */}
             <motion.div
@@ -346,7 +342,7 @@ function Marquee() {
 
 function CategoriesPreview({ categories }: { categories: Category[] }) {
   return (
-    <section className="relative bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
+    <section className="relative overflow-x-hidden bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeader eyebrow="Popular categories" title={<>Six ways to <span className="font-editorial text-[#BFD7F1]">shop</span> the city.</>} className="max-w-2xl" />
@@ -355,7 +351,7 @@ function CategoriesPreview({ categories }: { categories: Category[] }) {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-3">
           {categories.map((category, index) => {
             const Icon = iconByCategory[category.slug] ?? ShoppingBag;
             return (
@@ -363,17 +359,17 @@ function CategoriesPreview({ categories }: { categories: Category[] }) {
                 key={category.slug}
                 to={`/shop?category=${category.slug}`}
                 data-reveal
-                className="group relative min-h-[12rem] overflow-hidden rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 sm:min-h-[24rem]"
+                className="group relative min-h-[10rem] overflow-hidden rounded-[1.2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 sm:min-h-[18rem] lg:min-h-[24rem] lg:rounded-[2rem]"
               >
                 <img src={category.image} alt={category.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/82" />
-                <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white backdrop-blur-xl transition group-hover:scale-110 sm:left-5 sm:top-5 sm:h-12 sm:w-12">
-                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.8} />
+                <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/35 bg-white/15 text-white backdrop-blur-xl transition group-hover:scale-110 sm:left-5 sm:top-5 sm:h-12 sm:w-12">
+                  <Icon className="h-3 w-3 sm:h-5 sm:w-5" strokeWidth={1.8} />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-3 text-white sm:p-6">
-                  <p className="mb-2 text-[0.5rem] font-bold uppercase tracking-[0.2em] text-[#BFD7F1] sm:mb-3 sm:text-xs sm:tracking-[0.34em]">0{index + 1} · {category.count} pieces</p>
-                  <h3 className="font-display text-sm font-black tracking-[-0.06em] sm:text-3xl">{category.title}</h3>
-                  <p className="mt-1 text-[0.55rem] leading-4 text-white/75 sm:mt-3 sm:text-sm sm:leading-6">{category.copy}</p>
+                <div className="absolute bottom-0 left-0 right-0 p-2 text-white sm:p-4 lg:p-6">
+                  <p className="mb-1 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#BFD7F1] sm:mb-3 sm:text-xs sm:tracking-[0.34em]">0{index + 1} · {category.count} pieces</p>
+                  <h3 className="font-display text-sm font-black tracking-[-0.06em] sm:text-2xl lg:text-3xl">{category.title}</h3>
+                  <p className="mt-0.5 text-[0.5rem] leading-3 text-white/75 sm:mt-3 sm:text-sm sm:leading-6">{category.copy}</p>
                 </div>
               </Link>
             );
@@ -394,7 +390,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
   const current = featured[active];
 
   return (
-    <section className="relative bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
+    <section className="relative overflow-x-hidden bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
       <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#F8F9FA] to-white" />
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
@@ -449,7 +445,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
 function StoresPreview({ stores }: { stores: Store[] }) {
   const featured = stores.slice(0, 3);
   return (
-    <section className="relative bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
+    <section className="relative overflow-x-hidden bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeader
@@ -461,7 +457,7 @@ function StoresPreview({ stores }: { stores: Store[] }) {
             All stores <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </Link>
         </div>
-        <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((s) => <StoreCard key={s.slug} store={s} />)}
         </div>
       </div>
@@ -471,7 +467,7 @@ function StoresPreview({ stores }: { stores: Store[] }) {
 
 function WhyChoose() {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
+    <section className="relative overflow-x-hidden bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
       <div aria-hidden className="luxury-orb -left-24 top-20 h-72 w-72 bg-[#BFD7F1]/20" />
       <div aria-hidden className="luxury-orb -right-28 bottom-20 h-80 w-80 bg-[#FFD5EA]/30 [animation-delay:1s]" />
       <div className="relative mx-auto max-w-7xl">
@@ -486,13 +482,13 @@ function WhyChoose() {
             <article
               key={item.title}
               data-reveal
-              className="group rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-7 shadow-[0_20px_70px_rgba(0,0,0,0.05)] transition hover:-translate-y-1 hover:bg-white"
+              className="group rounded-[1.5rem] border border-black/[0.08] bg-[#F8F9FA] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.05)] transition hover:-translate-y-1 hover:bg-white sm:rounded-[2rem] sm:p-7"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#111111] text-[#BFD7F1] transition duration-500 group-hover:rotate-3 group-hover:scale-110">
-                <item.icon className="h-6 w-6" strokeWidth={1.8} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#111111] text-[#BFD7F1] transition duration-500 group-hover:rotate-3 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-2xl">
+                <item.icon className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.8} />
               </div>
-              <h3 className="mt-8 font-display text-2xl font-black tracking-[-0.06em]">{item.title}</h3>
-              <p className="mt-4 leading-7 text-[#666666]">{item.copy}</p>
+              <h3 className="mt-4 font-display text-xl font-black tracking-[-0.06em] sm:mt-8 sm:text-2xl">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#666666] sm:mt-4 sm:text-base sm:leading-7">{item.copy}</p>
             </article>
           ))}
         </div>
@@ -509,7 +505,7 @@ function Testimonials() {
   }, []);
   const t = testimonials[active];
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#FFD5EA]/30 via-[#F8F9FA] to-[#F8F9FA] px-5 py-16 sm:px-6 lg:px-8 lg:py-32">
+    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#FFD5EA]/30 via-[#F8F9FA] to-[#F8F9FA] px-5 py-16 sm:px-6 lg:px-8 lg:py-32">
       <div aria-hidden className="luxury-orb left-1/2 top-0 h-80 w-80 -translate-x-1/2 bg-[#BFD7F1]/20" />
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
@@ -517,34 +513,34 @@ function Testimonials() {
           title={<>The marketplace Kigali can <span className="font-editorial text-[#BFD7F1]">trust</span>.</>}
           align="center"
         />
-        <div data-reveal className="relative mx-auto mt-16 max-w-5xl">
+        <div data-reveal className="relative mx-auto mt-10 max-w-5xl sm:mt-16">
           <AnimatePresence mode="wait">
             <motion.article
               key={t.name}
-              className="grid overflow-hidden rounded-[2.6rem] border border-black/[0.08] bg-white shadow-[0_28px_100px_rgba(0,0,0,0.08)] lg:grid-cols-[0.8fr_1.2fr]"
+              className="flex flex-col overflow-hidden rounded-[1.5rem] border border-black/[0.08] bg-white shadow-[0_28px_100px_rgba(0,0,0,0.08)] sm:rounded-[2.6rem] lg:grid lg:grid-cols-[0.8fr_1.2fr]"
               initial={{ opacity: 0, x: 70, filter: "blur(14px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, x: -70, filter: "blur(14px)" }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative min-h-[12rem] overflow-hidden sm:min-h-[24rem]">
+              <div className="relative min-h-[10rem] overflow-hidden sm:min-h-[24rem]">
                 <img src={t.image} alt={t.name} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/42 to-transparent" />
               </div>
               <div className="flex flex-col justify-center p-4 sm:p-10 lg:p-12">
-                <Quote className="h-10 w-10 text-[#BFD7F1]" />
-                <div className="mt-6 flex gap-1" aria-label="5 star review">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-5 w-5 fill-[#BFD7F1] text-[#BFD7F1]" />)}
+                <Quote className="h-8 w-8 text-[#BFD7F1] sm:h-10 sm:w-10" />
+                <div className="mt-4 flex gap-1 sm:mt-6" aria-label="5 star review">
+                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1] sm:h-5 sm:w-5" />)}
                 </div>
-                <p className="mt-7 font-display text-2xl font-black leading-tight tracking-[-0.04em] text-[#111111] sm:text-3xl">"{t.quote}"</p>
-                <div className="mt-9">
-                  <p className="text-lg font-black text-[#111111]">{t.name}</p>
-                  <p className="mt-1 text-[#666666]">{t.role}</p>
+                <p className="mt-4 font-display text-lg font-black leading-tight tracking-[-0.04em] text-[#111111] sm:mt-7 sm:text-2xl sm:leading-tight lg:text-3xl">"{t.quote}"</p>
+                <div className="mt-5 sm:mt-9">
+                  <p className="text-base font-black text-[#111111] sm:text-lg">{t.name}</p>
+                  <p className="mt-1 text-sm text-[#666666] sm:text-base">{t.role}</p>
                 </div>
               </div>
             </motion.article>
           </AnimatePresence>
-          <div className="mt-8 flex justify-center gap-3">
+          <div className="mt-6 flex justify-center gap-3 sm:mt-8">
             {testimonials.map((item, i) => (
               <button key={item.name} type="button" className={cn("h-2.5 rounded-full transition-all", active === i ? "w-10 bg-[#111111]" : "w-2.5 bg-[#111111]/20")} aria-label={`Show testimonial ${i + 1}`} onClick={() => setActive(i)} />
             ))}
@@ -557,21 +553,21 @@ function Testimonials() {
 
 function CtaBanner() {
   return (
-    <section className="bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
-      <div data-reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-[#111111] p-5 text-white shadow-[0_36px_120px_rgba(0,0,0,0.18)] sm:rounded-[2.8rem] sm:p-12">
+    <section className="overflow-x-hidden bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
+      <div data-reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] bg-[#111111] p-5 text-white shadow-[0_36px_120px_rgba(0,0,0,0.18)] sm:rounded-[2.8rem] sm:p-12">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(191,215,241,0.26),transparent_30%),radial-gradient(circle_at_78%_72%,rgba(255,213,234,0.12),transparent_32%)]" />
         <div aria-hidden className="absolute -right-24 -top-28 h-80 w-80 rounded-full border border-white/10" />
         <div aria-hidden className="absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#BFD7F1]/15 blur-3xl" />
-        <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div className="relative z-10 flex flex-col gap-6 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.36em] text-[#BFD7F1]">Vendor invitation</p>
-            <h2 className="mt-5 max-w-4xl font-display text-[clamp(1.8rem,6vw,7rem)] font-black leading-[0.88] tracking-[-0.08em]">
+            <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.8rem,6vw,7rem)] font-black leading-[0.88] tracking-[-0.08em] sm:mt-5">
               Start <span className="font-editorial text-[#BFD7F1]">selling</span> on GIHANGA today.
             </h2>
           </div>
           <div className="lg:justify-self-end">
-            <p className="mb-7 max-w-md text-lg leading-8 text-white/70">Bring your store online with a premium marketplace experience made for Kigali's fashion economy.</p>
-            <MagneticButton to="/sell" variant="berry" className="px-8 py-4">Create Store</MagneticButton>
+            <p className="mb-5 max-w-md text-sm leading-7 text-white/70 sm:mb-7 sm:text-lg sm:leading-8">Bring your store online with a premium marketplace experience made for Kigali's fashion economy.</p>
+            <MagneticButton to="/sell" variant="berry" className="w-full justify-center px-8 py-4 sm:w-auto">Create Store</MagneticButton>
           </div>
         </div>
       </div>
