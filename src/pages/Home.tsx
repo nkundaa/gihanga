@@ -119,7 +119,7 @@ function Hero({ products }: { products: Product[] }) {
   return (
     <section
       ref={containerRef}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#111111] text-white"
+      className="relative flex min-h-svh flex-col justify-center overflow-x-hidden bg-[#111111] text-white lg:min-h-[100svh] lg:items-center"
     >
       {/* Background with scroll scale and opacity */}
       <motion.div
