@@ -137,12 +137,30 @@ export default function SellApply() {
 
   const labelCls = "mb-1.5 block text-[10px] font-black uppercase tracking-[0.24em] text-[#888888]";
 
+  const autoCompleteFor = (id: string): string => {
+    const map: Record<string, string> = {
+      fullName: "name",
+      phone: "tel",
+      email: "email",
+      storeName: "organization",
+      businessName: "organization",
+      paymentNumber: "tel",
+      paymentProvider: "off",
+      idFront: "off",
+      idBack: "off",
+      selfie: "off",
+      agreeVerification: "off",
+      agreeSellerAgreement: "off",
+    };
+    return map[id] || "off";
+  };
+
   const renderField = (id: string, label: string, opts?: { type?: string; placeholder?: string }) => {
     const req = allRequired().includes(id);
     return (
       <div>
         <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <input id={id} type={opts?.type || "text"} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)} placeholder={opts?.placeholder} />
+        <input id={id} type={opts?.type || "text"} autoComplete={autoCompleteFor(id)} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)} placeholder={opts?.placeholder} />
         {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
       </div>
     );
@@ -153,7 +171,7 @@ export default function SellApply() {
     return (
       <div>
         <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <select id={id} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)}>
+        <select id={id} autoComplete={autoCompleteFor(id)} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)}>
           <option value="">Select provider</option>
           {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
@@ -164,7 +182,7 @@ export default function SellApply() {
 
   const renderCheckbox = (id: string, label: string) => (
     <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#555]">
-      <input id={id} type="checkbox" checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-4 w-4 rounded border-black/20 accent-[#BFD7F1]" />
+      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-4 w-4 rounded border-black/20 accent-[#BFD7F1]" />
       <span>{label}</span>
     </label>
   );
@@ -179,7 +197,7 @@ export default function SellApply() {
           <span className="text-[#888]">{fileNames[id] || "Click to upload"}</span>
           {fileNames[id] ? <CheckCircle2 className="ml-auto h-4 w-4 shrink-0 text-green-500" /> : null}
         </label>
-        <input id={id} type="file" accept="image/*" onChange={handleFile(id)} onBlur={() => setTouched((p) => ({ ...p, [id]: true }))} className="hidden" />
+        <input id={id} type="file" accept="image/*" autoComplete="off" onChange={handleFile(id)} onBlur={() => setTouched((p) => ({ ...p, [id]: true }))} className="hidden" />
         {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
       </div>
     );

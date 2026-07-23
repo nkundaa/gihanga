@@ -411,7 +411,7 @@ export function Footer() {
             </p>
             <form className="mt-4 flex flex-col sm:flex-row max-w-md gap-1.5 sm:gap-0 overflow-hidden rounded-xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="newsletter" className="sr-only">Email address</label>
-              <input id="newsletter" type="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:py-0 sm:text-sm" />
+              <input id="newsletter" type="email" autoComplete="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:py-0 sm:text-sm" />
               <button type="submit" className="w-full rounded-xl bg-white px-4 py-2 text-xs font-bold text-[#111111] transition hover:bg-[#BFD7F1] sm:w-auto sm:rounded-full sm:px-5 sm:py-3 sm:text-sm">Join</button>
             </form>
           </div>

@@ -61,7 +61,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]" htmlFor="msg">Message</label>
-                  <textarea id="msg" name="message" rows={5} required className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Tell us how we can help..." />
+                  <textarea id="msg" name="message" rows={5} required autoComplete="off" className="w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Tell us how we can help..." />
                 </div>
                 <MagneticButton type="submit" variant="berry" className="w-full sm:w-auto sm:justify-self-start px-6 py-3 text-sm">Send message</MagneticButton>
               </form>
@@ -102,7 +102,7 @@ function Field({ label, name, type = "text", required }: { label: string; name: 
   return (
     <div>
       <label htmlFor={name} className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">{label}</label>
-      <input id={name} name={name} type={type} required={required} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
+      <input id={name} name={name} type={type} required={required} autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
     </div>
   );
 }

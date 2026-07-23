@@ -110,6 +110,7 @@ export default function Shop() {
                 <input
                   id="search-shop"
                   name="search"
+                  autoComplete="off"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces or stores"
@@ -119,6 +120,7 @@ export default function Shop() {
               <select
                 id="store-filter"
                 name="store"
+                autoComplete="off"
                 value={store}
                 onChange={(e) => {
                   const next = new URLSearchParams(params);
