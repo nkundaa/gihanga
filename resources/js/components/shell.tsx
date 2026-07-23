@@ -123,23 +123,23 @@ export function Navigation() {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-3">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
             aria-label="Search"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
           >
-            <Search className="h-5 w-5" />
+            <Search className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
           <Link
             to="/wishlist"
             aria-label="Wishlist"
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
           >
-            <Heart className="h-5 w-5" />
+            <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
             {wishlistCount > 0 ? (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#FFD5EA] px-1 text-[0.65rem] font-black text-[#111111]">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFD5EA] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                 {wishlistCount}
               </span>
             ) : null}
@@ -148,11 +148,11 @@ export function Navigation() {
             type="button"
             onClick={openCart}
             aria-label="Open shopping bag"
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
           >
-            <ShoppingBag className="h-5 w-5" />
+            <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
             {count > 0 ? (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-[#BFD7F1] px-1 text-[0.65rem] font-black text-[#111111]">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#BFD7F1] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                 {count}
               </span>
             ) : null}
@@ -163,10 +163,10 @@ export function Navigation() {
               <button
                 type="button"
                 onClick={() => setUserMenu(!userMenu)}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
                 aria-label="User menu"
               >
-                <User className="h-5 w-5" />
+                <User className="h-4 w-4 sm:h-5 sm:w-5" />
               </button>
               <AnimatePresence>
                 {userMenu ? (
@@ -198,9 +198,9 @@ export function Navigation() {
             <Link
               to="/login"
               aria-label="Sign in"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
             >
-              <LogIn className="h-5 w-5" />
+              <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
             </Link>
           )}
 
@@ -209,12 +209,12 @@ export function Navigation() {
           </MagneticButton>
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] lg:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] lg:hidden sm:h-11 sm:w-11"
             aria-label="Toggle menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
           </button>
         </div>
       </nav>
@@ -396,45 +396,45 @@ export function CartDrawer() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#111111] px-4 py-10 text-white sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden bg-[#111111] px-4 py-8 text-white sm:px-6 lg:px-8">
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#BFD7F1]/40 to-transparent" />
       <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_1.4fr]">
           <div>
-            <Link to="/" className="flex items-center gap-3">
-              <img src="/images/logo.png" alt="" className="h-10 w-auto sm:h-16" />
-              <span className="font-display text-xl font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
+            <Link to="/" className="flex items-center gap-2">
+              <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-16" />
+              <span className="font-display text-lg font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
             </Link>
-            <p className="mt-3 max-w-md leading-6 text-sm text-white/60">
+            <p className="mt-2 max-w-md text-xs leading-5 text-white/60 sm:text-sm sm:leading-6">
               Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali.
             </p>
-            <form className="mt-5 flex flex-col sm:flex-row max-w-md gap-2 sm:gap-0 overflow-hidden rounded-2xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
+            <form className="mt-4 flex flex-col sm:flex-row max-w-md gap-1.5 sm:gap-0 overflow-hidden rounded-xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="newsletter" className="sr-only">Email address</label>
-              <input id="newsletter" type="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-4 py-3 sm:py-0 text-sm text-white outline-none placeholder:text-white/40" />
-              <button type="submit" className="w-full sm:w-auto rounded-full bg-white px-5 py-3 text-sm font-bold text-[#111111] transition hover:bg-[#BFD7F1]">Join</button>
+              <input id="newsletter" type="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:py-0 sm:text-sm" />
+              <button type="submit" className="w-full rounded-xl bg-white px-4 py-2 text-xs font-bold text-[#111111] transition hover:bg-[#BFD7F1] sm:w-auto sm:rounded-full sm:px-5 sm:py-3 sm:text-sm">Join</button>
             </form>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <FooterColumn title="Explore" items={[{ label: "Shop", to: "/shop" }, { label: "Stores", to: "/stores" }, { label: "Plans", to: "/plans" }, { label: "Why GIHANGA", to: "/why-gihanga" }, { label: "Sell", to: "/sell-apply" }]} />
             <FooterColumn title="Categories" items={[{ label: "Shoes", to: "/shop?category=shoes" }, { label: "Clothes", to: "/shop?category=clothes" }, { label: "Bags", to: "/shop?category=bags" }, { label: "Accessories", to: "/shop?category=accessories" }]} />
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Contact</h3>
-              <ul className="mt-5 space-y-3 text-sm text-white/60">
-                <li className="flex gap-3"><MapPinned className="h-5 w-5 text-[#BFD7F1]" /> Kicukiro, Kigali, Rwanda</li>
-                <li className="flex gap-3"><Mail className="h-5 w-5 text-[#BFD7F1]" /> gihangamarket@gmail.com</li>
-                <li className="flex gap-3"><Phone className="h-5 w-5 text-[#BFD7F1]" /> +250 799 576 704</li>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
+              <ul className="mt-3 space-y-2 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
+                <li className="flex gap-2"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
+                <li className="flex gap-2"><Mail className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
+                <li className="flex gap-2"><Phone className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> +250 799 576 704</li>
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Newsletter</h3>
-              <p className="mt-5 text-sm text-white/55">The Kigali edit, every Thursday. New stores, drops and stories.</p>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
+              <p className="mt-3 text-xs text-white/55 sm:mt-5 sm:text-sm">The Kigali edit, every Thursday. New stores, drops and stories.</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-white/45 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:pt-8 sm:text-sm">
           <p>Copyright 2026 GIHANGA. All rights reserved.</p>
           <div className="flex gap-3 sm:gap-5">
             <a href="#" className="transition hover:text-white">Privacy</a>
@@ -451,8 +451,8 @@ export function Footer() {
 function FooterColumn({ title, items }: { title: string; items: Array<{ label: string; to: string }> }) {
   return (
     <div>
-      <h3 className="text-sm font-black uppercase tracking-[0.28em] text-[#BFD7F1]">{title}</h3>
-      <ul className="mt-5 space-y-3 text-sm text-white/60">
+      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">{title}</h3>
+      <ul className="mt-3 space-y-1.5 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
         {items.map((item) => (
           <li key={item.label}>
             <Link to={item.to} className="transition hover:text-white">
