@@ -133,7 +133,7 @@ export default function Shop() {
                 {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span className="hidden text-xs font-black uppercase tracking-[0.28em] text-[#666666] sm:inline">Sort</span>
               {([
                 ["featured", "Featured"],
@@ -146,7 +146,7 @@ export default function Shop() {
                   type="button"
                   onClick={() => setSort(value)}
                   className={cn(
-                    "min-h-11 rounded-full border px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] transition sm:px-4 sm:py-2 sm:text-xs",
+                    "min-h-9 rounded-full border px-2 py-1 text-[0.5rem] font-bold uppercase tracking-[0.15em] transition sm:min-h-11 sm:px-4 sm:py-2 sm:text-xs",
                     sort === value ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
                   )}
                 >
@@ -214,7 +214,7 @@ function FilterChip({ label, active, onClick }: { label: string; active: boolean
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition",
+        "rounded-full border px-2.5 py-1 text-[0.55rem] font-bold uppercase tracking-[0.15em] transition sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]",
         active ? "border-[#BFD7F1] bg-[#BFD7F1] text-[#111111]" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
       )}
     >
