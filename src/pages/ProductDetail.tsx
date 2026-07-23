@@ -74,23 +74,23 @@ export default function ProductDetail() {
   return (
     <div className="bg-[#F8F9FA] pt-28 lg:pt-32">
       <Seo title="Product - Gihanga Market" path="/product" description="View product details on GIHANGA marketplace." />
-      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumb items={[{ label: "Shop", to: "/shop" }, { label: product.storeName, to: storeLink }, { label: product.name }]} />
       </div>
 
-      <div className="mx-auto mt-8 grid max-w-7xl gap-10 px-5 pb-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-24">
+      <div className="mx-auto mt-8 grid max-w-7xl gap-6 px-4 pb-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-24">
         <div data-reveal>
           <div className="relative overflow-hidden rounded-[2.4rem] bg-white shadow-[0_30px_110px_rgba(0,0,0,0.1)]">
             <img src={product.images[activeImage]} alt={product.name} className="aspect-[4/5] w-full object-cover" />
             {product.discount ? (
               <span className="absolute left-5 top-5 rounded-full bg-[#111111] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white">{product.discount}</span>
             ) : null}
-            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#FFD5EA] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
+            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#FFD5EA] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
               <Heart className={cn("h-5 w-5", hasItem(product.slug) && "fill-[#111111]")} />
             </button>
           </div>
           {product.images.length > 1 ? (
-            <div className="mt-4 grid grid-cols-4 gap-3">
+            <div className="mt-3 grid grid-cols-4 gap-2">
               {product.images.map((img, i) => (
                 <button
                   key={img + i}
@@ -116,13 +116,13 @@ export default function ProductDetail() {
             <span className="text-[#666666]">· {product.category}</span>
           </div>
 
-          <div className="mt-6 flex items-baseline gap-4 sm:mt-8">
-            <p className="font-display text-2xl font-black tracking-[-0.05em] sm:text-3xl">{formatRwf(product.price)}</p>
+          <div className="mt-4 flex items-baseline gap-4 sm:mt-8">
+            <p className="font-display text-xl font-black tracking-[-0.05em] sm:text-3xl">{formatRwf(product.price)}</p>
             {product.originalPrice ? <p className="text-base text-[#666666] line-through sm:text-lg">{formatRwf(product.originalPrice)}</p> : null}
           </div>
 
           {product.sizes ? (
-            <div className="mt-8">
+            <div className="mt-5">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Size</p>
                 <button type="button" className="text-xs font-bold underline-grow">Size guide</button>
@@ -134,7 +134,7 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => setSize(s)}
                     className={cn(
-                      "h-11 min-w-11 rounded-full border px-4 text-sm font-bold transition",
+                      "h-9 min-w-9 rounded-full border px-3 text-xs font-bold transition sm:h-11 sm:min-w-11 sm:px-4 sm:text-sm",
                       size === s ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
                     )}
                   >
@@ -149,7 +149,7 @@ export default function ProductDetail() {
             const palette = product.colors;
             const selected = color ?? palette[0];
             return (
-              <div className="mt-6">
+              <div className="mt-4">
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Color · {selected}</p>
                 <div className="mt-3 flex gap-2">
                   {palette.map((c) => {
@@ -160,7 +160,7 @@ export default function ProductDetail() {
                         type="button"
                         onClick={() => setColor(c)}
                         aria-label={c}
-                        className={cn("h-11 w-11 rounded-full border transition", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
+                        className={cn("h-9 w-9 rounded-full border transition sm:h-11 sm:w-11", selected === c ? "border-[#111111] ring-2 ring-[#111111]/20 ring-offset-2" : "border-black/10")}
                         style={{ backgroundColor: swatch }}
                       />
                     );
@@ -170,11 +170,11 @@ export default function ProductDetail() {
             );
           })() : null}
 
-          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
-            <MagneticButton variant="berry" className="w-full justify-center px-6 py-4 sm:flex-1" onClick={() => addItem(product, { size, color })}>
+          <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap">
+            <MagneticButton variant="berry" className="w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Add to bag
             </MagneticButton>
-            <MagneticButton variant="dark" className="w-full justify-center px-6 py-4 sm:flex-1" onClick={() => addItem(product, { size, color })}>
+            <MagneticButton variant="dark" className="w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Buy now
             </MagneticButton>
           </div>
@@ -185,9 +185,9 @@ export default function ProductDetail() {
             <li className="flex items-center gap-3"><BadgeCheck className="h-5 w-5 text-[#BFD7F1]" /> Sold by a verified GIHANGA boutique</li>
           </ul>
 
-          <details className="mt-6 rounded-2xl border border-black/10 bg-white p-5">
-            <summary className="cursor-pointer font-display text-lg font-black tracking-[-0.04em]">Description</summary>
-            <p className="mt-3 leading-7 text-[#666666]">{product.description}</p>
+          <details className="mt-4 rounded-2xl border border-black/10 bg-white p-4">
+            <summary className="cursor-pointer font-display text-base font-black tracking-[-0.04em]">Description</summary>
+            <p className="mt-2 text-sm leading-6 text-[#666666]">{product.description}</p>
           </details>
         </div>
       </div>

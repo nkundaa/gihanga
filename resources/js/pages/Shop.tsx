@@ -71,10 +71,10 @@ export default function Shop() {
   return (
     <div className="bg-[#F8F9FA]">
       <Seo title="Shop - Gihanga Market" path="/shop" description="Browse clothing, shoes, bags and accessories from verified stores across Kigali. Shop the Gihanga market for premium fashion in Rwanda." />
-      <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
+      <section className="relative flex min-h-[20svh] items-center overflow-hidden bg-[#111111] py-6 text-white sm:py-12 md:min-h-[40vh] pt-20">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#BFD7F1] sm:text-xs sm:tracking-[0.42em]">The GIHANGA shop</p>
           <div className="mt-3 flex flex-col gap-3 sm:mt-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-8">
             <h1 className="max-w-4xl font-display text-[clamp(1.3rem,5vw,5.2rem)] font-black uppercase leading-[0.94] tracking-[-0.08em]">
@@ -88,7 +88,7 @@ export default function Shop() {
         </div>
       </section>
 
-      <section className="px-5 py-10 sm:px-6 lg:px-8">
+      <section className="px-4 py-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
@@ -113,7 +113,7 @@ export default function Shop() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces or stores"
-                  className="w-full min-w-0 rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none transition focus:border-[#BFD7F1] sm:w-72"
+                  className="w-full min-w-0 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1] sm:w-72"
                 />
               </label>
               <select
@@ -125,7 +125,7 @@ export default function Shop() {
                   if (e.target.value === "all") next.delete("store"); else next.set("store", e.target.value);
                   setParams(next);
                 }}
-                className="w-full rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-[#111111] outline-none transition focus:border-[#BFD7F1] sm:w-auto"
+                className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#111111] outline-none transition focus:border-[#BFD7F1] sm:w-auto"
               >
                 <option value="all">All stores</option>
                 {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -155,7 +155,7 @@ export default function Shop() {
           </div>
 
           {showFilters ? (
-            <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-[2rem] border border-black/[0.08] bg-white p-5 shadow-sm">
+            <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Price range</p>
               <div className="mt-4 flex items-center gap-4">
                 <div className="flex-1">
@@ -194,7 +194,7 @@ export default function Shop() {
               <MagneticButton variant="berry" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset</MagneticButton>
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">
               {products.map((p) => <ProductCard key={p.slug} product={p} />)}
             </div>
           )}

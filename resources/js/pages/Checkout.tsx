@@ -144,9 +144,9 @@ export default function Checkout() {
             </div>
 
             {step === "details" && (
-              <form className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8" onSubmit={(e) => e.preventDefault()}>
+              <form className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8" onSubmit={(e) => e.preventDefault()}>
                 <h2 className="font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Delivery details</h2>
-                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Full name</label>
                     <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Jean Baptiste Mugabo" />
@@ -191,7 +191,7 @@ export default function Checkout() {
             )}
 
             {step === "payment" && (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
+              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
                 <h2 className="font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Payment method</h2>
                 <p className="mt-2 text-sm text-[#666666]">Choose your preferred payment method.</p>
                 <div className="mt-6 grid gap-3">
@@ -222,7 +222,7 @@ export default function Checkout() {
             )}
 
             {step === "confirm" && (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
+              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
                 <h2 className="font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Confirm order</h2>
                 <p className="mt-2 text-sm text-[#666666]">Please review your order before placing it.</p>
                 {error && (
@@ -257,9 +257,9 @@ export default function Checkout() {
           </div>
 
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+            <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Order summary</p>
-              <div className="mt-5 space-y-3 divide-y divide-black/[0.08]">
+              <div className="mt-3 space-y-3 divide-y divide-black/[0.08]">
                 {lines.map((line) => (
                   <div key={line.key} className="flex items-center justify-between gap-3 pt-3 first:pt-0">
                     <div className="min-w-0">
@@ -270,7 +270,7 @@ export default function Checkout() {
                   </div>
                 ))}
               </div>
-              <div className="mt-5 space-y-2 border-t border-black/10 pt-4 text-sm">
+              <div className="mt-3 space-y-2 border-t border-black/10 pt-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-[#666666]">Subtotal</span>
                   <span className="font-bold">{formatRwf(subtotal)}</span>
@@ -284,7 +284,7 @@ export default function Checkout() {
                   <span className="font-display text-lg font-black tracking-[-0.03em]">{formatRwf(total)}</span>
                 </div>
               </div>
-              <div className="mt-5 flex items-center gap-2 text-xs text-[#666666]">
+              <div className="mt-3 flex items-center gap-2 text-xs text-[#666666]">
                 <Truck className="h-4 w-4 text-[#BFD7F1]" /> Free Kigali delivery included
               </div>
             </div>

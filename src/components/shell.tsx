@@ -96,14 +96,14 @@ export function Navigation() {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-4 py-4 sm:px-6 lg:px-8">
+    <header className="fixed left-0 right-0 top-0 z-50 px-3 py-2.5 sm:px-6 lg:px-8">
       <nav
         aria-label="Primary navigation"
-        className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-4 py-3 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
+        className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
       >
         <Link to="/" className="group flex items-center gap-3" aria-label="GIHANGA home">
-          <img src="/images/logo.png" alt="" className="h-12 w-auto sm:h-14" />
-          <span className="font-display text-xl font-black tracking-[-0.06em] text-[#111111] sm:text-2xl">GIHANGA</span>
+          <img src="/images/logo.png" alt="" className="h-10 w-auto sm:h-14" />
+          <span className="font-display text-base font-black tracking-[-0.06em] text-[#111111] sm:text-2xl">GIHANGA</span>
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
@@ -275,7 +275,7 @@ export function Navigation() {
                     to={link.to}
                     className={({ isActive }) =>
                       cn(
-                        "flex items-center justify-between rounded-2xl px-4 py-4 text-lg font-semibold transition",
+                        "flex items-center justify-between rounded-2xl px-3 py-3 text-base font-semibold transition",
                         isActive ? "bg-black/[0.04] text-[#111111]" : "text-[#111111] hover:bg-black/[0.04]"
                       )
                     }
@@ -321,7 +321,7 @@ export function CartDrawer() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-md flex-col bg-[#F8F9FA] shadow-2xl"
           >
-            <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
+            <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.3em] text-[#BFD7F1]">Your bag</p>
                 <h2 className="font-display text-xl font-black tracking-[-0.05em] sm:text-2xl">{count} item{count === 1 ? "" : "s"}</h2>
@@ -331,7 +331,7 @@ export function CartDrawer() {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 py-5">
+            <div className="flex-1 overflow-y-auto px-4 py-3">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <span className="font-editorial text-7xl text-[#BFD7F1]">∅</span>
@@ -344,8 +344,8 @@ export function CartDrawer() {
               ) : (
                 <ul className="space-y-4">
                   {lines.map((line) => (
-                    <li key={line.key} className="flex gap-4 rounded-2xl bg-white p-3 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-                      <img src={line.product.images[0]} alt={line.product.name} className="h-20 w-20 shrink-0 rounded-xl object-cover sm:h-24 sm:w-24" />
+                    <li key={line.key} className="flex gap-4 rounded-xl bg-white p-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+                      <img src={line.product.images[0]} alt={line.product.name} className="h-14 w-14 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24" />
                       <div className="flex flex-1 flex-col">
                         <div className="flex items-start justify-between gap-3">
                           <div>
@@ -376,13 +376,13 @@ export function CartDrawer() {
             </div>
 
             {lines.length > 0 ? (
-              <div className="border-t border-black/10 bg-white px-6 py-5">
+              <div className="border-t border-black/10 bg-white px-4 py-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[#666666]">Subtotal</span>
                   <span className="font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">{formatRwf(subtotal)}</span>
                 </div>
                 <p className="mt-2 text-xs text-[#666666]">Delivery, taxes and Mobile Money checkout available in upcoming phases.</p>
-                <MagneticButton to="/checkout" variant="berry" className="mt-4 w-full justify-center px-6 py-4" onClick={closeCart}>
+                <MagneticButton to="/checkout" variant="berry" className="mt-3 w-full justify-center px-5 py-3 text-sm" onClick={closeCart}>
                   Checkout
                 </MagneticButton>
               </div>
@@ -396,32 +396,32 @@ export function CartDrawer() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#111111] px-5 py-16 text-white sm:px-6 lg:px-8">
+    <footer className="relative overflow-hidden bg-[#111111] px-4 py-10 text-white sm:px-6 lg:px-8">
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#BFD7F1]/40 to-transparent" />
       <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_1.4fr]">
           <div>
             <Link to="/" className="flex items-center gap-3">
-              <img src="/images/logo.png" alt="" className="h-14 w-auto sm:h-16" />
-              <span className="font-display text-2xl font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
+              <img src="/images/logo.png" alt="" className="h-10 w-auto sm:h-16" />
+              <span className="font-display text-xl font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
             </Link>
-            <p className="mt-5 max-w-md leading-7 text-white/60">
+            <p className="mt-3 max-w-md leading-6 text-sm text-white/60">
               Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali.
             </p>
-            <form className="mt-8 flex flex-col sm:flex-row max-w-md gap-2 sm:gap-0 overflow-hidden rounded-2xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
+            <form className="mt-5 flex flex-col sm:flex-row max-w-md gap-2 sm:gap-0 overflow-hidden rounded-2xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="newsletter" className="sr-only">Email address</label>
               <input id="newsletter" type="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-4 py-3 sm:py-0 text-sm text-white outline-none placeholder:text-white/40" />
               <button type="submit" className="w-full sm:w-auto rounded-full bg-white px-5 py-3 text-sm font-bold text-[#111111] transition hover:bg-[#BFD7F1]">Join</button>
             </form>
           </div>
 
-          <div className="grid gap-9 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <FooterColumn title="Explore" items={[{ label: "Shop", to: "/shop" }, { label: "Stores", to: "/stores" }, { label: "Plans", to: "/plans" }, { label: "Why GIHANGA", to: "/why-gihanga" }, { label: "Sell", to: "/sell-apply" }]} />
             <FooterColumn title="Categories" items={[{ label: "Shoes", to: "/shop?category=shoes" }, { label: "Clothes", to: "/shop?category=clothes" }, { label: "Bags", to: "/shop?category=bags" }, { label: "Accessories", to: "/shop?category=accessories" }]} />
             <div>
               <h3 className="text-sm font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Contact</h3>
-              <ul className="mt-5 space-y-4 text-sm text-white/60">
+              <ul className="mt-5 space-y-3 text-sm text-white/60">
                 <li className="flex gap-3"><MapPinned className="h-5 w-5 text-[#BFD7F1]" /> Kicukiro, Kigali, Rwanda</li>
                 <li className="flex gap-3"><Mail className="h-5 w-5 text-[#BFD7F1]" /> gihangamarket@gmail.com</li>
                 <li className="flex gap-3"><Phone className="h-5 w-5 text-[#BFD7F1]" /> +250 799 576 704</li>
@@ -434,7 +434,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-8 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>Copyright 2026 GIHANGA. All rights reserved.</p>
           <div className="flex gap-3 sm:gap-5">
             <a href="#" className="transition hover:text-white">Privacy</a>

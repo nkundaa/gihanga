@@ -55,7 +55,7 @@ export default function StoreDetail() {
     <div className="bg-[#F8F9FA]">
       <Seo title="Store - Gihanga Market" path="/store" description="View store details on GIHANGA marketplace." />
       <section className="relative overflow-hidden">
-        <div className="relative h-[40vh] min-h-[16rem] overflow-hidden sm:h-[52vh] sm:min-h-[24rem]">
+        <div className="relative h-[40vh] min-h-[12rem] overflow-hidden sm:h-[52vh] sm:min-h-[24rem]">
           <img src={store.cover} alt={store.name} className="absolute inset-0 h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/82" />
         </div>
@@ -75,17 +75,17 @@ export default function StoreDetail() {
               <h1 className="mt-3 font-display text-[clamp(1.6rem,6vw,7rem)] font-black leading-[0.9] tracking-[-0.08em]">{store.name}</h1>
               <p className="mt-3 max-w-xl text-white/80">{store.tagline}</p>
             </div>
-            <div className="flex flex-wrap gap-6 rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-xl">
+            <div className="flex flex-wrap gap-4 rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur-xl">
               <div>
-                <p className="font-display text-2xl font-black">{store.rating.toFixed(1)}</p>
+                <p className="font-display text-lg font-black sm:text-2xl">{store.rating.toFixed(1)}</p>
                 <p className="text-xs uppercase tracking-[0.2em] text-white/60">{store.reviews} reviews</p>
               </div>
               <div>
-                <p className="font-display text-2xl font-black">{store.productCount}</p>
+                <p className="font-display text-lg font-black sm:text-2xl">{store.productCount}</p>
                 <p className="text-xs uppercase tracking-[0.2em] text-white/60">pieces</p>
               </div>
               <div>
-                <p className="font-display text-2xl font-black">{store.founded}</p>
+                <p className="font-display text-lg font-black sm:text-2xl">{store.founded}</p>
                 <p className="text-xs uppercase tracking-[0.2em] text-white/60">since</p>
               </div>
             </div>

@@ -31,8 +31,8 @@ export function SectionHeader({
   return (
     <div data-reveal className={cn("mx-auto max-w-3xl", align === "center" && "text-center", className)}>
       <Eyebrow className={align === "center" ? "justify-center" : undefined}>{eyebrow}</Eyebrow>
-      <h2 className="mt-5 font-display text-[clamp(2.5rem,6vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#111111]">{title}</h2>
-      {copy ? <p className={cn("mt-6 text-base leading-8 text-[#666666] sm:text-lg", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
+      <h2 className="mt-3 font-display text-[clamp(1.6rem,5vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#111111]">{title}</h2>
+      {copy ? <p className={cn("mt-3 text-sm leading-6 text-[#666666] sm:text-lg sm:leading-8", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
     </div>
   );
 }
@@ -139,49 +139,49 @@ export function ProductCard({ product, variant = "default" }: { product: Product
     <motion.article
       data-reveal
       className={cn(
-        "group flex flex-col overflow-hidden rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.07)] transition-shadow duration-500 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]",
+        "group flex flex-col overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.07)] transition-shadow duration-500 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]",
         variant === "editorial" && "rounded-[2.4rem]"
       )}
       style={{ transform: tilt }}
       onMouseMove={handleMove}
       onMouseLeave={() => tilt.set("perspective(900px) rotateX(0deg) rotateY(0deg)")}
     >
-      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#F8F9FA] sm:h-80">
+      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#F8F9FA]">
         <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
         {product.discount ? (
-          <span className="absolute left-4 top-4 rounded-full bg-[#111111] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-white">{product.discount}</span>
+          <span className="absolute left-2 top-2 rounded-full bg-[#111111] px-2 py-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white">{product.discount}</span>
         ) : null}
         {product.tag ? (
-          <span className="absolute right-4 top-4 rounded-full bg-[#FFD5EA] px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-[#111111]">{product.tag}</span>
+          <span className="absolute right-2 top-2 rounded-full bg-[#FFD5EA] px-2 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#111111]">{product.tag}</span>
         ) : null}
-        <span className="pointer-events-none absolute inset-x-4 bottom-4 translate-y-4 rounded-full bg-white/90 px-4 py-2.5 text-center text-sm font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="pointer-events-none absolute inset-x-2 bottom-2 translate-y-4 rounded-full bg-white/90 px-3 py-2 text-center text-xs font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 group-hover:translate-y-0 group-hover:opacity-100">
           View details
         </span>
       </Link>
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center justify-between gap-4">
-          <Link to={`/store/${product.storeSlug}`} className="text-xs font-black uppercase tracking-[0.28em] text-[#111111]/60 underline-grow">
+      <div className="flex flex-1 flex-col p-3">
+        <div className="flex items-center justify-between gap-2">
+          <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#111111]/60 underline-grow">
             {product.storeName}
           </Link>
-          <span className="inline-flex items-center gap-1 text-sm font-bold text-[#111111]">
+          <span className="hidden sm:inline-flex items-center gap-1 text-sm font-bold text-[#111111]">
             <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {product.rating.toFixed(1)}
           </span>
         </div>
-        <Link to={`/product/${product.slug}`} className="mt-3 font-display text-xl font-black leading-tight tracking-[-0.04em] text-[#111111] sm:text-2xl">
+        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-sm font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
           {product.name}
         </Link>
-        <div className="mt-auto flex items-end justify-between gap-3 pt-5">
+        <div className="mt-auto flex items-end justify-between gap-3 pt-2">
           <div>
-            <p className="font-display text-xl font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
-            {product.originalPrice ? <p className="text-sm text-[#666666] line-through">{formatRwf(product.originalPrice)}</p> : null}
+            <p className="font-display text-sm font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
+            {product.originalPrice ? <p className="text-[0.6rem] text-[#666666] line-through">{formatRwf(product.originalPrice)}</p> : null}
           </div>
           <button
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={() => addItem(product)}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111]"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111]"
           >
-            <ArrowUpRight className="h-5 w-5" />
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
@@ -194,9 +194,9 @@ export function StoreCard({ store }: { store: Store }) {
     <Link
       to={`/store/${store.slug}`}
       data-reveal
-      className="group relative block overflow-hidden rounded-[2.4rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]"
+      className="group relative block overflow-hidden rounded-xl border sm:rounded-[2.4rem] border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)]"
     >
-      <div className="relative h-56 overflow-hidden">
+      <div className="relative h-36 overflow-hidden sm:h-56">
         <img src={store.cover} alt={`${store.name} boutique`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/70" />
         <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl">
@@ -204,11 +204,11 @@ export function StoreCard({ store }: { store: Store }) {
           Verified
         </span>
       </div>
-      <div className="p-6">
+      <div className="p-4">
         <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">{store.category}</p>
-        <h3 className="mt-3 font-display text-xl font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
-        <p className="mt-2 text-sm text-[#666666]">{store.tagline}</p>
-        <div className="mt-5 flex items-center justify-between gap-3 text-sm">
+        <h3 className="mt-1 font-display text-sm font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
+        <p className="mt-1 text-xs text-[#666666]">{store.tagline}</p>
+        <div className="mt-3 flex items-center justify-between gap-2 text-xs">
           <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
             <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {store.rating.toFixed(1)}
           </span>
