@@ -9,14 +9,11 @@ import { MagneticButton, ProductCard } from "../components/ui";
 import Seo from "../components/Seo";
 import type { Product } from "../data/catalog";
 
-type Sort = "featured" | "low" | "high" | "rating";
-
 export default function Shop() {
   const [params, setParams] = useSearchParams();
   const category = params.get("category") ?? "all";
   const store = params.get("store") ?? "all";
   const searchParam = params.get("search") ?? "";
-  const [sort, setSort] = useState<Sort>("featured");
   const [query, setQuery] = useState(searchParam);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -27,17 +24,10 @@ export default function Shop() {
 
   useEffect(() => {
     setLoading(true);
-    const sortMap: Record<string, string | undefined> = {
-      featured: undefined,
-      low: "price_asc",
-      high: "price_desc",
-      rating: "top_rated",
-    };
     api.products.list({
       category: category === "all" ? undefined : category,
       store: store === "all" ? undefined : store,
       search: query || undefined,
-      sort: sortMap[sort],
       min_price: priceRange.min,
       max_price: priceRange.max,
     }).then((res) => {
@@ -55,7 +45,7 @@ export default function Shop() {
     }).finally(() => setLoading(false));
 
     api.categories.list().then((res) => setCategories(res.categories)).catch(() => {});
-  }, [category, store, query, sort]);
+  }, [category, store, query]);
 
   const uniqueStores = useMemo(() => Array.from(new Set(products.map((p) => p.storeName))).sort(), [products]);
 
@@ -82,7 +72,7 @@ export default function Shop() {
               <span className="block text-stroke text-white">of Kigali</span>
             </h1>
             <p className="max-w-sm text-xs leading-6 text-white/70 sm:text-sm sm:leading-normal">
-              A curated shop of verified boutiques across the city. Filter by category, search by name, sort by price or rating.
+              A curated shop of verified boutiques across the city. Filter by category, search by name.
             </p>
           </div>
         </div>
@@ -133,27 +123,7 @@ export default function Shop() {
                 {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <span className="hidden text-xs font-black uppercase tracking-[0.28em] text-[#666666] sm:inline">Sort</span>
-              {([
-                ["featured", "Featured"],
-                ["low", "Price ↑"],
-                ["high", "Price ↓"],
-                ["rating", "Top rated"],
-              ] as Array<[Sort, string]>).map(([value, label]) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => setSort(value)}
-                  className={cn(
-                    "min-h-9 rounded-full border px-2 py-1 text-[0.5rem] font-bold uppercase tracking-[0.15em] transition sm:min-h-11 sm:px-4 sm:py-2 sm:text-xs",
-                    sort === value ? "border-[#111111] bg-[#111111] text-white" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
-                  )}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+
           </div>
 
           {showFilters ? (
