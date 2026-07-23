@@ -68,6 +68,7 @@ function AnimatedRoutes() {
     <>
       <ScrollRestoration />
       {showShell ? <Navigation /> : null}
+      <div className={showShell ? "pt-[80px] sm:pt-[96px]" : ""}>
       <AnimatePresence mode="popLayout">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Opening />} />
@@ -91,6 +92,7 @@ function AnimatedRoutes() {
           <Route path="*" element={<Opening />} />
         </Routes>
       </AnimatePresence>
+      </div>
       {showShell ? <Footer /> : null}
       {showShell ? <CartDrawer /> : null}
       {showShell ? <Toast /> : null}
