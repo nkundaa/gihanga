@@ -22,7 +22,7 @@ export default function Opening() {
   return (
     <>
     <Seo title="Gihanga Market" description="GIHANGA is Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali. Shop the Gihanga market today." />
-    <div className="relative flex h-[100svh] flex-col justify-between overflow-hidden bg-[#111111] text-white select-none">
+    <div className="relative flex min-h-[100svh] flex-col justify-between overflow-x-hidden bg-[#111111] text-white select-none">
       <div aria-hidden className="absolute inset-0">
         <motion.img
           src={heroImages.hero}
@@ -40,27 +40,27 @@ export default function Opening() {
         <div aria-hidden className="absolute inset-0 hidden opacity-70 lg:block"><OpeningScene /></div>
       </div>
 
-      <header className="relative z-20 flex items-center justify-between px-5 py-4 sm:px-10 sm:py-8">
+      <header className="relative z-20 flex items-center justify-between px-3 py-2.5 sm:px-10 sm:py-8">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-2 sm:gap-3"
+          className="flex items-center gap-1 sm:gap-3"
         >
-          <img src="/images/logo.png" alt="" className="h-12 w-auto sm:h-14" />
-          <span className="font-display text-lg font-black tracking-[-0.06em] text-white sm:text-2xl">GIHANGA</span>
+          <img src="/images/logo.png" alt="" className="h-9 w-auto sm:h-14" />
+          <span className="font-display text-sm font-black tracking-[-0.06em] text-white sm:text-2xl">GIHANGA</span>
         </motion.div>
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#BFD7F1] backdrop-blur-xl shadow-lg sm:gap-2 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.25em]"
+          className="flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-1 text-[0.5rem] font-black uppercase tracking-[0.15em] text-[#BFD7F1] backdrop-blur-xl shadow-lg sm:gap-2 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.25em]"
         >
-          <Compass className="h-3 w-3 sm:h-4 sm:w-4" /> Kigali, Rwanda
+          <Compass className="h-2.5 w-2.5 sm:h-4 sm:w-4" /> Kigali, Rwanda
         </motion.div>
       </header>
 
-      <main className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 items-center px-5 sm:px-8">
+      <main className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 items-center px-3 sm:px-8">
         <div className="grid w-full gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12">
           <div className="max-w-3xl">
             <motion.div
@@ -73,7 +73,7 @@ export default function Opening() {
               </span>
             </motion.div>
 
-            <h1 className="mt-4 font-display text-[clamp(1.5rem,6vw,6rem)] font-black leading-[0.9] tracking-[-0.08em] text-white sm:mt-6">
+            <h1 className="mt-3 font-display text-[clamp(1.3rem,5.5vw,6rem)] font-black leading-[0.9] tracking-[-0.08em] text-white sm:mt-6">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ export default function Opening() {
             </h1>
 
             <motion.p
-              className="mt-3 max-w-xl text-sm leading-7 text-white/80 sm:mt-6 sm:text-base sm:leading-8"
+              className="mt-2 max-w-xl text-xs leading-6 text-white/80 sm:mt-6 sm:text-base sm:leading-8"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -102,18 +102,18 @@ export default function Opening() {
             </motion.p>
 
             <motion.div
-              className="mt-6 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
+              className="mt-4 flex flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
-              <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-6 py-4 text-sm sm:w-auto" onClick={() => handleNav("/shop")}>
+              <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/shop")}>
                 🛒 Shop Now
               </MagneticButton>
-              <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-6 py-4 text-sm sm:w-auto" onClick={() => handleNav("/stores")}>
+              <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/stores")}>
                 🏬 Explore Stores
               </MagneticButton>
-              <MagneticButton to="/sell" variant="mauve" className="w-full justify-center px-6 py-4 text-sm sm:w-auto" onClick={() => handleNav("/sell")}>
+              <MagneticButton to="/sell" variant="mauve" className="w-full justify-center px-4 py-3 text-xs sm:w-auto sm:px-6 sm:py-4 sm:text-sm" onClick={() => handleNav("/sell")}>
                 📦 Sell With GIHANGA
               </MagneticButton>
             </motion.div>
@@ -169,7 +169,7 @@ export default function Opening() {
         </div>
       </main>
 
-      <footer className="relative z-20 flex w-full flex-col items-center justify-between gap-2 border-t border-white/10 px-5 py-5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45 sm:flex-row sm:px-10 sm:py-8 sm:text-xs">
+      <footer className="relative z-20 flex w-full flex-col items-center justify-between gap-1 border-t border-white/10 px-3 py-2.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-white/45 sm:flex-row sm:px-10 sm:py-8 sm:text-xs">
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>© 2026 GIHANGA. All rights reserved.</motion.p>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="flex items-center gap-4 sm:gap-6">
           <a href="#" className="transition hover:text-white">Privacy</a>

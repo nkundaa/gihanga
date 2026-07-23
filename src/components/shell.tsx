@@ -101,9 +101,9 @@ export function Navigation() {
         aria-label="Primary navigation"
         className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
       >
-        <Link to="/" className="group flex items-center gap-3" aria-label="GIHANGA home">
-          <img src="/images/logo.png" alt="" className="h-10 w-auto sm:h-14" />
-          <span className="font-display text-base font-black tracking-[-0.06em] text-[#111111] sm:text-2xl">GIHANGA</span>
+        <Link to="/" className="group flex items-center gap-1 sm:gap-3" aria-label="GIHANGA home">
+          <img src="/images/logo.png" alt="" className="h-9 w-auto sm:h-14" />
+          <span className="font-display text-sm font-black tracking-[-0.06em] text-[#111111] sm:text-2xl">GIHANGA</span>
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
@@ -123,7 +123,7 @@ export function Navigation() {
           ))}
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-3">
+        <div className="flex items-center gap-0.5 sm:gap-3">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
