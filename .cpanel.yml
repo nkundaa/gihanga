@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/vrt/gihanga.vrt.rw/public
+    - export DEPLOYPATH=/home/vrt/gihanga.vrt.rw/
     - /bin/cp -R * $DEPLOYPATH
