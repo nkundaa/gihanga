@@ -7,8 +7,8 @@ export default function DashboardRouter() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#FAF9F5] pt-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
       </div>
     );
   }

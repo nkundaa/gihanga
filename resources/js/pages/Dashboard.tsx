@@ -114,29 +114,29 @@ export default function CustomerDashboard() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white text-[#111111]">
+    <div className="min-h-screen bg-white text-[#14171F]">
       <Seo title="Dashboard - GIHANGA MARKET" path="/" description="Discover premium fashion from Kigali's finest boutiques." />
 
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex shrink-0 items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111111] text-[#5BA3CF] text-sm font-black">G</div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#14171F] text-[#2C5A82] text-sm font-black">G</div>
             <span className="hidden font-display text-base font-black tracking-[-0.03em] sm:block">GIHANGA</span>
           </Link>
 
           <div ref={searchRef} className="relative flex-1 max-w-xl">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#999]" />
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#909090]" />
             <input
               value={searchQuery} onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search products, stores or brands..."
-              className="h-10 w-full rounded-full border border-black/10 bg-[#F8F8F8] pl-10 pr-4 text-sm outline-none transition focus:border-[#5BA3CF] focus:bg-white"
+              className="h-10 w-full rounded-full border border-black/10 bg-[#F8F8F8] pl-10 pr-4 text-sm outline-none transition focus:border-[#2C5A82] focus:bg-white"
               onFocus={() => searchQuery.length >= 2 && setShowSearch(true)}
             />
             <AnimatePresence>
@@ -149,7 +149,7 @@ export default function CustomerDashboard() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-bold truncate">{p.name}</p>
-                        <p className="text-xs text-[#999]">{p.storeName}</p>
+                        <p className="text-xs text-[#909090]">{p.storeName}</p>
                       </div>
                       <p className="font-display text-sm font-black">{formatRwf(p.price)}</p>
                     </Link>
@@ -166,33 +166,33 @@ export default function CustomerDashboard() {
               { label: "Stores", to: "/stores" },
               { label: "Deals", to: "/shop?tag=sale" },
             ].map((n) => (
-              <Link key={n.label} to={n.to} className="rounded-full px-3.5 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#666666] transition hover:bg-[#F8F8F8] hover:text-[#111111]">
+              <Link key={n.label} to={n.to} className="rounded-full px-3.5 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#6D6D6D] transition hover:bg-[#F8F8F8] hover:text-[#14171F]">
                 {n.label}
               </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-1.5">
-            <Link to="/wishlist" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
+            <Link to="/wishlist" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] transition hover:bg-[#F8F8F8]">
               <Heart className="h-4.5 w-4.5" />
-              {wishlistItems.length > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5BA3CF] text-[0.4rem] font-bold text-white">{wishlistItems.length}</span>}
+              {wishlistItems.length > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#2C5A82] text-[0.4rem] font-bold text-white">{wishlistItems.length}</span>}
             </Link>
-            <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
+            <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] transition hover:bg-[#F8F8F8]">
               <ShoppingBag className="h-4.5 w-4.5" />
-              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#111111] text-[0.4rem] font-bold text-white">{cartCount}</span>}
+              {cartCount > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#14171F] text-[0.4rem] font-bold text-white">{cartCount}</span>}
             </Link>
-            <Link to="/orders" className="flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
+            <Link to="/orders" className="flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] transition hover:bg-[#F8F8F8]">
               <Package className="h-4.5 w-4.5" />
             </Link>
-            <button type="button" onClick={() => navigate("/messages")} className="flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
+            <button type="button" onClick={() => navigate("/messages")} className="flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] transition hover:bg-[#F8F8F8]">
               <MessageSquare className="h-4.5 w-4.5" />
             </button>
-            <button type="button" onClick={() => setShowNotifPanel(!showNotifPanel)} className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
+            <button type="button" onClick={() => setShowNotifPanel(!showNotifPanel)} className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] transition hover:bg-[#F8F8F8]">
               <Bell className="h-4.5 w-4.5" />
               {activity.length > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[0.4rem] font-bold text-white">{activity.length}</span>}
             </button>
             <div ref={userMenuRef} className="relative">
-              <button type="button" onClick={() => setShowUserMenu(!showUserMenu)} className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#111111] bg-[#F8F8F8] overflow-hidden text-[0.55rem] font-bold">
+              <button type="button" onClick={() => setShowUserMenu(!showUserMenu)} className="ml-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#14171F] bg-[#F8F8F8] overflow-hidden text-[0.55rem] font-bold">
                 {user?.name?.[0] ?? "U"}
               </button>
               <AnimatePresence>
@@ -200,7 +200,7 @@ export default function CustomerDashboard() {
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} className="absolute right-0 top-full mt-2 w-52 overflow-hidden rounded-2xl border border-black/[0.06] bg-white shadow-xl">
                     <div className="border-b border-black/[0.06] px-4 py-3">
                       <p className="text-sm font-bold truncate">{user?.name}</p>
-                      <p className="text-xs text-[#999] truncate">{user?.email}</p>
+                      <p className="text-xs text-[#909090] truncate">{user?.email}</p>
                     </div>
                     <div className="p-1.5">
                       {[
@@ -212,7 +212,7 @@ export default function CustomerDashboard() {
                         { label: "Open Seller Dashboard", icon: Store, link: "/seller" },
                         { label: "Help Center", icon: MessageSquare, link: "/contact" },
                       ].map((i) => (
-                        <Link key={i.label} to={i.link} onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-[#666666] transition hover:bg-[#F8F8F8] hover:text-[#111111]">
+                        <Link key={i.label} to={i.link} onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-[#6D6D6D] transition hover:bg-[#F8F8F8] hover:text-[#14171F]">
                           <i.icon className="h-4 w-4" /> {i.label}
                         </Link>
                       ))}
@@ -228,7 +228,7 @@ export default function CustomerDashboard() {
             </div>
           </div>
 
-          <button type="button" onClick={() => setShowMobileNav(!showMobileNav)} className="flex h-9 w-9 items-center justify-center rounded-full text-[#666666] lg:hidden">
+          <button type="button" onClick={() => setShowMobileNav(!showMobileNav)} className="flex h-9 w-9 items-center justify-center rounded-full text-[#6D6D6D] lg:hidden">
             <Menu className="h-5 w-5" />
           </button>
         </div>
@@ -245,14 +245,14 @@ export default function CustomerDashboard() {
               </div>
               <div className="p-3 space-y-1">
                 {["Shop", "Categories", "Stores", "Deals", "Shop All"].map((l) => (
-                  <Link key={l} to={l === "Shop All" ? "/shop" : l === "Stores" ? "/stores" : l === "Deals" ? "/shop?tag=sale" : "/shop"} onClick={() => setShowMobileNav(false)} className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-[#666666] transition hover:bg-[#F8F8F8] hover:text-[#111111]">
+                  <Link key={l} to={l === "Shop All" ? "/shop" : l === "Stores" ? "/stores" : l === "Deals" ? "/shop?tag=sale" : "/shop"} onClick={() => setShowMobileNav(false)} className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-[#6D6D6D] transition hover:bg-[#F8F8F8] hover:text-[#14171F]">
                     {l} <ChevronRight className="h-4 w-4" />
                   </Link>
                 ))}
               </div>
               <div className="border-t border-black/[0.06] p-3">
                 <Link to="/profile" onClick={() => setShowMobileNav(false)} className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition hover:bg-[#F8F8F8]">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] text-[#5BA3CF] text-[0.5rem] font-bold">{user?.name?.[0] ?? "U"}</div>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#14171F] text-[#2C5A82] text-[0.5rem] font-bold">{user?.name?.[0] ?? "U"}</div>
                   {user?.name ?? "Account"}
                 </Link>
               </div>
@@ -270,17 +270,17 @@ export default function CustomerDashboard() {
             <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-[#5BA3CF] text-lg font-black">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#14171F] text-[#2C5A82] text-lg font-black">
                     {user?.name?.[0] ?? "C"}
                   </div>
                   <div>
                     <h1 className="font-display text-2xl font-black tracking-[-0.04em] sm:text-3xl">
                       {greeting}, {user?.name?.split(" ")[0] ?? "Shopper"} 👋
                     </h1>
-                    <p className="mt-0.5 text-sm text-[#999]">{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
+                    <p className="mt-0.5 text-sm text-[#909090]">{new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
                   </div>
                 </div>
-                <p className="mt-3 text-base text-[#666666]">Discover today's newest fashion in Kigali.</p>
+                <p className="mt-3 text-base text-[#6D6D6D]">Discover today's newest fashion in Kigali.</p>
               </div>
 
               {/* Carousel */}
@@ -293,14 +293,14 @@ export default function CustomerDashboard() {
                       <p className="text-sm font-black text-white">{carouselSlides[carouselIdx].title}</p>
                       <p className="mt-0.5 text-xs text-white/80">{carouselSlides[carouselIdx].subtitle}</p>
                     </div>
-                    <Link to={carouselSlides[carouselIdx].link} className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[#111111] transition hover:bg-white">
+                    <Link to={carouselSlides[carouselIdx].link} className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[#14171F] transition hover:bg-white">
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </motion.div>
                 </AnimatePresence>
                 <div className="absolute bottom-2 left-4 flex gap-1.5">
                   {carouselSlides.map((_, i) => (
-                    <button key={i} type="button" onClick={() => setCarouselIdx(i)} className={cn("h-1.5 rounded-full transition", i === carouselIdx ? "w-5 bg-[#5BA3CF]" : "w-1.5 bg-white/60")} />
+                    <button key={i} type="button" onClick={() => setCarouselIdx(i)} className={cn("h-1.5 rounded-full transition", i === carouselIdx ? "w-5 bg-[#2C5A82]" : "w-1.5 bg-white/60")} />
                   ))}
                 </div>
               </div>
@@ -365,17 +365,17 @@ export default function CustomerDashboard() {
                             -{Math.round((1 - p.salePrice / p.price) * 100)}%
                           </div>
                         )}
-                        <div className="absolute top-2 right-2 rounded-full bg-[#5BA3CF]/90 px-2 py-0.5 text-[0.45rem] font-bold text-white flex items-center gap-1">
+                        <div className="absolute top-2 right-2 rounded-full bg-[#2C5A82]/90 px-2 py-0.5 text-[0.45rem] font-bold text-white flex items-center gap-1">
                           <Clock className="h-3 w-3" /> Limited
                         </div>
                       </Link>
                       <div className="p-3">
-                        <p className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-[#999]">{p.storeName}</p>
+                        <p className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{p.storeName}</p>
                         <p className="mt-0.5 text-sm font-bold truncate">{p.name}</p>
                         <div className="mt-1 flex items-center gap-2">
                           <span className="font-display text-base font-black">{formatRwf(p.salePrice ?? p.price)}</span>
                           {p.salePrice && p.originalPrice && (
-                            <span className="text-xs text-[#999] line-through">{formatRwf(p.originalPrice)}</span>
+                            <span className="text-xs text-[#909090] line-through">{formatRwf(p.originalPrice)}</span>
                           )}
                         </div>
                       </div>
@@ -412,15 +412,15 @@ export default function CustomerDashboard() {
                       </div>
                       <p className="mt-3 text-sm font-bold truncate">{s.name}</p>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
-                        <span className="text-xs text-[#666666]">{Number(s.rating).toFixed(1)}</span>
+                        <Star className="h-3 w-3 fill-[#2C5A82] text-[#2C5A82]" />
+                        <span className="text-xs text-[#6D6D6D]">{Number(s.rating).toFixed(1)}</span>
                       </div>
                       {s.verified && (
-                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#5BA3CF]/10 px-2.5 py-0.5 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">
+                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#2C5A82]/10 px-2.5 py-0.5 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#2C5A82]">
                           <Check className="h-3 w-3" /> Verified
                         </span>
                       )}
-                      <div className="mt-3 rounded-full border border-black/10 px-3 py-1.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#666666] transition group-hover:bg-[#111111] group-hover:text-white">
+                      <div className="mt-3 rounded-full border border-black/10 px-3 py-1.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#6D6D6D] transition group-hover:bg-[#14171F] group-hover:text-white">
                         Visit Store
                       </div>
                     </Link>
@@ -437,17 +437,17 @@ export default function CustomerDashboard() {
                     <Link key={o.id} to={`/orders/${o.id}`} className="flex items-center justify-between gap-4 border-b border-black/[0.06] px-5 py-4 transition hover:bg-[#F8F8F8] last:border-0">
                       <div className="flex items-center gap-4 min-w-0">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F8F8F8]">
-                          <Package className="h-5 w-5 text-[#666666]" />
+                          <Package className="h-5 w-5 text-[#6D6D6D]" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-bold truncate">Order #{o.id} · {o.storeName}</p>
-                          <p className="text-xs text-[#999]">{o.createdAt}</p>
+                          <p className="text-xs text-[#909090]">{o.createdAt}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 shrink-0">
                         <span className={cn("rounded-full border px-2.5 py-0.5 text-[0.45rem] font-bold uppercase tracking-[0.15em]", statusColors[o.status] ?? "")}>{o.status}</span>
                         <span className="font-display text-sm font-black">{formatRwf(o.total)}</span>
-                        <ChevronRight className="h-4 w-4 text-[#999]" />
+                        <ChevronRight className="h-4 w-4 text-[#909090]" />
                       </div>
                     </Link>
                   ))}
@@ -490,15 +490,15 @@ export default function CustomerDashboard() {
                         <div className="min-w-0">
                           <p className="text-sm font-bold truncate">{s.name}</p>
                           <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
-                            <span className="text-[0.55rem] text-[#666666]">{Number(s.rating).toFixed(1)}</span>
+                            <Star className="h-3 w-3 fill-[#2C5A82] text-[#2C5A82]" />
+                            <span className="text-[0.55rem] text-[#6D6D6D]">{Number(s.rating).toFixed(1)}</span>
                           </div>
                         </div>
                       </div>
-                      <p className="mt-3 text-[0.55rem] text-[#999] line-clamp-2">{s.bio}</p>
+                      <p className="mt-3 text-[0.55rem] text-[#909090] line-clamp-2">{s.bio}</p>
                       <div className="mt-3 flex items-center justify-between">
-                        {s.verified && <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">Verified</span>}
-                        <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#666666] group-hover:text-[#111111]">Follow +</span>
+                        {s.verified && <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#2C5A82]">Verified</span>}
+                        <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#6D6D6D] group-hover:text-[#14171F]">Follow +</span>
                       </div>
                     </Link>
                   ))}
@@ -513,53 +513,53 @@ export default function CustomerDashboard() {
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
               <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
                 <div>
-                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#999] mb-4">Company</p>
+                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#909090] mb-4">Company</p>
                   <div className="space-y-2.5">
                     {["About", "Contact", "Careers"].map((l) => (
-                      <Link key={l} to={`/${l.toLowerCase()}`} className="block text-sm font-bold text-[#666666] transition hover:text-[#111111]">{l}</Link>
+                      <Link key={l} to={`/${l.toLowerCase()}`} className="block text-sm font-bold text-[#6D6D6D] transition hover:text-[#14171F]">{l}</Link>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#999] mb-4">Shopping</p>
+                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#909090] mb-4">Shopping</p>
                   <div className="space-y-2.5">
                     {["Categories", "Stores", "Deals"].map((l) => (
-                      <Link key={l} to={`/${l.toLowerCase()}`} className="block text-sm font-bold text-[#666666] transition hover:text-[#111111]">{l}</Link>
+                      <Link key={l} to={`/${l.toLowerCase()}`} className="block text-sm font-bold text-[#6D6D6D] transition hover:text-[#14171F]">{l}</Link>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#999] mb-4">Support</p>
+                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#909090] mb-4">Support</p>
                   <div className="space-y-2.5">
                     {["Help Center", "Returns", "FAQs"].map((l) => (
-                      <Link key={l} to="#" className="block text-sm font-bold text-[#666666] transition hover:text-[#111111]">{l}</Link>
+                      <Link key={l} to="#" className="block text-sm font-bold text-[#6D6D6D] transition hover:text-[#14171F]">{l}</Link>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#999] mb-4">Legal</p>
+                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#909090] mb-4">Legal</p>
                   <div className="space-y-2.5">
                     {["Privacy Policy", "Terms", "Cookies"].map((l) => (
-                      <Link key={l} to="#" className="block text-sm font-bold text-[#666666] transition hover:text-[#111111]">{l}</Link>
+                      <Link key={l} to="#" className="block text-sm font-bold text-[#6D6D6D] transition hover:text-[#14171F]">{l}</Link>
                     ))}
                   </div>
                 </div>
                 <div className="col-span-2 sm:col-span-3 lg:col-span-1">
-                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#999] mb-4">Stay Connected</p>
+                  <p className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#909090] mb-4">Stay Connected</p>
                   <div className="flex gap-2 mb-4">
                     {["IG", "FB", "TT", "X"].map((s) => (
-                      <Link key={s} to="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-black/10 text-[0.5rem] font-bold transition hover:bg-[#111111] hover:text-white">{s}</Link>
+                      <Link key={s} to="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-white border border-black/10 text-[0.5rem] font-bold transition hover:bg-[#14171F] hover:text-white">{s}</Link>
                     ))}
                   </div>
-                  <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#666666] mb-2">Newsletter</p>
+                  <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#6D6D6D] mb-2">Newsletter</p>
                   <div className="flex">
-                    <input placeholder="Your email" className="h-10 flex-1 rounded-l-full border border-black/10 bg-white px-4 text-sm outline-none transition focus:border-[#5BA3CF]" />
-                    <button type="button" className="flex h-10 items-center rounded-r-full bg-[#111111] px-4 text-[0.5rem] font-bold text-white tracking-[0.15em] uppercase transition hover:bg-[#333]">Subscribe</button>
+                    <input placeholder="Your email" className="h-10 flex-1 rounded-l-full border border-black/10 bg-white px-4 text-sm outline-none transition focus:border-[#2C5A82]" />
+                    <button type="button" className="flex h-10 items-center rounded-r-full bg-[#14171F] px-4 text-[0.5rem] font-bold text-white tracking-[0.15em] uppercase transition hover:bg-[#333]">Subscribe</button>
                   </div>
                 </div>
               </div>
               <div className="mt-10 border-t border-black/[0.06] pt-6 text-center">
-                <p className="text-[0.55rem] text-[#999]">&copy; {new Date().getFullYear()} GIHANGA MARKET. All rights reserved.</p>
+                <p className="text-[0.55rem] text-[#909090]">&copy; {new Date().getFullYear()} GIHANGA MARKET. All rights reserved.</p>
               </div>
             </div>
           </footer>
@@ -572,32 +572,32 @@ export default function CustomerDashboard() {
               <div className="w-80">
                 <div className="flex items-center justify-between border-b border-black/[0.06] px-5 py-4">
                   <p className="text-xs font-black uppercase tracking-[0.2em]">Activity</p>
-                  <button type="button" onClick={() => setShowNotifPanel(false)}><X className="h-4 w-4 text-[#999]" /></button>
+                  <button type="button" onClick={() => setShowNotifPanel(false)}><X className="h-4 w-4 text-[#909090]" /></button>
                 </div>
                 <div className="p-4 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto">
                   {activity.length === 0 ? (
-                    <p className="py-8 text-center text-sm text-[#999]">No recent activity.</p>
+                    <p className="py-8 text-center text-sm text-[#909090]">No recent activity.</p>
                   ) : (
                     activity.slice(0, 8).map((a, i) => (
                       <div key={i} className="flex items-start gap-3 rounded-xl bg-[#F8F8F8] p-3">
-                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#5BA3CF]" : "bg-[#5BA3CF]")} />
+                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#2C5A82]" : "bg-[#2C5A82]")} />
                         <div className="min-w-0">
                           <p className="text-xs font-bold">{a.message as string}</p>
-                          <p className="text-[0.5rem] text-[#999] mt-0.5">{a.created_at as string}</p>
+                          <p className="text-[0.5rem] text-[#909090] mt-0.5">{a.created_at as string}</p>
                         </div>
                       </div>
                     ))
                   )}
                   {pendingOrders.length > 0 && (
                     <div className="rounded-xl border border-black/[0.06] p-3">
-                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#5BA3CF] mb-2">Active Deliveries</p>
+                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#2C5A82] mb-2">Active Deliveries</p>
                       <p className="text-xs font-bold">{pendingOrders.length} order{pendingOrders.length > 1 ? "s" : ""} in progress</p>
-                      <Link to="/orders" className="mt-2 inline-flex text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Track now <ChevronRight className="h-3 w-3" /></Link>
+                      <Link to="/orders" className="mt-2 inline-flex text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#14171F]">Track now <ChevronRight className="h-3 w-3" /></Link>
                     </div>
                   )}
                   {flashDeals.length > 0 && (
-                    <div className="rounded-xl border border-[#5BA3CF]/20 bg-[#5BA3CF]/5 p-3">
-                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#5BA3CF] mb-2">Flash Deals</p>
+                    <div className="rounded-xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-3">
+                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#2C5A82] mb-2">Flash Deals</p>
                       <p className="text-xs font-bold">{flashDeals.length} deals ending soon</p>
                     </div>
                   )}
@@ -620,15 +620,15 @@ export default function CustomerDashboard() {
           item.link ? (
             <Link key={item.label} to={item.link} className="flex flex-col items-center gap-0.5 px-3 py-1">
               <div className="relative">
-                <item.icon className="h-5 w-5 text-[#999]" />
-                {item.count ? <span className="absolute -right-1.5 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#111111] text-[0.35rem] font-bold text-white">{item.count}</span> : null}
+                <item.icon className="h-5 w-5 text-[#909090]" />
+                {item.count ? <span className="absolute -right-1.5 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#14171F] text-[0.35rem] font-bold text-white">{item.count}</span> : null}
               </div>
-              <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em] text-[#999]">{item.label}</span>
+              <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{item.label}</span>
             </Link>
           ) : (
             <button key={item.label} type="button" onClick={item.action} className="flex flex-col items-center gap-0.5 px-3 py-1">
-              <item.icon className="h-5 w-5 text-[#999]" />
-              <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em] text-[#999]">{item.label}</span>
+              <item.icon className="h-5 w-5 text-[#909090]" />
+              <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{item.label}</span>
             </button>
           )
         ))}
@@ -644,10 +644,10 @@ function Section({ title, subtitle, link, children }: { title: string; subtitle?
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="font-display text-xl font-black tracking-[-0.04em]">{title}</h2>
-          {subtitle && <p className="mt-0.5 text-sm text-[#999]">{subtitle}</p>}
+          {subtitle && <p className="mt-0.5 text-sm text-[#909090]">{subtitle}</p>}
         </div>
         {link && (
-          <Link to={link} className="flex items-center gap-1 text-xs font-bold text-[#666666] transition hover:text-[#111111]">
+          <Link to={link} className="flex items-center gap-1 text-xs font-bold text-[#6D6D6D] transition hover:text-[#14171F]">
             View all <ChevronRight className="h-3.5 w-3.5" />
           </Link>
         )}
@@ -703,7 +703,7 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
             </div>
           )}
           {product.tag && !discount && (
-            <div className="absolute top-2 left-2 rounded-full bg-[#5BA3CF] px-2.5 py-0.5 text-[0.45rem] font-bold text-white">
+            <div className="absolute top-2 left-2 rounded-full bg-[#2C5A82] px-2.5 py-0.5 text-[0.45rem] font-bold text-white">
               {product.tag}
             </div>
           )}
@@ -714,28 +714,28 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
       {/* Hover actions */}
       <div className="absolute right-2 top-2 flex flex-col gap-1.5 opacity-0 transition group-hover:opacity-100">
         <button type="button" onClick={(e) => { e.preventDefault(); onWishlist(product); }} className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-lg transition hover:bg-white">
-          <Heart className={cn("h-4 w-4", isWishlisted ? "fill-red-500 text-red-500" : "text-[#666666]")} />
+          <Heart className={cn("h-4 w-4", isWishlisted ? "fill-red-500 text-red-500" : "text-[#6D6D6D]")} />
         </button>
         <button type="button" onClick={(e) => { e.preventDefault(); setShowQuickView(true); }} className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-lg transition hover:bg-white">
-          <Eye className="h-4 w-4 text-[#666666]" />
+          <Eye className="h-4 w-4 text-[#6D6D6D]" />
         </button>
       </div>
 
       <div className="mt-2.5 px-0.5">
-        <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#999]">{product.storeName}</p>
+        <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{product.storeName}</p>
         <p className="mt-0.5 text-sm font-bold truncate">{product.name}</p>
         <div className="mt-1 flex items-center gap-1">
-          <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
-          <span className="text-[0.6rem] text-[#666666]">{product.rating.toFixed(1)}</span>
-          <span className="text-[0.5rem] text-[#999]">({product.reviews})</span>
+          <Star className="h-3 w-3 fill-[#2C5A82] text-[#2C5A82]" />
+          <span className="text-[0.6rem] text-[#6D6D6D]">{product.rating.toFixed(1)}</span>
+          <span className="text-[0.5rem] text-[#909090]">({product.reviews})</span>
         </div>
         <div className="mt-1.5 flex items-center gap-2">
           <span className="font-display text-base font-black">{formatRwf(product.price)}</span>
           {product.originalPrice && product.originalPrice > product.price && (
-            <span className="text-xs text-[#999] line-through">{formatRwf(product.originalPrice)}</span>
+            <span className="text-xs text-[#909090] line-through">{formatRwf(product.originalPrice)}</span>
           )}
         </div>
-        <button type="button" onClick={(e) => { e.preventDefault(); onAddToCart(); }} className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-full bg-[#111111] py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
+        <button type="button" onClick={(e) => { e.preventDefault(); onAddToCart(); }} className="mt-2.5 flex w-full items-center justify-center gap-2 rounded-full bg-[#14171F] py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
           <ShoppingBag className="h-3.5 w-3.5" /> Add to Cart
         </button>
       </div>
@@ -751,29 +751,29 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
               <div className="flex w-full flex-col justify-center p-6 sm:w-1/2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#999]">{product.storeName}</p>
+                    <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{product.storeName}</p>
                     <h3 className="mt-1 font-display text-xl font-black tracking-[-0.04em]">{product.name}</h3>
                   </div>
-                  <button type="button" onClick={() => setShowQuickView(false)}><X className="h-5 w-5 text-[#999]" /></button>
+                  <button type="button" onClick={() => setShowQuickView(false)}><X className="h-5 w-5 text-[#909090]" /></button>
                 </div>
                 <div className="mt-3 flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className={cn("h-4 w-4", s <= Math.round(product.rating) ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />
+                    <Star key={s} className={cn("h-4 w-4", s <= Math.round(product.rating) ? "fill-[#2C5A82] text-[#2C5A82]" : "text-[#ddd]")} />
                   ))}
-                  <span className="ml-1 text-sm text-[#666666]">{product.rating.toFixed(1)} ({product.reviews})</span>
+                  <span className="ml-1 text-sm text-[#6D6D6D]">{product.rating.toFixed(1)} ({product.reviews})</span>
                 </div>
-                <p className="mt-3 text-sm text-[#666666] line-clamp-3">{product.description}</p>
+                <p className="mt-3 text-sm text-[#6D6D6D] line-clamp-3">{product.description}</p>
                 <div className="mt-4 flex items-center gap-3">
                   <span className="font-display text-2xl font-black">{formatRwf(product.price)}</span>
                   {product.originalPrice && product.originalPrice > product.price && (
-                    <span className="text-sm text-[#999] line-through">{formatRwf(product.originalPrice)}</span>
+                    <span className="text-sm text-[#909090] line-through">{formatRwf(product.originalPrice)}</span>
                   )}
                 </div>
                 <div className="mt-6 flex gap-2">
                   <Link to={`/product/${product.slug}`} onClick={() => setShowQuickView(false)} className="flex-1 rounded-full border border-black/10 py-3 text-center text-[0.5rem] font-bold uppercase tracking-[0.15em] transition hover:bg-[#F8F8F8]">
                     View Details
                   </Link>
-                  <button type="button" onClick={() => { onAddToCart(); setShowQuickView(false); }} className="flex-1 rounded-full bg-[#111111] py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
+                  <button type="button" onClick={() => { onAddToCart(); setShowQuickView(false); }} className="flex-1 rounded-full bg-[#14171F] py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
                     Add to Cart
                   </button>
                 </div>

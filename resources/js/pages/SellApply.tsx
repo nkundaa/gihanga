@@ -132,7 +132,7 @@ export default function SellApply() {
     `min-h-12 w-full rounded-xl border px-4 py-3 text-sm outline-none transition ${
       touched[id] && errors[id]
         ? "border-red-400 focus:border-red-500"
-        : "border-black/10 focus:border-[#5BA3CF]"
+        : "border-black/10 focus:border-[#2C5A82]"
     } bg-white`;
 
   const labelCls = "mb-1.5 block text-[10px] font-black uppercase tracking-[0.24em] text-[#888888]";
@@ -182,7 +182,7 @@ export default function SellApply() {
 
   const renderCheckbox = (id: string, label: string) => (
     <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#555] min-h-12 py-2">
-      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-5 w-5 shrink-0 rounded border-black/20 accent-[#5BA3CF]" />
+      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-5 w-5 shrink-0 rounded border-black/20 accent-[#2C5A82]" />
       <span>{label}</span>
     </label>
   );
@@ -192,8 +192,8 @@ export default function SellApply() {
     return (
       <div>
         <label className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <label htmlFor={id} className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed px-4 py-5 text-sm transition ${touched[id] && errors[id] ? "border-red-400 bg-red-50" : "border-black/15 bg-white hover:border-[#5BA3CF] hover:bg-[#5BA3CF]/5"}`}>
-          <span className="shrink-0 text-[#5BA3CF]">{icon}</span>
+        <label htmlFor={id} className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed px-4 py-5 text-sm transition ${touched[id] && errors[id] ? "border-red-400 bg-red-50" : "border-black/15 bg-white hover:border-[#2C5A82] hover:bg-[#2C5A82]/5"}`}>
+          <span className="shrink-0 text-[#2C5A82]">{icon}</span>
           <span className="text-[#888]">{fileNames[id] || "Click to upload"}</span>
           {fileNames[id] ? <CheckCircle2 className="ml-auto h-4 w-4 shrink-0 text-green-500" /> : null}
         </label>
@@ -204,17 +204,17 @@ export default function SellApply() {
   };
 
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
-      <section className="relative overflow-hidden bg-[#111111] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
+      <section className="relative overflow-hidden bg-[#14171F] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.22),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.18),transparent_32%)]" />
-        <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#5BA3CF]/20" />
+        <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#2C5A82]/20" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
-          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
+          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
             <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4" /> KYC/KYB verification
           </p>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.08em] sm:mt-6">
-            Apply to sell on <span className="font-editorial normal-case text-[#5BA3CF]">GIHANGA</span>
+            Apply to sell on <span className="font-editorial normal-case text-[#2C5A82]">GIHANGA</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
             Three-step registration. Set up your store, add your mobile money payout details, and complete KYC verification.
@@ -225,45 +225,45 @@ export default function SellApply() {
       <section id="form" className="px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-4xl text-center" data-reveal>
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">
+            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">
               <ShieldCheck className="mr-1.5 inline h-3.5 w-3.5" /> KYC/KYB verification
             </p>
             <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">
-              Verify to <span className="font-editorial text-[#5BA3CF]">sell</span>
+              Verify to <span className="font-editorial text-[#2C5A82]">sell</span>
             </h2>
           </div>
 
           <div className="mx-auto mt-14 max-w-3xl" data-reveal>
             {submitted ? (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6 text-center sm:p-12">
+              <div className="rounded-[2rem] border border-black/[0.08] bg-[#FAF9F5] p-6 text-center sm:p-12">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                   <CheckCircle2 className="h-8 w-8 text-green-600" />
                 </div>
-                <p className="mt-5 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Application submitted for <span className="text-[#5BA3CF]">{form.storeName as string}</span></p>
-                <p className="mt-2 text-[#666666]">A verification email has been sent to <b>{form.email as string}</b></p>
+                <p className="mt-5 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Application submitted for <span className="text-[#2C5A82]">{form.storeName as string}</span></p>
+                <p className="mt-2 text-[#6D6D6D]">A verification email has been sent to <b>{form.email as string}</b></p>
                 <p className="mt-1 text-sm text-[#888]">We will verify your documents and contact you within 2 business days.</p>
                 <div className="mx-auto mt-8 h-px max-w-xs bg-black/[0.06]" />
                 <div className="mt-6 grid gap-3 text-left text-sm sm:grid-cols-3">
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Name</dt><dd className="mt-1 font-bold">{form.fullName as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Store</dt><dd className="mt-1 font-bold">{form.storeName as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Phone</dt><dd className="mt-1 font-bold">{form.phone as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6D6D6D]">Name</dt><dd className="mt-1 font-bold">{form.fullName as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6D6D6D]">Store</dt><dd className="mt-1 font-bold">{form.storeName as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6D6D6D]">Phone</dt><dd className="mt-1 font-bold">{form.phone as string}</dd></div>
                 </div>
                 <div className="mx-auto mt-3 grid max-w-xs gap-3 text-left text-sm sm:grid-cols-2">
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Payment</dt><dd className="mt-1 font-bold">{form.paymentNumber as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Provider</dt><dd className="mt-1 font-bold capitalize">{form.paymentProvider as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6D6D6D]">Payment</dt><dd className="mt-1 font-bold">{form.paymentNumber as string}</dd></div>
+                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6D6D6D]">Provider</dt><dd className="mt-1 font-bold capitalize">{form.paymentProvider as string}</dd></div>
                 </div>
-                <button onClick={resetForm} className="mt-6 min-h-11 text-xs font-black uppercase tracking-[0.2em] text-[#5BA3CF] underline underline-offset-4 transition hover:text-[#111]">Submit another</button>
+                <button onClick={resetForm} className="mt-6 min-h-11 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82] underline underline-offset-4 transition hover:text-[#14171F]">Submit another</button>
               </div>
             ) : (
               <div className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
                 <div className="border-b border-black/[0.06] px-6 py-5 sm:px-10">
                   <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#999]">Step {step + 1} of {totalSteps}</p>
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#5BA3CF]">{Math.round(((step + 1) / totalSteps) * 100)}%</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#909090]">Step {step + 1} of {totalSteps}</p>
+                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#2C5A82]">{Math.round(((step + 1) / totalSteps) * 100)}%</p>
                   </div>
                   <div className="mt-3 flex gap-1.5">
                     {Array.from({ length: totalSteps }).map((_, i) => (
-                      <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-[#5BA3CF]" : "bg-black/[0.08]"}`} />
+                      <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-[#2C5A82]" : "bg-black/[0.08]"}`} />
                     ))}
                   </div>
                 </div>
@@ -271,8 +271,8 @@ export default function SellApply() {
                 <form onSubmit={(e) => e.preventDefault()} noValidate className="p-6 sm:p-10">
                   {step === 0 && <div>
                     <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5BA3CF] text-xs font-black text-[#111]">01</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#5BA3CF]"><User className="h-3.5 w-3.5" /> Contact &amp; Store</span>
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#14171F]">01</span>
+                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><User className="h-3.5 w-3.5" /> Contact &amp; Store</span>
                     </div>
                     <div className="mt-6 space-y-5">
                       <div className="grid gap-5 sm:grid-cols-2">
@@ -289,10 +289,10 @@ export default function SellApply() {
 
                   {step === 1 && <div>
                     <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5BA3CF] text-xs font-black text-[#111]">02</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#5BA3CF]"><Smartphone className="h-3.5 w-3.5" /> Mobile Money Payout</span>
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#14171F]">02</span>
+                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><Smartphone className="h-3.5 w-3.5" /> Mobile Money Payout</span>
                     </div>
-                    <p className="mt-4 text-sm leading-6 text-[#666666]">Set up your mobile money payout details. This is where you will receive payments from customer orders.</p>
+                    <p className="mt-4 text-sm leading-6 text-[#6D6D6D]">Set up your mobile money payout details. This is where you will receive payments from customer orders.</p>
                     <div className="mt-6 space-y-5">
                       {renderField("paymentNumber", "Mobile Money Number", { type: "tel", placeholder: "+250 7XX XXX XXX" })}
                       {renderSelect("paymentProvider", "Mobile Money Provider", [
@@ -306,8 +306,8 @@ export default function SellApply() {
 
                   {step === 2 && <div>
                     <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5BA3CF] text-xs font-black text-[#111]">03</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#5BA3CF]"><ShieldCheck className="h-3.5 w-3.5" /> KYC/KYB Verification</span>
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#14171F]">03</span>
+                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><ShieldCheck className="h-3.5 w-3.5" /> KYC/KYB Verification</span>
                     </div>
                     <div className="mt-6 space-y-5">
                       <div className="grid gap-5 sm:grid-cols-2">
@@ -330,12 +330,12 @@ export default function SellApply() {
 
                   <div className="mt-10 flex items-center justify-between border-t border-black/[0.06] pt-8">
                     {step > 0 ? (
-                      <button type="button" onClick={handleBack} className="flex min-h-11 items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#666] transition hover:text-[#111]">
+                      <button type="button" onClick={handleBack} className="flex min-h-11 items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#6D6D6D] transition hover:text-[#14171F]">
                         ← Back
                       </button>
                     ) : <div />}
                     {step < totalSteps - 1 ? (
-                      <button type="button" onClick={handleNext} className="min-h-12 rounded-full bg-[#5BA3CF] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
+                      <button type="button" onClick={handleNext} className="min-h-12 rounded-full bg-[#2C5A82] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#14171F] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
                         Next step →
                       </button>
                     ) : (

@@ -47,18 +47,18 @@ const plans = [
 
 export default function Plans() {
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
       <Seo title="Plans - Gihanga Market" path="/plans" description="Choose the right plan for your fashion store on GIHANGA marketplace. Start selling in Kigali today." />
-      <section className="relative overflow-hidden bg-[#111111] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#14171F] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(191,215,241,0.18),transparent_32%),radial-gradient(circle_at_20%_80%,rgba(255,213,234,0.12),transparent_32%)]" />
-        <div aria-hidden className="luxury-orb left-[5%] top-[15%] h-80 w-80 bg-[#5BA3CF]/15" />
+        <div aria-hidden className="luxury-orb left-[5%] top-[15%] h-80 w-80 bg-[#2C5A82]/15" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
-          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
+          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
             <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" /> Pricing plans
           </p>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.08em] sm:mt-6">
-            Choose your <span className="font-editorial normal-case text-[#5BA3CF]">plan</span>
+            Choose your <span className="font-editorial normal-case text-[#2C5A82]">plan</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
             Start free and scale as you grow. No hidden fees, no long-term contracts.
@@ -69,23 +69,23 @@ export default function Plans() {
       <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mx-auto max-w-3xl text-center" data-reveal>
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Plans</p>
-            <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Pricing that <span className="font-editorial text-[#5BA3CF]">grows</span> with you.</h2>
-            <p className="mt-5 text-base leading-7 text-[#666]">All plans include identity verification, fraud protection, and secure payouts.</p>
+            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">Plans</p>
+            <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Pricing that <span className="font-editorial text-[#2C5A82]">grows</span> with you.</h2>
+            <p className="mt-5 text-base leading-7 text-[#6D6D6D]">All plans include identity verification, fraud protection, and secure payouts.</p>
           </div>
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {plans.map((p) => (
-              <article key={p.name} data-reveal className={`relative rounded-[2.4rem] p-7 transition hover:-translate-y-1 sm:p-8 ${p.featured ? "bg-[#111111] text-white shadow-[0_30px_110px_rgba(0,0,0,0.18)]" : "border border-black/[0.08] bg-white"}`}>
-                {p.featured ? <span className="absolute right-5 top-5 rounded-full bg-[#5BA3CF] px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-[#111]">Most popular</span> : null}
+              <article key={p.name} data-reveal className={`relative rounded-[2.4rem] p-7 transition hover:-translate-y-1 sm:p-8 ${p.featured ? "bg-[#14171F] text-white shadow-[0_30px_110px_rgba(0,0,0,0.18)]" : "border border-black/[0.08] bg-white"}`}>
+                {p.featured ? <span className="absolute right-5 top-5 rounded-full bg-[#2C5A82] px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-[#14171F]">Most popular</span> : null}
                 <p className="text-2xl">{p.emoji}</p>
-                <p className={`mt-3 text-xs font-black uppercase tracking-[0.28em] ${p.featured ? "text-[#5BA3CF]" : "text-[#666]"}`}>{p.name}</p>
+                <p className={`mt-3 text-xs font-black uppercase tracking-[0.28em] ${p.featured ? "text-[#2C5A82]" : "text-[#6D6D6D]"}`}>{p.name}</p>
                 <p className="mt-4 font-display text-3xl font-black tracking-[-0.06em] sm:text-4xl">{p.price}</p>
-                <p className={`mt-1 text-sm ${p.featured ? "text-white/70" : "text-[#666]"}`}>{p.note}</p>
-                <p className={`mt-6 rounded-xl px-3 py-1.5 text-center text-xs font-black uppercase tracking-[0.18em] ${p.featured ? "bg-white/10 text-[#5BA3CF]" : "bg-[#F0F4F8] text-[#555]"}`}>{p.highlight}</p>
+                <p className={`mt-1 text-sm ${p.featured ? "text-white/70" : "text-[#6D6D6D]"}`}>{p.note}</p>
+                <p className={`mt-6 rounded-xl px-3 py-1.5 text-center text-xs font-black uppercase tracking-[0.18em] ${p.featured ? "bg-white/10 text-[#2C5A82]" : "bg-[#F0F4F8] text-[#555]"}`}>{p.highlight}</p>
                 <ul className="mt-6 space-y-2.5 text-sm">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2.5">
-                      <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${p.featured ? "text-[#5BA3CF]" : "text-[#111]"}`} />
+                      <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${p.featured ? "text-[#2C5A82]" : "text-[#14171F]"}`} />
                       <span className={p.featured ? "text-white/85" : "text-[#555]"}>{f}</span>
                     </li>
                   ))}
@@ -101,10 +101,10 @@ export default function Plans() {
 
 
 
-      <section className="bg-[#111111] px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-[#14171F] px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-black leading-[0.9] tracking-[-0.06em] text-white">
-            Ready to start <span className="font-editorial text-[#5BA3CF]">selling</span>?
+            Ready to start <span className="font-editorial text-[#2C5A82]">selling</span>?
           </h2>
           <p className="mt-5 text-base leading-7 text-white/70">Join Kigali's premium fashion marketplace. Get verified in minutes.</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -28,15 +28,15 @@ const featuredProduct = products[0];
 
 export default function Editorial() {
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
       <Seo title="Editorial - Gihanga Market" path="/editorial" description="Fashion editorial and style inspiration from GIHANGA, Rwanda's premium fashion marketplace." />
-      <section className="relative overflow-hidden bg-[#111111] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#14171F] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(191,215,241,0.18),transparent_40%),radial-gradient(circle_at_50%_70%,rgba(255,213,234,0.12),transparent_40%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
           <Eyebrow className="text-white/80">Visual storytelling</Eyebrow>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,8rem)] font-black uppercase leading-[0.88] tracking-[-0.08em] sm:mt-6">
-            The <span className="font-editorial normal-case text-[#5BA3CF]">editorial</span><br /><span className="text-stroke text-white">lookbook</span>.
+            The <span className="font-editorial normal-case text-[#2C5A82]">editorial</span><br /><span className="text-stroke text-white">lookbook</span>.
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-7 text-white/70 sm:mt-6 sm:text-lg sm:leading-8">
             Curated visual stories from Kigali's fashion scene. Discover new drops, seasonal inspirations and boutique stories.
@@ -66,7 +66,7 @@ export default function Editorial() {
                   <img src={entry.image} alt={entry.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Editorial</p>
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">Editorial</p>
                     <h2 className="mt-2 font-display text-[clamp(1.1rem,3vw,1.5rem)] font-black leading-tight tracking-[-0.04em]">{entry.title}</h2>
                     <p className="mt-2 text-sm text-white/80">{entry.subtitle}</p>
                   </div>
@@ -81,22 +81,22 @@ export default function Editorial() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Featured boutique</p>
-              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Behind the <span className="font-editorial text-[#5BA3CF]">atelier</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">Featured boutique</p>
+              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Behind the <span className="font-editorial text-[#2C5A82]">atelier</span></h2>
             </div>
             <Link to={`/store/${featuredStore.slug}`} className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Visit {featuredStore.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </Link>
           </div>
-          <div data-reveal className="grid overflow-hidden rounded-[2.8rem] border border-black/[0.08] bg-[#F8F9FA] shadow-[0_30px_110px_rgba(0,0,0,0.08)] lg:grid-cols-[1.1fr_0.9fr]">
+          <div data-reveal className="grid overflow-hidden rounded-[2.8rem] border border-black/[0.08] bg-[#FAF9F5] shadow-[0_30px_110px_rgba(0,0,0,0.08)] lg:grid-cols-[1.1fr_0.9fr]">
             <div className="relative min-h-[16rem] overflow-hidden sm:min-h-[20rem]">
               <img src={featuredStore.cover} alt={featuredStore.name} className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
             <div className="flex flex-col justify-center p-6 sm:p-12">
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">{featuredStore.category} · {featuredStore.location}</p>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">{featuredStore.category} · {featuredStore.location}</p>
               <h3 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[0.9] tracking-[-0.06em]">{featuredStore.name}</h3>
-              <p className="mt-4 text-[#666666] leading-relaxed">{featuredStore.bio}</p>
+              <p className="mt-4 text-[#6D6D6D] leading-relaxed">{featuredStore.bio}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <MagneticButton to={`/store/${featuredStore.slug}`} variant="primary" className="min-h-12 px-6 py-3 text-sm">Visit boutique</MagneticButton>
                 <MagneticButton to={`/product/${featuredProduct.slug}`} variant="secondary" className="min-h-12 px-6 py-3 text-sm">Featured piece</MagneticButton>
@@ -106,12 +106,12 @@ export default function Editorial() {
         </div>
       </section>
 
-      <section className="overflow-x-hidden bg-[#F8F9FA] px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
+      <section className="overflow-x-hidden bg-[#FAF9F5] px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">From the edit</p>
-              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Curated <span className="font-editorial text-[#5BA3CF]">pieces</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">From the edit</p>
+              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Curated <span className="font-editorial text-[#2C5A82]">pieces</span></h2>
             </div>
             <Link to="/shop" className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Shop all <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -123,11 +123,11 @@ export default function Editorial() {
         </div>
       </section>
 
-      <section className="overflow-x-hidden bg-[#111111] px-4 py-12 text-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
+      <section className="overflow-x-hidden bg-[#14171F] px-4 py-12 text-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl text-center">
-          <Sparkles className="mx-auto h-8 w-8 text-[#5BA3CF]" />
+          <Sparkles className="mx-auto h-8 w-8 text-[#2C5A82]" />
           <h2 className="mt-6 font-display text-[clamp(1.5rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">
-            New drops every <span className="font-editorial text-[#5BA3CF]">Thursday</span>.
+            New drops every <span className="font-editorial text-[#2C5A82]">Thursday</span>.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-white/70">
             The Kigali edit lands weekly. Sign up for the newsletter to get first access to new collections, exclusive drops and boutique stories.

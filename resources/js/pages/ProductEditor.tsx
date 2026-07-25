@@ -243,18 +243,18 @@ export default function ProductEditor() {
   const tabContent = useMemo(() => {
     const inp = (key: string, label: string, opts?: { type?: string; placeholder?: string; maxLength?: number; rows?: number; required?: boolean; className?: string }) => (
       <div className={cn("flex flex-col gap-1.5", opts?.className)}>
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{label}{opts?.required ? " *" : ""}</label>
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">{label}{opts?.required ? " *" : ""}</label>
         {opts?.rows ? (
-          <textarea value={form[key] as string} onChange={(e) => set(key, e.target.value)} rows={opts.rows} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-24 w-full resize-y rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
+          <textarea value={form[key] as string} onChange={(e) => set(key, e.target.value)} rows={opts.rows} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-24 w-full resize-y rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" />
         ) : (
-          <input type={opts?.type ?? "text"} value={form[key] as string} onChange={(e) => set(key, opts?.type === "number" ? e.target.value : e.target.value)} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+          <input type={opts?.type ?? "text"} value={form[key] as string} onChange={(e) => set(key, opts?.type === "number" ? e.target.value : e.target.value)} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
         )}
       </div>
     );
     const sel = (key: string, label: string, options: { value: string; label: string }[]) => (
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{label}</label>
-        <select value={form[key] as string} onChange={(e) => set(key, e.target.value)} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">{label}</label>
+        <select value={form[key] as string} onChange={(e) => set(key, e.target.value)} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
           {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
@@ -269,20 +269,20 @@ export default function ProductEditor() {
             <div className="grid grid-cols-2 gap-4">
               {sel("category_id", "Category", [{ value: "", label: "Select category" }, ...categories.map((c) => ({ value: String(c.id), label: c.title }))])}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Brand</label>
+                <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Brand</label>
                 <div className="flex gap-2">
-                  <select value={form.brand_id as string} onChange={(e) => set("brand_id", e.target.value)} className="min-h-11 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+                  <select value={form.brand_id as string} onChange={(e) => set("brand_id", e.target.value)} className="min-h-11 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
                     <option value="">Select brand</option>
                     {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
                   </select>
-                  <button type="button" onClick={() => setShowNewBrand(!showNewBrand)} className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 bg-white text-[#666666] hover:bg-[#F8F9FA]">
+                  <button type="button" onClick={() => setShowNewBrand(!showNewBrand)} className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 bg-white text-[#6D6D6D] hover:bg-[#FAF9F5]">
                     <Plus className="h-4 w-4" />
                   </button>
                 </div>
                 {showNewBrand && (
                   <div className="flex gap-2 mt-2">
-                    <input value={newBrandName} onChange={(e) => setNewBrandName(e.target.value)} placeholder="New brand name" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddBrand())} />
-                    <button type="button" onClick={handleAddBrand} className="rounded-full bg-[#111111] px-4 text-xs font-bold text-white">Add</button>
+                    <input value={newBrandName} onChange={(e) => setNewBrandName(e.target.value)} placeholder="New brand name" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddBrand())} />
+                    <button type="button" onClick={handleAddBrand} className="rounded-full bg-[#14171F] px-4 text-xs font-bold text-white">Add</button>
                   </div>
                 )}
               </div>
@@ -290,16 +290,16 @@ export default function ProductEditor() {
             {inp("short_description", "Short Description (shown in search)", { placeholder: "Brief product summary…", maxLength: 300, rows: 2 })}
             {inp("full_description", "Full Description", { placeholder: "Detailed product description…", rows: 6 })}
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Tags</label>
+              <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Tags</label>
               <div className="flex flex-wrap gap-2">
                 {(form.tags as string[]).map((t) => (
-                  <span key={t} className="inline-flex items-center gap-1 rounded-full bg-[#F8F9FA] px-3 py-1 text-xs font-bold">
+                  <span key={t} className="inline-flex items-center gap-1 rounded-full bg-[#FAF9F5] px-3 py-1 text-xs font-bold">
                     {t} <button type="button" onClick={() => removeTag(t)}><X className="h-3 w-3" /></button>
                   </span>
                 ))}
               </div>
               <div className="flex gap-2">
-                <input value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Type and press Enter" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTag())} />
+                <input value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Type and press Enter" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTag())} />
                 <button type="button" onClick={addTag} className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10"><Plus className="h-4 w-4" /></button>
               </div>
             </div>
@@ -309,7 +309,7 @@ export default function ProductEditor() {
         {activeTab === "media" && (
           <div className="space-y-5">
             <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Product Images (JPEG, PNG, WEBP — max 10MB each)</label>
+              <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Product Images (JPEG, PNG, WEBP — max 10MB each)</label>
               <div className="flex flex-wrap gap-3">
                 {(form.images as string[]).map((img, i) => (
                   <div key={i} className="group relative h-24 w-24 overflow-hidden rounded-2xl border border-black/10">
@@ -317,7 +317,7 @@ export default function ProductEditor() {
                     <button type="button" onClick={() => set("images", (form.images as string[]).filter((_: string, idx: number) => idx !== i))} className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition group-hover:opacity-100"><X className="h-3 w-3" /></button>
                   </div>
                 ))}
-                <label className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-2xl border border-dashed border-black/20 bg-[#F8F9FA] text-[#666666] hover:bg-white">
+                <label className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-2xl border border-dashed border-black/20 bg-[#FAF9F5] text-[#6D6D6D] hover:bg-white">
                   <ImagePlus className="h-6 w-6" />
                   <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={(e) => {
                     const files = e.target.files;
@@ -379,13 +379,13 @@ export default function ProductEditor() {
         {activeTab === "variants" && (
           <div className="space-y-5">
             {(form.variants as Variant[]).length === 0 && (
-              <p className="text-sm text-[#999]">No variants yet.</p>
+              <p className="text-sm text-[#909090]">No variants yet.</p>
             )}
             {(form.variants as Variant[]).map((v, i) => (
-              <div key={i} className="rounded-2xl border border-black/10 bg-[#F8F9FA] p-4">
+              <div key={i} className="rounded-2xl border border-black/10 bg-[#FAF9F5] p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-xs font-black uppercase tracking-[0.12em]">Variant #{i + 1}</span>
-                  <button type="button" onClick={() => removeVariant(i)} className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-[#999] hover:bg-white"><Trash2 className="h-3.5 w-3.5" /></button>
+                  <button type="button" onClick={() => removeVariant(i)} className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 text-[#909090] hover:bg-white"><Trash2 className="h-3.5 w-3.5" /></button>
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {inp(`variants.${i}.sku`, "SKU", { placeholder: "Variant SKU", className: "col-span-1" })}
@@ -397,7 +397,7 @@ export default function ProductEditor() {
                 </div>
               </div>
             ))}
-            <button type="button" onClick={addVariant} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-black/20 bg-white py-4 text-sm font-bold text-[#666666] transition hover:bg-[#F8F9FA]">
+            <button type="button" onClick={addVariant} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-black/20 bg-white py-4 text-sm font-bold text-[#6D6D6D] transition hover:bg-[#FAF9F5]">
               <Plus className="h-4 w-4" /> Add Variant
             </button>
           </div>
@@ -418,11 +418,11 @@ export default function ProductEditor() {
             {inp("estimated_delivery", "Estimated Delivery", { placeholder: "e.g. 3–5 business days" })}
             <div className="flex flex-wrap gap-6">
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.free_shipping as boolean} onChange={(e) => set("free_shipping", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.free_shipping as boolean} onChange={(e) => set("free_shipping", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Free Shipping</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.pickup_available as boolean} onChange={(e) => set("pickup_available", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.pickup_available as boolean} onChange={(e) => set("pickup_available", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Pickup Available</span>
               </label>
             </div>
@@ -451,15 +451,15 @@ export default function ProductEditor() {
             {form.visibility === "scheduled" && inp("scheduled_at", "Schedule Date", { type: "datetime-local" })}
             <div className="flex flex-wrap gap-6 pt-3 border-t border-black/10">
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.featured as boolean} onChange={(e) => set("featured", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.featured as boolean} onChange={(e) => set("featured", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Featured Product</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.recommended as boolean} onChange={(e) => set("recommended", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.recommended as boolean} onChange={(e) => set("recommended", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Recommended</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.flash_sale as boolean} onChange={(e) => set("flash_sale", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.flash_sale as boolean} onChange={(e) => set("flash_sale", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Flash Sale</span>
               </label>
             </div>
@@ -476,7 +476,7 @@ export default function ProductEditor() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <label className="flex items-center gap-3 cursor-pointer">
-                <input type="checkbox" checked={form.pickup_available as boolean} onChange={(e) => set("pickup_available", e.target.checked)} className="h-5 w-5 accent-[#111111]" />
+                <input type="checkbox" checked={form.pickup_available as boolean} onChange={(e) => set("pickup_available", e.target.checked)} className="h-5 w-5 accent-[#14171F]" />
                 <span className="text-sm font-bold">Pickup Available</span>
               </label>
             </div>
@@ -488,23 +488,23 @@ export default function ProductEditor() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#FAF9F5] pt-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA] pt-24 lg:pt-28">
+    <div className="overflow-x-hidden bg-[#FAF9F5] pt-24 lg:pt-28">
       <Seo title={`${isEditing ? "Edit" : "Create"} Product - Gihanga Market`} path={isEditing ? `/seller/products/edit/${id}` : "/seller/products/new"} />
       <div className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-center gap-4">
-          <Link to="/seller" className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#666666] transition hover:bg-[#111111] hover:text-white">
+          <Link to="/seller" className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#6D6D6D] transition hover:bg-[#14171F] hover:text-white">
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
             <h1 className="font-display text-2xl font-black tracking-[-0.04em]">{isEditing ? "Edit Product" : "New Product"}</h1>
-            <p className="text-xs text-[#666666]">{isEditing ? `ID: ${id}` : "Create a new product for your store"}</p>
+            <p className="text-xs text-[#6D6D6D]">{isEditing ? `ID: ${id}` : "Create a new product for your store"}</p>
           </div>
         </div>
 
@@ -513,7 +513,7 @@ export default function ProductEditor() {
             <nav className="flex gap-2 overflow-x-auto lg:flex-col">
               {TABS.map((tab) => (
                 <button key={tab.key} type="button" onClick={() => setActiveTab(tab.key)}
-                  className={cn("flex items-center gap-3 whitespace-nowrap rounded-xl px-4 py-3 text-sm font-bold transition", activeTab === tab.key ? "bg-[#111111] text-white" : "bg-white text-[#666666] hover:bg-[#F8F9FA]")}>
+                  className={cn("flex items-center gap-3 whitespace-nowrap rounded-xl px-4 py-3 text-sm font-bold transition", activeTab === tab.key ? "bg-[#14171F] text-white" : "bg-white text-[#6D6D6D] hover:bg-[#FAF9F5]")}>
                   <tab.icon className="h-4 w-4" /> {tab.label}
                 </button>
               ))}
@@ -536,14 +536,14 @@ export default function ProductEditor() {
               <Zap className="mr-2 h-4 w-4" /> {saving ? "Publishing…" : "Publish"}
             </MagneticButton>
             {id && (
-              <button type="button" onClick={handleDuplicate} disabled={saving} className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold transition hover:bg-[#F8F9FA]">
+              <button type="button" onClick={handleDuplicate} disabled={saving} className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold transition hover:bg-[#FAF9F5]">
                 <Copy className="mr-2 inline h-4 w-4" /> Duplicate
               </button>
             )}
           </div>
           {id && (
             <div className="flex gap-2">
-              <button type="button" onClick={handleArchive} disabled={saving} className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold text-[#666666] transition hover:bg-[#F8F9FA]">
+              <button type="button" onClick={handleArchive} disabled={saving} className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold text-[#6D6D6D] transition hover:bg-[#FAF9F5]">
                 Archive
               </button>
               <button type="button" onClick={handleDelete} disabled={saving} className="rounded-full border border-red-200 bg-white px-5 py-3 text-sm font-bold text-red-500 transition hover:bg-red-50">
@@ -564,20 +564,20 @@ function RenderVariantForm({ variant, index, updateVariant, inp: _inp }: {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Color</label>
-        <input value={variant.attributes.color ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, color: e.target.value })} placeholder="e.g. Black" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Color</label>
+        <input value={variant.attributes.color ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, color: e.target.value })} placeholder="e.g. Black" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Size</label>
-        <input value={variant.attributes.size ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, size: e.target.value })} placeholder="e.g. M" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Size</label>
+        <input value={variant.attributes.size ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, size: e.target.value })} placeholder="e.g. M" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Material</label>
-        <input value={variant.attributes.material ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, material: e.target.value })} placeholder="e.g. Cotton" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Material</label>
+        <input value={variant.attributes.material ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, material: e.target.value })} placeholder="e.g. Cotton" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
       </div>
       <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Weight</label>
-        <input value={variant.weight} onChange={(e) => updateVariant(index, "weight", e.target.value)} placeholder="e.g. 0.5 kg" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+        <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#6D6D6D]">Weight</label>
+        <input value={variant.weight} onChange={(e) => updateVariant(index, "weight", e.target.value)} placeholder="e.g. 0.5 kg" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
       </div>
     </div>
   );

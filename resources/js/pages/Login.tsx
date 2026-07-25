@@ -30,16 +30,16 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-0 lg:pt-32">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#FAF9F5] px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-0 lg:pt-32">
       <Seo title="Sign In - Gihanga Market" description="Sign in to your GIHANGA account to shop, manage orders, and more." />
       <div className="w-full max-w-md">
-        <div className="rounded-xl border border-[#111111]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(17,17,17,0.06)]">
+        <div className="rounded-xl border border-[#14171F]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(20,23,31,0.06)]">
           <div className="mb-8 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#5BA3CF]/10">
-              <LogIn className="h-7 w-7 text-[#5BA3CF]" />
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#2C5A82]/10">
+              <LogIn className="h-7 w-7 text-[#2C5A82]" />
             </div>
-            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#111111]">Welcome back</h1>
-            <p className="mt-2 text-sm text-[#666666]">Sign in to your GIHANGA account</p>
+            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#14171F]">Welcome back</h1>
+            <p className="mt-2 text-sm text-[#6D6D6D]">Sign in to your GIHANGA account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -59,17 +59,17 @@ export default function Login() {
             />
 
             <div>
-              <label className="block text-sm font-bold text-[#111111] mb-2">Password</label>
+              <label className="block text-sm font-bold text-[#14171F] mb-2">Password</label>
               <div className="relative">
                 <input
                   type={show ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
+                  className="w-full rounded-xl border border-[#14171F]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#14171F] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#2C5A82] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
                   placeholder="Your password"
                 />
-                <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#999999] hover:text-[#111111] transition">
+                <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#999999] hover:text-[#14171F] transition">
                   {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
@@ -81,14 +81,14 @@ export default function Login() {
           </form>
 
           <div className="mt-4 text-center">
-            <Link to="/forgot-password" className="text-xs font-bold uppercase tracking-[0.18em] text-[#666666] underline-grow">
+            <Link to="/forgot-password" className="text-xs font-bold uppercase tracking-[0.18em] text-[#6D6D6D] underline-grow">
               Forgot password?
             </Link>
           </div>
 
-          <p className="mt-6 text-center text-sm text-[#666666]">
+          <p className="mt-6 text-center text-sm text-[#6D6D6D]">
             Don't have an account?{" "}
-            <Link to="/register" className="py-1 font-bold text-[#111111] underline-grow">
+            <Link to="/register" className="py-1 font-bold text-[#14171F] underline-grow">
               Create one
             </Link>
           </p>

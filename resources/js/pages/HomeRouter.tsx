@@ -9,8 +9,8 @@ export default function HomeRouter() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA]">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#FAF9F5]">
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
       </div>
     );
   }

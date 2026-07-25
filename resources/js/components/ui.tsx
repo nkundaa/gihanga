@@ -34,15 +34,15 @@ type ButtonProps = ButtonAsButton | ButtonAsLink | ButtonAsExternal;
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-[#111111] text-white shadow-[0_4px_20px_rgba(17,17,17,0.2)] hover:shadow-[0_8px_32px_rgba(17,17,17,0.3)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
+    "bg-[#14171F] text-white shadow-[0_4px_20px_rgba(20,23,31,0.2)] hover:shadow-[0_8px_32px_rgba(20,23,31,0.3)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
   secondary:
-    "bg-white text-[#111111] border border-[#111111]/20 hover:border-[#5BA3CF] hover:text-[#5BA3CF] shadow-[0_2px_12px_rgba(17,17,17,0.06)] hover:shadow-[0_8px_32px_rgba(91, 163, 207,0.15)] hover:-translate-y-0.5 active:scale-[0.97]",
+    "bg-white text-[#14171F] border border-[#14171F]/20 hover:border-[#2C5A82] hover:text-[#2C5A82] shadow-[0_2px_12px_rgba(20,23,31,0.06)] hover:shadow-[0_8px_32px_rgba(44,90,130,0.15)] hover:-translate-y-0.5 active:scale-[0.97]",
   gold:
-    "bg-[#5BA3CF] text-[#111111] shadow-[0_4px_24px_rgba(91, 163, 207,0.3)] hover:shadow-[0_8px_40px_rgba(91, 163, 207,0.4)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
+    "bg-[#C6912E] text-white shadow-[0_4px_24px_rgba(198,145,46,0.3)] hover:shadow-[0_8px_40px_rgba(198,145,46,0.4)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
   text:
-    "bg-transparent text-[#111111] hover:text-[#5BA3CF] active:scale-[0.97] border border-transparent",
+    "bg-transparent text-[#14171F] hover:text-[#2C5A82] active:scale-[0.97] border border-transparent",
   ghost:
-    "bg-transparent text-[#111111] border border-[#111111]/10 hover:bg-[#F8F9FA] hover:border-[#111111]/20 active:scale-[0.97]",
+    "bg-transparent text-[#14171F] border border-[#14171F]/10 hover:bg-[#FAF9F5] hover:border-[#14171F]/20 active:scale-[0.97]",
   danger:
     "bg-white text-[#EF4444] border border-[#EF4444]/20 hover:bg-[#EF4444] hover:text-white hover:border-[#EF4444] shadow-[0_2px_12px_rgba(239,68,68,0.06)] hover:shadow-[0_8px_32px_rgba(239,68,68,0.2)] hover:-translate-y-0.5 active:scale-[0.97]",
 };
@@ -57,7 +57,7 @@ export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", children, className, disabled, loading, icon, iconRight, fullWidth, ...rest } = props;
 
   const classes = cn(
-    "group relative inline-flex items-center justify-center font-bold tracking-[-0.01em] rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BA3CF] focus-visible:ring-offset-2",
+    "group relative inline-flex items-center justify-center font-bold tracking-[-0.01em] rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2C5A82] focus-visible:ring-offset-2",
     variantClasses[variant],
     sizeClasses[size],
     (disabled || loading) && "pointer-events-none opacity-50",
@@ -123,7 +123,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label ? (
-          <label htmlFor={id} className="block text-sm font-bold text-[#111111] mb-2">
+          <label htmlFor={id} className="block text-sm font-bold text-[#14171F] mb-2">
             {label}
           </label>
         ) : null}
@@ -137,10 +137,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={id}
             className={cn(
-              "w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
+              "w-full rounded-xl border border-[#14171F]/15 bg-white px-4 py-3.5 text-sm text-[#14171F] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#2C5A82] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
               icon && "pl-11",
               error && "border-[#EF4444] focus:border-[#EF4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]",
-              props.disabled && "bg-[#F8F9FA] cursor-not-allowed opacity-60",
+              props.disabled && "bg-[#FAF9F5] cursor-not-allowed opacity-60",
               className
             )}
             {...props}
@@ -180,7 +180,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full">
         {label ? (
-          <label htmlFor={id} className="block text-sm font-bold text-[#111111] mb-2">
+          <label htmlFor={id} className="block text-sm font-bold text-[#14171F] mb-2">
             {label}
           </label>
         ) : null}
@@ -189,9 +189,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={id}
             className={cn(
-              "w-full appearance-none rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
+              "w-full appearance-none rounded-xl border border-[#14171F]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#14171F] outline-none transition-all duration-200 focus:border-[#2C5A82] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
               error && "border-[#EF4444] focus:border-[#EF4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]",
-              props.disabled && "bg-[#F8F9FA] cursor-not-allowed opacity-60",
+              props.disabled && "bg-[#FAF9F5] cursor-not-allowed opacity-60",
               className
             )}
             {...props}
@@ -220,17 +220,19 @@ Select.displayName = "Select";
 // BADGE
 // ============================================================
 
-type BadgeVariant = "gold" | "black" | "white" | "success" | "warning" | "error" | "outline";
+type BadgeVariant = "gold" | "black" | "white" | "blue" | "ink" | "success" | "warning" | "error" | "outline";
 
 export function Badge({ children, variant = "black", className, dot }: { children: ReactNode; variant?: BadgeVariant; className?: string; dot?: boolean }) {
   const classes: Record<BadgeVariant, string> = {
-    gold: "bg-[#5BA3CF] text-[#111111]",
-    black: "bg-[#111111] text-white",
-    white: "bg-white text-[#111111] border border-[#111111]/10",
+    gold: "bg-[#C6912E]/10 text-[#C6912E]",
+    black: "bg-[#14171F] text-white",
+    blue: "bg-[#2C5A82]/10 text-[#2C5A82]",
+    ink: "bg-[#14171F]/10 text-[#14171F]",
+    white: "bg-white text-[#14171F] border border-[#14171F]/10",
     success: "bg-[#22C55E]/10 text-[#22C55E]",
     warning: "bg-[#F59E0B]/10 text-[#F59E0B]",
     error: "bg-[#EF4444]/10 text-[#EF4444]",
-    outline: "bg-transparent text-[#111111] border border-[#111111]/20",
+    outline: "bg-transparent text-[#14171F] border border-[#14171F]/20",
   };
 
   return (
@@ -251,7 +253,7 @@ export function Skeleton({ className }: { className?: string }) {
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-[#111111]/[0.08] bg-white">
+    <div className="flex flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white">
       <Skeleton className="aspect-[4/5] !rounded-none" />
       <div className="p-4 space-y-3">
         <Skeleton className="h-3 w-20 !rounded-full" />
@@ -267,7 +269,7 @@ export function ProductCardSkeleton() {
 
 export function StoreCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-[#111111]/[0.08] bg-white">
+    <div className="flex flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white">
       <Skeleton className="h-36 sm:h-56 !rounded-none" />
       <div className="p-4 space-y-3">
         <Skeleton className="h-3 w-16 !rounded-full" />
@@ -280,7 +282,7 @@ export function StoreCardSkeleton() {
 
 export function DashboardCardSkeleton() {
   return (
-    <div className="rounded-xl border border-[#111111]/[0.08] bg-white p-6">
+    <div className="rounded-xl border border-[#14171F]/[0.08] bg-white p-6">
       <div className="flex items-center gap-3">
         <Skeleton className="h-12 w-12 !rounded-xl" />
         <div className="space-y-2 flex-1">
@@ -318,8 +320,8 @@ export function MagneticButton(props: Record<string, any>) {
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.36em] text-[#5BA3CF]", className)}>
-      <span className="h-px w-8 bg-[#5BA3CF]" />
+    <span className={cn("inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.36em] text-[#2C5A82]", className)}>
+      <span className="h-px w-8 bg-[#2C5A82]" />
       {children}
     </span>
   );
@@ -341,8 +343,8 @@ export function SectionHeader({
   return (
     <div data-reveal className={cn("mx-auto max-w-3xl", align === "center" && "text-center", className)}>
       <Eyebrow className={align === "center" ? "justify-center" : undefined}>{eyebrow}</Eyebrow>
-      <h2 className="mt-3 sm:mt-4 font-display text-[clamp(1.6rem,5vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#111111]">{title}</h2>
-      {copy ? <p className={cn("mt-3 sm:mt-4 text-sm leading-6 text-[#666666] sm:text-lg sm:leading-8", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
+      <h2 className="mt-3 sm:mt-4 font-display text-[clamp(1.6rem,5vw,5.9rem)] font-black leading-[0.9] tracking-[-0.075em] text-[#14171F]">{title}</h2>
+      {copy ? <p className={cn("mt-3 sm:mt-4 text-sm leading-6 text-[#6D6D6D] sm:text-lg sm:leading-8", align === "center" && "mx-auto max-w-2xl")}>{copy}</p> : null}
     </div>
   );
 }
@@ -355,8 +357,8 @@ export function Rating({ value, size = "sm" }: { value: number; size?: "sm" | "m
   const sizeMap = { sm: "h-3 w-3", md: "h-4 w-4", lg: "h-5 w-5" };
   const textMap = { sm: "text-xs", md: "text-sm", lg: "text-base" };
   return (
-    <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
-      <Star className={cn(sizeMap[size], "fill-[#5BA3CF] text-[#5BA3CF]")} />
+    <span className="inline-flex items-center gap-1 font-bold text-[#14171F]">
+      <Star className={cn(sizeMap[size], "fill-[#2C5A82] text-[#2C5A82]")} />
       <span className={textMap[size]}>{value.toFixed(1)}</span>
     </span>
   );
@@ -400,14 +402,14 @@ export function ProductCard({ product, variant = "default" }: { product: Product
     <motion.article
       data-reveal
       className={cn(
-        "group flex w-full flex-col overflow-hidden rounded-xl border border-[#111111]/[0.08] bg-white shadow-[0_4px_24px_rgba(17,17,17,0.06)] transition-all duration-500 hover:shadow-[0_16px_48px_rgba(17,17,17,0.1)] hover:-translate-y-1",
+        "group flex w-full flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-[0_4px_24px_rgba(20,23,31,0.06)] transition-all duration-500 hover:shadow-[0_16px_48px_rgba(20,23,31,0.1)] hover:-translate-y-1",
         variant === "editorial" && "rounded-[2.4rem]"
       )}
       style={{ transform: reduceMotion ? "none" : tilt }}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >
-      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#F8F9FA]">
+      <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#FAF9F5]">
         {!imgLoaded && <Skeleton className="absolute inset-0 !rounded-none" />}
         <img
           src={product.images[0]}
@@ -434,14 +436,14 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             onClick={handleWishlist}
             aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md shadow-[0_2px_12px_rgba(17,17,17,0.1)] transition-all duration-300 hover:scale-110",
-              isWishlisted && "bg-[#5BA3CF]"
+              "flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md shadow-[0_2px_12px_rgba(20,23,31,0.1)] transition-all duration-300 hover:scale-110",
+              isWishlisted && "bg-[#2C5A82]"
             )}
           >
             <Heart
               className={cn(
                 "h-4 w-4 transition-all duration-300",
-                isWishlisted ? "fill-white text-white" : "text-[#111111]",
+                isWishlisted ? "fill-white text-white" : "text-[#14171F]",
                 wishlistAnim && "animate-[heartBeat_0.6s_ease-in-out]"
               )}
             />
@@ -449,7 +451,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
         </div>
 
         <div className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-center opacity-0 translate-y-4 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#111111]/90 px-5 py-2.5 text-xs font-bold text-white backdrop-blur-md">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#14171F]/90 px-5 py-2.5 text-xs font-bold text-white backdrop-blur-md">
             <Eye className="h-3.5 w-3.5" /> Quick view
           </span>
         </div>
@@ -457,19 +459,19 @@ export function ProductCard({ product, variant = "default" }: { product: Product
 
       <div className="flex flex-1 flex-col p-3 sm:p-4">
         <div className="flex items-center justify-between gap-2">
-          <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#111111]/60 underline-grow">
+          <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#14171F]/60 underline-grow">
             {product.storeName}
           </Link>
           <Rating value={product.rating} size="sm" />
         </div>
 
-        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
+        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#14171F] sm:text-2xl">
           {product.name}
         </Link>
 
         <div className="mt-auto flex items-end justify-between gap-3 pt-2">
           <div>
-            <p className="font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
+            <p className="font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#14171F] sm:text-2xl">{formatRwf(product.price)}</p>
             {product.originalPrice ? (
               <p className="text-[0.6rem] text-[#999999] line-through">{formatRwf(product.originalPrice)}</p>
             ) : null}
@@ -478,7 +480,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={(e) => { e.preventDefault(); addItem(product); }}
-            className="flex h-12 w-12 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition-all duration-300 hover:bg-[#5BA3CF] hover:scale-105 active:scale-95"
+            className="flex h-12 w-12 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-[#14171F] text-white transition-all duration-300 hover:bg-[#2C5A82] hover:scale-105 active:scale-95"
           >
             <ShoppingBag className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
           </button>
@@ -497,7 +499,7 @@ export function StoreCard({ store }: { store: Store }) {
     <Link
       to={`/store/${store.slug}`}
       data-reveal
-      className="group relative block overflow-hidden rounded-xl border border-[#111111]/[0.08] bg-white shadow-[0_4px_24px_rgba(17,17,17,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_rgba(17,17,17,0.12)]"
+      className="group relative block overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-[0_4px_24px_rgba(20,23,31,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_rgba(20,23,31,0.12)]"
     >
       <div className="relative h-36 overflow-hidden sm:h-56">
         <img
@@ -512,20 +514,20 @@ export function StoreCard({ store }: { store: Store }) {
         </div>
         {store.avatar ? (
           <div className="absolute -bottom-6 left-4">
-            <div className="h-14 w-14 rounded-xl border-2 border-white bg-white shadow-[0_4px_16px_rgba(17,17,17,0.12)] overflow-hidden">
+            <div className="h-14 w-14 rounded-xl border-2 border-white bg-white shadow-[0_4px_16px_rgba(20,23,31,0.12)] overflow-hidden">
               <img src={store.avatar} alt={`${store.name} logo`} className="h-full w-full object-cover" />
             </div>
           </div>
         ) : null}
       </div>
       <div className={cn("p-4", store.avatar && "pt-10")}>
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">{store.category}</p>
-        <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
-        <p className="mt-1 text-xs text-[#666666]">{store.tagline}</p>
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">{store.category}</p>
+        <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#14171F] sm:text-2xl">{store.name}</h3>
+        <p className="mt-1 text-xs text-[#6D6D6D]">{store.tagline}</p>
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
           <Rating value={store.rating} size="sm" />
-          <span className="text-[#666666]">{store.productCount} pieces</span>
-          <span className="text-[#666666]">{store.location}</span>
+          <span className="text-[#6D6D6D]">{store.productCount} pieces</span>
+          <span className="text-[#6D6D6D]">{store.location}</span>
         </div>
       </div>
     </Link>
@@ -557,12 +559,12 @@ export function DashboardCard({
     <div
       data-reveal-scale
       className={cn(
-        "group relative overflow-hidden rounded-xl border border-[#111111]/[0.08] bg-white p-5 sm:p-6 shadow-[0_2px_12px_rgba(17,17,17,0.04)] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(17,17,17,0.08)] hover:-translate-y-0.5",
+        "group relative overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white p-5 sm:p-6 shadow-[0_2px_12px_rgba(20,23,31,0.04)] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(20,23,31,0.08)] hover:-translate-y-0.5",
         className
       )}
     >
       <div className="flex items-start justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F8F9FA] text-[#111111] transition-colors duration-300 group-hover:bg-[#5BA3CF] group-hover:text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FAF9F5] text-[#14171F] transition-colors duration-300 group-hover:bg-[#2C5A82] group-hover:text-white">
           {icon}
         </div>
         {trend ? (
@@ -574,8 +576,8 @@ export function DashboardCard({
           </span>
         ) : null}
       </div>
-      <p className="mt-4 font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#111111]">{value}</p>
-      <p className="mt-1 text-sm font-semibold text-[#111111]">{label}</p>
+      <p className="mt-4 font-display text-2xl sm:text-3xl font-black tracking-[-0.04em] text-[#14171F]">{value}</p>
+      <p className="mt-1 text-sm font-semibold text-[#14171F]">{label}</p>
       {description ? <p className="mt-0.5 text-xs text-[#999999]">{description}</p> : null}
     </div>
   );
@@ -587,17 +589,17 @@ export function DashboardCard({
 
 export function Breadcrumb({ items }: { items: Array<{ label: string; to?: string }> }) {
   return (
-    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[#666666]">
+    <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-[#6D6D6D]">
       {items.map((item, index) => (
         <span key={item.label} className="flex items-center gap-2">
           {item.to ? (
-            <Link to={item.to} className="underline-grow text-[#111111]/60 transition hover:text-[#111111]">
+            <Link to={item.to} className="underline-grow text-[#14171F]/60 transition hover:text-[#14171F]">
               {item.label}
             </Link>
           ) : (
-            <span className="text-[#111111]">{item.label}</span>
+            <span className="text-[#14171F]">{item.label}</span>
           )}
-          {index < items.length - 1 ? <span className="text-[#111111]/30">/</span> : null}
+          {index < items.length - 1 ? <span className="text-[#14171F]/30">/</span> : null}
         </span>
       ))}
     </nav>
@@ -622,19 +624,19 @@ export function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col items-center gap-6 rounded-xl border border-dashed border-[#111111]/10 bg-white/60 px-6 py-16 sm:py-20 text-center", className)}>
+    <div className={cn("flex flex-col items-center gap-6 rounded-xl border border-dashed border-[#14171F]/10 bg-white/60 px-6 py-16 sm:py-20 text-center", className)}>
       {icon ? (
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#5BA3CF]/10 text-[#5BA3CF]">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2C5A82]/10 text-[#2C5A82]">
           {icon}
         </div>
       ) : (
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#5BA3CF]/10">
-          <span className="font-editorial text-3xl text-[#5BA3CF]">∅</span>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2C5A82]/10">
+          <span className="font-editorial text-3xl text-[#2C5A82]">∅</span>
         </div>
       )}
       <div>
-        <h3 className="font-display text-2xl font-black tracking-[-0.05em] text-[#111111]">{title}</h3>
-        <p className="mt-3 max-w-md text-[#666666]">{copy}</p>
+        <h3 className="font-display text-2xl font-black tracking-[-0.05em] text-[#14171F]">{title}</h3>
+        <p className="mt-3 max-w-md text-[#6D6D6D]">{copy}</p>
       </div>
       {action}
     </div>
@@ -667,7 +669,7 @@ export function Modal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[80] bg-[#111111]/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] bg-[#14171F]/60 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden
           />
@@ -681,11 +683,11 @@ export function Modal({
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-[90] flex items-center justify-center p-4"
           >
-            <div className={cn("relative w-full max-w-lg rounded-xl bg-white shadow-[0_24px_80px_rgba(17,17,17,0.2)] max-h-[90vh] overflow-y-auto", className)}>
+            <div className={cn("relative w-full max-w-lg rounded-xl bg-white shadow-[0_24px_80px_rgba(20,23,31,0.2)] max-h-[90vh] overflow-y-auto", className)}>
               {title ? (
-                <div className="flex items-center justify-between border-b border-[#111111]/10 px-6 py-4">
-                  <h3 className="font-display text-lg font-black tracking-[-0.03em] text-[#111111]">{title}</h3>
-                  <button type="button" onClick={onClose} aria-label="Close" className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#F8F9FA] transition">
+                <div className="flex items-center justify-between border-b border-[#14171F]/10 px-6 py-4">
+                  <h3 className="font-display text-lg font-black tracking-[-0.03em] text-[#14171F]">{title}</h3>
+                  <button type="button" onClick={onClose} aria-label="Close" className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#FAF9F5] transition">
                     <X className="h-4 w-4" />
                   </button>
                 </div>
@@ -729,7 +731,7 @@ export function Avatar({ src, name, size = "md", className }: { src?: string; na
   const initials = name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
-    <div className={cn("relative overflow-hidden rounded-full bg-[#111111] text-white font-bold flex items-center justify-center shrink-0", sizeMap[size], className)}>
+    <div className={cn("relative overflow-hidden rounded-full bg-[#14171F] text-white font-bold flex items-center justify-center shrink-0", sizeMap[size], className)}>
       {src ? (
         <img src={src} alt={name} className="h-full w-full object-cover" />
       ) : initials}
@@ -744,16 +746,16 @@ export function Avatar({ src, name, size = "md", className }: { src?: string; na
 type StatusType = "pending" | "active" | "completed" | "cancelled" | "approved" | "rejected" | "suspended" | "shipped" | "delivered" | "processing";
 
 const statusConfig: Record<StatusType, { label: string; variant: BadgeVariant }> = {
-  pending: { label: "Pending", variant: "warning" },
-  active: { label: "Active", variant: "success" },
-  completed: { label: "Completed", variant: "success" },
-  cancelled: { label: "Cancelled", variant: "error" },
-  approved: { label: "Approved", variant: "success" },
+  pending: { label: "Pending", variant: "gold" },
+  active: { label: "Active", variant: "blue" },
+  completed: { label: "Completed", variant: "ink" },
+  cancelled: { label: "Cancelled", variant: "outline" },
+  approved: { label: "Approved", variant: "blue" },
   rejected: { label: "Rejected", variant: "error" },
-  suspended: { label: "Suspended", variant: "error" },
-  shipped: { label: "Shipped", variant: "gold" },
-  delivered: { label: "Delivered", variant: "success" },
-  processing: { label: "Processing", variant: "warning" },
+  suspended: { label: "Suspended", variant: "outline" },
+  shipped: { label: "Shipped", variant: "blue" },
+  delivered: { label: "Delivered", variant: "ink" },
+  processing: { label: "Processing", variant: "gold" },
 };
 
 export function StatusBadge({ status, className }: { status: StatusType; className?: string }) {
@@ -786,7 +788,7 @@ export function ConfirmDialog({
 }) {
   return (
     <Modal open={open} onClose={onClose} title={title}>
-      <p className="text-sm text-[#666666] leading-6">{message}</p>
+      <p className="text-sm text-[#6D6D6D] leading-6">{message}</p>
       <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
         <Button variant="ghost" onClick={onClose}>Cancel</Button>
         <Button variant={confirmVariant} onClick={onConfirm} loading={loading}>{confirmLabel}</Button>
@@ -816,12 +818,12 @@ export function QuantitySelector({
   const textSize = size === "sm" ? "text-sm" : "text-base";
 
   return (
-    <div className="inline-flex items-center rounded-full border border-[#111111]/15 bg-white overflow-hidden">
+    <div className="inline-flex items-center rounded-full border border-[#14171F]/15 bg-white overflow-hidden">
       <button
         type="button"
         aria-label="Decrease quantity"
         disabled={value <= min}
-        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#5BA3CF] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
+        className={cn("flex items-center justify-center transition text-[#14171F] hover:text-[#2C5A82] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
         onClick={() => onChange(value - 1)}
       >
         <Minus className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} />
@@ -831,7 +833,7 @@ export function QuantitySelector({
         type="button"
         aria-label="Increase quantity"
         disabled={value >= max}
-        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#5BA3CF] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
+        className={cn("flex items-center justify-center transition text-[#14171F] hover:text-[#2C5A82] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
         onClick={() => onChange(value + 1)}
       >
         <Plus className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} />
@@ -846,18 +848,18 @@ export function QuantitySelector({
 
 export function Table({ headers, children, className }: { headers: string[]; children: ReactNode; className?: string }) {
   return (
-    <div className={cn("overflow-x-auto rounded-xl border border-[#111111]/[0.08]", className)}>
+    <div className={cn("overflow-x-auto rounded-xl border border-[#14171F]/[0.08]", className)}>
       <table className="w-full">
         <thead>
-          <tr className="border-b border-[#111111]/[0.08] bg-[#F8F9FA]">
+          <tr className="border-b border-[#14171F]/[0.08] bg-[#FAF9F5]">
             {headers.map((header) => (
-              <th key={header} className="px-4 py-3.5 text-left text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#666666] first:pl-5 last:pr-5">
+              <th key={header} className="px-4 py-3.5 text-left text-[0.6rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D] first:pl-5 last:pr-5">
                 {header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-[#111111]/[0.06]">
+        <tbody className="divide-y divide-[#14171F]/[0.06]">
           {children}
         </tbody>
       </table>
@@ -882,7 +884,7 @@ export function TableRow({ children, className, onClick }: { children: ReactNode
 
 export function TableCell({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <td className={cn("px-4 py-3 text-sm text-[#111111] first:pl-5 last:pr-5", className)}>
+    <td className={cn("px-4 py-3 text-sm text-[#14171F] first:pl-5 last:pr-5", className)}>
       {children}
     </td>
   );
@@ -909,19 +911,19 @@ export function StatCard({
 }) {
   return (
     <div className={cn(
-      "relative overflow-hidden rounded-xl border border-[#111111]/[0.06] bg-white p-5 shadow-[0_2px_12px_rgba(17,17,17,0.04)] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(17,17,17,0.08)]",
+      "relative overflow-hidden rounded-xl border border-[#14171F]/[0.06] bg-white p-5 shadow-[0_2px_12px_rgba(20,23,31,0.04)] transition-all duration-300 hover:shadow-[0_8px_32px_rgba(20,23,31,0.08)]",
       className
     )}>
       <div className="flex items-start justify-between">
-        <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#F8F9FA]">
+        <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#FAF9F5]">
           {icon}
         </div>
         {trend ? (
           <TrendIndicator value={trendLabel || ""} direction={trend} />
         ) : null}
       </div>
-      <p className="mt-3 font-display text-2xl font-black tracking-[-0.04em] text-[#111111]">{value}</p>
-      <p className="mt-0.5 text-xs text-[#666666]">{label}</p>
+      <p className="mt-3 font-display text-2xl font-black tracking-[-0.04em] text-[#14171F]">{value}</p>
+      <p className="mt-0.5 text-xs text-[#6D6D6D]">{label}</p>
     </div>
   );
 }
@@ -943,7 +945,7 @@ export function SizePicker({
 }) {
   return (
     <div>
-      {label ? <p className="text-sm font-bold text-[#111111] mb-2">{label}</p> : null}
+      {label ? <p className="text-sm font-bold text-[#14171F] mb-2">{label}</p> : null}
       <div className="flex flex-wrap gap-2">
         {sizes.map((size) => (
           <button
@@ -953,8 +955,8 @@ export function SizePicker({
             className={cn(
               "flex h-10 min-w-[40px] items-center justify-center rounded-lg border px-4 text-sm font-semibold transition-all duration-200",
               selected === size
-                ? "border-[#111111] bg-[#111111] text-white"
-                : "border-[#111111]/15 bg-white text-[#111111] hover:border-[#111111]/40 hover:bg-[#F8F9FA]"
+                ? "border-[#14171F] bg-[#14171F] text-white"
+                : "border-[#14171F]/15 bg-white text-[#14171F] hover:border-[#14171F]/40 hover:bg-[#FAF9F5]"
             )}
           >
             {size}
@@ -978,7 +980,7 @@ export function ColorPicker({
 }) {
   return (
     <div>
-      {label ? <p className="text-sm font-bold text-[#111111] mb-2">{label}</p> : null}
+      {label ? <p className="text-sm font-bold text-[#14171F] mb-2">{label}</p> : null}
       <div className="flex flex-wrap gap-2">
         {colors.map((color) => (
           <button
@@ -989,13 +991,13 @@ export function ColorPicker({
             title={color.name}
             className={cn(
               "h-9 w-9 rounded-full transition-all duration-200 ring-offset-2",
-              selected === color.name ? "ring-2 ring-[#111111] scale-110" : "hover:scale-105"
+              selected === color.name ? "ring-2 ring-[#14171F] scale-110" : "hover:scale-105"
             )}
             style={{ backgroundColor: color.hex }}
           />
         ))}
       </div>
-      {selected ? <p className="mt-1.5 text-xs text-[#666666]">{selected}</p> : null}
+      {selected ? <p className="mt-1.5 text-xs text-[#6D6D6D]">{selected}</p> : null}
     </div>
   );
 }
@@ -1008,9 +1010,9 @@ export function Tooltip({ children, content }: { children: ReactNode; content: s
   return (
     <div className="group/tooltip relative">
       {children}
-      <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded-lg bg-[#111111] px-3 py-1.5 text-xs text-white opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100 translate-y-1 group-hover/tooltip:translate-y-0">
+      <div className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded-lg bg-[#14171F] px-3 py-1.5 text-xs text-white opacity-0 transition-all duration-200 group-hover/tooltip:opacity-100 translate-y-1 group-hover/tooltip:translate-y-0">
         {content}
-        <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-[#111111]" />
+        <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-[#14171F]" />
       </div>
     </div>
   );

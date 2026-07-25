@@ -58,19 +58,19 @@ export default function SellerDashboard() {
 
   if (!isAuthenticated || !isSeller) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F7F8FA]">
+      <div className="flex min-h-screen items-center justify-center bg-[#FAF9F5]">
         <div className="max-w-md rounded-2xl border border-black/[0.06] bg-white p-8 text-center shadow-lg">
-          <Store className="mx-auto h-10 w-10 text-[#5BA3CF]" />
+          <Store className="mx-auto h-10 w-10 text-[#2C5A82]" />
           <h2 className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">Seller access required</h2>
-          <p className="mt-2 text-sm text-[#999]">Sign in with a seller account to manage your store.</p>
-          <Link to="/login" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#111111] px-8 text-sm font-bold text-white transition hover:bg-[#333]">Sign in</Link>
+          <p className="mt-2 text-sm text-[#909090]">Sign in with a seller account to manage your store.</p>
+          <Link to="/login" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#14171F] px-8 text-sm font-bold text-white transition hover:bg-[#333]">Sign in</Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F7F8FA]">
+    <div className="flex min-h-screen bg-[#FAF9F5]">
       <Seo title="Seller Dashboard - GIHANGA MARKET" path="/seller" description="Manage your store on GIHANGA MARKET." />
 
       {/* Sidebar */}
@@ -79,25 +79,25 @@ export default function SellerDashboard() {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex items-center gap-3 border-b border-black/[0.06] px-5 py-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-[#5BA3CF] text-sm font-black">G</div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#14171F] text-[#2C5A82] text-sm font-black">G</div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
               <p className="truncate font-display text-sm font-black tracking-[-0.02em]">{user?.name ?? "My Store"}</p>
-              <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#5BA3CF]"><CheckCircle2 className="h-2.5 w-2.5 text-white" /></span>
+              <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#2C5A82]"><CheckCircle2 className="h-2.5 w-2.5 text-white" /></span>
             </div>
-            <p className="truncate text-[0.5rem] font-bold uppercase tracking-[0.18em] text-[#999]">Verified Store</p>
+            <p className="truncate text-[0.5rem] font-bold uppercase tracking-[0.18em] text-[#909090]">Verified Store</p>
           </div>
         </div>
         <nav className="flex-1 space-y-0.5 overflow-y-auto p-3">
           {sidebarNav.map((item) => (
             <button key={item.id} type="button" onClick={() => { setTab(item.id); setSidebarOpen(false); }}
-              className={cn("flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition", tab === item.id ? "bg-[#111111] text-white" : "text-[#999] hover:bg-[#F7F8FA] hover:text-[#111111]")}>
+              className={cn("flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold transition", tab === item.id ? "bg-[#14171F] text-white" : "text-[#909090] hover:bg-[#FAF9F5] hover:text-[#14171F]")}>
               <item.icon className="h-4 w-4" /> {item.label}
             </button>
           ))}
         </nav>
         <div className="border-t border-black/[0.06] p-3 space-y-0.5">
-          <button type="button" onClick={() => { logout(); navigate("/login"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#999] transition hover:bg-[#F7F8FA] hover:text-red-500">
+          <button type="button" onClick={() => { logout(); navigate("/login"); }} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-bold text-[#909090] transition hover:bg-[#FAF9F5] hover:text-red-500">
             <LogOut className="h-4 w-4" /> Logout
           </button>
         </div>
@@ -110,35 +110,35 @@ export default function SellerDashboard() {
       <div className="flex min-h-screen flex-1 flex-col lg:ml-64">
         {/* Top Navigation */}
         <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-black/[0.06] bg-white/95 px-4 backdrop-blur-xl sm:px-6">
-          <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/10 text-[#999] lg:hidden">
+          <button type="button" onClick={() => setSidebarOpen(!sidebarOpen)} className="flex h-9 w-9 items-center justify-center rounded-xl border border-black/10 text-[#909090] lg:hidden">
             <MenuIcon className="h-4 w-4" />
           </button>
 
           <div className="relative flex-1 max-w-md">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#999]" />
-            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search orders, products, customers..." className="h-10 w-full rounded-full border border-black/10 bg-[#F7F8FA] pl-10 pr-4 text-sm outline-none transition focus:border-[#5BA3CF] focus:bg-white" />
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#909090]" />
+            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search orders, products, customers..." className="h-10 w-full rounded-full border border-black/10 bg-[#FAF9F5] pl-10 pr-4 text-sm outline-none transition focus:border-[#2C5A82] focus:bg-white" />
           </div>
 
           <div className="flex items-center gap-2">
-            <Link to="/seller/products/new" className="flex h-9 items-center gap-1.5 rounded-full bg-[#111111] px-4 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
+            <Link to="/seller/products/new" className="flex h-9 items-center gap-1.5 rounded-full bg-[#14171F] px-4 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">
               <Plus className="h-3.5 w-3.5" /> Add
             </Link>
-            <Link to="/messages" className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#999] transition hover:bg-[#F7F8FA] hover:text-[#111111]">
+            <Link to="/messages" className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#909090] transition hover:bg-[#FAF9F5] hover:text-[#14171F]">
               <MessageSquare className="h-4 w-4" />
             </Link>
-            <button type="button" onClick={() => setShowNotifPanel(!showNotifPanel)} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#999] transition hover:bg-[#F7F8FA] hover:text-[#111111]">
+            <button type="button" onClick={() => setShowNotifPanel(!showNotifPanel)} className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#909090] transition hover:bg-[#FAF9F5] hover:text-[#14171F]">
               <Bell className="h-4 w-4" />
               <span className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[0.35rem] font-bold text-white">3</span>
             </button>
             <div ref={userMenuRef} className="relative">
-              <button type="button" onClick={() => setShowUserMenu(!showUserMenu)} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#111111] bg-[#F7F8FA] text-[0.5rem] font-bold">
+              <button type="button" onClick={() => setShowUserMenu(!showUserMenu)} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#14171F] bg-[#FAF9F5] text-[0.5rem] font-bold">
                 {user?.name?.[0] ?? "S"}
               </button>
               {showUserMenu && (
                 <div className="absolute right-0 top-full mt-2 w-48 overflow-hidden rounded-xl border border-black/[0.06] bg-white shadow-xl">
                   <div className="border-b border-black/[0.06] px-4 py-3">
                     <p className="text-sm font-bold truncate">{user?.name}</p>
-                    <p className="text-xs text-[#999] truncate">{user?.email}</p>
+                    <p className="text-xs text-[#909090] truncate">{user?.email}</p>
                   </div>
                   <div className="p-1.5">
                     {[
@@ -147,7 +147,7 @@ export default function SellerDashboard() {
                       { label: "Switch to Shopping", icon: ShoppingBag, link: "/?switch=customer" },
                       { label: "Support", icon: HelpCircle, link: "/contact" },
                     ].map((i) => (
-                      <Link key={i.label} to={i.link} onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-[#999] transition hover:bg-[#F7F8FA] hover:text-[#111111]">
+                      <Link key={i.label} to={i.link} onClick={() => setShowUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-bold text-[#909090] transition hover:bg-[#FAF9F5] hover:text-[#14171F]">
                         <i.icon className="h-4 w-4" /> {i.label}
                       </Link>
                     ))}
@@ -184,8 +184,8 @@ export default function SellerDashboard() {
             { id: "messages" as Tab, label: "Messages", icon: MessageSquare },
             { id: "settings" as Tab, label: "Profile", icon: Settings },
           ].map((item) => (
-            <button key={item.id} type="button" onClick={() => setTab(item.id)} className={cn("flex flex-col items-center gap-0.5 px-3 py-1", tab === item.id ? "text-[#111111]" : "text-[#999]")}>
-              <item.icon className={cn("h-5 w-5", tab === item.id ? "text-[#5BA3CF]" : "")} />
+            <button key={item.id} type="button" onClick={() => setTab(item.id)} className={cn("flex flex-col items-center gap-0.5 px-3 py-1", tab === item.id ? "text-[#14171F]" : "text-[#909090]")}>
+              <item.icon className={cn("h-5 w-5", tab === item.id ? "text-[#2C5A82]" : "")} />
               <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em]">{item.label}</span>
             </button>
           ))}
@@ -197,42 +197,42 @@ export default function SellerDashboard() {
         <aside className="fixed inset-y-0 right-0 z-50 w-80 border-l border-black/[0.06] bg-white shadow-xl">
           <div className="flex items-center justify-between border-b border-black/[0.06] px-5 py-4">
             <p className="text-xs font-black uppercase tracking-[0.2em]">Notifications</p>
-            <button type="button" onClick={() => setShowNotifPanel(false)}><X className="h-4 w-4 text-[#999]" /></button>
+            <button type="button" onClick={() => setShowNotifPanel(false)}><X className="h-4 w-4 text-[#909090]" /></button>
           </div>
           <div className="p-4 space-y-3 overflow-y-auto max-h-[calc(100vh-4rem)]">
-            <div className="rounded-xl bg-[#F7F8FA] p-3">
+            <div className="rounded-xl bg-[#FAF9F5] p-3">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#5BA3CF]" />
+                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#2C5A82]" />
                 <div>
                   <p className="text-xs font-bold">New order received</p>
-                  <p className="text-[0.5rem] text-[#999] mt-0.5">Order #1023 needs confirmation</p>
-                  <p className="text-[0.45rem] text-[#999] mt-1">2 min ago</p>
+                  <p className="text-[0.5rem] text-[#909090] mt-0.5">Order #1023 needs confirmation</p>
+                  <p className="text-[0.45rem] text-[#909090] mt-1">2 min ago</p>
                 </div>
               </div>
             </div>
-            <div className="rounded-xl bg-[#F7F8FA] p-3">
+            <div className="rounded-xl bg-[#FAF9F5] p-3">
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-red-400" />
                 <div>
                   <p className="text-xs font-bold">Low stock alert</p>
-                  <p className="text-[0.5rem] text-[#999] mt-0.5">3 products are running low</p>
-                  <p className="text-[0.45rem] text-[#999] mt-1">1 hour ago</p>
+                  <p className="text-[0.5rem] text-[#909090] mt-0.5">3 products are running low</p>
+                  <p className="text-[0.45rem] text-[#909090] mt-1">1 hour ago</p>
                 </div>
               </div>
             </div>
-            <div className="rounded-xl bg-[#F7F8FA] p-3">
+            <div className="rounded-xl bg-[#FAF9F5] p-3">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#5BA3CF]" />
+                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#2C5A82]" />
                 <div>
                   <p className="text-xs font-bold">New review</p>
-                  <p className="text-[0.5rem] text-[#999] mt-0.5">★★★★★ on Atelier Silk Co-ord</p>
-                  <p className="text-[0.45rem] text-[#999] mt-1">3 hours ago</p>
+                  <p className="text-[0.5rem] text-[#909090] mt-0.5">★★★★★ on Atelier Silk Co-ord</p>
+                  <p className="text-[0.45rem] text-[#909090] mt-1">3 hours ago</p>
                 </div>
               </div>
             </div>
             <div className="mt-4 rounded-xl border border-dashed border-black/10 p-4 text-center">
-              <p className="text-xs font-bold text-[#999]">Today's Tasks</p>
-              <p className="mt-1 text-[0.5rem] text-[#999]">2 orders to process<br />3 messages to reply</p>
+              <p className="text-xs font-bold text-[#909090]">Today's Tasks</p>
+              <p className="mt-1 text-[0.5rem] text-[#909090]">2 orders to process<br />3 messages to reply</p>
             </div>
           </div>
         </aside>
@@ -265,7 +265,7 @@ function DashboardTab() {
   useEffect(() => { fetch(); const id = setInterval(fetch, 30000); return () => clearInterval(id); }, []);
 
   if (loading) return <Loader />;
-  if (!data) return <div className="rounded-2xl border border-dashed border-black/10 bg-white p-12 text-center"><p className="text-sm text-[#999]">Could not load dashboard data.</p></div>;
+  if (!data) return <div className="rounded-2xl border border-dashed border-black/10 bg-white p-12 text-center"><p className="text-sm text-[#909090]">Could not load dashboard data.</p></div>;
 
   const s = data.stats;
 
@@ -274,36 +274,36 @@ function DashboardTab() {
       {/* Welcome + Quick Actions */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Dashboard</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Dashboard</p>
           <h1 className="mt-1 font-display text-2xl font-black tracking-[-0.05em] sm:text-3xl">Good {new Date().getHours() < 12 ? "morning" : "afternoon"}, {user?.name?.split(" ")[0] ?? "Seller"} 👋</h1>
-          <p className="mt-1 text-sm text-[#999]">Here's how your business is performing today.</p>
+          <p className="mt-1 text-sm text-[#909090]">Here's how your business is performing today.</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button type="button" onClick={() => navigate("/seller/products/new")} className="flex h-10 items-center gap-2 rounded-full bg-[#111111] px-5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]"><Plus className="h-3.5 w-3.5" /> Add Product</button>
-          <button type="button" onClick={() => navigate("/seller?tab=orders")} className="flex h-10 items-center gap-2 rounded-full border border-black/10 px-5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#999] transition hover:bg-[#F7F8FA] hover:text-[#111111]"><ShoppingBag className="h-3.5 w-3.5" /> View Orders</button>
-          <button type="button" onClick={fetch} className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-[#999] transition hover:bg-[#F7F8FA] hover:text-[#111111]"><RefreshCw className="h-4 w-4" /></button>
+          <button type="button" onClick={() => navigate("/seller/products/new")} className="flex h-10 items-center gap-2 rounded-full bg-[#14171F] px-5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]"><Plus className="h-3.5 w-3.5" /> Add Product</button>
+          <button type="button" onClick={() => navigate("/seller?tab=orders")} className="flex h-10 items-center gap-2 rounded-full border border-black/10 px-5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#909090] transition hover:bg-[#FAF9F5] hover:text-[#14171F]"><ShoppingBag className="h-3.5 w-3.5" /> View Orders</button>
+          <button type="button" onClick={fetch} className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-[#909090] transition hover:bg-[#FAF9F5] hover:text-[#14171F]"><RefreshCw className="h-4 w-4" /></button>
         </div>
       </div>
 
       {/* Business Overview Cards */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7">
         {[
-          { label: "Today's Sales", value: formatRwf(Number(s.todaySales) || 0), icon: TrendingUp, color: "bg-[#111111] text-white", sub: `Yesterday ${formatRwf(Number(s.yesterdaySales) || 0)}` },
-          { label: "Revenue", value: formatRwf(Number(s.totalRevenue) || 0), icon: DollarSign, color: "bg-[#5BA3CF] text-white", sub: `${s.monthSales ? formatRwf(Number(s.monthSales)) : "—"} this month` },
-          { label: "Orders", value: String(s.totalOrders ?? 0), icon: ShoppingBag, color: "bg-[#111111] text-white", sub: `${s.pendingOrders ?? 0} pending` },
-          { label: "Products", value: String(s.activeProducts ?? 0), icon: Package, color: "bg-white text-[#111111] border border-black/10", sub: `${s.totalProducts ?? 0} total` },
-          { label: "Visitors", value: String(s.visitors ?? 0), icon: Eye, color: "bg-[#F7F8FA] text-[#111111]" },
-          { label: "Rating", value: String(Number(s.averageRating ?? 0).toFixed(1)), icon: Star, color: "bg-[#5BA3CF]/10 text-[#5BA3CF]" },
-          { label: "Messages", value: String(s.unreadMessages ?? 0), icon: MessageSquare, color: "bg-white text-[#111111] border border-black/10" },
+          { label: "Today's Sales", value: formatRwf(Number(s.todaySales) || 0), icon: TrendingUp, color: "bg-[#14171F] text-white", sub: `Yesterday ${formatRwf(Number(s.yesterdaySales) || 0)}` },
+          { label: "Revenue", value: formatRwf(Number(s.totalRevenue) || 0), icon: DollarSign, color: "bg-[#2C5A82] text-white", sub: `${s.monthSales ? formatRwf(Number(s.monthSales)) : "—"} this month` },
+          { label: "Orders", value: String(s.totalOrders ?? 0), icon: ShoppingBag, color: "bg-[#14171F] text-white", sub: `${s.pendingOrders ?? 0} pending` },
+          { label: "Products", value: String(s.activeProducts ?? 0), icon: Package, color: "bg-white text-[#14171F] border border-black/10", sub: `${s.totalProducts ?? 0} total` },
+          { label: "Visitors", value: String(s.visitors ?? 0), icon: Eye, color: "bg-[#FAF9F5] text-[#14171F]" },
+          { label: "Rating", value: String(Number(s.averageRating ?? 0).toFixed(1)), icon: Star, color: "bg-[#2C5A82]/10 text-[#2C5A82]" },
+          { label: "Messages", value: String(s.unreadMessages ?? 0), icon: MessageSquare, color: "bg-white text-[#14171F] border border-black/10" },
         ].map((c) => (
           <div key={c.label} className={cn("flex items-center gap-3 rounded-xl p-4", c.color.includes("bg-") ? c.color : "bg-white")}>
-            <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", c.color.includes("border") ? "bg-[#F7F8FA]" : c.color.includes("bg-[#111111]") ? "bg-white/10" : c.color.includes("bg-[#5BA3CF]/10") ? "bg-[#5BA3CF]/10" : c.color.includes("bg-[#5BA3CF]") ? "bg-white/10" : "bg-white border border-black/10")}>
-              <c.icon className={cn("h-4 w-4", c.color.includes("bg-[#111111]") ? "text-[#5BA3CF]" : c.color.includes("bg-[#5BA3CF]") ? "text-white" : c.color === "bg-[#F7F8FA] text-[#111111]" ? "text-[#111111]" : c.color.includes("bg-[#5BA3CF]/") ? "text-[#5BA3CF]" : "text-[#999]")} />
+            <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", c.color.includes("border") ? "bg-[#FAF9F5]" : c.color.includes("bg-[#14171F]") ? "bg-white/10" : c.color.includes("bg-[#2C5A82]/10") ? "bg-[#2C5A82]/10" : c.color.includes("bg-[#2C5A82]") ? "bg-white/10" : "bg-white border border-black/10")}>
+              <c.icon className={cn("h-4 w-4", c.color.includes("bg-[#14171F]") ? "text-[#2C5A82]" : c.color.includes("bg-[#2C5A82]") ? "text-white" : c.color === "bg-[#FAF9F5] text-[#14171F]" ? "text-[#14171F]" : c.color.includes("bg-[#2C5A82]/") ? "text-[#2C5A82]" : "text-[#909090]")} />
             </div>
             <div className="min-w-0">
-              <p className={cn("text-[0.5rem] font-bold uppercase tracking-[0.15em]", c.color.includes("text-white") ? "text-white/70" : "text-[#999]")}>{c.label}</p>
+              <p className={cn("text-[0.5rem] font-bold uppercase tracking-[0.15em]", c.color.includes("text-white") ? "text-white/70" : "text-[#909090]")}>{c.label}</p>
               <p className="mt-0.5 font-display text-lg font-black tracking-[-0.03em]">{c.value}</p>
-              {c.sub && <p className={cn("text-[0.4rem]", c.color.includes("text-white") ? "text-white/50" : "text-[#999]")}>{c.sub}</p>}
+              {c.sub && <p className={cn("text-[0.4rem]", c.color.includes("text-white") ? "text-white/50" : "text-[#909090]")}>{c.sub}</p>}
             </div>
           </div>
         ))}
@@ -313,7 +313,7 @@ function DashboardTab() {
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-7">
         {Object.entries(data.orderStatusCounts ?? {}).map(([status, count]) => (
           <button key={status} type="button" onClick={() => navigate("/seller?tab=orders")} className="rounded-xl border border-black/[0.06] bg-white p-3 text-center transition hover:-translate-y-0.5 hover:shadow-md">
-            <p className={cn("inline-block rounded-md px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-[0.12em]", statusColors[status] ?? "bg-[#F7F8FA] text-[#999]")}>{status}</p>
+            <p className={cn("inline-block rounded-md px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-[0.12em]", statusColors[status] ?? "bg-[#FAF9F5] text-[#909090]")}>{status}</p>
             <p className="mt-2 font-display text-xl font-black">{String(count)}</p>
           </button>
         ))}
@@ -325,14 +325,14 @@ function DashboardTab() {
           <RevenueChart />
         </div>
         <div className="rounded-xl border border-black/[0.06] bg-white p-5">
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.18em] text-[#999]">Wallet</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.18em] text-[#909090]">Wallet</p>
           <p className="mt-1 font-display text-2xl font-black">{formatRwf(Number(wallet?.availableBalance) || 0)}</p>
-          <p className="text-[0.5rem] text-[#999]">Available balance</p>
+          <p className="text-[0.5rem] text-[#909090]">Available balance</p>
           <div className="mt-3 space-y-2">
-            <div className="flex justify-between text-xs"><span className="text-[#999]">Pending</span><span className="font-bold">{formatRwf(Number(wallet?.pendingBalance) || 0)}</span></div>
-            <div className="flex justify-between text-xs"><span className="text-[#999]">Next payout</span><span className="font-bold">{wallet?.nextPayoutDate as string ?? "—"}</span></div>
+            <div className="flex justify-between text-xs"><span className="text-[#909090]">Pending</span><span className="font-bold">{formatRwf(Number(wallet?.pendingBalance) || 0)}</span></div>
+            <div className="flex justify-between text-xs"><span className="text-[#909090]">Next payout</span><span className="font-bold">{wallet?.nextPayoutDate as string ?? "—"}</span></div>
           </div>
-          <button type="button" className="mt-4 w-full rounded-full bg-[#111111] py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Withdraw Funds</button>
+          <button type="button" className="mt-4 w-full rounded-full bg-[#14171F] py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Withdraw Funds</button>
         </div>
       </div>
 
@@ -341,15 +341,15 @@ function DashboardTab() {
         <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-display text-base font-black tracking-[-0.03em]">Recent Orders</h3>
-            <button type="button" onClick={() => navigate("/seller?tab=orders")} className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">View All</button>
+            <button type="button" onClick={() => navigate("/seller?tab=orders")} className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#2C5A82]">View All</button>
           </div>
-          {data.recentOrders.length === 0 ? <p className="py-6 text-center text-sm text-[#999]">No orders yet.</p> : (
+          {data.recentOrders.length === 0 ? <p className="py-6 text-center text-sm text-[#909090]">No orders yet.</p> : (
             <div className="space-y-2">
               {data.recentOrders.slice(0, 5).map((o) => (
-                <div key={o.id as string} className="flex items-center justify-between rounded-lg bg-[#F7F8FA] px-4 py-3">
+                <div key={o.id as string} className="flex items-center justify-between rounded-lg bg-[#FAF9F5] px-4 py-3">
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-bold truncate">#{(o.order_number as string) ?? o.id as string}</p>
-                    <p className="text-xs text-[#999]">{(o.customer_name as string) ?? "Guest"} · {formatRwf(Number(o.total) || 0)}</p>
+                    <p className="text-xs text-[#909090]">{(o.customer_name as string) ?? "Guest"} · {formatRwf(Number(o.total) || 0)}</p>
                   </div>
                   <span className={cn("rounded-md border px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-[0.12em]", statusColors[o.status as string] ?? "")}>{o.status as string}</span>
                 </div>
@@ -360,17 +360,17 @@ function DashboardTab() {
 
         <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <h3 className="mb-4 font-display text-base font-black tracking-[-0.03em]">Best Selling</h3>
-          {data.topProducts.length === 0 ? <p className="py-6 text-center text-sm text-[#999]">No data yet.</p> : (
+          {data.topProducts.length === 0 ? <p className="py-6 text-center text-sm text-[#909090]">No data yet.</p> : (
             <div className="space-y-3">
               {data.topProducts.slice(0, 5).map((p, i) => (
                 <div key={p.slug} className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#F7F8FA] text-[0.5rem] font-black text-[#999]">{i + 1}</span>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#FAF9F5] text-[0.5rem] font-black text-[#909090]">{i + 1}</span>
                   <img src={p.images[0]} alt={p.name} className="h-9 w-9 shrink-0 rounded-lg object-cover" />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-bold">{p.name}</p>
-                    <p className="text-xs text-[#999]">{formatRwf(p.price)} · {p.stockQuantity ?? 0} in stock</p>
+                    <p className="text-xs text-[#909090]">{formatRwf(p.price)} · {p.stockQuantity ?? 0} in stock</p>
                   </div>
-                  <Link to={`/seller/products/edit/${p.id}`} className="shrink-0 rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">Edit</Link>
+                  <Link to={`/seller/products/edit/${p.id}`} className="shrink-0 rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">Edit</Link>
                 </div>
               ))}
             </div>
@@ -405,21 +405,21 @@ function DashboardTab() {
 
         <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <h3 className="mb-4 font-display text-base font-black tracking-[-0.03em]">Recent Reviews</h3>
-          {data.recentReviews.length === 0 ? <p className="py-6 text-center text-sm text-[#999]">No reviews yet.</p> : (
+          {data.recentReviews.length === 0 ? <p className="py-6 text-center text-sm text-[#909090]">No reviews yet.</p> : (
             <div className="space-y-3">
               {data.recentReviews.slice(0, 4).map((r) => {
                 const ru = r.user as Record<string, string> | undefined;
                 const rp = r.product as Record<string, unknown> | undefined;
                 return (
                   <div key={r.id as string} className="flex items-start gap-3 border-b border-black/[0.06] pb-3 last:border-0">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F8FA] text-[0.5rem] font-bold">{ru?.name?.[0] ?? "A"}</div>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FAF9F5] text-[0.5rem] font-bold">{ru?.name?.[0] ?? "A"}</div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-bold">{ru?.name ?? "Anonymous"}</p>
-                        <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />)}</div>
+                        <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#2C5A82] text-[#2C5A82]" : "text-[#ddd]")} />)}</div>
                       </div>
-                      <p className="mt-0.5 text-xs text-[#999]">{rp?.name as string ?? ""}</p>
-                      <p className="mt-0.5 text-xs text-[#666666] line-clamp-2">{(r.text as string) ?? ""}</p>
+                      <p className="mt-0.5 text-xs text-[#909090]">{rp?.name as string ?? ""}</p>
+                      <p className="mt-0.5 text-xs text-[#6D6D6D] line-clamp-2">{(r.text as string) ?? ""}</p>
                     </div>
                   </div>
                 );
@@ -441,7 +441,7 @@ function DashboardTab() {
             { label: "Repeat Rate", value: `${s.repeatCustomerRate ?? 0}%` },
             { label: "Growth", value: `${s.monthlyGrowth ?? 0}%` },
           ].map((p) => (
-            <div key={p.label} className="rounded-xl bg-[#F7F8FA] p-4"><p className="text-[0.5rem] font-black uppercase tracking-[0.15em] text-[#999]">{p.label}</p><p className="mt-1 font-display text-xl font-black">{p.value}</p></div>
+            <div key={p.label} className="rounded-xl bg-[#FAF9F5] p-4"><p className="text-[0.5rem] font-black uppercase tracking-[0.15em] text-[#909090]">{p.label}</p><p className="mt-1 font-display text-xl font-black">{p.value}</p></div>
           ))}
         </div>
       </div>
@@ -467,18 +467,18 @@ function RevenueChart() {
         <h3 className="font-display text-base font-black tracking-[-0.03em]">Revenue</h3>
         <div className="flex gap-1 rounded-lg border border-black/10 bg-white p-0.5">
           {["daily", "weekly", "monthly", "yearly"].map((p) => (
-            <button key={p} type="button" onClick={() => { setLoading(true); setPeriod(p); }} className={cn("rounded-md px-2.5 py-1 text-[0.45rem] font-bold uppercase tracking-[0.12em] transition", period === p ? "bg-[#111111] text-white" : "text-[#999] hover:bg-[#F7F8FA]")}>{p}</button>
+            <button key={p} type="button" onClick={() => { setLoading(true); setPeriod(p); }} className={cn("rounded-md px-2.5 py-1 text-[0.45rem] font-bold uppercase tracking-[0.12em] transition", period === p ? "bg-[#14171F] text-white" : "text-[#909090] hover:bg-[#FAF9F5]")}>{p}</button>
           ))}
         </div>
       </div>
-      {loading ? <div className="flex h-40 items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div> : data.length === 0 ? (
-        <div className="flex h-40 items-center justify-center text-sm text-[#999]">No revenue data yet.</div>
+      {loading ? <div className="flex h-40 items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" /></div> : data.length === 0 ? (
+        <div className="flex h-40 items-center justify-center text-sm text-[#909090]">No revenue data yet.</div>
       ) : (
         <div className="flex h-40 items-end gap-1 sm:gap-2">
           {data.map((r) => (
             <div key={r.date as string} className="flex flex-1 flex-col items-center gap-1">
-              <div className="w-full rounded-t bg-[#5BA3CF] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, ((Number(r.total) || 0) / maxVal) * 140)}px` }} />
-              <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#999]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
+              <div className="w-full rounded-t bg-[#2C5A82] transition hover:bg-[#14171F]" style={{ height: `${Math.max(4, ((Number(r.total) || 0) / maxVal) * 140)}px` }} />
+              <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#909090]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
             </div>
           ))}
         </div>
@@ -503,7 +503,7 @@ function OrdersTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Management</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Management</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Orders</h2>
         </div>
         <div className="flex gap-2">
@@ -517,35 +517,35 @@ function OrdersTab() {
             <option value="cancelled">Cancelled</option>
             <option value="refunded">Refunded</option>
           </select>
-          <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-4 text-xs font-bold transition hover:bg-[#F7F8FA]"><Download className="h-3.5 w-3.5" /> Export</button>
+          <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-4 text-xs font-bold transition hover:bg-[#FAF9F5]"><Download className="h-3.5 w-3.5" /> Export</button>
         </div>
       </div>
       {loading ? <Loader /> : (
         <div className="overflow-x-auto rounded-xl border border-black/[0.06] bg-white">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#999]">
+              <tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#909090]">
                 <th className="px-5 py-4">Order</th><th className="px-5 py-4">Customer</th><th className="px-5 py-4">Items</th><th className="px-5 py-4">Amount</th><th className="px-5 py-4">Payment</th><th className="px-5 py-4">Status</th><th className="px-5 py-4">Date</th><th className="px-5 py-4" />
               </tr>
             </thead>
             <tbody className="divide-y divide-black/[0.06]">
               {filtered.map((o) => (
-                <tr key={o.id as string} className="transition hover:bg-[#F7F8FA]">
+                <tr key={o.id as string} className="transition hover:bg-[#FAF9F5]">
                   <td className="px-5 py-4 font-bold">#{(o.order_number as string) ?? o.id as string}</td>
                   <td className="px-5 py-4">{(o.customer_name as string) ?? "Guest"}</td>
-                  <td className="px-5 py-4 text-xs text-[#999]">{String((o.items as Array<unknown>)?.length ?? 0)}</td>
+                  <td className="px-5 py-4 text-xs text-[#909090]">{String((o.items as Array<unknown>)?.length ?? 0)}</td>
                   <td className="px-5 py-4 font-display font-black">{formatRwf(Number(o.total) || 0)}</td>
                   <td className="px-5 py-4"><span className="rounded-md border border-green-200 bg-green-50 px-2 py-0.5 text-[0.4rem] font-bold text-green-700 uppercase tracking-[0.12em]">Paid</span></td>
                   <td className="px-5 py-4"><span className={cn("rounded-md border px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-[0.12em]", statusColors[o.status as string] ?? "")}>{o.status as string}</span></td>
-                  <td className="px-5 py-4 text-xs text-[#999]">{new Date(o.created_at as string).toLocaleDateString()}</td>
+                  <td className="px-5 py-4 text-xs text-[#909090]">{new Date(o.created_at as string).toLocaleDateString()}</td>
                   <td className="px-5 py-4">
-                    <button type="button" className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">View</button>
+                    <button type="button" className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">View</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {filtered.length === 0 && <p className="p-8 text-center text-sm text-[#999]">No orders found.</p>}
+          {filtered.length === 0 && <p className="p-8 text-center text-sm text-[#909090]">No orders found.</p>}
         </div>
       )}
     </div>
@@ -569,46 +569,46 @@ function ProductsTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Catalog</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Catalog</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Products</h2>
         </div>
         <div className="flex flex-wrap gap-2">
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#999]" />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="h-10 w-48 rounded-xl border border-black/10 bg-white pl-10 pr-4 text-sm outline-none focus:border-[#5BA3CF]" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#909090]" />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="h-10 w-48 rounded-xl border border-black/10 bg-white pl-10 pr-4 text-sm outline-none focus:border-[#2C5A82]" />
           </div>
-          <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-4 text-xs font-bold transition hover:bg-[#F7F8FA]"><Upload className="h-3.5 w-3.5" /> Import</button>
-          <button type="button" onClick={() => navigate("/seller/products/new")} className="flex h-10 items-center gap-2 rounded-xl bg-[#111111] px-5 text-xs font-bold text-white transition hover:bg-[#333]"><Plus className="h-3.5 w-3.5" /> Add Product</button>
+          <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-4 text-xs font-bold transition hover:bg-[#FAF9F5]"><Upload className="h-3.5 w-3.5" /> Import</button>
+          <button type="button" onClick={() => navigate("/seller/products/new")} className="flex h-10 items-center gap-2 rounded-xl bg-[#14171F] px-5 text-xs font-bold text-white transition hover:bg-[#333]"><Plus className="h-3.5 w-3.5" /> Add Product</button>
         </div>
       </div>
       {loading ? <Loader /> : (
         <div className="overflow-x-auto rounded-xl border border-black/[0.06] bg-white">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#999]">
+              <tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#909090]">
                 <th className="px-5 py-4">Product</th><th className="px-5 py-4">Category</th><th className="px-5 py-4">Price</th><th className="px-5 py-4">Stock</th><th className="px-5 py-4">Status</th><th className="px-5 py-4">Sales</th><th className="px-5 py-4" />
               </tr>
             </thead>
             <tbody className="divide-y divide-black/[0.06]">
               {filtered.map((p) => (
-                <tr key={p.slug} className="transition hover:bg-[#F7F8FA]">
-                  <td className="px-5 py-4"><div className="flex items-center gap-3"><img src={p.images[0]} alt={p.name} className="h-10 w-10 rounded-lg object-cover" /><div className="min-w-0"><p className="truncate font-bold max-w-[12rem]">{p.name}</p><p className="text-xs text-[#999]">SKU: {p.sku ?? "—"}</p></div></div></td>
-                  <td className="px-5 py-4 text-xs text-[#999]">{p.category}</td>
+                <tr key={p.slug} className="transition hover:bg-[#FAF9F5]">
+                  <td className="px-5 py-4"><div className="flex items-center gap-3"><img src={p.images[0]} alt={p.name} className="h-10 w-10 rounded-lg object-cover" /><div className="min-w-0"><p className="truncate font-bold max-w-[12rem]">{p.name}</p><p className="text-xs text-[#909090]">SKU: {p.sku ?? "—"}</p></div></div></td>
+                  <td className="px-5 py-4 text-xs text-[#909090]">{p.category}</td>
                   <td className="px-5 py-4 font-display font-black">{formatRwf(p.price)}</td>
                   <td className="px-5 py-4"><span className={cn("font-bold text-sm", (p.stockQuantity ?? 0) <= 0 ? "text-red-500" : (p.stockQuantity ?? 0) <= (p.lowStockAlert ?? 5) ? "text-amber-500" : "text-green-600")}>{p.stockQuantity ?? 0}</span></td>
                   <td className="px-5 py-4"><span className={cn("rounded-md border px-2 py-0.5 text-[0.4rem] font-bold uppercase tracking-[0.12em]", p.visibility === "published" ? "border-green-200 bg-green-50 text-green-700" : "border-amber-200 bg-amber-50 text-amber-700")}>{p.visibility ?? "draft"}</span></td>
                   <td className="px-5 py-4 text-sm font-bold">{p.sales ?? 0}</td>
                   <td className="px-5 py-4">
                     <div className="flex gap-1">
-                      <Link to={`/seller/products/edit/${p.id}`} className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">Edit</Link>
-                      <button type="button" className="rounded-md border border-black/10 px-2 py-1 text-[#999]"><MoreHorizontal className="h-3 w-3" /></button>
+                      <Link to={`/seller/products/edit/${p.id}`} className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">Edit</Link>
+                      <button type="button" className="rounded-md border border-black/10 px-2 py-1 text-[#909090]"><MoreHorizontal className="h-3 w-3" /></button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {filtered.length === 0 && <p className="p-8 text-center text-sm text-[#999]">No products found.</p>}
+          {filtered.length === 0 && <p className="p-8 text-center text-sm text-[#909090]">No products found.</p>}
         </div>
       )}
     </div>
@@ -631,7 +631,7 @@ function InventoryTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Stock</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Stock</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Inventory</h2>
       </div>
       {loading ? <Loader /> : (
@@ -644,15 +644,15 @@ function InventoryTab() {
           </div>
           <div className="overflow-x-auto rounded-xl border border-black/[0.06] bg-white">
             <table className="w-full text-left text-sm">
-              <thead><tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#999]"><th className="px-5 py-4">Product</th><th className="px-5 py-4">SKU</th><th className="px-5 py-4">Stock</th><th className="px-5 py-4">Alert At</th><th className="px-5 py-4" /></tr></thead>
+              <thead><tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#909090]"><th className="px-5 py-4">Product</th><th className="px-5 py-4">SKU</th><th className="px-5 py-4">Stock</th><th className="px-5 py-4">Alert At</th><th className="px-5 py-4" /></tr></thead>
               <tbody className="divide-y divide-black/[0.06]">
                 {products.map((p) => (
-                  <tr key={p.slug} className="transition hover:bg-[#F7F8FA]">
+                  <tr key={p.slug} className="transition hover:bg-[#FAF9F5]">
                     <td className="px-5 py-4"><div className="flex items-center gap-3"><img src={p.images[0]} alt={p.name} className="h-8 w-8 rounded-lg object-cover" /><span className="truncate max-w-[10rem] font-bold">{p.name}</span></div></td>
-                    <td className="px-5 py-4 text-xs text-[#999]">{p.sku ?? "—"}</td>
+                    <td className="px-5 py-4 text-xs text-[#909090]">{p.sku ?? "—"}</td>
                     <td className="px-5 py-4"><span className={cn("font-bold", (p.stockQuantity ?? 0) <= 0 ? "text-red-500" : (p.stockQuantity ?? 0) <= (p.lowStockAlert ?? 5) ? "text-amber-500" : "text-green-600")}>{p.stockQuantity ?? 0}</span></td>
-                    <td className="px-5 py-4 text-xs text-[#999]">{p.lowStockAlert ?? 5}</td>
-                    <td className="px-5 py-4"><Link to={`/seller/products/edit/${p.id}`} className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">Edit</Link></td>
+                    <td className="px-5 py-4 text-xs text-[#909090]">{p.lowStockAlert ?? 5}</td>
+                    <td className="px-5 py-4"><Link to={`/seller/products/edit/${p.id}`} className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">Edit</Link></td>
                   </tr>
                 ))}
               </tbody>
@@ -676,29 +676,29 @@ function CustomersTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">People</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">People</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Customers</h2>
       </div>
       {loading ? <Loader /> : (
         <div className="overflow-x-auto rounded-xl border border-black/[0.06] bg-white">
           <table className="w-full text-left text-sm">
-            <thead><tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#999]"><th className="px-5 py-4">Customer</th><th className="px-5 py-4">Email</th><th className="px-5 py-4">Orders</th><th className="px-5 py-4">Total Spent</th><th className="px-5 py-4" /></tr></thead>
+            <thead><tr className="border-b border-black/[0.06] text-[0.45rem] font-black uppercase tracking-[0.18em] text-[#909090]"><th className="px-5 py-4">Customer</th><th className="px-5 py-4">Email</th><th className="px-5 py-4">Orders</th><th className="px-5 py-4">Total Spent</th><th className="px-5 py-4" /></tr></thead>
             <tbody className="divide-y divide-black/[0.06]">
               {customers.map((c) => {
                 const u = (c.user as Record<string, unknown>) ?? {};
                 return (
-                  <tr key={u.id as string} className="transition hover:bg-[#F7F8FA]">
+                  <tr key={u.id as string} className="transition hover:bg-[#FAF9F5]">
                     <td className="px-5 py-4 font-bold">{u.name as string ?? "Anonymous"}</td>
-                    <td className="px-5 py-4 text-xs text-[#999]">{u.email as string ?? "—"}</td>
+                    <td className="px-5 py-4 text-xs text-[#909090]">{u.email as string ?? "—"}</td>
                     <td className="px-5 py-4">{String(c.order_count ?? 0)}</td>
                     <td className="px-5 py-4 font-display font-black">{formatRwf(Number(c.total_spent) || 0)}</td>
-                    <td className="px-5 py-4"><button type="button" className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">Message</button></td>
+                    <td className="px-5 py-4"><button type="button" className="rounded-md border border-black/10 px-2.5 py-1 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">Message</button></td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-          {customers.length === 0 && <p className="p-8 text-center text-sm text-[#999]">No customers yet.</p>}
+          {customers.length === 0 && <p className="p-8 text-center text-sm text-[#909090]">No customers yet.</p>}
         </div>
       )}
     </div>
@@ -717,21 +717,21 @@ function MessagesTab() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Inbox</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Inbox</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Messages</h2>
       </div>
       {loading ? <Loader /> : conversations.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-black/10 bg-white p-12 text-center"><MessageSquare className="mx-auto h-8 w-8 text-[#999]" /><p className="mt-3 font-display text-lg font-black tracking-[-0.03em]">No conversations yet</p><p className="mt-1 text-sm text-[#999]">Messages from customers will appear here.</p></div>
+        <div className="rounded-xl border border-dashed border-black/10 bg-white p-12 text-center"><MessageSquare className="mx-auto h-8 w-8 text-[#909090]" /><p className="mt-3 font-display text-lg font-black tracking-[-0.03em]">No conversations yet</p><p className="mt-1 text-sm text-[#909090]">Messages from customers will appear here.</p></div>
       ) : (
         <div className="space-y-2">
           {conversations.map((c) => (
-            <Link key={c.id as string} to={`/messages/${c.id}`} className="flex items-center gap-4 rounded-xl border border-black/[0.06] bg-white p-4 transition hover:bg-[#F7F8FA]">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F7F8FA] text-sm font-bold">{(c.customer_name as string)?.[0] ?? "C"}</div>
+            <Link key={c.id as string} to={`/messages/${c.id}`} className="flex items-center gap-4 rounded-xl border border-black/[0.06] bg-white p-4 transition hover:bg-[#FAF9F5]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FAF9F5] text-sm font-bold">{(c.customer_name as string)?.[0] ?? "C"}</div>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2"><p className="text-sm font-bold truncate">{(c.customer_name as string) ?? "Customer"}</p>{c.unread_count ? <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#5BA3CF] text-[0.35rem] font-bold text-white">{String(c.unread_count)}</span> : null}</div>
-                <p className="truncate text-xs text-[#999]">{(c.last_message as Record<string, string>)?.content as string ?? "No messages yet"}</p>
+                <div className="flex items-center gap-2"><p className="text-sm font-bold truncate">{(c.customer_name as string) ?? "Customer"}</p>{c.unread_count ? <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#2C5A82] text-[0.35rem] font-bold text-white">{String(c.unread_count)}</span> : null}</div>
+                <p className="truncate text-xs text-[#909090]">{(c.last_message as Record<string, string>)?.content as string ?? "No messages yet"}</p>
               </div>
-              <p className="shrink-0 text-[0.5rem] text-[#999]">{new Date(c.updated_at as string).toLocaleDateString()}</p>
+              <p className="shrink-0 text-[0.5rem] text-[#909090]">{new Date(c.updated_at as string).toLocaleDateString()}</p>
             </Link>
           ))}
         </div>
@@ -752,11 +752,11 @@ function ReviewsTab() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Feedback</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Feedback</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Reviews</h2>
       </div>
       {loading ? <Loader /> : reviews.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-black/10 bg-white p-12 text-center"><Star className="mx-auto h-8 w-8 text-[#999]" /><p className="mt-3 font-display text-lg font-black tracking-[-0.03em]">No reviews yet</p><p className="mt-1 text-sm text-[#999]">Customer reviews will appear here.</p></div>
+        <div className="rounded-xl border border-dashed border-black/10 bg-white p-12 text-center"><Star className="mx-auto h-8 w-8 text-[#909090]" /><p className="mt-3 font-display text-lg font-black tracking-[-0.03em]">No reviews yet</p><p className="mt-1 text-sm text-[#909090]">Customer reviews will appear here.</p></div>
       ) : (
         <div className="space-y-3">
           {reviews.map((r) => {
@@ -765,15 +765,15 @@ function ReviewsTab() {
             return (
               <div key={r.id as string} className="rounded-xl border border-black/[0.06] bg-white p-5">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F7F8FA] font-bold text-sm">{ru?.name?.[0] ?? "A"}</div>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FAF9F5] font-bold text-sm">{ru?.name?.[0] ?? "A"}</div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <p className="font-bold text-sm">{ru?.name ?? "Anonymous"}</p>
-                      <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />)}</div>
+                      <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#2C5A82] text-[#2C5A82]" : "text-[#ddd]")} />)}</div>
                     </div>
-                    <p className="mt-0.5 text-xs text-[#999]">on {rp?.name as string ?? "Product"}</p>
-                    <p className="mt-2 text-sm text-[#666666]">{r.text as string ?? ""}</p>
-                    <button type="button" className="mt-3 rounded-md border border-black/10 px-3 py-1.5 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#111111] hover:text-white">Reply</button>
+                    <p className="mt-0.5 text-xs text-[#909090]">on {rp?.name as string ?? "Product"}</p>
+                    <p className="mt-2 text-sm text-[#6D6D6D]">{r.text as string ?? ""}</p>
+                    <button type="button" className="mt-3 rounded-md border border-black/10 px-3 py-1.5 text-[0.4rem] font-bold uppercase tracking-[0.12em] transition hover:bg-[#14171F] hover:text-white">Reply</button>
                   </div>
                 </div>
               </div>
@@ -790,7 +790,7 @@ function MarketingTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Promotions</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Promotions</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Marketing</h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -801,17 +801,17 @@ function MarketingTab() {
           { label: "Store Followers", value: "0", icon: Users },
         ].map((m) => (
           <div key={m.label} className="rounded-xl border border-black/[0.06] bg-white p-5">
-            <m.icon className="h-5 w-5 text-[#5BA3CF]" />
+            <m.icon className="h-5 w-5 text-[#2C5A82]" />
             <p className="mt-3 font-display text-2xl font-black">{m.value}</p>
-            <p className="text-[0.5rem] font-bold uppercase tracking-[0.12em] text-[#999]">{m.label}</p>
+            <p className="text-[0.5rem] font-bold uppercase tracking-[0.12em] text-[#909090]">{m.label}</p>
           </div>
         ))}
       </div>
       <div className="rounded-xl border border-dashed border-black/10 bg-white p-8 text-center">
-        <Megaphone className="mx-auto h-8 w-8 text-[#5BA3CF]" />
+        <Megaphone className="mx-auto h-8 w-8 text-[#2C5A82]" />
         <p className="mt-3 font-display text-xl font-black tracking-[-0.04em]">Marketing Tools</p>
-        <p className="mt-1 text-sm text-[#999]">Coupons, flash sales, and campaigns are coming soon.</p>
-        <button type="button" className="mt-6 rounded-full bg-[#111111] px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Create Campaign</button>
+        <p className="mt-1 text-sm text-[#909090]">Coupons, flash sales, and campaigns are coming soon.</p>
+        <button type="button" className="mt-6 rounded-full bg-[#14171F] px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Create Campaign</button>
       </div>
     </div>
   );
@@ -833,32 +833,32 @@ function AnalyticsTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Insights</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Insights</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Analytics</h2>
         </div>
         <div className="flex gap-1 rounded-lg border border-black/10 bg-white p-0.5">
           {["daily", "weekly", "monthly", "yearly"].map((p) => (
-            <button key={p} type="button" onClick={() => { setLoading(true); setPeriod(p); }} className={cn("rounded-md px-3 py-1.5 text-[0.45rem] font-bold uppercase tracking-[0.12em] transition", period === p ? "bg-[#111111] text-white" : "text-[#999] hover:bg-[#F7F8FA]")}>{p}</button>
+            <button key={p} type="button" onClick={() => { setLoading(true); setPeriod(p); }} className={cn("rounded-md px-3 py-1.5 text-[0.45rem] font-bold uppercase tracking-[0.12em] transition", period === p ? "bg-[#14171F] text-white" : "text-[#909090] hover:bg-[#FAF9F5]")}>{p}</button>
           ))}
         </div>
       </div>
       <div className="rounded-xl border border-black/[0.06] bg-white p-6">
         <h3 className="mb-6 font-display text-lg font-black tracking-[-0.03em]">Revenue — {period.charAt(0).toUpperCase() + period.slice(1)}</h3>
-        {loading ? <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div> : revenueData.length === 0 ? (
-          <div className="flex flex-col items-center py-12"><BarChart3 className="h-8 w-8 text-[#999]" /><p className="mt-3 text-sm text-[#999]">No revenue data yet.</p></div>
+        {loading ? <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" /></div> : revenueData.length === 0 ? (
+          <div className="flex flex-col items-center py-12"><BarChart3 className="h-8 w-8 text-[#909090]" /><p className="mt-3 text-sm text-[#909090]">No revenue data yet.</p></div>
         ) : (
           <div className="flex items-end gap-1 sm:gap-2" style={{ height: 220 }}>
             {revenueData.map((r) => (
               <div key={r.date as string} className="flex flex-1 flex-col items-center gap-1">
-                <div className="w-full rounded-t bg-[#5BA3CF] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, (Number(r.total) || 0) / maxVal * 200)}px` }} />
-                <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#999] sm:text-[0.45rem]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
+                <div className="w-full rounded-t bg-[#2C5A82] transition hover:bg-[#14171F]" style={{ height: `${Math.max(4, (Number(r.total) || 0) / maxVal * 200)}px` }} />
+                <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#909090] sm:text-[0.45rem]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
               </div>
             ))}
           </div>
         )}
       </div>
       <div className="flex justify-end">
-        <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-5 text-xs font-bold transition hover:bg-[#F7F8FA]"><Download className="h-3.5 w-3.5" /> Download Report</button>
+        <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-5 text-xs font-bold transition hover:bg-[#FAF9F5]"><Download className="h-3.5 w-3.5" /> Download Report</button>
       </div>
     </div>
   );
@@ -876,18 +876,18 @@ function SettingsTab() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Configuration</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Configuration</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Store Settings</h2>
       </div>
       {loading ? <Loader /> : (
         <div className="rounded-xl border border-black/[0.06] bg-white p-6">
           <div className="mb-6 flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F7F8FA] overflow-hidden">
-              <Store className="h-8 w-8 text-[#999]" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FAF9F5] overflow-hidden">
+              <Store className="h-8 w-8 text-[#909090]" />
             </div>
             <div>
               <p className="text-lg font-black">{store.name as string ?? "My Store"}</p>
-              <p className="text-sm text-[#999]">{store.location as string ?? "Kigali, Rwanda"}</p>
+              <p className="text-sm text-[#909090]">{store.location as string ?? "Kigali, Rwanda"}</p>
             </div>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
@@ -900,13 +900,13 @@ function SettingsTab() {
               { label: "Business Hours", value: store.hours as string ?? "Mon–Sat 9:00 – 19:00" },
             ].map((f) => (
               <div key={f.label} className="flex flex-col gap-1">
-                <label className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#999]">{f.label}</label>
-                <p className="min-h-10 rounded-xl border border-black/10 bg-[#F7F8FA] px-4 py-2.5 text-sm">{f.value ?? "—"}</p>
+                <label className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#909090]">{f.label}</label>
+                <p className="min-h-10 rounded-xl border border-black/10 bg-[#FAF9F5] px-4 py-2.5 text-sm">{f.value ?? "—"}</p>
               </div>
             ))}
           </div>
           <div className="mt-6 flex justify-end">
-            <button type="button" className="rounded-full bg-[#111111] px-6 py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Save Changes</button>
+            <button type="button" className="rounded-full bg-[#14171F] px-6 py-2.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Save Changes</button>
           </div>
         </div>
       )}
@@ -919,16 +919,16 @@ function HelpTab() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Support</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#2C5A82]">Support</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Help Center</h2>
       </div>
       <div className="rounded-xl border border-black/[0.06] bg-white p-8 text-center">
-        <HelpCircle className="mx-auto h-10 w-10 text-[#5BA3CF]" />
+        <HelpCircle className="mx-auto h-10 w-10 text-[#2C5A82]" />
         <p className="mt-4 font-display text-xl font-black tracking-[-0.04em]">How can we help you?</p>
-        <p className="mt-2 text-sm text-[#999]">Browse guides, contact support, or visit the seller community.</p>
+        <p className="mt-2 text-sm text-[#909090]">Browse guides, contact support, or visit the seller community.</p>
         <div className="mt-6 flex justify-center gap-3">
-          <button type="button" className="rounded-full bg-[#111111] px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">View Guides</button>
-          <button type="button" className="rounded-full border border-black/10 px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] transition hover:bg-[#F7F8FA]">Contact Support</button>
+          <button type="button" className="rounded-full bg-[#14171F] px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">View Guides</button>
+          <button type="button" className="rounded-full border border-black/10 px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] transition hover:bg-[#FAF9F5]">Contact Support</button>
         </div>
       </div>
     </div>
@@ -937,7 +937,7 @@ function HelpTab() {
 
 /* ─── Shared ─── */
 function Loader() {
-  return <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div>;
+  return <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" /></div>;
 }
 
 function MenuIcon({ className }: { className?: string }) {

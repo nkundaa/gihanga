@@ -34,14 +34,14 @@ export default function Stores() {
   }, [filter, query, stores]);
 
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
       <Seo title="Stores - Gihanga Market" path="/stores" description="Explore verified fashion boutiques and stores in Kigali on GIHANGA marketplace." />
-      <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#111111] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
+      <section className="relative flex min-h-[30svh] items-center overflow-hidden bg-[#14171F] py-10 text-white sm:py-12 md:min-h-[40vh] pt-28">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_85%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:text-xs sm:tracking-[0.42em]">The network</p>
+          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:text-xs sm:tracking-[0.42em]">The network</p>
           <h1 className="mt-3 max-w-5xl font-display text-[clamp(1.3rem,5vw,5.2rem)] font-black uppercase leading-[0.94] tracking-[-0.08em] sm:mt-4">
-            Verified <span className="font-editorial normal-case text-[#5BA3CF]">boutiques</span><br />
+            Verified <span className="font-editorial normal-case text-[#2C5A82]">boutiques</span><br />
             <span className="text-stroke text-white">of Kigali</span>
           </h1>
           <p className="mt-3 max-w-xl text-xs leading-6 text-white/70 sm:mt-4 sm:text-sm sm:leading-normal">
@@ -56,17 +56,17 @@ export default function Stores() {
           <Link to={`/store/${featured.slug}`} data-reveal className="group grid overflow-hidden rounded-[2.8rem] border border-black/[0.08] bg-white shadow-[0_30px_110px_rgba(0,0,0,0.08)] lg:grid-cols-[1.1fr_0.9fr]">
             <div className="relative min-h-[18rem] overflow-hidden sm:min-h-[22rem]">
               <img src={featured.cover} alt={featured.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <span className="absolute left-6 top-6 inline-flex min-h-10 items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl">
-                <span className="h-2 w-2 shrink-0 rounded-full bg-[#5BA3CF]" /> Featured boutique
+              <span className="absolute left-6 top-6 inline-flex min-h-10 items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#14171F] backdrop-blur-xl">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-[#2C5A82]" /> Featured boutique
               </span>
             </div>
             <div className="flex flex-col justify-center p-6 sm:p-12">
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">{featured.category} · {featured.location}</p>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">{featured.category} Â· {featured.location}</p>
               <h2 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[0.9] tracking-[-0.06em]">{featured.name}</h2>
-              <p className="mt-4 max-w-md text-[#666666]">{featured.bio}</p>
-              <div className="mt-6 flex flex-wrap gap-6 text-sm font-bold text-[#111111]">
+              <p className="mt-4 max-w-md text-[#6D6D6D]">{featured.bio}</p>
+              <div className="mt-6 flex flex-wrap gap-6 text-sm font-bold text-[#14171F]">
                 <span>{featured.productCount} pieces</span>
-                <span>{featured.rating.toFixed(1)} ★ · {featured.reviews} reviews</span>
+                <span>{featured.rating.toFixed(1)} â˜… Â· {featured.reviews} reviews</span>
                 <span>Since {featured.founded}</span>
               </div>
               <div className="mt-8">
@@ -82,7 +82,7 @@ export default function Stores() {
         <div className="mx-auto max-w-7xl space-y-8">
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
             </div>
           ) : (
             <>
@@ -95,7 +95,7 @@ export default function Stores() {
                   onClick={() => setFilter(c)}
                   className={cn(
                     "min-h-11 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition",
-                    filter === c ? "border-[#5BA3CF] bg-[#5BA3CF] text-[#111111]" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
+                    filter === c ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#14171F] hover:border-black/30"
                   )}
                 >
                   {c}
@@ -106,12 +106,12 @@ export default function Stores() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search boutiques"
-              className="min-h-12 w-full sm:w-72 rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none transition focus:border-[#5BA3CF]"
+              className="min-h-12 w-full sm:w-72 rounded-full border border-black/10 bg-white px-5 py-3 text-sm outline-none transition focus:border-[#2C5A82]"
             />
           </div>
 
           {filtered.length === 0 ? (
-            <p className="rounded-2xl border border-dashed border-black/10 bg-white/60 p-10 text-center text-[#666666]">No boutiques match that search yet.</p>
+            <p className="rounded-2xl border border-dashed border-black/10 bg-white/60 p-10 text-center text-[#6D6D6D]">No boutiques match that search yet.</p>
           ) : (
             <div className="grid gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((s) => <StoreCard key={s.slug} store={s} />)}

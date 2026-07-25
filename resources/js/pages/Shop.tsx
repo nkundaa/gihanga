@@ -83,16 +83,16 @@ export default function Shop() {
   const clearFilters = () => { setCategory("all"); setQuery(""); setMinPrice(""); setMaxPrice(""); setRating(""); setColor(""); setSize(""); setSort("newest"); setParams(new URLSearchParams()); };
 
   return (
-    <div className="bg-[#F8F9FA]">
+    <div className="bg-[#FAF9F5]">
       <Seo title="Shop - Gihanga Market" path="/shop" description="Browse clothing, shoes, bags and accessories from verified stores across Kigali. Shop the Gihanga market for premium fashion in Rwanda." />
-      <section className="relative flex min-h-[20svh] items-center overflow-hidden bg-[#111111] py-6 text-white sm:py-12 md:min-h-[40vh] pt-20">
+      <section className="relative flex min-h-[20svh] items-center overflow-hidden bg-[#14171F] py-6 text-white sm:py-12 md:min-h-[40vh] pt-20">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:text-xs sm:tracking-[0.42em]">The GIHANGA shop</p>
+          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:text-xs sm:tracking-[0.42em]">The GIHANGA shop</p>
           <div className="mt-3 flex flex-col gap-3 sm:mt-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between sm:gap-8">
             <h1 className="max-w-4xl font-display text-[clamp(1.3rem,5vw,5.2rem)] font-black uppercase leading-[0.94] tracking-[-0.08em]">
-              <span className="block">The <span className="font-editorial normal-case text-[#5BA3CF]">edit</span></span>
+              <span className="block">The <span className="font-editorial normal-case text-[#2C5A82]">edit</span></span>
               <span className="block text-stroke text-white">of Kigali</span>
             </h1>
             <p className="max-w-sm text-xs leading-6 text-white/70 sm:text-sm sm:leading-normal">
@@ -106,13 +106,13 @@ export default function Shop() {
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#666666]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
+              <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
               <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
               {categories.map((c) => (
                 <FilterChip key={c.slug} label={c.title} active={category === c.slug} onClick={() => setCategory(c.slug)} />
               ))}
             </div>
-            <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", showFilters ? "border-[#5BA3CF] bg-[#5BA3CF] text-[#111111]" : "border-black/10 bg-white text-[#666666] hover:border-black/30")}>
+            <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", showFilters ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#6D6D6D] hover:border-black/30")}>
               <SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> Filters
             </button>
           </div>
@@ -128,7 +128,7 @@ export default function Shop() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces or stores"
-                  className="w-full min-w-0 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF] sm:w-72"
+                  className="w-full min-w-0 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82] sm:w-72"
                 />
               </label>
               <select
@@ -141,7 +141,7 @@ export default function Shop() {
                   if (e.target.value === "all") next.delete("store"); else next.set("store", e.target.value);
                   setParams(next);
                 }}
-                className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#111111] outline-none transition focus:border-[#5BA3CF] sm:w-auto"
+                className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#14171F] outline-none transition focus:border-[#2C5A82] sm:w-auto"
               >
                 <option value="all">All stores</option>
                 {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -152,21 +152,21 @@ export default function Shop() {
 
           {showFilters ? (
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Price range</p>
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Price range</p>
               <div className="mt-4 flex items-center gap-4">
                 <div className="flex-1">
-                  <label className="text-xs font-bold text-[#666666]">From</label>
-                  <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="0" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+                  <label className="text-xs font-bold text-[#6D6D6D]">From</label>
+                  <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="0" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
                 </div>
                 <div className="flex-1">
-                  <label className="text-xs font-bold text-[#666666]">To</label>
-                  <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="1,000,000" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
+                  <label className="text-xs font-bold text-[#6D6D6D]">To</label>
+                  <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="1,000,000" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
                 </div>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Min rating</label>
-                  <select value={rating} onChange={(e) => setRating(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Min rating</label>
+                  <select value={rating} onChange={(e) => setRating(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
                     <option value="">Any</option>
                     <option value="4">4+ stars</option>
                     <option value="3">3+ stars</option>
@@ -174,8 +174,8 @@ export default function Shop() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Color</label>
-                  <select value={color} onChange={(e) => setColor(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Color</label>
+                  <select value={color} onChange={(e) => setColor(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
                     <option value="">All</option>
                     <option value="Black">Black</option>
                     <option value="White">White</option>
@@ -188,8 +188,8 @@ export default function Shop() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Size</label>
-                  <select value={size} onChange={(e) => setSize(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Size</label>
+                  <select value={size} onChange={(e) => setSize(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
                     <option value="">All</option>
                     <option value="XS">XS</option>
                     <option value="S">S</option>
@@ -200,8 +200,8 @@ export default function Shop() {
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Sort by</label>
-                  <select value={sort} onChange={(e) => setSort(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Sort by</label>
+                  <select value={sort} onChange={(e) => setSort(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
                     <option value="newest">Newest</option>
                     <option value="popular">Popular</option>
                     <option value="price_asc">Price: Low-High</option>
@@ -215,16 +215,16 @@ export default function Shop() {
 
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
             </div>
           ) : (
             <>
           <div className="flex items-baseline justify-between">
-            <motion.p key={`${category}-${store}-${query}-${products.length}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm font-bold text-[#666666]">
+            <motion.p key={`${category}-${store}-${query}-${products.length}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm font-bold text-[#6D6D6D]">
               {products.length} {products.length === 1 ? "piece" : "pieces"}
             </motion.p>
             {hasActiveFilters ? (
-              <button type="button" onClick={clearFilters} className="text-xs font-bold uppercase tracking-[0.2em] text-[#111111] underline-grow">
+              <button type="button" onClick={clearFilters} className="text-xs font-bold uppercase tracking-[0.2em] text-[#14171F] underline-grow">
                 Clear filters
               </button>
             ) : null}
@@ -232,7 +232,7 @@ export default function Shop() {
 
           {products.length === 0 ? (
             <div className="rounded-[2.4rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
-              <p className="font-editorial text-6xl text-[#5BA3CF]">∅</p>
+              <p className="font-editorial text-6xl text-[#2C5A82]">∅</p>
               <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">No pieces match those filters.</p>
               <MagneticButton variant="gold" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset</MagneticButton>
             </div>
@@ -256,7 +256,7 @@ function FilterChip({ label, active, onClick }: { label: string; active: boolean
       onClick={onClick}
       className={cn(
         "rounded-full border px-2.5 py-1 text-[0.55rem] font-bold uppercase tracking-[0.15em] transition sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]",
-        active ? "border-[#5BA3CF] bg-[#5BA3CF] text-[#111111]" : "border-black/10 bg-white text-[#111111] hover:border-black/30"
+        active ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#14171F] hover:border-black/30"
       )}
     >
       {label}

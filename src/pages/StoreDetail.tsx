@@ -36,7 +36,7 @@ export default function StoreDetail() {
   if (loading) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] items-center justify-center pt-36">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
       </div>
     );
   }
@@ -44,7 +44,7 @@ export default function StoreDetail() {
   if (!store) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <p className="font-editorial text-6xl text-[#5BA3CF]">404</p>
+        <p className="font-editorial text-6xl text-[#2C5A82]">404</p>
         <h1 className="font-display text-4xl font-black tracking-[-0.05em]">Boutique not found.</h1>
         <MagneticButton to="/stores" variant="gold" className="min-h-12 px-6 py-3 text-sm">Back to stores</MagneticButton>
       </div>
@@ -52,7 +52,7 @@ export default function StoreDetail() {
   }
 
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
       <Seo title="Store - Gihanga Market" path="/store" description="View store details on GIHANGA marketplace." />
       <section className="relative overflow-hidden">
         <div className="relative h-[40vh] min-h-[12rem] overflow-hidden sm:h-[52vh] sm:min-h-[24rem]">
@@ -69,8 +69,8 @@ export default function StoreDetail() {
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-8 sm:px-6 lg:px-8 sm:pb-10">
           <div className="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-6 text-white">
             <div>
-              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">
-                <BadgeCheck className="h-4 w-4" /> Verified boutique · {store.category}
+              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">
+                <BadgeCheck className="h-4 w-4" /> Verified boutique Â· {store.category}
               </p>
               <h1 className="mt-3 font-display text-[clamp(1.6rem,6vw,7rem)] font-black leading-[0.9] tracking-[-0.08em]">{store.name}</h1>
               <p className="mt-3 max-w-xl text-white/80">{store.tagline}</p>
@@ -97,11 +97,11 @@ export default function StoreDetail() {
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.3fr_0.7fr]">
           <div data-reveal>
             <h2 className="font-display text-[clamp(1.5rem,4vw,2rem)] font-black tracking-[-0.05em]">About the boutique</h2>
-            <p className="mt-5 text-lg leading-8 text-[#666666]">{store.bio}</p>
+            <p className="mt-5 text-lg leading-8 text-[#6D6D6D]">{store.bio}</p>
 
             <h3 className="mt-12 font-display text-[clamp(1.25rem,3.5vw,1.75rem)] font-black tracking-[-0.04em]">{store.name} collection</h3>
             {storeProducts.length === 0 ? (
-              <p className="mt-4 text-[#666666]">This boutique is preparing new pieces. Check back soon.</p>
+              <p className="mt-4 text-[#6D6D6D]">This boutique is preparing new pieces. Check back soon.</p>
             ) : (
               <div className="mt-6 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {storeProducts.map((p) => <ProductCard key={p.slug} product={p} />)}
@@ -115,17 +115,17 @@ export default function StoreDetail() {
             </div>
             <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
               <ul className="space-y-4 text-sm">
-                <li className="flex gap-3"><MapPin className="h-5 w-5 shrink-0 text-[#5BA3CF]" /> <span><strong>{store.location}</strong></span></li>
-                <li className="flex gap-3"><Clock className="h-5 w-5 shrink-0 text-[#5BA3CF]" /> <span>{store.hours}</span></li>
-                <li className="flex gap-3"><Star className="h-5 w-5 shrink-0 fill-[#5BA3CF] text-[#5BA3CF]" /> <span>{store.rating.toFixed(1)} average rating</span></li>
+                <li className="flex gap-3"><MapPin className="h-5 w-5 shrink-0 text-[#2C5A82]" /> <span><strong>{store.location}</strong></span></li>
+                <li className="flex gap-3"><Clock className="h-5 w-5 shrink-0 text-[#2C5A82]" /> <span>{store.hours}</span></li>
+                <li className="flex gap-3"><Star className="h-5 w-5 shrink-0 fill-[#2C5A82] text-[#2C5A82]" /> <span>{store.rating.toFixed(1)} average rating</span></li>
               </ul>
               <MagneticButton to="/contact" variant="primary" className="mt-6 min-h-12 w-full justify-center px-6 py-3 text-sm">Contact boutique</MagneticButton>
             </div>
-            <div className="rounded-[2rem] border border-black/[0.08] bg-[#111111] p-6 text-white">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Price range</p>
+            <div className="rounded-[2rem] border border-black/[0.08] bg-[#14171F] p-6 text-white">
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">Price range</p>
               {storeProducts.length > 0 ? (
                 <p className="mt-3 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em]">
-                  {formatRwf(Math.min(...storeProducts.map((p) => p.price)))} — {formatRwf(Math.max(...storeProducts.map((p) => p.price)))}
+                  {formatRwf(Math.min(...storeProducts.map((p) => p.price)))} â€” {formatRwf(Math.max(...storeProducts.map((p) => p.price)))}
                 </p>
               ) : (
                 <p className="mt-3 text-white/70">Contact boutique for pricing.</p>
@@ -139,10 +139,10 @@ export default function StoreDetail() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Keep browsing</p>
-              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Other <span className="font-editorial text-[#5BA3CF]">boutiques</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">Keep browsing</p>
+              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Other <span className="font-editorial text-[#2C5A82]">boutiques</span></h2>
             </div>
-            <Link to="/stores" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">All stores →</Link>
+            <Link to="/stores" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">All stores â†’</Link>
           </div>
           <div className="mt-10 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((s) => <StoreCard key={s.slug} store={s} />)}

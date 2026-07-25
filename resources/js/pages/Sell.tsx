@@ -20,19 +20,19 @@ const steps = [
 
 export default function Sell() {
   return (
-    <div className="overflow-x-hidden bg-[#F8F9FA]">
+    <div className="overflow-x-hidden bg-[#FAF9F5]">
       <Seo title="Sell on Gihanga Market" path="/sell" description="List your fashion store on GIHANGA and reach customers across Kigali. Join Rwanda's premium fashion marketplace today." />
-      <section className="relative overflow-hidden bg-[#111111] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
+      <section className="relative overflow-hidden bg-[#14171F] px-4 pb-12 pt-36 text-white sm:px-6 lg:px-8 lg:pb-24 lg:pt-44">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.22),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.18),transparent_32%)]" />
-        <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#5BA3CF]/20" />
+        <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#2C5A82]/20" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
-          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
+          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
             <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" /> For boutiques
           </p>
           <h1 className="mt-4 max-w-6xl font-display text-[clamp(1.5rem,7vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.08em] sm:mt-6">
             <span className="block">Sell on</span>
-            <span className="block"><span className="font-editorial normal-case text-[#5BA3CF]">GIHANGA</span> today.</span>
+            <span className="block"><span className="font-editorial normal-case text-[#2C5A82]">GIHANGA</span> today.</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
             Bring your store to Kigali's premium fashion marketplace. Verified, discoverable and delivered — with a digital experience that matches your physical one.
@@ -46,16 +46,16 @@ export default function Sell() {
 
       <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Why GIHANGA</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">A <span className="font-editorial text-[#5BA3CF]">premium</span> home for your boutique.</h2>
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">Why GIHANGA</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">A <span className="font-editorial text-[#2C5A82]">premium</span> home for your boutique.</h2>
           <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {benefits.map((b) => (
               <article key={b.title} data-reveal className="group rounded-[2rem] border border-black/[0.08] bg-white p-7 shadow-[0_20px_70px_rgba(0,0,0,0.05)] transition hover:-translate-y-1">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#111111] text-[#5BA3CF] transition group-hover:rotate-3 group-hover:scale-110">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#14171F] text-[#2C5A82] transition group-hover:rotate-3 group-hover:scale-110">
                   <b.icon className="h-6 w-6" strokeWidth={1.8} />
                 </div>
                 <h3 className="mt-6 font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">{b.title}</h3>
-                <p className="mt-3 leading-7 text-[#666666]">{b.copy}</p>
+                <p className="mt-3 leading-7 text-[#6D6D6D]">{b.copy}</p>
               </article>
             ))}
           </div>
@@ -64,24 +64,24 @@ export default function Sell() {
 
       <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">How it works</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Four steps to <span className="font-editorial text-[#5BA3CF]">launch</span>.</h2>
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">How it works</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Four steps to <span className="font-editorial text-[#2C5A82]">launch</span>.</h2>
           <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s) => (
-              <div key={s.n} data-reveal className="relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6">
-                <p className="font-editorial text-6xl text-[#5BA3CF]">{s.n}</p>
+              <div key={s.n} data-reveal className="relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-[#FAF9F5] p-6">
+                <p className="font-editorial text-6xl text-[#2C5A82]">{s.n}</p>
                 <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">{s.title}</p>
-                <p className="mt-2 text-sm leading-6 text-[#666666]">{s.copy}</p>
+                <p className="mt-2 text-sm leading-6 text-[#6D6D6D]">{s.copy}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#111111] px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
+      <section className="bg-[#14171F] px-4 py-20 text-center sm:px-6 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-black leading-[0.9] tracking-[-0.06em] text-white">
-            Ready to <span className="font-editorial text-[#5BA3CF]">grow</span> your boutique?
+            Ready to <span className="font-editorial text-[#2C5A82]">grow</span> your boutique?
           </h2>
           <p className="mt-5 text-base leading-7 text-white/70">Kigali's premium fashion marketplace — built for local boutiques.</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
