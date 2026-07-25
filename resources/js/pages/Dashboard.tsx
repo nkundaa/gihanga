@@ -580,7 +580,7 @@ export default function CustomerDashboard() {
                   ) : (
                     activity.slice(0, 8).map((a, i) => (
                       <div key={i} className="flex items-start gap-3 rounded-xl bg-[#F8F8F8] p-3">
-                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#D4AF37]" : "bg-[#BFD7F1]")} />
+                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#D4AF37]" : "bg-[#D4AF37]")} />
                         <div className="min-w-0">
                           <p className="text-xs font-bold">{a.message as string}</p>
                           <p className="text-[0.5rem] text-[#999] mt-0.5">{a.created_at as string}</p>
@@ -802,3 +802,4 @@ function BagIcon({ className }: { className?: string }) {
 function UserIcon({ className }: { className?: string }) {
   return <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
 }
+

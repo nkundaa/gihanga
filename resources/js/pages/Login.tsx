@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import { MagneticButton } from "../components/ui";
+import { Button, Input } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function Login() {
   const { login } = useAuth();
@@ -29,52 +30,54 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-0 lg:pt-32">
+      <Seo title="Sign In - Gihanga Market" description="Sign in to your GIHANGA account to shop, manage orders, and more." />
       <div className="w-full max-w-md">
-        <div className="rounded-[2rem] border border-black/[0.08] bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+        <div className="rounded-xl border border-[#111111]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(17,17,17,0.06)]">
           <div className="mb-8 text-center">
-            <LogIn className="mx-auto h-8 w-8 text-[#BFD7F1]" />
-            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em]">Welcome back</h1>
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4AF37]/10">
+              <LogIn className="h-7 w-7 text-[#D4AF37]" />
+            </div>
+            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#111111]">Welcome back</h1>
             <p className="mt-2 text-sm text-[#666666]">Sign in to your GIHANGA account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="rounded-2xl bg-red-50 p-4 text-sm text-red-600">{error}</div>
+              <div className="rounded-lg bg-[#FEF2F2] border border-[#FECACA] p-4 text-sm text-[#EF4444]">
+                {error}
+              </div>
             )}
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Email</label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
-                placeholder="you@example.com"
-              />
-            </div>
+            <Input
+              label="Email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+            />
 
             <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Password</label>
+              <label className="block text-sm font-bold text-[#111111] mb-2">Password</label>
               <div className="relative">
                 <input
                   type={show ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 pr-10 text-sm outline-none transition focus:border-[#BFD7F1]"
+                  className="w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
                   placeholder="Your password"
                 />
-                <button type="button" onClick={() => setShow(!show)} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-[#666666]">
+                <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#999999] hover:text-[#111111] transition">
                   {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            <MagneticButton type="submit" variant="berry" disabled={busy} className="min-h-12 w-full justify-center px-6 py-4">
-              {busy ? "Signing in…" : "Sign in"}
-            </MagneticButton>
+            <Button type="submit" variant="primary" fullWidth loading={busy} size="lg">
+              {busy ? "Signing in" : "Sign in"}
+            </Button>
           </form>
 
           <div className="mt-4 text-center">
@@ -94,3 +97,4 @@ export default function Login() {
     </div>
   );
 }
+

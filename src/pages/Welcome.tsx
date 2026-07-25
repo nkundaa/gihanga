@@ -118,8 +118,8 @@ export default function Welcome() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(7,7,9,0.85)_40%,rgba(7,7,9,0.98)_95%)]" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(191,215,241,0.12),transparent_45%)]" />
         {/* Soft colorful orbs */}
-        <div aria-hidden className="luxury-orb left-[15%] top-[15%] h-80 w-80 bg-[#BFD7F1]/08" />
-        <div aria-hidden className="luxury-orb right-[15%] bottom-[15%] h-96 w-96 bg-[#FFD5EA]/05 [animation-delay:2.5s]" />
+        <div aria-hidden className="luxury-orb left-[15%] top-[15%] h-80 w-80 bg-[#D4AF37]/08" />
+        <div aria-hidden className="luxury-orb right-[15%] bottom-[15%] h-96 w-96 bg-[#D4AF37]/05 [animation-delay:2.5s]" />
       </div>
 
       {/* 3D Particle Canvas */}
@@ -163,7 +163,7 @@ export default function Welcome() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#BFD7F1] bg-white/5 backdrop-blur-xl px-4 py-2.5 rounded-full border border-white/10 shadow-lg"
+              className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.25em] text-[#D4AF37] bg-white/5 backdrop-blur-xl px-4 py-2.5 rounded-full border border-white/10 shadow-lg"
             >
               <Compass className="h-4 w-4" /> Kigali, Rwanda
             </motion.div>
@@ -183,7 +183,7 @@ export default function Welcome() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center gap-3 text-[0.65rem] sm:text-xs font-black uppercase tracking-[0.4em] text-[#BFD7F1]"
+                  className="flex items-center gap-3 text-[0.65rem] sm:text-xs font-black uppercase tracking-[0.4em] text-[#D4AF37]"
                 >
                   <Sparkles className="h-4 w-4" />
                   KIGALI EDITORIAL
@@ -246,7 +246,7 @@ export default function Welcome() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/10" />
 
                   {/* Corner Badge */}
-                  <span className="absolute left-4 top-4 rounded-full bg-[#111111]/85 px-3 py-1.5 text-[0.6rem] font-black uppercase tracking-widest text-[#BFD7F1] backdrop-blur-sm border border-white/10">
+                  <span className="absolute left-4 top-4 rounded-full bg-[#111111]/85 px-3 py-1.5 text-[0.6rem] font-black uppercase tracking-widest text-[#D4AF37] backdrop-blur-sm border border-white/10">
                     {currentAd.badge}
                   </span>
                 </div>
@@ -261,7 +261,7 @@ export default function Welcome() {
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.45 }}
                     >
-                      <p className="text-[0.65rem] font-black uppercase tracking-[0.25em] text-[#BFD7F1]">{currentAd.subtitle}</p>
+                      <p className="text-[0.65rem] font-black uppercase tracking-[0.25em] text-[#D4AF37]">{currentAd.subtitle}</p>
                       <h3 className="mt-1.5 font-display text-2xl font-black leading-tight tracking-tight text-white line-clamp-1">{currentAd.title}</h3>
                       <p className="mt-2 text-xs leading-5 text-white/60 line-clamp-2">{currentAd.description}</p>
                       
@@ -270,7 +270,7 @@ export default function Welcome() {
                         <button
                           type="button"
                           onClick={() => handleChoice(currentAd.route)}
-                          className="rounded-full bg-[#BFD7F1] px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#111111] transition hover:bg-white"
+                          className="rounded-full bg-[#D4AF37] px-5 py-2.5 text-xs font-black uppercase tracking-wider text-[#111111] transition hover:bg-white"
                         >
                           Shop Now
                         </button>
@@ -310,7 +310,7 @@ export default function Welcome() {
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex items-center gap-3 text-[0.65rem] sm:text-xs font-black uppercase tracking-[0.4em] text-[#FFD5EA] lg:flex-row-reverse"
+                  className="flex items-center gap-3 text-[0.65rem] sm:text-xs font-black uppercase tracking-[0.4em] text-[#D4AF37] lg:flex-row-reverse"
                 >
                   <Sparkles className="h-4 w-4" />
                   PARTNERSHIP ACCESS
@@ -393,11 +393,11 @@ function JourneyActionRow({
         alignRight ? "flex-row-reverse text-right" : "text-left"
       )}
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[0.7rem] font-black text-[#111111] transition duration-500 group-hover:bg-[#BFD7F1]">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[0.7rem] font-black text-[#111111] transition duration-500 group-hover:bg-[#D4AF37]">
         {number}
       </span>
       <div>
-        <p className="font-display text-base font-black tracking-tight text-white group-hover:text-[#BFD7F1] transition">{label}</p>
+        <p className="font-display text-base font-black tracking-tight text-white group-hover:text-[#D4AF37] transition">{label}</p>
         <p className="mt-1 text-xs text-white/60">{description}</p>
       </div>
     </button>
@@ -408,8 +408,8 @@ function WelcomeScene() {
   return (
     <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }}>
       <ParticleField />
-      <Orb position={[-2.6, 1.2, 0]} scale={0.75} color="#BFD7F1" />
-      <Orb position={[2.2, -0.8, -0.6]} scale={1.05} color="#FFD5EA" />
+      <Orb position={[-2.6, 1.2, 0]} scale={0.75} color="#D4AF37" />
+      <Orb position={[2.2, -0.8, -0.6]} scale={1.05} color="#D4AF37" />
     </Canvas>
   );
 }
@@ -434,7 +434,7 @@ function ParticleField() {
   });
   return (
     <points ref={ref} geometry={geometry}>
-      <pointsMaterial color="#BFD7F1" size={0.025} transparent opacity={0.55} depthWrite={false} />
+      <pointsMaterial color="#D4AF37" size={0.025} transparent opacity={0.55} depthWrite={false} />
     </points>
   );
 }
@@ -453,3 +453,4 @@ function Orb({ position, scale, color }: { position: [number, number, number]; s
     </mesh>
   );
 }
+

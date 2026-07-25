@@ -48,19 +48,19 @@ export default function ForgotPassword() {
 
       {step === "done" ? (
         <div className="w-full max-w-md text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#BFD7F1]">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#D4AF37]">
             <CheckCircle2 className="h-10 w-10 text-[#111111]" />
           </div>
           <h1 className="mt-6 font-display text-3xl font-black tracking-[-0.05em]">Password reset</h1>
           <p className="mt-3 text-[#666666]">Your password has been reset successfully.</p>
-          <MagneticButton to="/login" variant="berry" className="mt-8 min-h-12 w-full px-6 py-3 text-sm">Sign in with new password</MagneticButton>
+          <MagneticButton to="/login" variant="gold" className="mt-8 min-h-12 w-full px-6 py-3 text-sm">Sign in with new password</MagneticButton>
         </div>
       ) : (
         <div className="w-full max-w-md rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
           <div className="flex items-center gap-3">
-            {step === "email" ? <Mail className="h-5 w-5 text-[#BFD7F1]" /> : <Shield className="h-5 w-5 text-[#BFD7F1]" />}
+            {step === "email" ? <Mail className="h-5 w-5 text-[#D4AF37]" /> : <Shield className="h-5 w-5 text-[#D4AF37]" />}
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Security</p>
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Security</p>
               <h1 className="font-display text-2xl font-black tracking-[-0.04em]">Forgot password</h1>
             </div>
           </div>
@@ -72,9 +72,9 @@ export default function ForgotPassword() {
               <p className="text-sm text-[#666666]">Enter your email address and we'll send you a reset token.</p>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="you@example.com" />
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" placeholder="you@example.com" />
               </div>
-              <MagneticButton variant="berry" className="min-h-12 w-full py-3 text-sm" onClick={sendResetLink} disabled={sending}>
+              <MagneticButton variant="gold" className="min-h-12 w-full py-3 text-sm" onClick={sendResetLink} disabled={sending}>
                 {sending ? "Sending…" : "Send reset link"}
               </MagneticButton>
             </div>
@@ -83,17 +83,17 @@ export default function ForgotPassword() {
               <p className="text-sm text-[#666666]">Enter the reset token from your email and choose a new password.</p>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Reset token</label>
-                <input value={token} onChange={(e) => setToken(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Paste token from email" />
+                <input value={token} onChange={(e) => setToken(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" placeholder="Paste token from email" />
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">New password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Confirm password</label>
-                <input type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" />
+                <input type="password" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
               </div>
-              <MagneticButton variant="berry" className="min-h-12 w-full py-3 text-sm" onClick={resetPassword} disabled={sending}>
+              <MagneticButton variant="gold" className="min-h-12 w-full py-3 text-sm" onClick={resetPassword} disabled={sending}>
                 {sending ? "Resetting…" : "Reset password"}
               </MagneticButton>
             </div>
@@ -103,3 +103,4 @@ export default function ForgotPassword() {
     </div>
   );
 }
+

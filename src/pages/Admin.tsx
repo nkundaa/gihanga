@@ -35,7 +35,7 @@ export default function Admin() {
       <div className="mx-auto flex max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
         <aside className="hidden w-64 shrink-0 lg:block">
           <nav className="sticky top-28 space-y-1">
-            <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Admin</p>
+            <p className="mb-4 text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Admin</p>
             <div className="pt-4">
               <Link to="/" className="flex min-h-11 items-center gap-2 rounded-2xl px-4 py-3 text-xs font-bold uppercase tracking-[0.18em] text-[#666666] transition hover:text-[#111111]">
                 <Eye className="h-4 w-4" /> View site
@@ -57,7 +57,7 @@ export default function Admin() {
 
           {!isAdmin ? (
             <div className="rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-16 text-center sm:py-20">
-              <p className="font-editorial text-6xl text-[#BFD7F1]">🔒</p>
+              <p className="font-editorial text-6xl text-[#D4AF37]">🔒</p>
               <h2 className="mt-4 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Admin access required</h2>
               <p className="mt-2 text-sm text-[#666666]">Please sign in with an admin account to access this panel.</p>
               <Link to="/login" className="mt-6 inline-flex min-h-12 rounded-full bg-[#111111] px-6 py-3 text-sm font-bold text-white items-center">Sign in</Link>
@@ -126,7 +126,7 @@ function AdminPanel() {
   if (loading) {
     return (
       <div className="flex justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#BFD7F1] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
       </div>
     );
   }
@@ -156,13 +156,13 @@ function AdminPanel() {
 
 function DashboardTab({ stats, recentOrders }: { stats: AdminStatsType; recentOrders: Order[] }) {
   const cards = [
-    { label: "Total Revenue", value: formatRwf(stats.totalRevenue), icon: TrendingUp, color: "bg-[#111111] text-[#BFD7F1]" },
-    { label: "Total Orders", value: stats.totalOrders, icon: ShoppingBag, color: "bg-[#BFD7F1] text-[#111111]" },
-    { label: "Pending Orders", value: stats.pendingOrders, icon: Truck, color: "bg-[#FFD5EA] text-[#111111]" },
-    { label: "Products", value: stats.totalProducts, icon: Package, color: "bg-[#111111] text-[#BFD7F1]" },
-    { label: "Stores", value: stats.totalStores, icon: Store, color: "bg-[#BFD7F1] text-[#111111]" },
-    { label: "Active Stores", value: stats.activeStores, icon: Users, color: "bg-[#FFD5EA] text-[#111111]" },
-    { label: "Avg Rating", value: Number(stats.averageRating).toFixed(1), icon: BarChart3, color: "bg-[#111111] text-[#BFD7F1]" },
+    { label: "Total Revenue", value: formatRwf(stats.totalRevenue), icon: TrendingUp, color: "bg-[#111111] text-[#D4AF37]" },
+    { label: "Total Orders", value: stats.totalOrders, icon: ShoppingBag, color: "bg-[#D4AF37] text-[#111111]" },
+    { label: "Pending Orders", value: stats.pendingOrders, icon: Truck, color: "bg-[#D4AF37] text-[#111111]" },
+    { label: "Products", value: stats.totalProducts, icon: Package, color: "bg-[#111111] text-[#D4AF37]" },
+    { label: "Stores", value: stats.totalStores, icon: Store, color: "bg-[#D4AF37] text-[#111111]" },
+    { label: "Active Stores", value: stats.activeStores, icon: Users, color: "bg-[#D4AF37] text-[#111111]" },
+    { label: "Avg Rating", value: Number(stats.averageRating).toFixed(1), icon: BarChart3, color: "bg-[#111111] text-[#D4AF37]" },
   ];
 
   return (
@@ -180,7 +180,7 @@ function DashboardTab({ stats, recentOrders }: { stats: AdminStatsType; recentOr
       </div>
 
       <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">Recent orders</p>
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Recent orders</p>
         <h2 className="mt-3 font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Latest transactions</h2>
         <div className="mt-6 space-y-3">
           {recentOrders.slice(0, 4).map((order) => (
@@ -226,7 +226,7 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
         </div>
         <label className="relative w-full sm:w-auto">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666666]" />
-          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#D4AF37]" />
         </label>
       </div>
 
@@ -250,7 +250,7 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
                   <div className="flex items-center gap-3">
                     <img src={p.images[0]} alt={p.name} className="h-10 w-10 shrink-0 rounded-xl object-cover" />
                     <div className="min-w-0">
-                      <Link to={`/product/${p.slug}`} className="font-display text-base font-black tracking-[-0.02em] hover:text-[#BFD7F1] truncate block max-w-[10rem]">{p.name}</Link>
+                      <Link to={`/product/${p.slug}`} className="font-display text-base font-black tracking-[-0.02em] hover:text-[#D4AF37] truncate block max-w-[10rem]">{p.name}</Link>
                     </div>
                   </div>
                 </td>
@@ -259,10 +259,10 @@ function ProductsTab({ products }: { products: typeof mockProducts }) {
                 <td className="px-5 py-4 font-display font-black whitespace-nowrap">{formatRwf(p.price)}</td>
                 <td className="px-5 py-4 text-[#666666] whitespace-nowrap">{Number(p.rating).toFixed(1)}</td>
                 <td className="px-5 py-4 whitespace-nowrap">
-                  {p.featured ? <span className="rounded-full bg-[#BFD7F1] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Featured</span> : <span className="text-[#666666]">Active</span>}
+                  {p.featured ? <span className="rounded-full bg-[#D4AF37] px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Featured</span> : <span className="text-[#666666]">Active</span>}
                 </td>
                 <td className="px-5 py-4 whitespace-nowrap">
-                  <Link to={`/product/${p.slug}`} className="text-[#BFD7F1] transition hover:text-[#111111]"><Eye className="h-4 w-4" /></Link>
+                  <Link to={`/product/${p.slug}`} className="text-[#D4AF37] transition hover:text-[#111111]"><Eye className="h-4 w-4" /></Link>
                 </td>
               </tr>
             ))}
@@ -288,7 +288,7 @@ function StoresTab({ stores }: { stores: typeof mockStores }) {
     <div className="space-y-6">
       <label className="relative block w-full sm:w-auto">
         <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#666666]" />
-        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search stores..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#BFD7F1]" />
+        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search stores..." className="min-h-12 w-full sm:w-64 rounded-full border border-black/10 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-[#D4AF37]" />
       </label>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -298,8 +298,8 @@ function StoresTab({ stores }: { stores: typeof mockStores }) {
               <img src={s.avatar} alt={s.name} className="h-14 w-14 shrink-0 rounded-2xl object-cover" />
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <Link to={`/store/${s.slug}`} className="font-display text-lg font-black tracking-[-0.03em] hover:text-[#BFD7F1] truncate block">{s.name}</Link>
-                  {s.verified ? <CheckCircle2 className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> : null}
+                  <Link to={`/store/${s.slug}`} className="font-display text-lg font-black tracking-[-0.03em] hover:text-[#D4AF37] truncate block">{s.name}</Link>
+                  {s.verified ? <CheckCircle2 className="h-4 w-4 shrink-0 text-[#D4AF37]" /> : null}
                 </div>
                 <p className="text-xs text-[#666666]">{s.location} · {s.category}</p>
               </div>
@@ -346,7 +346,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
           <div key={order.id} className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
             <button type="button" onClick={() => setExpanded(expanded === order.id ? null : order.id)} className="flex w-full flex-wrap items-center justify-between gap-3 p-5 text-left min-h-12">
               <div className="flex items-center gap-4 min-w-0">
-                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", order.payment === "mobile_money" ? "bg-[#BFD7F1]/20" : "bg-[#FFD5EA]/30")}>
+                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", order.payment === "mobile_money" ? "bg-[#D4AF37]/20" : "bg-[#D4AF37]/30")}>
                   {order.payment === "mobile_money" ? <Truck className="h-4 w-4 text-[#111111]" /> : <BarChart3 className="h-4 w-4 text-[#111111]" />}
                 </div>
                 <div className="min-w-0">
@@ -365,14 +365,14 @@ function OrdersTab({ orders }: { orders: Order[] }) {
               <div className="border-t border-black/[0.08] px-5 pb-5 pt-4">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1]">Customer</p>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37]">Customer</p>
                     <p className="mt-2 text-sm font-bold">{order.customer}</p>
                     <p className="text-sm text-[#666666]">{order.phone}</p>
                     <p className="text-sm text-[#666666]">{order.email}</p>
                     <p className="mt-2 text-sm text-[#666666]">{order.address}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1]">Payment</p>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37]">Payment</p>
                     <p className="mt-2 text-sm font-bold capitalize">{order.payment.replace("_", " ")}</p>
                     <p className="text-sm text-[#666666]">{order.storeName}</p>
                     <div className="mt-3 flex gap-2">
@@ -388,7 +388,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                   </div>
                 </div>
 
-                <p className="mt-6 mb-3 text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1]">Items</p>
+                <p className="mt-6 mb-3 text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37]">Items</p>
                 <div className="space-y-2">
                   {order.lines.map((line, i) => (
                     <div key={i} className="flex items-center gap-3 rounded-2xl bg-[#F8F9FA] p-3">
@@ -419,3 +419,4 @@ function OrdersTab({ orders }: { orders: Order[] }) {
     </div>
   );
 }
+

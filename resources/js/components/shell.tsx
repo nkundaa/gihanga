@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Heart, LayoutDashboard, LogIn, LogOut, Mail, MapPinned, Menu, MessageSquare, Minus, Package, Phone, Plus, Search, Shield, ShoppingBag, Store, Trash2, User, UserPlus, X } from "lucide-react";
+import { Heart, Home, LayoutDashboard, LogIn, LogOut, Mail, MapPinned, Menu, MessageSquare, Minus, Package, Phone, Plus, Search, Shield, ShoppingBag, Store, Trash2, User, UserPlus, X, BadgePercent, Bell, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../utils/cn";
@@ -7,7 +7,7 @@ import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { formatRwf } from "../data/catalog";
-import { MagneticButton } from "./ui";
+import { Button, QuantitySelector } from "./ui";
 
 export function ScrollRestoration() {
   const { pathname } = useLocation();
@@ -32,11 +32,16 @@ export function PageTransition({ children, routeKey }: { children: ReactNode; ro
   );
 }
 
+// ============================================================
+// PREMIUM NAVIGATION
+// ============================================================
+
 export function Navigation() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [userMenu, setUserMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { openCart, count } = useCart();
   const { count: wishlistCount } = useWishlist();
   const { isAuthenticated, user, logout } = useAuth();
@@ -44,7 +49,18 @@ export function Navigation() {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const isHomePage = location.pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = isAuthenticated
     ? [
@@ -69,9 +85,7 @@ export function Navigation() {
 
   useEffect(() => {
     document.body.style.overflow = open || searchOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [open, searchOpen]);
 
   useEffect(() => {
@@ -88,26 +102,6 @@ export function Navigation() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        setSearchOpen(false);
-      }
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
-
-  useEffect(() => {
-    if (open && mobileMenuRef.current) {
-      const firstFocusable = mobileMenuRef.current.querySelector<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      firstFocusable?.focus();
-    }
-  }, [open]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -123,14 +117,22 @@ export function Navigation() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 py-2.5 sm:px-6 lg:px-8">
-      <nav
-        aria-label="Primary navigation"
-        className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
-      >
-        <Link to="/" className="group flex items-center gap-1 sm:gap-3" aria-label="GIHANGA home">
-          <img src="/images/logo.png" alt="" className="h-9 w-auto sm:h-14" />
-          <span className="font-display text-sm font-black tracking-[-0.06em] text-[#111111] sm:text-2xl">GIHANGA</span>
+    <header
+      ref={headerRef}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        scrolled || !isHomePage
+          ? "bg-white/90 backdrop-blur-2xl shadow-[0_1px_0_rgba(17,17,17,0.06)]"
+          : "bg-transparent"
+      )}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <Link to="/" className="group flex items-center gap-2 sm:gap-3" aria-label="GIHANGA home">
+          <img src="/images/logo.png" alt="" className={cn("h-8 w-auto sm:h-12 transition-all duration-500", (scrolled || !isHomePage) && "sm:h-10")} />
+          <span className={cn(
+            "font-display text-lg sm:text-2xl font-black tracking-[-0.06em] transition-all duration-500",
+            (scrolled || !isHomePage) ? "text-[#111111]" : "text-white"
+          )}>GIHANGA</span>
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
@@ -140,8 +142,10 @@ export function Navigation() {
               to={link.to}
               className={({ isActive }) =>
                 cn(
-                  "text-sm font-semibold transition",
-                  isActive ? "text-[#111111]" : "text-[#111111]/60 hover:text-[#111111]"
+                  "text-sm font-semibold transition-all duration-300 underline-grow",
+                  isActive
+                    ? (scrolled || !isHomePage) ? "text-[#111111]" : "text-white"
+                    : (scrolled || !isHomePage) ? "text-[#111111]/60 hover:text-[#111111]" : "text-white/70 hover:text-white"
                 )
               }
             >
@@ -150,12 +154,17 @@ export function Navigation() {
           ))}
         </div>
 
-        <div className="flex items-center gap-0.5 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-2">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
             aria-label="Search"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+            className={cn(
+              "flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300",
+              (scrolled || !isHomePage)
+                ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+            )}
           >
             <Search className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
@@ -165,11 +174,16 @@ export function Navigation() {
               <Link
                 to="/wishlist"
                 aria-label="Wishlist"
-                className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+                className={cn(
+                  "relative hidden lg:flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300",
+                  (scrolled || !isHomePage)
+                    ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                    : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+                )}
               >
                 <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
                 {wishlistCount > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFD5EA] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                     {wishlistCount}
                   </span>
                 ) : null}
@@ -178,26 +192,30 @@ export function Navigation() {
                 type="button"
                 onClick={openCart}
                 aria-label="Open shopping bag"
-                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+                className={cn(
+                  "relative flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300",
+                  (scrolled || !isHomePage)
+                    ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                    : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+                )}
               >
                 <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
                 {count > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#BFD7F1] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                     {count}
                   </span>
                 ) : null}
               </button>
-              <Link to="/orders" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
-                <Package className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-              <Link to="/messages" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
-                <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
               <div ref={userMenuRef} className="relative hidden lg:block">
                 <button
                   type="button"
                   onClick={() => setUserMenu(!userMenu)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+                  className={cn(
+                    "flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300",
+                    (scrolled || !isHomePage)
+                      ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                      : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+                  )}
                   aria-label="User menu"
                 >
                   <User className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -208,51 +226,52 @@ export function Navigation() {
                       initial={{ opacity: 0, y: -8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                      className="absolute right-0 top-14 w-56 overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 top-14 w-56 overflow-hidden rounded-xl border border-[#111111]/10 bg-white shadow-[0_20px_60px_rgba(17,17,17,0.12)]"
                     >
-                      <div className="border-b border-black/10 p-4">
+                      <div className="border-b border-[#111111]/10 p-4">
                         <p className="font-display text-base font-black tracking-[-0.02em]">{user?.name}</p>
                         <p className="mt-0.5 text-xs text-[#666666] capitalize">{user?.role}</p>
                       </div>
                       <div className="p-2">
-                        <Link to="/dashboard" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <LayoutDashboard className="h-4 w-4" /> Dashboard
+                        <Link to="/dashboard" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <LayoutDashboard className="h-4 w-4 text-[#D4AF37]" /> Dashboard
                         </Link>
-                        <Link to="/orders" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <Package className="h-4 w-4" /> Orders
+                        <Link to="/orders" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <Package className="h-4 w-4 text-[#D4AF37]" /> Orders
                         </Link>
-                        <Link to="/messages" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <MessageSquare className="h-4 w-4" /> Messages
+                        <Link to="/messages" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <MessageSquare className="h-4 w-4 text-[#D4AF37]" /> Messages
                         </Link>
-                        <Link to="/profile" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <User className="h-4 w-4" /> Profile
+                        <Link to="/profile" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <User className="h-4 w-4 text-[#D4AF37]" /> Profile
                         </Link>
                         {user?.role === "customer" ? (
-                          <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                            <Store className="h-4 w-4" /> Open Seller Dashboard
+                          <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                            <Store className="h-4 w-4 text-[#D4AF37]" /> Open Seller Dashboard
                           </Link>
                         ) : null}
                         {user?.role === "seller" ? (
                           <>
-                            <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <Store className="h-4 w-4" /> Seller panel
+                            <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <Store className="h-4 w-4 text-[#D4AF37]" /> Seller panel
                             </Link>
-                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <ShoppingBag className="h-4 w-4" /> Switch to Shopping
+                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <ShoppingBag className="h-4 w-4 text-[#D4AF37]" /> Switch to Shopping
                             </Link>
                           </>
                         ) : null}
                         {user?.role === "admin" ? (
                           <>
-                            <Link to="/admin" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <Shield className="h-4 w-4" /> Admin panel
+                            <Link to="/admin" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <Shield className="h-4 w-4 text-[#D4AF37]" /> Admin panel
                             </Link>
-                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <ShoppingBag className="h-4 w-4" /> Switch to Shopping
+                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <ShoppingBag className="h-4 w-4 text-[#D4AF37]" /> Switch to Shopping
                             </Link>
                           </>
                         ) : null}
-                        <button type="button" onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-[#F8F9FA]">
+                        <button type="button" onClick={handleLogout} className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold text-[#EF4444] transition hover:bg-[#FEF2F2]">
                           <LogOut className="h-4 w-4" /> Sign out
                         </button>
                       </div>
@@ -263,21 +282,42 @@ export function Navigation() {
             </>
           ) : (
             <>
-              <Link to="/sell" className="hidden lg:flex items-center gap-1.5 rounded-full border border-black/10 px-3 py-1.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#111111] hover:text-white sm:px-3.5 sm:text-[0.55rem]">
+              <Link
+                to="/sell"
+                className={cn(
+                  "hidden lg:flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] transition-all duration-300 sm:text-[0.55rem]",
+                  (scrolled || !isHomePage)
+                    ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                    : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+                )}
+              >
                 <Store className="h-3 w-3" /> Become a Seller
               </Link>
-              <Link to="/login" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
+              <Link
+                to="/login"
+                className={cn(
+                  "flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full transition-all duration-300",
+                  (scrolled || !isHomePage)
+                    ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                    : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+                )}
+              >
                 <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
             </>
           )}
 
-          <MagneticButton to="/shop" variant="dark" className="hidden px-5 py-3 text-sm lg:inline-flex">
+          <Button to="/shop" variant="primary" size="sm" className="hidden lg:inline-flex px-5 py-2.5 text-xs">
             Shop Now
-          </MagneticButton>
+          </Button>
           <button
             type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] lg:hidden sm:h-11 sm:w-11"
+            className={cn(
+              "flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center rounded-full lg:hidden transition-all duration-300",
+              (scrolled || !isHomePage)
+                ? "border border-[#111111]/10 text-[#111111] hover:bg-[#111111] hover:text-white"
+                : "border border-white/20 text-white hover:bg-white hover:text-[#111111]"
+            )}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -286,15 +326,16 @@ export function Navigation() {
             {open ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
           </button>
         </div>
-      </nav>
+      </div>
 
+      {/* Search Overlay */}
       <AnimatePresence>
         {searchOpen ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#111111]/50 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-[#111111]/60 backdrop-blur-sm"
             onClick={() => setSearchOpen(false)}
             aria-hidden
           />
@@ -307,9 +348,10 @@ export function Navigation() {
             initial={{ opacity: 0, y: -20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.96 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="fixed left-1/2 top-20 z-[70] w-full max-w-xl -translate-x-1/2 px-4"
           >
-            <form onSubmit={handleSearch} className="overflow-hidden rounded-[2rem] border border-white/40 bg-white shadow-[0_30px_110px_rgba(0,0,0,0.18)] backdrop-blur-2xl">
+            <form onSubmit={handleSearch} className="overflow-hidden rounded-xl border border-[#111111]/10 bg-white shadow-[0_24px_80px_rgba(17,17,17,0.2)] backdrop-blur-2xl">
               <div className="flex items-center gap-3 px-5 py-4">
                 <Search className="h-5 w-5 text-[#666666]" />
                 <input
@@ -317,9 +359,9 @@ export function Navigation() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search pieces, stores, categories..."
-                  className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-[#666666]/50"
+                  className="min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-[#999999]"
                 />
-                <button type="button" onClick={() => setSearchOpen(false)} className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 text-[#666666] transition hover:bg-[#111111] hover:text-white">
+                <button type="button" onClick={() => setSearchOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[#F8F9FA] transition">
                   <X className="h-4 w-4" />
                 </button>
               </div>
@@ -328,6 +370,7 @@ export function Navigation() {
         ) : null}
       </AnimatePresence>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {open ? (
           <>
@@ -336,12 +379,12 @@ export function Navigation() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-[60] bg-[#111111]/50 backdrop-blur-sm"
+              className="fixed inset-0 z-[60] bg-[#111111]/60 backdrop-blur-sm"
               onClick={() => setOpen(false)}
               aria-hidden
             />
             <motion.aside
-              ref={mobileMenuRef}
+              ref={null}
               id="mobile-menu"
               role="dialog"
               aria-modal="true"
@@ -349,16 +392,16 @@ export function Navigation() {
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-sm flex-col bg-white shadow-2xl"
             >
-              <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
+              <div className="flex items-center justify-between border-b border-[#111111]/10 px-4 py-3">
                 <span className="font-display text-lg font-black tracking-[-0.06em] text-[#111111]">Menu</span>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
-                  className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#111111]/10 text-[#111111] transition hover:bg-[#111111] hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -371,55 +414,56 @@ export function Navigation() {
                         to={link.to}
                         className={({ isActive }) =>
                           cn(
-                            "flex min-h-12 items-center justify-between rounded-2xl px-3 py-3 text-base font-semibold transition",
-                            isActive ? "bg-black/[0.04] text-[#111111]" : "text-[#111111] hover:bg-black/[0.04]"
+                            "flex min-h-12 items-center justify-between rounded-lg px-3 py-3 text-base font-semibold transition",
+                            isActive ? "bg-[#D4AF37]/10 text-[#111111]" : "text-[#111111] hover:bg-[#F8F9FA]"
                           )
                         }
+                        onClick={() => setOpen(false)}
                       >
                         {link.label}
-                        <ArrowRight className="h-5 w-5 text-[#BFD7F1]" />
+                        <ChevronRight className="h-5 w-5 text-[#D4AF37]" />
                       </NavLink>
                     </motion.div>
                   ))}
                 </div>
                 <div className="mt-5">
-                  <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-5 py-4" onClick={() => setOpen(false)}>
+                  <Button to="/shop" variant="gold" className="w-full justify-center py-4" onClick={() => setOpen(false)}>
                     Shop Now
-                  </MagneticButton>
+                  </Button>
                 </div>
               </nav>
-              <div className="border-t border-black/10 p-4">
+              <div className="border-t border-[#111111]/10 p-4">
                 {isAuthenticated ? (
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full bg-[#111111] text-white">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111111] text-white">
                         <User className="h-5 w-5" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-display text-sm font-black text-[#111111] truncate">{user?.name}</p>
                         <p className="text-xs text-[#666666] capitalize truncate">{user?.role}</p>
                       </div>
-                      <button type="button" onClick={() => { handleLogout(); setOpen(false); }} className="shrink-0 text-sm font-semibold text-red-600 transition hover:text-red-700 min-h-11 px-2">
+                      <button type="button" onClick={() => { handleLogout(); setOpen(false); }} className="shrink-0 text-sm font-semibold text-[#EF4444] min-h-11 px-2">
                         <LogOut className="h-4 w-4 sm:hidden" />
                         <span className="hidden sm:inline">Sign out</span>
                       </button>
                     </div>
                     <div className="flex gap-2">
-                      <Link to="/dashboard" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Dashboard</Link>
-                      <Link to="/profile" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Profile</Link>
+                      <Link to="/dashboard" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-[#111111]/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Dashboard</Link>
+                      <Link to="/profile" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-[#111111]/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Profile</Link>
                       {user?.role === "customer" ? (
-                        <Link to="/seller" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Sell</Link>
+                        <Link to="/seller" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-[#111111]/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Sell</Link>
                       ) : (
-                        <Link to="/" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Shop</Link>
+                        <Link to="/" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-[#111111]/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Shop</Link>
                       )}
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <Link to="/login" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-2xl px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-black/[0.04]">
-                      <LogIn className="h-5 w-5" /> Sign in
+                    <Link to="/login" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-lg px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#F8F9FA]">
+                      <LogIn className="h-5 w-5 text-[#D4AF37]" /> Sign in
                     </Link>
-                    <Link to="/register" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-2xl bg-[#BFD7F1] px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#111111] hover:text-white">
+                    <Link to="/register" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-lg bg-[#D4AF37] px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#111111] hover:text-white">
                       <UserPlus className="h-5 w-5" /> Create Account
                     </Link>
                   </div>
@@ -433,6 +477,77 @@ export function Navigation() {
   );
 }
 
+// ============================================================
+// MOBILE BOTTOM NAVIGATION
+// ============================================================
+
+export function BottomNav() {
+  const { count, openCart } = useCart();
+  const { count: wishlistCount } = useWishlist();
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+
+  const hidePaths = ["/login", "/register", "/seller", "/admin", "/forgot-password"];
+  if (hidePaths.some((p) => location.pathname === p || location.pathname.startsWith(p + "/"))) return null;
+  if (location.pathname === "/") return null;
+
+  const navItems = [
+    { label: "Home", to: "/", icon: Home, badge: null },
+    { label: "Shop", to: "/shop", icon: Search, badge: null },
+    { label: "Wishlist", to: "/wishlist", icon: Heart, badge: wishlistCount },
+    { label: "Orders", to: "/orders", icon: Package, badge: null },
+    { label: "Cart", to: null, icon: ShoppingBag, badge: count, action: openCart },
+  ];
+
+  return (
+    <nav
+      aria-label="Bottom navigation"
+      className="fixed inset-x-0 bottom-0 z-50 block border-t border-[#111111]/10 bg-white/90 backdrop-blur-2xl lg:hidden"
+    >
+      <div className="flex items-center justify-around py-1.5">
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = item.to ? location.pathname === item.to || (item.to !== "/" && location.pathname.startsWith(item.to)) : false;
+
+          const content = (
+            <div className="relative flex flex-col items-center gap-0.5 px-4 py-1.5">
+              <div className="relative">
+                <Icon className={cn("h-5 w-5", isActive ? "text-[#D4AF37]" : "text-[#111111]/60")} />
+                {(item.badge ?? 0) > 0 ? (
+                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.45rem] font-black text-white">
+                    {item.badge}
+                  </span>
+                ) : null}
+              </div>
+              <span className={cn("text-[0.5rem] font-bold uppercase tracking-[0.1em]", isActive ? "text-[#D4AF37]" : "text-[#111111]/60")}>
+                {item.label}
+              </span>
+            </div>
+          );
+
+          if (item.action) {
+            return (
+              <button key={item.label} type="button" onClick={item.action} aria-label={item.label}>
+                {content}
+              </button>
+            );
+          }
+
+          return (
+            <Link key={item.label} to={item.to!} aria-label={item.label}>
+              {content}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+// ============================================================
+// PREMIUM CART DRAWER
+// ============================================================
+
 export function CartDrawer() {
   const { lines, isOpen, closeCart, removeItem, setQuantity, subtotal, count } = useCart();
   return (
@@ -443,7 +558,8 @@ export function CartDrawer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-[#111111]/50 backdrop-blur-sm"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-[#111111]/60 backdrop-blur-sm"
             onClick={closeCart}
             aria-hidden
           />
@@ -453,73 +569,84 @@ export function CartDrawer() {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="fixed right-0 top-0 z-[70] flex h-full w-full max-w-md flex-col bg-[#F8F9FA] shadow-2xl"
           >
-            <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
+            <div className="flex items-center justify-between border-b border-[#111111]/10 px-5 py-4">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-[#BFD7F1]">Your bag</p>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-[#D4AF37]">Your bag</p>
                 <h2 className="font-display text-xl font-black tracking-[-0.05em] sm:text-2xl">{count} item{count === 1 ? "" : "s"}</h2>
               </div>
-              <button type="button" onClick={closeCart} aria-label="Close cart" className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full border border-black/10 transition hover:bg-[#111111] hover:text-white">
+              <button type="button" onClick={closeCart} aria-label="Close cart" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#111111]/10 transition hover:bg-[#111111] hover:text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-4 py-3">
+            <div className="flex-1 overflow-y-auto px-5 py-4">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
-                  <span className="font-editorial text-7xl text-[#BFD7F1]">∅</span>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/10">
+                    <ShoppingBag className="h-8 w-8 text-[#D4AF37]" />
+                  </div>
                   <p className="mt-4 font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Your bag is empty</p>
                   <p className="mt-2 text-sm text-[#666666]">Discover pieces from Kigali's verified boutiques.</p>
-                  <MagneticButton to="/shop" variant="dark" className="mt-6 px-6 py-3 text-sm" onClick={closeCart}>
+                  <Button to="/shop" variant="primary" size="md" className="mt-6" onClick={closeCart}>
                     Browse shop
-                  </MagneticButton>
+                  </Button>
                 </div>
               ) : (
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                   {lines.map((line) => (
-                    <li key={line.key} className="flex gap-4 rounded-xl bg-white p-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-                      <img src={line.product.images[0]} alt={line.product.name} className="h-14 w-14 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24" />
-                      <div className="flex flex-1 flex-col">
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <p className="font-display text-base font-black leading-tight tracking-[-0.03em]">{line.product.name}</p>
-                            <p className="mt-1 text-xs text-[#666666]">{line.product.storeName}{line.size ? ` · ${line.size}` : ""}{line.color ? ` · ${line.color}` : ""}</p>
+                    <motion.li
+                      key={line.key}
+                      layout
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      className="flex gap-4 rounded-lg bg-white p-3 shadow-[0_2px_12px_rgba(17,17,17,0.06)]"
+                    >
+                      <div className="h-20 w-20 shrink-0 rounded-lg overflow-hidden bg-[#F8F9FA]">
+                        <img src={line.product.images[0]} alt={line.product.name} className="h-full w-full object-cover" />
+                      </div>
+                      <div className="flex flex-1 flex-col min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <p className="font-display text-sm font-black leading-tight tracking-[-0.03em] truncate">{line.product.name}</p>
+                            <p className="mt-0.5 text-xs text-[#666666] truncate">
+                              {line.product.storeName}
+                              {line.size ? ` · ${line.size}` : ""}
+                              {line.color ? ` · ${line.color}` : ""}
+                            </p>
                           </div>
-                          <button type="button" aria-label="Remove item" onClick={() => removeItem(line.key)} className="text-[#666666] transition hover:text-[#111111]">
-                            <Trash2 className="h-4 w-4" />
+                          <button type="button" aria-label="Remove item" onClick={() => removeItem(line.key)} className="shrink-0 text-[#999999] hover:text-[#EF4444] transition p-1">
+                            <Trash2 className="h-3.5 w-3.5" />
                           </button>
                         </div>
                         <div className="mt-auto flex items-center justify-between pt-2">
-                          <div className="inline-flex items-center rounded-full border border-black/10">
-                            <button type="button" aria-label="Decrease quantity" className="flex h-11 w-11 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity - 1)}>
-                              <Minus className="h-3.5 w-3.5" />
-                            </button>
-                            <span className="w-11 text-center text-sm font-bold">{line.quantity}</span>
-                            <button type="button" aria-label="Increase quantity" className="flex h-11 w-11 items-center justify-center transition hover:text-[#BFD7F1]" onClick={() => setQuantity(line.key, line.quantity + 1)}>
-                              <Plus className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
-                          <p className="font-display text-base font-black">{formatRwf(line.product.price * line.quantity)}</p>
+                          <QuantitySelector
+                            value={line.quantity}
+                            onChange={(val) => setQuantity(line.key, val)}
+                            size="sm"
+                          />
+                          <p className="font-display text-base font-black tracking-[-0.03em]">{formatRwf(line.product.price * line.quantity)}</p>
                         </div>
                       </div>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               )}
             </div>
 
             {lines.length > 0 ? (
-              <div className="border-t border-black/10 bg-white px-4 py-3">
+              <div className="border-t border-[#111111]/10 bg-white px-5 py-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-semibold uppercase tracking-[0.2em] text-[#666666]">Subtotal</span>
                   <span className="font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">{formatRwf(subtotal)}</span>
                 </div>
-                <p className="mt-2 text-xs text-[#666666]">Delivery, taxes and Mobile Money checkout available in upcoming phases.</p>
-                <MagneticButton to="/checkout" variant="berry" className="mt-3 w-full justify-center px-5 py-3 text-sm" onClick={closeCart}>
+                <p className="text-xs text-[#666666]">Delivery calculated at checkout. Mobile Money available.</p>
+                <Button to="/checkout" variant="primary" className="w-full justify-center" onClick={closeCart}>
                   Checkout
-                </MagneticButton>
+                </Button>
               </div>
             ) : null}
           </motion.aside>
@@ -529,25 +656,29 @@ export function CartDrawer() {
   );
 }
 
+// ============================================================
+// PREMIUM FOOTER
+// ============================================================
+
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#111111] px-4 py-8 text-white sm:px-6 lg:px-8">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#BFD7F1]/40 to-transparent" />
+    <footer className="relative overflow-hidden bg-[#111111] px-4 py-10 sm:px-6 lg:px-8">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
       <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-6 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr]">
           <div>
             <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-16" />
-              <span className="font-display text-lg font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
+              <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-12" />
+              <span className="font-display text-xl font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
             </Link>
             <p className="mt-2 max-w-md text-xs leading-5 text-white/60 sm:text-sm sm:leading-6">
               Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali.
             </p>
-            <form className="mt-4 flex flex-col sm:flex-row max-w-md gap-1.5 sm:gap-0 overflow-hidden rounded-xl sm:rounded-full border border-white/15 bg-white/8 sm:p-1 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
-              <label htmlFor="newsletter" className="sr-only">Email address</label>
-              <input id="newsletter" type="email" autoComplete="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:py-0 sm:text-sm" />
-              <button type="submit" className="w-full rounded-xl bg-white px-4 py-2 text-xs font-bold text-[#111111] transition hover:bg-[#BFD7F1] sm:w-auto sm:rounded-full sm:px-5 sm:py-3 sm:text-sm">Join</button>
+            <form className="mt-5 flex flex-col sm:flex-row max-w-md gap-2 overflow-hidden rounded-xl border border-white/15 bg-white/5 p-1.5 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
+              <label htmlFor="newsletter-footer" className="sr-only">Email address</label>
+              <input id="newsletter-footer" type="email" autoComplete="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:text-sm" />
+              <button type="submit" className="w-full rounded-lg bg-[#D4AF37] px-4 py-2.5 text-xs font-bold text-[#111111] transition hover:bg-[#E8C547] sm:w-auto sm:px-5 sm:text-sm">Join</button>
             </form>
           </div>
 
@@ -555,23 +686,23 @@ export function Footer() {
             <FooterColumn title="Explore" items={[{ label: "Shop", to: "/shop" }, { label: "Stores", to: "/stores" }, { label: "Plans", to: "/plans" }, { label: "Why GIHANGA", to: "/why-gihanga" }, { label: "Sell", to: "/sell-apply" }]} />
             <FooterColumn title="Categories" items={[{ label: "Shoes", to: "/shop?category=shoes" }, { label: "Clothes", to: "/shop?category=clothes" }, { label: "Bags", to: "/shop?category=bags" }, { label: "Accessories", to: "/shop?category=accessories" }]} />
             <div>
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
               <ul className="mt-3 space-y-2 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Mail className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Phone className="h-3.5 w-3.5 shrink-0 text-[#BFD7F1] sm:h-5 sm:w-5" /> +250 799 576 704</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Mail className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Phone className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> +250 799 576 704</li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
               <p className="mt-3 text-xs text-white/55 sm:mt-5 sm:text-sm">The Kigali edit, every Thursday. New stores, drops and stories.</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-center gap-2 border-t border-white/10 pt-5 text-xs text-white/45 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:pt-8 sm:text-sm">
+        <div className="mt-8 flex flex-col items-center gap-2 border-t border-white/10 pt-6 text-xs text-white/45 sm:mt-12 sm:flex-row sm:items-center sm:justify-between sm:pt-8 sm:text-sm">
           <p>Copyright 2026 GIHANGA. All rights reserved.</p>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <a href="#" className="flex min-h-11 items-center transition hover:text-white">Privacy</a>
             <a href="#" className="flex min-h-11 items-center transition hover:text-white">Terms</a>
             <a href="/#/contact" className="flex min-h-11 items-center transition hover:text-white">Support</a>
@@ -586,7 +717,7 @@ export function Footer() {
 function FooterColumn({ title, items }: { title: string; items: Array<{ label: string; to: string }> }) {
   return (
     <div>
-      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#BFD7F1] sm:text-sm sm:tracking-[0.28em]">{title}</h3>
+      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">{title}</h3>
       <ul className="mt-3 space-y-1.5 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
         {items.map((item) => (
           <li key={item.label}>
@@ -600,6 +731,10 @@ function FooterColumn({ title, items }: { title: string; items: Array<{ label: s
   );
 }
 
+// ============================================================
+// TOAST NOTIFICATION
+// ============================================================
+
 export function Toast() {
   const { toast } = useCart();
   return (
@@ -609,9 +744,9 @@ export function Toast() {
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.96 }}
-          className="fixed bottom-6 left-1/2 z-[80] -translate-x-1/2 rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-bold text-[#111111] shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
+          className="fixed bottom-20 lg:bottom-6 left-1/2 z-[80] -translate-x-1/2 rounded-full border border-[#111111]/10 bg-white px-5 py-3 text-sm font-bold text-[#111111] shadow-[0_12px_40px_rgba(17,17,17,0.18)]"
         >
-          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#BFD7F1]" />
+          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#D4AF37]" />
           {toast}
         </motion.div>
       ) : null}

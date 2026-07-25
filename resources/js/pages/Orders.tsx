@@ -54,11 +54,11 @@ export default function Orders() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#BFD7F1] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
           </div>
         ) : filtered.length === 0 ? (
           <EmptyState title="No orders found" copy={statusFilter !== "all" ? `No orders with status "${statusFilter}".` : "You haven't placed any orders yet."}
-            action={<MagneticButton to="/shop" variant="berry" className="min-h-12 px-6 py-3 text-sm">Browse shop</MagneticButton>} />
+            action={<MagneticButton to="/shop" variant="gold" className="min-h-12 px-6 py-3 text-sm">Browse shop</MagneticButton>} />
         ) : (
           <div className="space-y-3">
             {filtered.map((order) => (
@@ -79,3 +79,4 @@ export default function Orders() {
     </div>
   );
 }
+

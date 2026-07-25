@@ -54,7 +54,7 @@ export default function ChatDetail() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#BFD7F1] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
       </div>
     );
   }
@@ -64,9 +64,9 @@ export default function ChatDetail() {
       <div className="overflow-x-hidden bg-[#F8F9FA] pt-24 lg:pt-28">
         <div className="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-16 text-center">
-            <p className="font-editorial text-6xl text-[#BFD7F1]">∅</p>
+            <p className="font-editorial text-6xl text-[#D4AF37]">∅</p>
             <h2 className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">Conversation not found</h2>
-            <MagneticButton to="/messages" variant="berry" className="mt-6 min-h-12 px-6 py-3 text-sm">Back to messages</MagneticButton>
+            <MagneticButton to="/messages" variant="gold" className="mt-6 min-h-12 px-6 py-3 text-sm">Back to messages</MagneticButton>
           </div>
         </div>
       </div>
@@ -81,8 +81,8 @@ export default function ChatDetail() {
           <Link to="/messages" className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#666666] transition hover:bg-[#111111] hover:text-white">
             <ArrowLeft className="h-4 w-4" />
           </Link>
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#BFD7F1]/20">
-            <Store className="h-5 w-5 text-[#BFD7F1]" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#D4AF37]/20">
+            <Store className="h-5 w-5 text-[#D4AF37]" />
           </div>
           <div className="min-w-0">
             <p className="font-display text-lg font-black tracking-[-0.03em] truncate">{conversation.store?.name ?? "Store"}</p>
@@ -94,7 +94,7 @@ export default function ChatDetail() {
           {messages.length === 0 ? (
             <div className="flex h-full items-center justify-center text-center">
               <div>
-                <MessageSquare className="mx-auto h-8 w-8 text-[#BFD7F1]" />
+                <MessageSquare className="mx-auto h-8 w-8 text-[#D4AF37]" />
                 <p className="mt-4 font-display text-lg font-black tracking-[-0.04em]">No messages yet</p>
                 <p className="mt-2 text-sm text-[#666666]">Send a message to start the conversation.</p>
               </div>
@@ -109,7 +109,7 @@ export default function ChatDetail() {
                       <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                       <div className={cn("mt-1 flex items-center gap-1.5 text-[0.55rem]", isMine ? "text-white/55 justify-end" : "text-[#999] justify-start")}>
                         <span>{new Date(msg.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span>
-                        {isMine ? <CheckCheck className={cn("h-3 w-3", msg.is_read ? "text-[#BFD7F1]" : "text-white/40")} /> : null}
+                        {isMine ? <CheckCheck className={cn("h-3 w-3", msg.is_read ? "text-[#D4AF37]" : "text-white/40")} /> : null}
                       </div>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ export default function ChatDetail() {
             <textarea
               value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown}
               rows={2} placeholder="Type your message…"
-              className="min-h-12 flex-1 resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]"
+              className="min-h-12 flex-1 resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]"
             />
             <button type="button" onClick={send} disabled={sending || !input.trim()}
               className="flex h-12 w-12 min-w-12 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#333] disabled:opacity-40">
@@ -143,3 +143,4 @@ export default function ChatDetail() {
 function MessageSquare({ className }: { className?: string }) {
   return <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>;
 }
+

@@ -54,7 +54,7 @@ export default function ProductDetail() {
   if (loading) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] items-center justify-center pt-36">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#BFD7F1] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
       </div>
     );
   }
@@ -62,9 +62,9 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <p className="font-editorial text-6xl text-[#BFD7F1]">404</p>
+        <p className="font-editorial text-6xl text-[#D4AF37]">404</p>
         <h1 className="font-display text-4xl font-black tracking-[-0.05em]">Piece not found.</h1>
-        <MagneticButton to="/shop" variant="berry" className="min-h-12 px-6 py-3 text-sm">Back to shop</MagneticButton>
+        <MagneticButton to="/shop" variant="gold" className="min-h-12 px-6 py-3 text-sm">Back to shop</MagneticButton>
       </div>
     );
   }
@@ -85,7 +85,7 @@ export default function ProductDetail() {
             {product.discount ? (
               <span className="absolute left-5 top-5 rounded-full bg-[#111111] px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-white">{product.discount}</span>
             ) : null}
-            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#FFD5EA] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
+            <button type="button" aria-label={hasItem(product.slug) ? "Remove from wishlist" : "Add to wishlist"} onClick={() => toggleItem(product)} className={cn("absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full shadow-lg backdrop-blur-xl transition", hasItem(product.slug) ? "bg-[#D4AF37] text-[#111111]" : "bg-white/85 text-[#111111] hover:bg-[#111111] hover:text-white")}>
               <Heart className={cn("h-5 w-5", hasItem(product.slug) && "fill-[#111111]")} />
             </button>
           </div>
@@ -108,11 +108,11 @@ export default function ProductDetail() {
 
         <div data-reveal className="lg:sticky lg:top-28 lg:self-start">
           <Link to={storeLink} className="inline-flex min-h-11 items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#111111]/60 underline-grow">
-            <BadgeCheck className="h-4 w-4 text-[#BFD7F1]" /> {product.storeName}
+            <BadgeCheck className="h-4 w-4 text-[#D4AF37]" /> {product.storeName}
           </Link>
           <h1 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.4rem)] font-black leading-[0.92] tracking-[-0.055em]">{product.name}</h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-            <span className="inline-flex items-center gap-1 font-bold"><Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {product.rating.toFixed(1)} · {product.reviews} reviews</span>
+            <span className="inline-flex items-center gap-1 font-bold"><Star className="h-4 w-4 fill-[#D4AF37] text-[#D4AF37]" /> {product.rating.toFixed(1)} · {product.reviews} reviews</span>
             <span className="text-[#666666]">· {product.category}</span>
           </div>
 
@@ -153,7 +153,7 @@ export default function ProductDetail() {
                 <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Color · {selected}</p>
                 <div className="mt-3 flex gap-2">
                   {palette.map((c) => {
-                    const swatch = c === "Berry" ? "#BFD7F1" : c === "Mauve" ? "#FFD5EA" : "#111111";
+                    const swatch = c === "Berry" ? "#D4AF37" : c === "Mauve" ? "#D4AF37" : "#111111";
                     return (
                       <button
                         key={c}
@@ -171,18 +171,18 @@ export default function ProductDetail() {
           })() : null}
 
           <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:flex-row">
-            <MagneticButton variant="berry" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
+            <MagneticButton variant="gold" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Add to bag
             </MagneticButton>
-            <MagneticButton variant="dark" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
+            <MagneticButton variant="primary" className="min-h-12 w-full justify-center px-5 py-3 text-sm sm:flex-1" onClick={() => addItem(product, { size, color })}>
               Buy now
             </MagneticButton>
           </div>
 
           <ul className="mt-8 grid gap-3 border-t border-black/10 pt-6 text-sm">
-            <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Buyer protection on every order</li>
-            <li className="flex items-center gap-3"><Truck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Kigali delivery in 24–48 hours</li>
-            <li className="flex items-center gap-3"><BadgeCheck className="h-5 w-5 shrink-0 text-[#BFD7F1]" /> Sold by a verified GIHANGA boutique</li>
+            <li className="flex items-center gap-3"><ShieldCheck className="h-5 w-5 shrink-0 text-[#D4AF37]" /> Buyer protection on every order</li>
+            <li className="flex items-center gap-3"><Truck className="h-5 w-5 shrink-0 text-[#D4AF37]" /> Kigali delivery in 24–48 hours</li>
+            <li className="flex items-center gap-3"><BadgeCheck className="h-5 w-5 shrink-0 text-[#D4AF37]" /> Sold by a verified GIHANGA boutique</li>
           </ul>
 
           <details className="mt-4 rounded-2xl border border-black/10 bg-white p-4">
@@ -197,7 +197,7 @@ export default function ProductDetail() {
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">From the same boutique</p>
+                <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">From the same boutique</p>
                 <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">More from {product.storeName}</h2>
               </div>
               <Link to={storeLink} className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Visit store →</Link>
@@ -213,8 +213,8 @@ export default function ProductDetail() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">You may also like</p>
-              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Similar <span className="font-editorial text-[#BFD7F1]">pieces</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">You may also like</p>
+              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Similar <span className="font-editorial text-[#D4AF37]">pieces</span></h2>
             </div>
             <Link to="/shop" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Shop all →</Link>
           </div>
@@ -228,10 +228,10 @@ export default function ProductDetail() {
 
       <section className="overflow-x-hidden bg-[#111111] px-4 py-8 text-white sm:px-6 lg:px-8 sm:py-10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 text-sm">
-          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Delivery in Kigali</span>
-          <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Buyer protection</span>
-          <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> Verified boutique</span>
-          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 shrink-0 text-[#BFD7F1]" /> 4.9 average rating</span>
+          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" /> Delivery in Kigali</span>
+          <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 shrink-0 text-[#D4AF37]" /> Buyer protection</span>
+          <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 shrink-0 text-[#D4AF37]" /> Verified boutique</span>
+          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 shrink-0 text-[#D4AF37]" /> 4.9 average rating</span>
         </div>
       </section>
     </div>
@@ -248,9 +248,9 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#BFD7F1]">Customer reviews</p>
+            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Customer reviews</p>
             <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">
-              {avgRating.toFixed(1)} <span className="font-editorial text-[#BFD7F1]">stars</span>
+              {avgRating.toFixed(1)} <span className="font-editorial text-[#D4AF37]">stars</span>
             </h2>
             <p className="mt-1 text-sm text-[#666666]">{reviews.length} review{reviews.length === 1 ? "" : "s"}</p>
           </div>
@@ -267,7 +267,7 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
               </div>
               <div className="mt-3 flex items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className={cn("h-4 w-4", i < review.rating ? "fill-[#BFD7F1] text-[#BFD7F1]" : "text-[#BFD7F1]/30")} />
+                  <Star key={i} className={cn("h-4 w-4", i < review.rating ? "fill-[#D4AF37] text-[#D4AF37]" : "text-[#D4AF37]/30")} />
                 ))}
               </div>
               <p className="mt-4 text-sm leading-7 text-[#666666]">{review.text}</p>
@@ -275,7 +275,7 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
                 <div className="mt-4 flex flex-wrap gap-2">
                   {review.size ? <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-bold">{review.size}</span> : null}
                   {review.color ? <span className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-bold">{review.color}</span> : null}
-                  <span className="inline-flex items-center gap-1 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-bold"><CheckCircle2 className="h-3 w-3 text-[#BFD7F1]" /> Verified purchase</span>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-bold"><CheckCircle2 className="h-3 w-3 text-[#D4AF37]" /> Verified purchase</span>
                 </div>
               ) : null}
             </article>
@@ -285,3 +285,4 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
     </section>
   );
 }
+

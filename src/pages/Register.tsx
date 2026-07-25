@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserPlus } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import { MagneticButton } from "../components/ui";
+import { Button, Input } from "../components/ui";
+import Seo from "../components/Seo";
 
 export default function Register() {
   const { register } = useAuth();
@@ -40,48 +41,72 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#F8F9FA] px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-0 lg:pt-32">
+      <Seo title="Create Account - Gihanga Market" description="Join GIHANGA as a customer and discover verified fashion boutiques in Kigali." />
       <div className="w-full max-w-md">
-        <div className="rounded-[2rem] border border-black/[0.08] bg-white p-8 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+        <div className="rounded-xl border border-[#111111]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(17,17,17,0.06)]">
           <div className="mb-8 text-center">
-            <UserPlus className="mx-auto h-8 w-8 text-[#BFD7F1]" />
-            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em]">Create account</h1>
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4AF37]/10">
+              <UserPlus className="h-7 w-7 text-[#D4AF37]" />
+            </div>
+            <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#111111]">Create account</h1>
             <p className="mt-2 text-sm text-[#666666]">Join GIHANGA as a customer</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="rounded-2xl bg-red-50 p-4 text-sm text-red-600">{error}</div>
+              <div className="rounded-lg bg-[#FEF2F2] border border-[#FECACA] p-4 text-sm text-[#EF4444]">
+                {error}
+              </div>
             )}
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Full name</label>
-              <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Jean Baptiste Mugabo" />
-            </div>
+            <Input
+              label="Full name"
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Jean Baptiste Mugabo"
+            />
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Email</label>
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="jean@example.com" />
-            </div>
+            <Input
+              label="Email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="jean@example.com"
+            />
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Phone (optional)</label>
-              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="+250 788 000 000" />
-            </div>
+            <Input
+              label="Phone (optional)"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="+250 788 000 000"
+            />
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Password</label>
-              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Min 8 characters" />
-            </div>
+            <Input
+              label="Password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Min 8 characters"
+            />
 
-            <div>
-              <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Confirm password</label>
-              <input type="password" required value={confirm} onChange={(e) => setConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#BFD7F1]" placeholder="Repeat your password" />
-            </div>
+            <Input
+              label="Confirm password"
+              type="password"
+              required
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              placeholder="Repeat your password"
+            />
 
-            <MagneticButton type="submit" variant="berry" disabled={busy} className="min-h-12 w-full justify-center px-6 py-4">
-              {busy ? "Creating account…" : "Create account"}
-            </MagneticButton>
+            <Button type="submit" variant="primary" fullWidth loading={busy} size="lg">
+              {busy ? "Creating account" : "Create account"}
+            </Button>
           </form>
 
           <p className="mt-6 text-center text-sm text-[#666666]">
@@ -95,3 +120,4 @@ export default function Register() {
     </div>
   );
 }
+

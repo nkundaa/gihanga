@@ -5,7 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
-import { CartDrawer, Footer, Navigation, ScrollRestoration, Toast } from "./components/shell";
+import { BottomNav, CartDrawer, Footer, Navigation, ScrollRestoration, Toast } from "./components/shell";
 import HomeRouter from "./pages/HomeRouter";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -108,6 +108,7 @@ function AnimatedRoutes() {
         </Routes>
       </AnimatePresence>
       {showShell ? <Footer /> : null}
+      {showShell ? <BottomNav /> : null}
       {showShell ? <CartDrawer /> : null}
       {showShell ? <Toast /> : null}
     </>
@@ -121,7 +122,7 @@ export default function App() {
       <CartProvider>
         <WishlistProvider>
         <BrowserRouter>
-          <div className="min-h-screen overflow-x-hidden bg-[#F8F9FA] text-[#111111]">
+          <div className="min-h-screen overflow-x-hidden bg-[#F8F9FA] text-[#111111] pb-16 lg:pb-0">
             <AnimatedRoutes />
           </div>
         </BrowserRouter>
