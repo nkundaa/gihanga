@@ -38,7 +38,7 @@ export default function Wishlist() {
               action={<MagneticButton to="/shop" variant="berry" className="min-h-12 px-6 py-3 text-sm">Browse shop</MagneticButton>}
             />
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {items.map((p) => <ProductCard key={p.slug} product={p} />)}
             </div>
           )}

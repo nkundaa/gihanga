@@ -6,8 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { CartDrawer, Footer, Navigation, ScrollRestoration, Toast } from "./components/shell";
-import Opening from "./pages/Opening";
-import Home from "./pages/Home";
+import HomeRouter from "./pages/HomeRouter";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Stores from "./pages/Stores";
@@ -24,6 +23,15 @@ import Wishlist from "./pages/Wishlist";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DashboardRouter from "./pages/DashboardRouter";
+import Profile from "./pages/Profile";
+import Orders from "./pages/Orders";
+import OrderDetail from "./pages/OrderDetail";
+import SellerDashboard from "./pages/SellerDashboard";
+import ForgotPassword from "./pages/ForgotPassword";
+import Messages from "./pages/Messages";
+import ChatDetail from "./pages/ChatDetail";
+import ProductEditor from "./pages/ProductEditor";
 
 function useRevealObserver() {
   useEffect(() => {
@@ -59,10 +67,8 @@ function AnimatedRoutes() {
   const location = useLocation();
   useRevealObserver();
 
-  const isOpening = location.pathname === "/";
-  const authPages = ["/login", "/register"];
-
-  const showShell = !isOpening && !authPages.includes(location.pathname);
+  const hideShellPaths = ["/", "/login", "/register", "/seller", "/admin", "/dashboard", "/profile", "/orders", "/messages", "/forgot-password"];
+  const showShell = !hideShellPaths.some((p) => location.pathname === p || location.pathname.startsWith(p + "/"));
 
   return (
     <>
@@ -70,8 +76,8 @@ function AnimatedRoutes() {
       {showShell ? <Navigation /> : null}
       <AnimatePresence mode="popLayout">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Opening />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<HomeRouter />} />
+          <Route path="/home" element={<HomeRouter />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/stores" element={<Stores />} />
@@ -88,7 +94,17 @@ function AnimatedRoutes() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Opening />} />
+          <Route path="/dashboard" element={<DashboardRouter />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
+          <Route path="/seller" element={<SellerDashboard />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/messages/:id" element={<ChatDetail />} />
+          <Route path="/seller/products/new" element={<ProductEditor />} />
+          <Route path="/seller/products/edit/:id" element={<ProductEditor />} />
+          <Route path="*" element={<HomeRouter />} />
         </Routes>
       </AnimatePresence>
       {showShell ? <Footer /> : null}

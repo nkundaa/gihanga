@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Heart, LogIn, LogOut, Mail, MapPinned, Menu, Minus, Phone, Plus, Search, ShoppingBag, Trash2, User, X } from "lucide-react";
+import { ArrowRight, Heart, LayoutDashboard, LogIn, LogOut, Mail, MapPinned, Menu, MessageSquare, Minus, Package, Phone, Plus, Search, Shield, ShoppingBag, Store, Trash2, User, UserPlus, X } from "lucide-react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../utils/cn";
@@ -8,15 +8,6 @@ import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { formatRwf } from "../data/catalog";
 import { MagneticButton } from "./ui";
-
-const links = [
-  { label: "Shop", to: "/shop" },
-  { label: "Stores", to: "/stores" },
-  { label: "Editorial", to: "/editorial" },
-  { label: "Sell", to: "/sell" },
-  { label: "Plans", to: "/plans" },
-  { label: "Contact", to: "/contact" },
-];
 
 export function ScrollRestoration() {
   const { pathname } = useLocation();
@@ -54,6 +45,21 @@ export function Navigation() {
   const searchRef = useRef<HTMLInputElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  const navLinks = isAuthenticated
+    ? [
+        { label: "Shop", to: "/shop" },
+        { label: "Categories", to: "/shop" },
+        { label: "Stores", to: "/stores" },
+        { label: "Deals", to: "/shop?tag=sale" },
+      ]
+    : [
+        { label: "Home", to: "/" },
+        { label: "Shop", to: "/shop" },
+        { label: "Categories", to: "/shop" },
+        { label: "Stores", to: "/stores" },
+        { label: "About", to: "/about" },
+      ];
 
   useEffect(() => {
     setOpen(false);
@@ -117,7 +123,7 @@ export function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 z-50 overflow-x-hidden px-3 py-2.5 sm:px-6 lg:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 py-2.5 sm:px-6 lg:px-8">
       <nav
         aria-label="Primary navigation"
         className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/40 bg-white/80 px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.08)] backdrop-blur-2xl"
@@ -128,7 +134,7 @@ export function Navigation() {
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
@@ -153,76 +159,117 @@ export function Navigation() {
           >
             <Search className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
-          <Link
-            to="/wishlist"
-            aria-label="Wishlist"
-            className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
-          >
-            <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
-            {wishlistCount > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFD5EA] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
-                {wishlistCount}
-              </span>
-            ) : null}
-          </Link>
-          <button
-            type="button"
-            onClick={openCart}
-            aria-label="Open shopping bag"
-            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
-          >
-            <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
-            {count > 0 ? (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#BFD7F1] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
-                {count}
-              </span>
-            ) : null}
-          </button>
 
           {isAuthenticated ? (
-            <div ref={userMenuRef} className="relative hidden lg:block">
+            <>
+              <Link
+                to="/wishlist"
+                aria-label="Wishlist"
+                className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+              >
+                <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
+                {wishlistCount > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#FFD5EA] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                    {wishlistCount}
+                  </span>
+                ) : null}
+              </Link>
               <button
                 type="button"
-                onClick={() => setUserMenu(!userMenu)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
-                aria-label="User menu"
+                onClick={openCart}
+                aria-label="Open shopping bag"
+                className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
               >
-                <User className="h-4 w-4 sm:h-5 sm:w-5" />
-              </button>
-              <AnimatePresence>
-                {userMenu ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                    className="absolute right-0 top-14 w-56 overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
-                  >
-                    <div className="border-b border-black/10 p-4">
-                      <p className="font-display text-base font-black tracking-[-0.02em]">{user?.name}</p>
-                      <p className="mt-0.5 text-xs text-[#666666] capitalize">{user?.role}</p>
-                    </div>
-                    <div className="p-2">
-                      {user?.role === "admin" ? (
-                        <Link to="/admin" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          Admin panel
-                        </Link>
-                      ) : null}
-                      <button type="button" onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-[#F8F9FA]">
-                        <LogOut className="h-4 w-4" /> Sign out
-                      </button>
-                    </div>
-                  </motion.div>
+                <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
+                {count > 0 ? (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#BFD7F1] px-1 text-[0.5rem] font-black text-[#111111] sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                    {count}
+                  </span>
                 ) : null}
-              </AnimatePresence>
-            </div>
+              </button>
+              <Link to="/orders" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
+                <Package className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+              <Link to="/messages" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
+                <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+              <div ref={userMenuRef} className="relative hidden lg:block">
+                <button
+                  type="button"
+                  onClick={() => setUserMenu(!userMenu)}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
+                  aria-label="User menu"
+                >
+                  <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                </button>
+                <AnimatePresence>
+                  {userMenu ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.96 }}
+                      className="absolute right-0 top-14 w-56 overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+                    >
+                      <div className="border-b border-black/10 p-4">
+                        <p className="font-display text-base font-black tracking-[-0.02em]">{user?.name}</p>
+                        <p className="mt-0.5 text-xs text-[#666666] capitalize">{user?.role}</p>
+                      </div>
+                      <div className="p-2">
+                        <Link to="/dashboard" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <LayoutDashboard className="h-4 w-4" /> Dashboard
+                        </Link>
+                        <Link to="/orders" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <Package className="h-4 w-4" /> Orders
+                        </Link>
+                        <Link to="/messages" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <MessageSquare className="h-4 w-4" /> Messages
+                        </Link>
+                        <Link to="/profile" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                          <User className="h-4 w-4" /> Profile
+                        </Link>
+                        {user?.role === "customer" ? (
+                          <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                            <Store className="h-4 w-4" /> Open Seller Dashboard
+                          </Link>
+                        ) : null}
+                        {user?.role === "seller" ? (
+                          <>
+                            <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <Store className="h-4 w-4" /> Seller panel
+                            </Link>
+                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <ShoppingBag className="h-4 w-4" /> Switch to Shopping
+                            </Link>
+                          </>
+                        ) : null}
+                        {user?.role === "admin" ? (
+                          <>
+                            <Link to="/admin" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <Shield className="h-4 w-4" /> Admin panel
+                            </Link>
+                            <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
+                              <ShoppingBag className="h-4 w-4" /> Switch to Shopping
+                            </Link>
+                          </>
+                        ) : null}
+                        <button type="button" onClick={handleLogout} className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-[#F8F9FA]">
+                          <LogOut className="h-4 w-4" /> Sign out
+                        </button>
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            </>
           ) : (
-            <Link
-              to="/login"
-              aria-label="Sign in"
-              className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11"
-            >
-              <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
-            </Link>
+            <>
+              <Link to="/sell" className="hidden lg:flex items-center gap-1.5 rounded-full border border-black/10 px-3 py-1.5 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#111111] transition hover:bg-[#111111] hover:text-white sm:px-3.5 sm:text-[0.55rem]">
+                <Store className="h-3 w-3" /> Become a Seller
+              </Link>
+              <Link to="/login" className="hidden lg:flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-[#111111] transition hover:bg-[#111111] hover:text-white sm:h-11 sm:w-11">
+                <LogIn className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Link>
+            </>
           )}
 
           <MagneticButton to="/shop" variant="dark" className="hidden px-5 py-3 text-sm lg:inline-flex">
@@ -318,7 +365,7 @@ export function Navigation() {
               </div>
               <nav className="flex-1 overflow-y-auto p-4" aria-label="Mobile navigation links">
                 <div className="grid gap-1">
-                  {links.map((link, index) => (
+                  {navLinks.map((link, index) => (
                     <motion.div key={link.to} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.04 }}>
                       <NavLink
                         to={link.to}
@@ -343,28 +390,39 @@ export function Navigation() {
               </nav>
               <div className="border-t border-black/10 p-4">
                 {isAuthenticated ? (
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full bg-[#111111] text-white">
-                      <User className="h-5 w-5" />
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 min-w-11 items-center justify-center rounded-full bg-[#111111] text-white">
+                        <User className="h-5 w-5" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-display text-sm font-black text-[#111111] truncate">{user?.name}</p>
+                        <p className="text-xs text-[#666666] capitalize truncate">{user?.role}</p>
+                      </div>
+                      <button type="button" onClick={() => { handleLogout(); setOpen(false); }} className="shrink-0 text-sm font-semibold text-red-600 transition hover:text-red-700 min-h-11 px-2">
+                        <LogOut className="h-4 w-4 sm:hidden" />
+                        <span className="hidden sm:inline">Sign out</span>
+                      </button>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-display text-sm font-black text-[#111111] truncate">{user?.name}</p>
-                      <p className="text-xs text-[#666666] capitalize truncate">{user?.role}</p>
+                    <div className="flex gap-2">
+                      <Link to="/dashboard" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Dashboard</Link>
+                      <Link to="/profile" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Profile</Link>
+                      {user?.role === "customer" ? (
+                        <Link to="/seller" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Sell</Link>
+                      ) : (
+                        <Link to="/" onClick={() => setOpen(false)} className="flex-1 rounded-full border border-black/10 bg-white py-2 text-center text-xs font-bold uppercase tracking-[0.15em] transition hover:bg-[#111111] hover:text-white">Shop</Link>
+                      )}
                     </div>
-                    <button type="button" onClick={() => { handleLogout(); setOpen(false); }} className="shrink-0 text-sm font-semibold text-red-600 transition hover:text-red-700 min-h-11 px-2">
-                      <LogOut className="h-4 w-4 sm:hidden" />
-                      <span className="hidden sm:inline">Sign out</span>
-                    </button>
                   </div>
                 ) : (
-                  <Link
-                    to="/login"
-                    onClick={() => setOpen(false)}
-                    className="flex min-h-12 items-center gap-3 rounded-2xl px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-black/[0.04]"
-                  >
-                    <LogIn className="h-5 w-5" />
-                    Sign in
-                  </Link>
+                  <div className="space-y-2">
+                    <Link to="/login" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-2xl px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-black/[0.04]">
+                      <LogIn className="h-5 w-5" /> Sign in
+                    </Link>
+                    <Link to="/register" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-2xl bg-[#BFD7F1] px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#111111] hover:text-white">
+                      <UserPlus className="h-5 w-5" /> Create Account
+                    </Link>
+                  </div>
                 )}
               </div>
             </motion.aside>

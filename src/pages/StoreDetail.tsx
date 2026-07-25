@@ -103,7 +103,7 @@ export default function StoreDetail() {
             {storeProducts.length === 0 ? (
               <p className="mt-4 text-[#666666]">This boutique is preparing new pieces. Check back soon.</p>
             ) : (
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-6 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {storeProducts.map((p) => <ProductCard key={p.slug} product={p} />)}
               </div>
             )}
@@ -144,7 +144,7 @@ export default function StoreDetail() {
             </div>
             <Link to="/stores" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">All stores →</Link>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((s) => <StoreCard key={s.slug} store={s} />)}
           </div>
         </div>

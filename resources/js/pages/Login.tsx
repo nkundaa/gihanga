@@ -77,6 +77,12 @@ export default function Login() {
             </MagneticButton>
           </form>
 
+          <div className="mt-4 text-center">
+            <Link to="/forgot-password" className="text-xs font-bold uppercase tracking-[0.18em] text-[#666666] underline-grow">
+              Forgot password?
+            </Link>
+          </div>
+
           <p className="mt-6 text-center text-sm text-[#666666]">
             Don't have an account?{" "}
             <Link to="/register" className="py-1 font-bold text-[#111111] underline-grow">

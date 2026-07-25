@@ -202,7 +202,7 @@ export default function ProductDetail() {
               </div>
               <Link to={storeLink} className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Visit store →</Link>
             </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {fromStore.map((p) => <ProductCard key={p.slug} product={p} />)}
             </div>
           </div>
@@ -218,7 +218,7 @@ export default function ProductDetail() {
             </div>
             <Link to="/shop" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">Shop all →</Link>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {related.map((p) => <ProductCard key={p.slug} product={p} />)}
           </div>
         </div>

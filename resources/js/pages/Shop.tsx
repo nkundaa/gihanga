@@ -14,13 +14,25 @@ export default function Shop() {
   const category = params.get("category") ?? "all";
   const store = params.get("store") ?? "all";
   const searchParam = params.get("search") ?? "";
+  const sortParam = params.get("sort") ?? "newest";
+  const minPriceParam = params.get("min_price");
+  const maxPriceParam = params.get("max_price");
+  const ratingParam = params.get("rating");
+  const colorParam = params.get("color");
+  const sizeParam = params.get("size");
   const [query, setQuery] = useState(searchParam);
   const [showFilters, setShowFilters] = useState(false);
+  const [sort, setSort] = useState(sortParam);
 
   const [products, setProducts] = useState<Product[]>(mockProducts);
   const [categories, setCategories] = useState(mockCategories);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000000 });
   const [loading, setLoading] = useState(true);
+  const [minPrice, setMinPrice] = useState(minPriceParam ?? "");
+  const [maxPrice, setMaxPrice] = useState(maxPriceParam ?? "");
+  const [rating, setRating] = useState(ratingParam ?? "");
+  const [color, setColor] = useState(colorParam ?? "");
+  const [size, setSize] = useState(sizeParam ?? "");
 
   useEffect(() => {
     setLoading(true);
@@ -28,8 +40,12 @@ export default function Shop() {
       category: category === "all" ? undefined : category,
       store: store === "all" ? undefined : store,
       search: query || undefined,
-      min_price: priceRange.min,
-      max_price: priceRange.max,
+      min_price: minPrice || undefined,
+      max_price: maxPrice || undefined,
+      rating: rating || undefined,
+      color: color || undefined,
+      size: size || undefined,
+      sort: sort || undefined,
     }).then((res) => {
       setProducts(res.products);
       if (res.priceRange) setPriceRange(res.priceRange);
@@ -41,11 +57,19 @@ export default function Shop() {
         const q = query.toLowerCase();
         list = list.filter((p) => p.name.toLowerCase().includes(q) || p.storeName.toLowerCase().includes(q));
       }
+      if (minPrice) list = list.filter((p) => p.price >= Number(minPrice));
+      if (maxPrice) list = list.filter((p) => p.price <= Number(maxPrice));
+      if (rating) list = list.filter((p) => p.rating >= Number(rating));
+      if (size) list = list.filter((p) => p.sizes?.includes(size));
+      if (color) list = list.filter((p) => p.colors?.includes(color));
+      if (sort === "price_asc") list.sort((a, b) => a.price - b.price);
+      if (sort === "price_desc") list.sort((a, b) => b.price - a.price);
+      if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
       setProducts(list);
     }).finally(() => setLoading(false));
 
     api.categories.list().then((res) => setCategories(res.categories)).catch(() => {});
-  }, [category, store, query]);
+  }, [category, store, query, sort, minPrice, maxPrice, rating, color, size]);
 
   const uniqueStores = useMemo(() => Array.from(new Set(products.map((p) => p.storeName))).sort(), [products]);
 
@@ -55,8 +79,8 @@ export default function Shop() {
     setParams(next);
   };
 
-  const hasActiveFilters = category !== "all" || store !== "all" || query !== "";
-  const clearFilters = () => { setCategory("all"); setQuery(""); setParams(new URLSearchParams()); };
+  const hasActiveFilters = category !== "all" || store !== "all" || query !== "" || minPrice !== "" || maxPrice !== "" || rating !== "" || color !== "" || size !== "" || sort !== "newest";
+  const clearFilters = () => { setCategory("all"); setQuery(""); setMinPrice(""); setMaxPrice(""); setRating(""); setColor(""); setSize(""); setSort("newest"); setParams(new URLSearchParams()); };
 
   return (
     <div className="bg-[#F8F9FA]">
@@ -131,12 +155,59 @@ export default function Shop() {
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Price range</p>
               <div className="mt-4 flex items-center gap-4">
                 <div className="flex-1">
-                  <label className="text-xs font-bold text-[#666666]">Min: {priceRange.min.toLocaleString()} RWF</label>
-                  <input type="range" min={priceRange.min} max={priceRange.max} step={5000} value={priceRange.min} className="mt-2 w-full accent-[#111111]" readOnly />
+                  <label className="text-xs font-bold text-[#666666]">From</label>
+                  <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="0" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]" />
                 </div>
                 <div className="flex-1">
-                  <label className="text-xs font-bold text-[#666666]">Max: {priceRange.max.toLocaleString()} RWF</label>
-                  <input type="range" min={priceRange.min} max={priceRange.max} step={5000} value={priceRange.max} className="mt-2 w-full accent-[#111111]" readOnly />
+                  <label className="text-xs font-bold text-[#666666]">To</label>
+                  <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="1,000,000" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]" />
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div>
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Min rating</label>
+                  <select value={rating} onChange={(e) => setRating(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]">
+                    <option value="">Any</option>
+                    <option value="4">4+ stars</option>
+                    <option value="3">3+ stars</option>
+                    <option value="2">2+ stars</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Color</label>
+                  <select value={color} onChange={(e) => setColor(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]">
+                    <option value="">All</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Red">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Green">Green</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Purple">Purple</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Size</label>
+                  <select value={size} onChange={(e) => setSize(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]">
+                    <option value="">All</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Sort by</label>
+                  <select value={sort} onChange={(e) => setSort(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#BFD7F1]">
+                    <option value="newest">Newest</option>
+                    <option value="popular">Popular</option>
+                    <option value="price_asc">Price: Low-High</option>
+                    <option value="price_desc">Price: High-Low</option>
+                    <option value="rating">Best Rating</option>
+                  </select>
                 </div>
               </div>
             </motion.div>

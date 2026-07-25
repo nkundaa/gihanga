@@ -113,7 +113,7 @@ export default function Stores() {
           {filtered.length === 0 ? (
             <p className="rounded-2xl border border-dashed border-black/10 bg-white/60 p-10 text-center text-[#666666]">No boutiques match that search yet.</p>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((s) => <StoreCard key={s.slug} store={s} />)}
             </div>
           )}

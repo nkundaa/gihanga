@@ -158,34 +158,34 @@ export function ProductCard({ product, variant = "default" }: { product: Product
         {product.tag ? (
           <span className="absolute right-2 top-2 rounded-full bg-[#FFD5EA] px-2 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#111111]">{product.tag}</span>
         ) : null}
-        <span className="pointer-events-none absolute inset-x-2 bottom-2 flex min-h-12 sm:min-h-0 items-center justify-center rounded-full bg-white/90 px-3 py-3 sm:py-2 text-center text-xs font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
+        <span className="pointer-events-none absolute inset-x-2 bottom-2 flex min-h-9 sm:min-h-0 items-center justify-center rounded-full bg-white/90 px-3 py-2 sm:py-2 text-center text-[0.65rem] font-bold text-[#111111] opacity-0 backdrop-blur-xl transition duration-500 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100">
           View details
         </span>
       </Link>
-      <div className="flex flex-1 flex-col p-3 sm:p-4">
-        <div className="flex items-center justify-between gap-2">
-          <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#111111]/60 underline-grow">
+      <div className="flex flex-1 flex-col p-2 sm:p-4">
+        <div className="flex items-center justify-between gap-1.5">
+          <Link to={`/store/${product.storeSlug}`} className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-[#111111]/60 underline-grow sm:text-[0.55rem]">
             {product.storeName}
           </Link>
           <span className="hidden sm:inline-flex items-center gap-1 text-sm font-bold text-[#111111]">
             <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {product.rating.toFixed(1)}
           </span>
         </div>
-        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
+        <Link to={`/product/${product.slug}`} className="mt-1 font-display text-[clamp(0.75rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#111111] sm:text-2xl">
           {product.name}
         </Link>
-        <div className="mt-auto flex items-end justify-between gap-3 pt-2">
+        <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
           <div>
-            <p className="font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
-            {product.originalPrice ? <p className="text-[0.6rem] text-[#666666] line-through">{formatRwf(product.originalPrice)}</p> : null}
+            <p className="font-display text-[clamp(0.75rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#111111] sm:text-2xl">{formatRwf(product.price)}</p>
+            {product.originalPrice ? <p className="text-[0.55rem] text-[#666666] line-through sm:text-[0.6rem]">{formatRwf(product.originalPrice)}</p> : null}
           </div>
           <button
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={() => addItem(product)}
-            className="flex h-12 w-12 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111]"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition hover:bg-[#BFD7F1] hover:text-[#111111] sm:h-9 sm:w-9"
           >
-            <ArrowUpRight className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
+            <ArrowUpRight className="h-3.5 w-3.5 sm:h-3.5 sm:w-3.5" />
           </button>
         </div>
       </div>
@@ -200,21 +200,21 @@ export function StoreCard({ store }: { store: Store }) {
       data-reveal
       className="group relative block overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_30px_110px_rgba(0,0,0,0.12)] sm:rounded-[2.4rem]"
     >
-      <div className="relative h-36 overflow-hidden sm:h-56">
+      <div className="relative h-28 overflow-hidden sm:h-56">
         <img src={store.cover} alt={`${store.name} boutique`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/70" />
-        <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/85 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl">
-          <span className="h-2 w-2 rounded-full bg-[#BFD7F1]" />
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2 py-1 text-[0.55rem] font-black uppercase tracking-[0.18em] text-[#111111] backdrop-blur-xl sm:left-5 sm:top-5 sm:gap-2 sm:px-3 sm:py-1.5 sm:text-xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#BFD7F1] sm:h-2 sm:w-2" />
           Verified
         </span>
       </div>
-      <div className="p-4">
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#BFD7F1]">{store.category}</p>
-        <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
-        <p className="mt-1 text-xs text-[#666666]">{store.tagline}</p>
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div className="p-3 sm:p-4">
+        <p className="text-[0.6rem] font-black uppercase tracking-[0.28em] text-[#BFD7F1] sm:text-xs">{store.category}</p>
+        <h3 className="mt-0.5 font-display text-[clamp(0.75rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#111111] sm:mt-1 sm:text-2xl">{store.name}</h3>
+        <p className="mt-0.5 text-[0.65rem] text-[#666666] sm:mt-1 sm:text-xs">{store.tagline}</p>
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-1.5 text-[0.65rem] sm:mt-3 sm:gap-2 sm:text-xs">
           <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
-            <Star className="h-4 w-4 fill-[#BFD7F1] text-[#BFD7F1]" /> {store.rating.toFixed(1)}
+            <Star className="h-3 w-3 fill-[#BFD7F1] text-[#BFD7F1] sm:h-4 sm:w-4" /> {store.rating.toFixed(1)}
           </span>
           <span className="text-[#666666]">{store.productCount} pieces</span>
           <span className="text-[#666666]">{store.location}</span>

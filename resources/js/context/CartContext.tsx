@@ -44,8 +44,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (isAuthenticated) {
       api.cart.list().then((res) => {
         setLines(
-          res.items.map((item) => ({
-            key: `${item.product.slug}-${item.size ?? "one"}-${item.color ?? "one"}`,
+          res.items.map((item: { slug?: string; product?: { slug: string }; size?: string; color?: string; id: number; product_id: number; quantity: number }) => ({
+            key: `${(item.product as { slug: string }).slug}-${item.size ?? "one"}-${item.color ?? "one"}`,
             id: item.id,
             product_id: item.product_id,
             product: item.product,

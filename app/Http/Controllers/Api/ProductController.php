@@ -33,8 +33,10 @@ class ProductController extends Controller
             $query->orderBy('price');
         } elseif ($request->sort === 'price_desc') {
             $query->orderByDesc('price');
-        } elseif ($request->sort === 'top_rated') {
+        } elseif ($request->sort === 'rating' || $request->sort === 'top_rated') {
             $query->orderByDesc('rating');
+        } elseif ($request->sort === 'popular') {
+            $query->orderByDesc('reviews_count');
         } else {
             $query->orderByDesc('created_at');
         }
@@ -45,6 +47,18 @@ class ProductController extends Controller
 
         if ($request->max_price) {
             $query->where('price', '<=', $request->max_price);
+        }
+
+        if ($request->rating) {
+            $query->where('rating', '>=', $request->rating);
+        }
+
+        if ($request->color) {
+            $query->whereJsonContains('colors', $request->color);
+        }
+
+        if ($request->size) {
+            $query->whereJsonContains('sizes', $request->size);
         }
 
         $priceQuery = clone $query;

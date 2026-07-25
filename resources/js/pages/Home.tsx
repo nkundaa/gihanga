@@ -70,6 +70,7 @@ export default function Home() {
       <Marquee />
       <CategoriesPreview categories={fetchedCategories} />
       <TrendingPreview products={fetchedProducts} />
+      <FlashSalesSection products={fetchedProducts} />
       <StoresPreview stores={fetchedStores} />
       <WhyChoose />
       <Testimonials />
@@ -117,7 +118,6 @@ function Hero({ products }: { products: Product[] }) {
       ref={containerRef}
       className="relative flex min-h-[90svh] flex-col items-center justify-center overflow-x-hidden bg-[#111111] text-white lg:min-h-[100svh]"
     >
-      {/* Background with scroll scale and opacity */}
       <motion.div
         className="absolute inset-0 h-full w-full"
         style={{ scale: heroScale, opacity: heroOpacity, y: yOffset }}
@@ -138,13 +138,10 @@ function Hero({ products }: { products: Product[] }) {
         <div aria-hidden className="absolute inset-0 hidden opacity-70 lg:block"><HeroScene /></div>
       </motion.div>
 
-      {/* Hero Content - centered on mobile */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center text-center lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:text-left">
           
-          {/* Main Content Area */}
           <div className="max-w-3xl">
-            {/* Small glassmorphism badge */}
             <motion.div
               initial={reduceMotion ? false : { opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -155,7 +152,6 @@ function Hero({ products }: { products: Product[] }) {
               </span>
             </motion.div>
 
-            {/* Headline word-by-word reveal */}
             <h1 className="mt-3 font-display text-[clamp(1.3rem,5.5vw,6rem)] font-black leading-[0.9] tracking-[-0.08em] text-white sm:mt-6">
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
@@ -175,7 +171,6 @@ function Hero({ products }: { products: Product[] }) {
               </motion.span>
             </h1>
 
-            {/* Smooth sliding description */}
             <motion.p
               className="mt-2 max-w-xl text-xs leading-6 text-white/80 sm:mt-6 sm:text-base sm:leading-8"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -185,7 +180,6 @@ function Hero({ products }: { products: Product[] }) {
               Shop trending products, explore trusted stores, and connect with sellers across Rwanda.
             </motion.p>
 
-            {/* Three Premium Interactive Buttons - full width stacked on mobile */}
             <motion.div
               className="mt-4 flex w-full flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -193,20 +187,18 @@ function Hero({ products }: { products: Product[] }) {
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
               <MagneticButton to="/shop" variant="berry" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
-                🛒 Shop Now
+                Shop Now
               </MagneticButton>
               <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
-                🏬 Explore Stores
+                Explore Stores
               </MagneticButton>
               <MagneticButton to="/sell" variant="mauve" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
-                📦 Sell With GIHANGA
+                Sell With GIHANGA
               </MagneticButton>
             </motion.div>
           </div>
 
-          {/* Interactive Floating Product Showcase - hidden on mobile */}
           <div className="relative hidden h-[500px] items-center justify-center lg:flex">
-            {/* Float Card 1: Clothes */}
             <motion.div
               style={{ x: springX, y: springY }}
               className="absolute left-[5%] top-[10%] z-20 w-64 overflow-hidden rounded-[2.2rem] border border-white/20 bg-white/10 p-4 shadow-[0_30px_110px_rgba(0,0,0,0.3)] backdrop-blur-2xl"
@@ -237,7 +229,6 @@ function Hero({ products }: { products: Product[] }) {
               </Link>
             </motion.div>
 
-            {/* Float Card 2: Shoes */}
             <motion.div
               style={{ x: useTransform(springX, (v) => -v * 0.8), y: useTransform(springY, (v) => -v * 0.8) }}
               className="absolute right-[5%] bottom-[10%] z-10 w-60 overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/5 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.2)] backdrop-blur-2xl"
@@ -439,6 +430,79 @@ function TrendingPreview({ products }: { products: Product[] }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function FlashSalesSection({ products }: { products: Product[] }) {
+  const onSale = useMemo(() => products.filter((p) => (p.originalPrice ?? 0) > 0).slice(0, 6), [products]);
+  const endTime = Date.now() + 8 * 60 * 60 * 1000;
+  const [timeLeft, setTimeLeft] = useState(() => endTime - Date.now());
+
+  useEffect(() => {
+    const id = window.setInterval(() => setTimeLeft(Math.max(0, endTime - Date.now())), 1000);
+    return () => window.clearInterval(id);
+  }, [endTime]);
+
+  const h = Math.floor(timeLeft / 3600000);
+  const m = Math.floor((timeLeft % 3600000) / 60000);
+  const s = Math.floor((timeLeft % 60000) / 1000);
+
+  if (onSale.length === 0) return null;
+
+  return (
+    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#FFD5EA]/20 via-[#F8F9FA] to-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-28">
+      <div aria-hidden className="luxury-orb left-1/2 top-0 h-60 w-60 -translate-x-1/2 bg-[#FFD5EA]/20" />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <SectionHeader
+            eyebrow="Limited time offers"
+            title={<>Flash <span className="font-editorial text-[#BFD7F1]">sales</span> — hurry!</>}
+            className="max-w-lg"
+          />
+          <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-2 shadow-sm">
+            <Sparkles className="h-4 w-4 text-[#BFD7F1]" />
+            <span className="font-mono text-lg font-black tracking-widest">
+              {String(h).padStart(2, "0")}:{String(m).padStart(2, "0")}:{String(s).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+        <motion.div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }} variants={{ visible: { transition: { staggerChildren: 0.06 } } }}>
+          {onSale.map((p) => (
+            <FlashSaleCard key={p.slug} product={p} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function FlashSaleCard({ product }: { product: Product }) {
+  const discount = product.originalPrice ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+  return (
+    <motion.article
+      variants={{ hidden: { opacity: 0, y: 24, filter: "blur(8px)" }, visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } }}
+      className="group relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+    >
+      <div className="absolute left-4 top-4 z-10 rounded-full bg-[#FF6B6B] px-3 py-1 text-xs font-black text-white">-{discount}%</div>
+      <Link to={`/product/${product.slug}`}>
+        <div className="overflow-hidden">
+          <img src={product.images[0]} alt={product.name} className="aspect-square w-full object-cover transition duration-700 group-hover:scale-105" loading="lazy" />
+        </div>
+      </Link>
+      <div className="p-4 sm:p-5">
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{product.storeName}</p>
+        <Link to={`/product/${product.slug}`} className="block">
+          <h3 className="mt-1 font-display text-base font-black tracking-[-0.04em] leading-tight transition hover:text-[#BFD7F1]">{product.name}</h3>
+        </Link>
+        <div className="mt-3 flex items-center gap-2">
+          <span className="font-display text-lg font-black tracking-[-0.04em]">{product.price.toLocaleString()} RWF</span>
+          {product.originalPrice ? (
+            <span className="text-sm text-[#999] line-through">{product.originalPrice.toLocaleString()} RWF</span>
+          ) : null}
+        </div>
+        <MagneticButton to={`/product/${product.slug}`} variant="ghost" className="mt-3 w-full justify-center py-2.5 text-xs">View Deal</MagneticButton>
+      </div>
+    </motion.article>
   );
 }
 

@@ -5,8 +5,13 @@ interface ApiProduct {
   slug: string;
   name: string;
   description: string;
+  short_description: string | null;
+  full_description: string | null;
   price: number;
   original_price: number | null;
+  sale_price: number | null;
+  sale_start: string | null;
+  sale_end: string | null;
   rating: number;
   reviews_count: number;
   tag: string | null;
@@ -14,10 +19,60 @@ interface ApiProduct {
   sizes: string[] | null;
   colors: string[] | null;
   images: string[];
+  video_url: string | null;
   featured: boolean;
   discount: string | null;
+  is_active: boolean;
+  visibility: string;
+  stock_quantity: number;
+  low_stock_alert: number;
+  allow_backorders: string;
+  sku: string | null;
+  barcode: string | null;
+  tax_class: string;
+  weight: number | null;
+  length: number | null;
+  width: number | null;
+  height: number | null;
+  package_type: string | null;
+  shipping_class: string | null;
+  estimated_delivery: string | null;
+  free_shipping: boolean;
+  pickup_available: boolean;
+  recommended: boolean;
+  flash_sale: boolean;
+  warranty: string | null;
+  return_policy: string | null;
+  min_order: number;
+  max_order: number | null;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
+  canonical_url: string | null;
+  og_image: string | null;
   store: ApiStore | null;
   category: ApiCategory | null;
+  brand: { id: number; name: string; slug: string } | null;
+  tags: Array<{ id: number; name: string; slug: string }> | null;
+  variants: Array<{
+    id: number;
+    sku: string | null;
+    barcode: string | null;
+    price: number | null;
+    sale_price: number | null;
+    stock: number;
+    weight: string | null;
+    image: string | null;
+    attributes: Record<string, string> | null;
+    sort_order: number;
+  }> | null;
+  product_images: Array<{
+    id: number;
+    path: string;
+    alt: string | null;
+    is_thumbnail: boolean;
+    sort_order: number;
+  }> | null;
   created_at: string;
 }
 
@@ -119,16 +174,54 @@ export function transformProduct(p: ApiProduct): Product {
     category: p.category?.slug ?? "",
     price: Number(p.price) || 0,
     originalPrice: p.original_price != null ? Number(p.original_price) : undefined,
+    salePrice: p.sale_price != null ? Number(p.sale_price) : undefined,
+    saleStart: p.sale_start ?? undefined,
+    saleEnd: p.sale_end ?? undefined,
     discount: p.discount ?? undefined,
     rating: Number(p.rating) || 0,
     reviews: Number(p.reviews_count) || 0,
     tag: p.tag ?? undefined,
     badge: p.badge ?? undefined,
     description: p.description,
+    shortDescription: p.short_description ?? undefined,
+    fullDescription: p.full_description ?? undefined,
     sizes: p.sizes ?? undefined,
     colors: p.colors ?? undefined,
     images: p.images,
+    videoUrl: p.video_url ?? undefined,
     featured: p.featured,
+    isActive: p.is_active,
+    visibility: p.visibility,
+    stockQuantity: p.stock_quantity,
+    lowStockAlert: p.low_stock_alert,
+    allowBackorders: p.allow_backorders,
+    sku: p.sku ?? undefined,
+    barcode: p.barcode ?? undefined,
+    taxClass: p.tax_class,
+    weight: p.weight ?? undefined,
+    length: p.length ?? undefined,
+    width: p.width ?? undefined,
+    height: p.height ?? undefined,
+    packageType: p.package_type ?? undefined,
+    shippingClass: p.shipping_class ?? undefined,
+    estimatedDelivery: p.estimated_delivery ?? undefined,
+    freeShipping: p.free_shipping,
+    pickupAvailable: p.pickup_available,
+    recommended: p.recommended,
+    flashSale: p.flash_sale,
+    warranty: p.warranty ?? undefined,
+    returnPolicy: p.return_policy ?? undefined,
+    minOrder: p.min_order,
+    maxOrder: p.max_order ?? undefined,
+    seoTitle: p.seo_title ?? undefined,
+    seoDescription: p.seo_description ?? undefined,
+    seoKeywords: p.seo_keywords ?? undefined,
+    canonicalUrl: p.canonical_url ?? undefined,
+    ogImage: p.og_image ?? undefined,
+    brand: p.brand ?? undefined,
+    tags: p.tags ?? undefined,
+    variants: p.variants ?? undefined,
+    productImages: p.product_images ?? undefined,
   };
 }
 
@@ -195,6 +288,7 @@ export function transformOrder(o: ApiOrder): Order {
     phone: o.customer_phone,
     email: o.customer_email,
     address: o.customer_address,
+    deliveryNotes: o.delivery_notes ?? undefined,
     lines: (o.items ?? []).map((i) => ({
       productSlug: "",
       productName: i.product_name,

@@ -15,16 +15,73 @@ export type Product = {
   category: string;
   price: number;
   originalPrice?: number;
+  salePrice?: number;
+  saleStart?: string;
+  saleEnd?: string;
+  scheduledAt?: string;
   discount?: string;
   rating: number;
   reviews: number;
   tag?: string;
   badge?: string;
   description: string;
+  shortDescription?: string;
+  fullDescription?: string;
   sizes?: string[];
   colors?: string[];
   images: string[];
+  videoUrl?: string;
   featured?: boolean;
+  isActive?: boolean;
+  visibility?: string;
+  stockQuantity?: number;
+  lowStockAlert?: number;
+  allowBackorders?: string;
+  sku?: string;
+  barcode?: string;
+  taxClass?: string;
+  weight?: number;
+  length?: number;
+  width?: number;
+  height?: number;
+  packageType?: string;
+  shippingClass?: string;
+  estimatedDelivery?: string;
+  freeShipping?: boolean;
+  pickupAvailable?: boolean;
+  recommended?: boolean;
+  flashSale?: boolean;
+  warranty?: string;
+  returnPolicy?: string;
+  minOrder?: number;
+  maxOrder?: number;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  brand?: { id: number; name: string; slug: string };
+  tags?: Array<{ id: number; name: string; slug: string }>;
+  variants?: Array<{
+    id: number;
+    sku: string | null;
+    barcode: string | null;
+    price: number | null;
+    sale_price: number | null;
+    stock: number;
+    weight: string | null;
+    image: string | null;
+    attributes: Record<string, string> | null;
+    sort_order: number;
+  }>;
+  productImages?: Array<{
+    id: number;
+    path: string;
+    alt: string | null;
+    is_thumbnail: boolean;
+    sort_order: number;
+  }>;
+  sales?: number;
 };
 
 export type Store = {
@@ -239,7 +296,7 @@ const mk = (
   tag,
   description:
     "A considered piece from the GIHANGA network. Cut and finished by a verified Kigali atelier, with transparent pricing, tracked delivery and buyer protection built in.",
-  sizes: category === "Shoes" ? ["38", "39", "40", "41", "42", "43"] : category === "Clothes" ? ["XS", "S", "M", "L", "XL"] : undefined,
+  sizes: category === "shoes" ? ["38", "39", "40", "41", "42", "43"] : category === "clothes" ? ["XS", "S", "M", "L", "XL"] : undefined,
   colors: ["Berry", "Mauve", "Ink"],
   images,
   ...extras,
@@ -343,6 +400,7 @@ export type Order = {
   phone: string;
   email: string;
   address: string;
+  deliveryNotes?: string;
   lines: OrderLine[];
   subtotal: number;
   delivery: number;

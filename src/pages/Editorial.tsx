@@ -117,7 +117,7 @@ export default function Editorial() {
               Shop all <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
             </Link>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {products.slice(0, 4).map((p) => <ProductCard key={p.slug} product={p} />)}
           </div>
         </div>

@@ -163,15 +163,15 @@ function Hero({ products }: { products: Product[] }) {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="block"
               >
-                Discover Rwanda's
+                GIHANGA
               </motion.span>
               <motion.span
                 initial={reduceMotion ? false : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="block text-stroke text-white font-black"
+                className="block font-black"
               >
-                Marketplace
+                MARKET
               </motion.span>
             </h1>
 
@@ -182,7 +182,7 @@ function Hero({ products }: { products: Product[] }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              Shop trending products, explore trusted stores, and connect with sellers across Rwanda.
+              Online Marketplace built in Rwanda.
             </motion.p>
 
             {/* Three Premium Interactive Buttons - full width stacked on mobile */}
@@ -433,7 +433,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
             </AnimatePresence>
           </aside>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-3 sm:gap-5 sm:grid-cols-2">
             {featured.map((p) => <ProductCard key={p.slug} product={p} />)}
           </div>
         </div>
