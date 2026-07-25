@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { categories as mockCategories, products as mockProducts } from "../data/catalog";
 import { api } from "../api";
 import { cn } from "../utils/cn";
-import { MagneticButton, ProductCard } from "../components/ui";
+import { Button, ProductCard, ProductCardSkeleton } from "../components/ui";
 import Seo from "../components/Seo";
 import type { Product } from "../data/catalog";
 
@@ -103,22 +103,22 @@ export default function Shop() {
       </section>
 
       <section className="px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
-              <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
-              {categories.map((c) => (
-                <FilterChip key={c.slug} label={c.title} active={category === c.slug} onClick={() => setCategory(c.slug)} />
-              ))}
+        <div className="mx-auto max-w-7xl">
+          <div className="sticky top-[72px] z-30 bg-[#FAF9F5] pb-4 pt-0 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
+                <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
+                {categories.map((c) => (
+                  <FilterChip key={c.slug} label={c.title} active={category === c.slug} onClick={() => setCategory(c.slug)} />
+                ))}
+              </div>
+              <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", showFilters ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#6D6D6D] hover:border-black/30")}>
+                <SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> Filters
+              </button>
             </div>
-            <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", showFilters ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#6D6D6D] hover:border-black/30")}>
-              <SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> Filters
-            </button>
-          </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <label className="relative flex-1">
                 <span className="sr-only">Search</span>
                 <input
@@ -147,102 +147,103 @@ export default function Shop() {
                 {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
-
           </div>
 
-          {showFilters ? (
-            <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Price range</p>
-              <div className="mt-4 flex items-center gap-4">
-                <div className="flex-1">
-                  <label className="text-xs font-bold text-[#6D6D6D]">From</label>
-                  <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="0" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
+          <div className="space-y-8">
+            {showFilters ? (
+              <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-black/[0.08] bg-white p-4 shadow-sm">
+                <p className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Price range</p>
+                <div className="mt-4 flex items-center gap-4">
+                  <div className="flex-1">
+                    <label className="text-xs font-bold text-[#6D6D6D]">From</label>
+                    <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} placeholder="0" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
+                  </div>
+                  <div className="flex-1">
+                    <label className="text-xs font-bold text-[#6D6D6D]">To</label>
+                    <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="1,000,000" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <label className="text-xs font-bold text-[#6D6D6D]">To</label>
-                  <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="1,000,000" className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]" />
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Min rating</label>
+                    <select value={rating} onChange={(e) => setRating(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
+                      <option value="">Any</option>
+                      <option value="4">4+ stars</option>
+                      <option value="3">3+ stars</option>
+                      <option value="2">2+ stars</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Color</label>
+                    <select value={color} onChange={(e) => setColor(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
+                      <option value="">All</option>
+                      <option value="Black">Black</option>
+                      <option value="White">White</option>
+                      <option value="Red">Red</option>
+                      <option value="Blue">Blue</option>
+                      <option value="Green">Green</option>
+                      <option value="Brown">Brown</option>
+                      <option value="Pink">Pink</option>
+                      <option value="Purple">Purple</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Size</label>
+                    <select value={size} onChange={(e) => setSize(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
+                      <option value="">All</option>
+                      <option value="XS">XS</option>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
+                      <option value="XXL">XXL</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Sort by</label>
+                    <select value={sort} onChange={(e) => setSort(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
+                      <option value="newest">Newest</option>
+                      <option value="popular">Popular</option>
+                      <option value="price_asc">Price: Low-High</option>
+                      <option value="price_desc">Price: High-Low</option>
+                      <option value="rating">Best Rating</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Min rating</label>
-                  <select value={rating} onChange={(e) => setRating(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
-                    <option value="">Any</option>
-                    <option value="4">4+ stars</option>
-                    <option value="3">3+ stars</option>
-                    <option value="2">2+ stars</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Color</label>
-                  <select value={color} onChange={(e) => setColor(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
-                    <option value="">All</option>
-                    <option value="Black">Black</option>
-                    <option value="White">White</option>
-                    <option value="Red">Red</option>
-                    <option value="Blue">Blue</option>
-                    <option value="Green">Green</option>
-                    <option value="Brown">Brown</option>
-                    <option value="Pink">Pink</option>
-                    <option value="Purple">Purple</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Size</label>
-                  <select value={size} onChange={(e) => setSize(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
-                    <option value="">All</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Sort by</label>
-                  <select value={sort} onChange={(e) => setSort(e.target.value)} className="mt-2 min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]">
-                    <option value="newest">Newest</option>
-                    <option value="popular">Popular</option>
-                    <option value="price_asc">Price: Low-High</option>
-                    <option value="price_desc">Price: High-Low</option>
-                    <option value="rating">Best Rating</option>
-                  </select>
-                </div>
-              </div>
-            </motion.div>
-          ) : null}
-
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
-            </div>
-          ) : (
-            <>
-          <div className="flex items-baseline justify-between">
-            <motion.p key={`${category}-${store}-${query}-${products.length}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm font-bold text-[#6D6D6D]">
-              {products.length} {products.length === 1 ? "piece" : "pieces"}
-            </motion.p>
-            {hasActiveFilters ? (
-              <button type="button" onClick={clearFilters} className="text-xs font-bold uppercase tracking-[0.2em] text-[#14171F] underline-grow">
-                Clear filters
-              </button>
+              </motion.div>
             ) : null}
-          </div>
 
-          {products.length === 0 ? (
-            <div className="rounded-[2.4rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
-              <p className="font-editorial text-6xl text-[#2C5A82]">âˆ…</p>
-              <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">No pieces match those filters.</p>
-              <MagneticButton variant="gold" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset</MagneticButton>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">
-              {products.map((p) => <ProductCard key={p.slug} product={p} />)}
-            </div>
-          )}
-          </>
-          )}
+            {loading ? (
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">
+                {Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)}
+              </div>
+            ) : (
+              <>
+                <div className="flex items-baseline justify-between">
+                  <motion.p key={`${category}-${store}-${query}-${products.length}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm font-bold text-[#6D6D6D]">
+                    {products.length} {products.length === 1 ? "piece" : "pieces"}
+                  </motion.p>
+                  {hasActiveFilters ? (
+                    <button type="button" onClick={clearFilters} className="text-xs font-bold uppercase tracking-[0.2em] text-[#14171F] underline-grow">
+                      Clear filters
+                    </button>
+                  ) : null}
+                </div>
+
+                {products.length === 0 ? (
+                  <div className="rounded-[2.4rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
+                    <p className="font-editorial text-6xl text-[#2C5A82]">∅</p>
+                    <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">No pieces match yet — try a different category</p>
+                    <Button variant="primary" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset</Button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">
+                    {products.map((p) => <ProductCard key={p.slug} product={p} />)}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </section>
     </div>

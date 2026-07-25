@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SlidersHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
 import { categories as mockCategories, products as mockProducts } from "../data/catalog";
 import { api } from "../api";
 import { cn } from "../utils/cn";
-import { MagneticButton, ProductCard } from "../components/ui";
+import { Button, ProductCard, ProductCardSkeleton } from "../components/ui";
 import Seo from "../components/Seo";
 import type { Product } from "../data/catalog";
 
@@ -104,50 +104,60 @@ export default function Shop() {
 
       <section className="px-4 py-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-8">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
-              <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
-              {categories.map((c) => (
-                <FilterChip key={c.slug} label={c.title} active={category === c.slug} onClick={() => setCategory(c.slug)} />
-              ))}
+          <div className="sticky top-[72px] z-30 -mx-4 bg-[#FAF9F5] px-4 py-3 shadow-[0_1px_0_rgba(20,23,31,0.06)] sm:top-20 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                <span className="shrink-0 flex items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]"><SlidersHorizontal className="h-4 w-4" /> Category</span>
+                <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
+                {categories.map((c) => (
+                  <FilterChip key={c.slug} label={c.title} active={category === c.slug} onClick={() => setCategory(c.slug)} />
+                ))}
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <label className="relative hidden sm:block">
+                  <span className="sr-only">Search</span>
+                  <input
+                    id="search-shop"
+                    name="search"
+                    autoComplete="off"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search"
+                    className="w-40 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82] lg:w-56"
+                  />
+                </label>
+                <select
+                  id="store-filter"
+                  name="store"
+                  autoComplete="off"
+                  value={store}
+                  onChange={(e) => {
+                    const next = new URLSearchParams(params);
+                    if (e.target.value === "all") next.delete("store"); else next.set("store", e.target.value);
+                    setParams(next);
+                  }}
+                  className="rounded-full border border-black/10 bg-white px-3 py-2 text-xs font-semibold text-[#14171F] outline-none transition focus:border-[#2C5A82] sm:w-auto sm:text-sm"
+                >
+                  <option value="all">All stores</option>
+                  {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+                <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-3 py-2 text-[0.55rem] font-bold uppercase tracking-[0.15em] transition sm:px-4 sm:text-xs sm:tracking-[0.18em]", showFilters ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#6D6D6D] hover:border-black/30")}>
+                  <SlidersHorizontal className="inline h-3.5 w-3.5 sm:mr-1" />
+                  <span className="hidden sm:inline">Filters</span>
+                </button>
+              </div>
             </div>
-            <button type="button" onClick={() => setShowFilters(!showFilters)} className={cn("rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition", showFilters ? "border-[#2C5A82] bg-[#2C5A82] text-[#14171F]" : "border-black/10 bg-white text-[#6D6D6D] hover:border-black/30")}>
-              <SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> Filters
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <label className="relative flex-1">
+            <div className="mt-2 sm:hidden">
+              <label className="relative block">
                 <span className="sr-only">Search</span>
                 <input
-                  id="search-shop"
-                  name="search"
-                  autoComplete="off"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search pieces or stores"
-                  className="w-full min-w-0 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82] sm:w-72"
+                  className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#2C5A82]"
                 />
               </label>
-              <select
-                id="store-filter"
-                name="store"
-                autoComplete="off"
-                value={store}
-                onChange={(e) => {
-                  const next = new URLSearchParams(params);
-                  if (e.target.value === "all") next.delete("store"); else next.set("store", e.target.value);
-                  setParams(next);
-                }}
-                className="w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#14171F] outline-none transition focus:border-[#2C5A82] sm:w-auto"
-              >
-                <option value="all">All stores</option>
-                {uniqueStores.map((s) => <option key={s} value={s}>{s}</option>)}
-              </select>
             </div>
-
           </div>
 
           {showFilters ? (
@@ -214,8 +224,8 @@ export default function Shop() {
           ) : null}
 
           {loading ? (
-            <div className="flex justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#2C5A82] border-t-transparent" />
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">
+              {Array.from({ length: 8 }).map((_, i) => <ProductCardSkeleton key={i} />)}
             </div>
           ) : (
             <>
@@ -233,8 +243,8 @@ export default function Shop() {
           {products.length === 0 ? (
             <div className="rounded-[2.4rem] border border-dashed border-black/10 bg-white/60 px-6 py-20 text-center">
               <p className="font-editorial text-6xl text-[#2C5A82]">∅</p>
-              <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">No pieces match those filters.</p>
-              <MagneticButton variant="gold" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset</MagneticButton>
+              <p className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">No pieces match yet — try a different category</p>
+              <Button variant="secondary" className="mt-6 px-6 py-3 text-sm" onClick={clearFilters}>Reset filters</Button>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-5">

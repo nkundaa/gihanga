@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { cn } from "../utils/cn";
 import { categories as mockCategories, heroImages, products as mockProducts, stores as mockStores, formatRwf, type Product, type Store, type Category } from "../data/catalog";
-import { MagneticButton, ProductCard, SectionHeader, StoreCard } from "../components/ui";
+import { Button, ProductCard, SectionHeader, StoreCard } from "../components/ui";
 import Seo from "../components/Seo";
 
 const shopCategories = [
@@ -174,10 +174,7 @@ function HeroSection({ clothesProduct, shoesProduct }: { clothesProduct: Product
 
             <h1 className="mt-3 font-display text-[clamp(1.3rem,5.5vw,6rem)] font-black leading-[0.9] tracking-[-0.08em] text-white sm:mt-6">
               <motion.span initial={reduceMotion ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="block">
-                GIHANGA
-              </motion.span>
-              <motion.span initial={reduceMotion ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }} className="block font-black">
-                MARKET
+                Browse what <span className="font-editorial text-[#2C5A82]">you</span> love
               </motion.span>
             </h1>
 
@@ -188,15 +185,12 @@ function HeroSection({ clothesProduct, shoesProduct }: { clothesProduct: Product
 
             <motion.div className="mt-4 flex flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}>
-              <MagneticButton to="/shop" variant="gold" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm">
+              <Button to="/shop" variant="primary" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
                 Shop Now
-              </MagneticButton>
-              <MagneticButton to="/shop" variant="ghost" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm">
-                Explore Products
-              </MagneticButton>
-              <MagneticButton to="/stores" variant="secondary" className="w-full justify-center px-4 py-3 text-xs min-h-12 sm:w-auto sm:px-6 sm:py-4 sm:text-sm">
-                Browse Stores
-              </MagneticButton>
+              </Button>
+              <Button to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
+                Explore Stores
+              </Button>
             </motion.div>
           </div>
 

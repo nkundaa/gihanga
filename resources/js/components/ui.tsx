@@ -458,11 +458,10 @@ export function ProductCard({ product, variant = "default" }: { product: Product
       </Link>
 
       <div className="flex flex-1 flex-col p-3 sm:p-4">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
           <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#14171F]/60 underline-grow">
             {product.storeName}
           </Link>
-          <Rating value={product.rating} size="sm" />
         </div>
 
         <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#14171F] sm:text-2xl">
@@ -496,41 +495,47 @@ export function ProductCard({ product, variant = "default" }: { product: Product
 
 export function StoreCard({ store }: { store: Store }) {
   return (
-    <Link
-      to={`/store/${store.slug}`}
+    <div
       data-reveal
-      className="group relative block overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-[0_4px_24px_rgba(20,23,31,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_rgba(20,23,31,0.12)]"
+      className="group flex flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-[0_4px_24px_rgba(20,23,31,0.06)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_16px_48px_rgba(20,23,31,0.12)]"
     >
-      <div className="relative h-36 overflow-hidden sm:h-56">
-        <img
-          src={store.cover}
-          alt={`${store.name} boutique`}
-          className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/70" />
-        <div className="absolute left-4 top-4">
-          <Badge variant="gold" dot>Verified</Badge>
-        </div>
-        {store.avatar ? (
-          <div className="absolute -bottom-6 left-4">
-            <div className="h-14 w-14 rounded-xl border-2 border-white bg-white shadow-[0_4px_16px_rgba(20,23,31,0.12)] overflow-hidden">
-              <img src={store.avatar} alt={`${store.name} logo`} className="h-full w-full object-cover" />
-            </div>
+      <Link to={`/store/${store.slug}`} className="block">
+        <div className="relative h-36 overflow-hidden sm:h-56">
+          <img
+            src={store.cover}
+            alt={`${store.name} boutique`}
+            className="h-full w-full object-cover transition-all duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/10 to-black/70" />
+          <div className="absolute left-4 top-4">
+            <Badge variant="gold" dot>Verified</Badge>
           </div>
-        ) : null}
-      </div>
+          {store.avatar ? (
+            <div className="absolute -bottom-6 left-4">
+              <div className="h-14 w-14 rounded-xl border-2 border-white bg-white shadow-[0_4px_16px_rgba(20,23,31,0.12)] overflow-hidden">
+                <img src={store.avatar} alt={`${store.name} logo`} className="h-full w-full object-cover" />
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </Link>
       <div className={cn("p-4", store.avatar && "pt-10")}>
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">{store.category}</p>
-        <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#14171F] sm:text-2xl">{store.name}</h3>
+        <Link to={`/store/${store.slug}`}>
+          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">{store.category}</p>
+          <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#14171F] sm:text-2xl">{store.name}</h3>
+        </Link>
         <p className="mt-1 text-xs text-[#6D6D6D]">{store.tagline}</p>
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
           <Rating value={store.rating} size="sm" />
           <span className="text-[#6D6D6D]">{store.productCount} pieces</span>
           <span className="text-[#6D6D6D]">{store.location}</span>
         </div>
+        <Button to={`/store/${store.slug}`} variant="ghost" fullWidth className="mt-3 text-xs">
+          Visit boutique
+        </Button>
       </div>
-    </Link>
+    </div>
   );
 }
 

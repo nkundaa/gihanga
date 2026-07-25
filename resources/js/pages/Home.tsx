@@ -159,15 +159,7 @@ function Hero({ products }: { products: Product[] }) {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="block"
               >
-                Discover Rwanda's
-              </motion.span>
-              <motion.span
-                initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="block text-stroke text-white font-black"
-              >
-                Marketplace
+                Browse what <span className="font-editorial text-[#2C5A82]">you</span> love
               </motion.span>
             </h1>
 
@@ -186,15 +178,12 @@ function Hero({ products }: { products: Product[] }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
-              <MagneticButton to="/shop" variant="gold" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
+              <Button to="/shop" variant="primary" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
                 Shop Now
-              </MagneticButton>
-              <MagneticButton to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
+              </Button>
+              <Button to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
                 Explore Stores
-              </MagneticButton>
-              <MagneticButton to="/sell" variant="secondary" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
-                Sell With GIHANGA
-              </MagneticButton>
+              </Button>
             </motion.div>
           </div>
 
