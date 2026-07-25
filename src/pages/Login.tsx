@@ -35,8 +35,8 @@ export default function Login() {
       <div className="w-full max-w-md">
         <div className="rounded-xl border border-[#111111]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(17,17,17,0.06)]">
           <div className="mb-8 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4AF37]/10">
-              <LogIn className="h-7 w-7 text-[#D4AF37]" />
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#5BA3CF]/10">
+              <LogIn className="h-7 w-7 text-[#5BA3CF]" />
             </div>
             <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#111111]">Welcome back</h1>
             <p className="mt-2 text-sm text-[#666666]">Sign in to your GIHANGA account</p>
@@ -66,7 +66,7 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
+                  className="w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
                   placeholder="Your password"
                 />
                 <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#999999] hover:text-[#111111] transition">
@@ -97,4 +97,5 @@ export default function Login() {
     </div>
   );
 }
+
 

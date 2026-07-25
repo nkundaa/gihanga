@@ -114,7 +114,7 @@ export default function CustomerDashboard() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
       </div>
     );
   }
@@ -127,7 +127,7 @@ export default function CustomerDashboard() {
       <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex shrink-0 items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111111] text-[#D4AF37] text-sm font-black">G</div>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111111] text-[#5BA3CF] text-sm font-black">G</div>
             <span className="hidden font-display text-base font-black tracking-[-0.03em] sm:block">GIHANGA</span>
           </Link>
 
@@ -136,7 +136,7 @@ export default function CustomerDashboard() {
             <input
               value={searchQuery} onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search products, stores or brands..."
-              className="h-10 w-full rounded-full border border-black/10 bg-[#F8F8F8] pl-10 pr-4 text-sm outline-none transition focus:border-[#D4AF37] focus:bg-white"
+              className="h-10 w-full rounded-full border border-black/10 bg-[#F8F8F8] pl-10 pr-4 text-sm outline-none transition focus:border-[#5BA3CF] focus:bg-white"
               onFocus={() => searchQuery.length >= 2 && setShowSearch(true)}
             />
             <AnimatePresence>
@@ -175,7 +175,7 @@ export default function CustomerDashboard() {
           <div className="flex items-center gap-1.5">
             <Link to="/wishlist" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
               <Heart className="h-4.5 w-4.5" />
-              {wishlistItems.length > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-[0.4rem] font-bold text-white">{wishlistItems.length}</span>}
+              {wishlistItems.length > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#5BA3CF] text-[0.4rem] font-bold text-white">{wishlistItems.length}</span>}
             </Link>
             <Link to="/cart" className="relative flex h-9 w-9 items-center justify-center rounded-full text-[#666666] transition hover:bg-[#F8F8F8]">
               <ShoppingBag className="h-4.5 w-4.5" />
@@ -252,7 +252,7 @@ export default function CustomerDashboard() {
               </div>
               <div className="border-t border-black/[0.06] p-3">
                 <Link to="/profile" onClick={() => setShowMobileNav(false)} className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition hover:bg-[#F8F8F8]">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] text-[#D4AF37] text-[0.5rem] font-bold">{user?.name?.[0] ?? "U"}</div>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111111] text-[#5BA3CF] text-[0.5rem] font-bold">{user?.name?.[0] ?? "U"}</div>
                   {user?.name ?? "Account"}
                 </Link>
               </div>
@@ -270,7 +270,7 @@ export default function CustomerDashboard() {
             <div className="mb-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-[#D4AF37] text-lg font-black">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-[#5BA3CF] text-lg font-black">
                     {user?.name?.[0] ?? "C"}
                   </div>
                   <div>
@@ -300,7 +300,7 @@ export default function CustomerDashboard() {
                 </AnimatePresence>
                 <div className="absolute bottom-2 left-4 flex gap-1.5">
                   {carouselSlides.map((_, i) => (
-                    <button key={i} type="button" onClick={() => setCarouselIdx(i)} className={cn("h-1.5 rounded-full transition", i === carouselIdx ? "w-5 bg-[#D4AF37]" : "w-1.5 bg-white/60")} />
+                    <button key={i} type="button" onClick={() => setCarouselIdx(i)} className={cn("h-1.5 rounded-full transition", i === carouselIdx ? "w-5 bg-[#5BA3CF]" : "w-1.5 bg-white/60")} />
                   ))}
                 </div>
               </div>
@@ -365,7 +365,7 @@ export default function CustomerDashboard() {
                             -{Math.round((1 - p.salePrice / p.price) * 100)}%
                           </div>
                         )}
-                        <div className="absolute top-2 right-2 rounded-full bg-[#D4AF37]/90 px-2 py-0.5 text-[0.45rem] font-bold text-white flex items-center gap-1">
+                        <div className="absolute top-2 right-2 rounded-full bg-[#5BA3CF]/90 px-2 py-0.5 text-[0.45rem] font-bold text-white flex items-center gap-1">
                           <Clock className="h-3 w-3" /> Limited
                         </div>
                       </Link>
@@ -412,11 +412,11 @@ export default function CustomerDashboard() {
                       </div>
                       <p className="mt-3 text-sm font-bold truncate">{s.name}</p>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Star className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
+                        <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
                         <span className="text-xs text-[#666666]">{Number(s.rating).toFixed(1)}</span>
                       </div>
                       {s.verified && (
-                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#D4AF37]/10 px-2.5 py-0.5 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#D4AF37]">
+                        <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#5BA3CF]/10 px-2.5 py-0.5 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">
                           <Check className="h-3 w-3" /> Verified
                         </span>
                       )}
@@ -490,14 +490,14 @@ export default function CustomerDashboard() {
                         <div className="min-w-0">
                           <p className="text-sm font-bold truncate">{s.name}</p>
                           <div className="flex items-center gap-1">
-                            <Star className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
+                            <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
                             <span className="text-[0.55rem] text-[#666666]">{Number(s.rating).toFixed(1)}</span>
                           </div>
                         </div>
                       </div>
                       <p className="mt-3 text-[0.55rem] text-[#999] line-clamp-2">{s.bio}</p>
                       <div className="mt-3 flex items-center justify-between">
-                        {s.verified && <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#D4AF37]">Verified</span>}
+                        {s.verified && <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">Verified</span>}
                         <span className="text-[0.4rem] font-bold uppercase tracking-[0.15em] text-[#666666] group-hover:text-[#111111]">Follow +</span>
                       </div>
                     </Link>
@@ -553,7 +553,7 @@ export default function CustomerDashboard() {
                   </div>
                   <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#666666] mb-2">Newsletter</p>
                   <div className="flex">
-                    <input placeholder="Your email" className="h-10 flex-1 rounded-l-full border border-black/10 bg-white px-4 text-sm outline-none transition focus:border-[#D4AF37]" />
+                    <input placeholder="Your email" className="h-10 flex-1 rounded-l-full border border-black/10 bg-white px-4 text-sm outline-none transition focus:border-[#5BA3CF]" />
                     <button type="button" className="flex h-10 items-center rounded-r-full bg-[#111111] px-4 text-[0.5rem] font-bold text-white tracking-[0.15em] uppercase transition hover:bg-[#333]">Subscribe</button>
                   </div>
                 </div>
@@ -580,7 +580,7 @@ export default function CustomerDashboard() {
                   ) : (
                     activity.slice(0, 8).map((a, i) => (
                       <div key={i} className="flex items-start gap-3 rounded-xl bg-[#F8F8F8] p-3">
-                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#D4AF37]" : "bg-[#D4AF37]")} />
+                        <div className={cn("mt-0.5 h-2 w-2 shrink-0 rounded-full", a.type === "order" ? "bg-[#5BA3CF]" : "bg-[#5BA3CF]")} />
                         <div className="min-w-0">
                           <p className="text-xs font-bold">{a.message as string}</p>
                           <p className="text-[0.5rem] text-[#999] mt-0.5">{a.created_at as string}</p>
@@ -590,14 +590,14 @@ export default function CustomerDashboard() {
                   )}
                   {pendingOrders.length > 0 && (
                     <div className="rounded-xl border border-black/[0.06] p-3">
-                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#D4AF37] mb-2">Active Deliveries</p>
+                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#5BA3CF] mb-2">Active Deliveries</p>
                       <p className="text-xs font-bold">{pendingOrders.length} order{pendingOrders.length > 1 ? "s" : ""} in progress</p>
                       <Link to="/orders" className="mt-2 inline-flex text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#111111]">Track now <ChevronRight className="h-3 w-3" /></Link>
                     </div>
                   )}
                   {flashDeals.length > 0 && (
-                    <div className="rounded-xl border border-[#D4AF37]/20 bg-[#D4AF37]/5 p-3">
-                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#D4AF37] mb-2">Flash Deals</p>
+                    <div className="rounded-xl border border-[#5BA3CF]/20 bg-[#5BA3CF]/5 p-3">
+                      <p className="text-[0.5rem] font-black uppercase tracking-[0.18em] text-[#5BA3CF] mb-2">Flash Deals</p>
                       <p className="text-xs font-bold">{flashDeals.length} deals ending soon</p>
                     </div>
                   )}
@@ -703,7 +703,7 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
             </div>
           )}
           {product.tag && !discount && (
-            <div className="absolute top-2 left-2 rounded-full bg-[#D4AF37] px-2.5 py-0.5 text-[0.45rem] font-bold text-white">
+            <div className="absolute top-2 left-2 rounded-full bg-[#5BA3CF] px-2.5 py-0.5 text-[0.45rem] font-bold text-white">
               {product.tag}
             </div>
           )}
@@ -725,7 +725,7 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
         <p className="text-[0.55rem] font-bold uppercase tracking-[0.12em] text-[#999]">{product.storeName}</p>
         <p className="mt-0.5 text-sm font-bold truncate">{product.name}</p>
         <div className="mt-1 flex items-center gap-1">
-          <Star className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
+          <Star className="h-3 w-3 fill-[#5BA3CF] text-[#5BA3CF]" />
           <span className="text-[0.6rem] text-[#666666]">{product.rating.toFixed(1)}</span>
           <span className="text-[0.5rem] text-[#999]">({product.reviews})</span>
         </div>
@@ -758,7 +758,7 @@ function PremiumProductCard({ product, onWishlist, isWishlisted, onAddToCart }: 
                 </div>
                 <div className="mt-3 flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className={cn("h-4 w-4", s <= Math.round(product.rating) ? "fill-[#D4AF37] text-[#D4AF37]" : "text-[#ddd]")} />
+                    <Star key={s} className={cn("h-4 w-4", s <= Math.round(product.rating) ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />
                   ))}
                   <span className="ml-1 text-sm text-[#666666]">{product.rating.toFixed(1)} ({product.reviews})</span>
                 </div>
@@ -802,4 +802,5 @@ function BagIcon({ className }: { className?: string }) {
 function UserIcon({ className }: { className?: string }) {
   return <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>;
 }
+
 

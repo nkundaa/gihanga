@@ -42,9 +42,9 @@ export default function About() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(191,215,241,0.2),transparent_32%),radial-gradient(circle_at_82%_80%,rgba(255,213,234,0.18),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative mx-auto max-w-7xl">
-          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#D4AF37] sm:text-xs sm:tracking-[0.42em]">About GIHANGA</p>
+          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:text-xs sm:tracking-[0.42em]">About GIHANGA</p>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,8rem)] font-black uppercase leading-[0.88] tracking-[-0.08em] sm:mt-6">
-            A premium <span className="font-editorial normal-case text-[#D4AF37]">home</span><br />for Kigali <span className="text-stroke text-white">fashion</span>.
+            A premium <span className="font-editorial normal-case text-[#5BA3CF]">home</span><br />for Kigali <span className="text-stroke text-white">fashion</span>.
           </h1>
           <p className="mt-4 max-w-2xl font-editorial text-xl leading-snug text-white/80 sm:mt-8 sm:text-3xl">
             GIHANGA exists to give Rwandan fashion a digital home worthy of its makers — a marketplace that feels as considered, calm and confident as the boutiques it represents.
@@ -66,9 +66,9 @@ export default function About() {
             </div>
           </div>
           <div data-reveal>
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Our story</p>
+            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Our story</p>
             <h2 className="mt-5 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">
-              Fashion deserves better <span className="font-editorial text-[#D4AF37]">marketplaces</span>.
+              Fashion deserves better <span className="font-editorial text-[#5BA3CF]">marketplaces</span>.
             </h2>
             <div className="mt-6 space-y-5 text-lg leading-8 text-[#666666]">
               <p>Kigali has always had extraordinary boutiques. What it hasn't had — until now — is a digital experience that matches the quality of the physical ones.</p>
@@ -84,13 +84,13 @@ export default function About() {
 
       <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Our values</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Three principles, <span className="font-editorial text-[#D4AF37]">non-negotiable</span>.</h2>
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Our values</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Three principles, <span className="font-editorial text-[#5BA3CF]">non-negotiable</span>.</h2>
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => (
               <article key={v.title} data-reveal className="rounded-[2.4rem] border border-black/[0.08] bg-[#F8F9FA] p-8">
-                <p className="font-editorial text-5xl text-[#D4AF37]">0{i + 1}</p>
-                <div className="mt-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-[#D4AF37]">
+                <p className="font-editorial text-5xl text-[#5BA3CF]">0{i + 1}</p>
+                <div className="mt-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#111111] text-[#5BA3CF]">
                   <v.icon className="h-5 w-5" strokeWidth={1.8} />
                 </div>
                 <h3 className="mt-6 font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">{v.title}</h3>
@@ -103,8 +103,8 @@ export default function About() {
 
       <section className="bg-[#F8F9FA] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">How it works</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">One premium flow for <span className="font-editorial text-[#D4AF37]">buyers</span> and <span className="font-editorial text-[#D4AF37]">sellers</span>.</h2>
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">How it works</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">One premium flow for <span className="font-editorial text-[#5BA3CF]">buyers</span> and <span className="font-editorial text-[#5BA3CF]">sellers</span>.</h2>
 
           <div className="mt-14 grid gap-10 lg:grid-cols-2">
             <div data-reveal>
@@ -112,9 +112,9 @@ export default function About() {
               <ol className="mt-6 space-y-4">
                 {customerSteps.map((s, i) => (
                   <li key={s.title} className="flex gap-5 rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-xs font-black text-[#D4AF37]">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-xs font-black text-[#5BA3CF]">{String(i + 1).padStart(2, "0")}</span>
                     <div>
-                      <p className="flex items-center gap-2 font-display text-lg font-black tracking-[-0.03em]"><s.icon className="h-4 w-4 text-[#D4AF37]" /> {s.title}</p>
+                      <p className="flex items-center gap-2 font-display text-lg font-black tracking-[-0.03em]"><s.icon className="h-4 w-4 text-[#5BA3CF]" /> {s.title}</p>
                       <p className="mt-1 text-sm text-[#666666]">{s.copy}</p>
                     </div>
                   </li>
@@ -126,9 +126,9 @@ export default function About() {
               <ol className="mt-6 space-y-4">
                 {vendorSteps.map((s, i) => (
                   <li key={s.title} className="flex gap-5 rounded-2xl border border-black/[0.06] bg-white p-5 shadow-[0_12px_40px_rgba(0,0,0,0.04)]">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-xs font-black text-[#D4AF37]">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-xs font-black text-[#5BA3CF]">{String(i + 1).padStart(2, "0")}</span>
                     <div>
-                      <p className="flex items-center gap-2 font-display text-lg font-black tracking-[-0.03em]"><s.icon className="h-4 w-4 text-[#D4AF37]" /> {s.title}</p>
+                      <p className="flex items-center gap-2 font-display text-lg font-black tracking-[-0.03em]"><s.icon className="h-4 w-4 text-[#5BA3CF]" /> {s.title}</p>
                       <p className="mt-1 text-sm text-[#666666]">{s.copy}</p>
                     </div>
                   </li>
@@ -141,15 +141,15 @@ export default function About() {
 
       <section className="bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Roadmap</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Where we are <span className="font-editorial text-[#D4AF37]">going</span>.</h2>
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Roadmap</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">Where we are <span className="font-editorial text-[#5BA3CF]">going</span>.</h2>
           <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {timeline.map((t, i) => (
               <article key={t.year} data-reveal className="relative overflow-hidden rounded-[2rem] border border-black/[0.08] bg-[#F8F9FA] p-6">
-                <p className="font-editorial text-6xl text-[#D4AF37]">{t.year}</p>
+                <p className="font-editorial text-6xl text-[#5BA3CF]">{t.year}</p>
                 <p className="mt-4 font-display text-xl font-black tracking-[-0.03em]">{t.title}</p>
                 <p className="mt-2 text-sm leading-6 text-[#666666]">{t.copy}</p>
-                {i === timeline.length - 1 ? <span className="absolute right-5 top-5 h-2 w-2 animate-pulse rounded-full bg-[#D4AF37]" /> : null}
+                {i === timeline.length - 1 ? <span className="absolute right-5 top-5 h-2 w-2 animate-pulse rounded-full bg-[#5BA3CF]" /> : null}
               </article>
             ))}
           </div>
@@ -160,7 +160,7 @@ export default function About() {
         <div data-reveal className="mx-auto max-w-7xl overflow-hidden rounded-[2.8rem] bg-[#111111] px-8 py-16 text-white lg:px-16 lg:py-20">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <h2 className="font-display text-[clamp(1.5rem,5vw,5.5rem)] font-black leading-[0.9] tracking-[-0.07em]">
-              Ready to <span className="font-editorial text-[#D4AF37]">join</span> the marketplace?
+              Ready to <span className="font-editorial text-[#5BA3CF]">join</span> the marketplace?
             </h2>
             <div className="flex flex-wrap gap-3 lg:justify-end">
               <MagneticButton to="/sell" variant="gold" className="min-h-12 px-7 py-4">Open your store</MagneticButton>
@@ -172,4 +172,5 @@ export default function About() {
     </div>
   );
 }
+
 

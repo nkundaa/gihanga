@@ -95,7 +95,7 @@ export default function Profile() {
   if (authLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
       </div>
     );
   }
@@ -105,7 +105,7 @@ export default function Profile() {
       <div className="overflow-x-hidden bg-[#F8F9FA] pt-24 lg:pt-28">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="rounded-[2rem] border border-dashed border-black/10 bg-white/60 px-6 py-16 text-center">
-            <p className="font-editorial text-6xl text-[#D4AF37]">🔒</p>
+            <p className="font-editorial text-6xl text-[#5BA3CF]">🔒</p>
             <h2 className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">Sign in to manage your profile</h2>
             <MagneticButton to="/login" variant="gold" className="mt-6 min-h-12 px-6 py-3 text-sm">Sign in</MagneticButton>
           </div>
@@ -128,13 +128,13 @@ export default function Profile() {
         <div className="space-y-8">
           <section className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
             <div className="flex items-center gap-3">
-              <UserIcon className="h-5 w-5 text-[#D4AF37]" />
+              <UserIcon className="h-5 w-5 text-[#5BA3CF]" />
               <h2 className="font-display text-xl font-black tracking-[-0.04em]">Personal information</h2>
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Full name</label>
-                <input value={name} onChange={(e) => setName(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                <input value={name} onChange={(e) => setName(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Email</label>
@@ -143,7 +143,7 @@ export default function Profile() {
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Phone</label>
-                <input value={phone} onChange={(e) => setPhone(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" placeholder="+250 788 000 000" />
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" placeholder="+250 788 000 000" />
               </div>
             </div>
             {profileError ? <p className="mt-4 text-sm text-red-500">{profileError}</p> : null}
@@ -155,21 +155,21 @@ export default function Profile() {
 
           <section className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
             <div className="flex items-center gap-3">
-              <Lock className="h-5 w-5 text-[#D4AF37]" />
+              <Lock className="h-5 w-5 text-[#5BA3CF]" />
               <h2 className="font-display text-xl font-black tracking-[-0.04em]">Password</h2>
             </div>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Current password</label>
-                <input type="password" value={pwCurrent} onChange={(e) => setPwCurrent(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                <input type="password" value={pwCurrent} onChange={(e) => setPwCurrent(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">New password</label>
-                <input type="password" value={pwNew} onChange={(e) => setPwNew(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                <input type="password" value={pwNew} onChange={(e) => setPwNew(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
               </div>
               <div>
                 <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Confirm new password</label>
-                <input type="password" value={pwConfirm} onChange={(e) => setPwConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                <input type="password" value={pwConfirm} onChange={(e) => setPwConfirm(e.target.value)} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
               </div>
             </div>
             {pwError ? <p className="mt-4 text-sm text-red-500">{pwError}</p> : null}
@@ -182,7 +182,7 @@ export default function Profile() {
           <section className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <MapPin className="h-5 w-5 text-[#D4AF37]" />
+                <MapPin className="h-5 w-5 text-[#5BA3CF]" />
                 <h2 className="font-display text-xl font-black tracking-[-0.04em]">Addresses</h2>
               </div>
               <button type="button" onClick={() => { setEditingAddress(null); setAddrForm({ label: "", phone: user?.phone ?? "", address: "", city: "Kigali", is_default: false }); setShowAddressForm(true); }} className="min-h-11 rounded-full border border-black/10 bg-[#F8F9FA] px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] transition hover:bg-[#111111] hover:text-white flex items-center gap-2">
@@ -192,7 +192,7 @@ export default function Profile() {
 
             {loadingAddresses ? (
               <div className="mt-6 flex justify-center py-8">
-                <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+                <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
               </div>
             ) : addresses.length === 0 && !showAddressForm ? (
               <div className="mt-6 rounded-2xl border border-dashed border-black/10 bg-[#F8F9FA] p-8 text-center">
@@ -205,7 +205,7 @@ export default function Profile() {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-bold">{addr.label || "Address"}</p>
-                        {addr.is_default ? <span className="rounded-full bg-[#D4AF37] px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-[0.15em]">Default</span> : null}
+                        {addr.is_default ? <span className="rounded-full bg-[#5BA3CF] px-2 py-0.5 text-[0.5rem] font-bold uppercase tracking-[0.15em]">Default</span> : null}
                       </div>
                       <p className="text-sm text-[#666666]">{addr.address}, {addr.city}</p>
                       <p className="text-xs text-[#666666]">{addr.phone}</p>
@@ -224,24 +224,24 @@ export default function Profile() {
             )}
 
             {showAddressForm ? (
-              <div className="mt-6 rounded-2xl border border-[#D4AF37] bg-[#D4AF37]/5 p-5">
-                <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">{editingAddress ? "Edit" : "New"} address</p>
+              <div className="mt-6 rounded-2xl border border-[#5BA3CF] bg-[#5BA3CF]/5 p-5">
+                <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">{editingAddress ? "Edit" : "New"} address</p>
                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Label</label>
-                    <input value={addrForm.label} onChange={(e) => setAddrForm({ ...addrForm, label: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" placeholder="Home, Office, etc." />
+                    <input value={addrForm.label} onChange={(e) => setAddrForm({ ...addrForm, label: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" placeholder="Home, Office, etc." />
                   </div>
                   <div>
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Phone</label>
-                    <input value={addrForm.phone} onChange={(e) => setAddrForm({ ...addrForm, phone: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                    <input value={addrForm.phone} onChange={(e) => setAddrForm({ ...addrForm, phone: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
                   </div>
                   <div className="sm:col-span-2">
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">Address</label>
-                    <input value={addrForm.address} onChange={(e) => setAddrForm({ ...addrForm, address: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                    <input value={addrForm.address} onChange={(e) => setAddrForm({ ...addrForm, address: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
                   </div>
                   <div>
                     <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#666666]">City</label>
-                    <input value={addrForm.city} onChange={(e) => setAddrForm({ ...addrForm, city: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+                    <input value={addrForm.city} onChange={(e) => setAddrForm({ ...addrForm, city: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
                   </div>
                   <div className="flex items-center gap-3 pt-4">
                     <input type="checkbox" id="is_default" checked={addrForm.is_default} onChange={(e) => setAddrForm({ ...addrForm, is_default: e.target.checked })} className="h-4 w-4 accent-[#111111]" />
@@ -264,4 +264,5 @@ export default function Profile() {
     </div>
   );
 }
+
 

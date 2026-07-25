@@ -133,8 +133,8 @@ function Hero({ products }: { products: Product[] }) {
         />
         <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-black/90" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(212,175,55,0.15),transparent_40%),radial-gradient(circle_at_75%_75%,rgba(212,175,55,0.1),transparent_40%)]" />
-        <div aria-hidden className="luxury-orb left-[10%] top-[15%] h-64 w-60 bg-[#D4AF37]/15" />
-        <div aria-hidden className="luxury-orb right-[12%] top-[30%] h-80 w-80 bg-[#D4AF37]/10 [animation-delay:1s]" />
+        <div aria-hidden className="luxury-orb left-[10%] top-[15%] h-64 w-60 bg-[#5BA3CF]/15" />
+        <div aria-hidden className="luxury-orb right-[12%] top-[30%] h-80 w-80 bg-[#5BA3CF]/10 [animation-delay:1s]" />
         <div aria-hidden className="absolute inset-0 hidden opacity-70 lg:block"><HeroScene /></div>
       </motion.div>
 
@@ -147,7 +147,7 @@ function Hero({ products }: { products: Product[] }) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[0.5rem] font-black uppercase tracking-[0.2em] text-[#D4AF37] backdrop-blur-xl sm:gap-2 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.24em]">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[0.5rem] font-black uppercase tracking-[0.2em] text-[#5BA3CF] backdrop-blur-xl sm:gap-2 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.24em]">
                 <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" /> Kigali • Verified Fashion
               </span>
             </motion.div>
@@ -212,16 +212,16 @@ function Hero({ products }: { products: Product[] }) {
                     alt={clothesProduct.name}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-[#111111]/80 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#D4AF37] backdrop-blur-sm">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#111111]/80 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#5BA3CF] backdrop-blur-sm">
                     In Stock
                   </span>
                 </div>
                 <div className="mt-3">
-                  <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#D4AF37]">{clothesProduct.storeName}</p>
+                  <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#5BA3CF]">{clothesProduct.storeName}</p>
                   <h3 className="mt-1 font-display text-base font-black tracking-tight text-white line-clamp-1">{clothesProduct.name}</h3>
                   <div className="mt-3 flex items-center justify-between gap-3">
                     <p className="font-display text-sm font-black text-white">{clothesProduct.price.toLocaleString()} RWF</p>
-                    <span className="rounded-full bg-[#D4AF37] px-3.5 py-1.5 text-xs font-bold text-[#111111] transition group-hover:bg-white">
+                    <span className="rounded-full bg-[#5BA3CF] px-3.5 py-1.5 text-xs font-bold text-[#111111] transition group-hover:bg-white">
                       Shop Now
                     </span>
                   </div>
@@ -242,16 +242,16 @@ function Hero({ products }: { products: Product[] }) {
                     alt={shoesProduct.name}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <span className="absolute left-3 top-3 rounded-full bg-[#111111]/80 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#D4AF37] backdrop-blur-sm">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#111111]/80 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-[#5BA3CF] backdrop-blur-sm">
                     Verified
                   </span>
                 </div>
                 <div className="mt-3">
-                  <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#D4AF37]">{shoesProduct.storeName}</p>
+                  <p className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-[#5BA3CF]">{shoesProduct.storeName}</p>
                   <h3 className="mt-1 font-display text-base font-black tracking-tight text-white line-clamp-1">{shoesProduct.name}</h3>
                   <div className="mt-3 flex items-center justify-between gap-3">
                     <p className="font-display text-sm font-black text-white">{shoesProduct.price.toLocaleString()} RWF</p>
-                    <span className="rounded-full bg-white/10 border border-white/20 px-3.5 py-1.5 text-xs font-bold text-white transition group-hover:bg-[#D4AF37] group-hover:text-[#111111]">
+                    <span className="rounded-full bg-white/10 border border-white/20 px-3.5 py-1.5 text-xs font-bold text-white transition group-hover:bg-[#5BA3CF] group-hover:text-[#111111]">
                       Shop
                     </span>
                   </div>
@@ -270,8 +270,8 @@ function HeroScene() {
   return (
     <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }}>
       <ParticleField />
-      <Orb position={[-2.6, 1.2, 0]} scale={0.75} color="#D4AF37" />
-      <Orb position={[2.2, -0.8, -0.6]} scale={1.05} color="#D4AF37" />
+      <Orb position={[-2.6, 1.2, 0]} scale={0.75} color="#5BA3CF" />
+      <Orb position={[2.2, -0.8, -0.6]} scale={1.05} color="#5BA3CF" />
     </Canvas>
   );
 }
@@ -296,7 +296,7 @@ function ParticleField() {
   });
   return (
     <points ref={ref} geometry={geometry}>
-      <pointsMaterial color="#D4AF37" size={0.025} transparent opacity={0.55} depthWrite={false} />
+      <pointsMaterial color="#5BA3CF" size={0.025} transparent opacity={0.55} depthWrite={false} />
     </points>
   );
 }
@@ -323,7 +323,7 @@ function Marquee() {
       <div className="marquee-track flex w-max gap-6 whitespace-nowrap text-[0.5rem] font-bold uppercase tracking-[0.24em] text-[#111111]/45 sm:gap-10 sm:text-sm sm:tracking-[0.32em]">
         {[...items, ...items, ...items].map((item, i) => (
           <span key={`${item}-${i}`} className="inline-flex items-center gap-6 sm:gap-10">
-            {item}<span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+            {item}<span className="h-1.5 w-1.5 rounded-full bg-[#5BA3CF]" />
           </span>
         ))}
       </div>
@@ -336,7 +336,7 @@ function CategoriesPreview({ categories }: { categories: Category[] }) {
     <section className="relative overflow-x-hidden bg-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader eyebrow="Popular categories" title={<>Six ways to <span className="font-editorial text-[#D4AF37]">shop</span> the city.</>} className="max-w-2xl" />
+          <SectionHeader eyebrow="Popular categories" title={<>Six ways to <span className="font-editorial text-[#5BA3CF]">shop</span> the city.</>} className="max-w-2xl" />
           <Link to="/shop" className="group inline-flex items-center gap-2 text-sm font-bold text-[#111111] underline-grow">
             Browse the full shop <ChevronRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </Link>
@@ -358,7 +358,7 @@ function CategoriesPreview({ categories }: { categories: Category[] }) {
                   <Icon className="h-3 w-3 sm:h-5 sm:w-5" strokeWidth={1.8} />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-2 text-white sm:p-4 lg:p-6">
-                  <p className="mb-1 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#D4AF37] sm:mb-3 sm:text-xs sm:tracking-[0.34em]">0{index + 1} · {category.count} pieces</p>
+                  <p className="mb-1 text-[0.45rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF] sm:mb-3 sm:text-xs sm:tracking-[0.34em]">0{index + 1} · {category.count} pieces</p>
                   <h3 className="font-display text-sm font-black tracking-[-0.06em] sm:text-2xl lg:text-3xl">{category.title}</h3>
                   <p className="mt-0.5 text-[0.5rem] leading-3 text-white/75 sm:mt-3 sm:text-sm sm:leading-6">{category.copy}</p>
                 </div>
@@ -386,7 +386,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="Trending now"
-          title={<>The pieces Kigali is <span className="font-editorial text-[#D4AF37]">watching</span>.</>}
+          title={<>The pieces Kigali is <span className="font-editorial text-[#5BA3CF]">watching</span>.</>}
           copy="Premium product cards designed for discovery first, with quick actions ready for later commerce phases."
         />
         <div className="mt-8 grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
@@ -402,7 +402,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div>
-                  <p className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-xs sm:tracking-[0.34em]">Auto rotating edit</p>
+                  <p className="text-[0.5rem] font-black uppercase tracking-[0.2em] text-[#5BA3CF] sm:text-xs sm:tracking-[0.34em]">Auto rotating edit</p>
                   <h3 className="mt-2 font-display text-lg font-black leading-none tracking-[-0.07em] sm:mt-5 sm:text-4xl sm:leading-none lg:text-5xl">{current.name}</h3>
                   <p className="mt-2 text-xs text-white/70">A featured product spotlight that keeps the homepage alive without forcing interaction.</p>
                 </div>
@@ -416,7 +416,7 @@ function TrendingPreview({ products }: { products: Product[] }) {
                     <p className="text-xs text-white/55">From {current.storeName}</p>
                     <p className="mt-0 font-display text-base font-black tracking-[-0.06em]">{current.price.toLocaleString()} RWF</p>
                   </div>
-                  <Link to={`/product/${current.slug}`} className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[#111111] transition hover:bg-[#D4AF37]">
+                  <Link to={`/product/${current.slug}`} className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[#111111] transition hover:bg-[#5BA3CF]">
                     Quick View
                   </Link>
                 </div>
@@ -450,17 +450,17 @@ function FlashSalesSection({ products }: { products: Product[] }) {
   if (onSale.length === 0) return null;
 
   return (
-    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#D4AF37]/20 via-[#F8F9FA] to-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-28">
-      <div aria-hidden className="luxury-orb left-1/2 top-0 h-60 w-60 -translate-x-1/2 bg-[#D4AF37]/20" />
+    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#5BA3CF]/20 via-[#F8F9FA] to-[#F8F9FA] px-4 py-10 sm:px-6 lg:px-8 lg:py-28">
+      <div aria-hidden className="luxury-orb left-1/2 top-0 h-60 w-60 -translate-x-1/2 bg-[#5BA3CF]/20" />
       <div className="relative mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeader
             eyebrow="Limited time offers"
-            title={<>Flash <span className="font-editorial text-[#D4AF37]">sales</span> — hurry!</>}
+            title={<>Flash <span className="font-editorial text-[#5BA3CF]">sales</span> — hurry!</>}
             className="max-w-lg"
           />
           <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-2 shadow-sm">
-            <Sparkles className="h-4 w-4 text-[#D4AF37]" />
+            <Sparkles className="h-4 w-4 text-[#5BA3CF]" />
             <span className="font-mono text-lg font-black tracking-widest">
               {String(h).padStart(2, "0")}:{String(m).padStart(2, "0")}:{String(s).padStart(2, "0")}
             </span>
@@ -492,7 +492,7 @@ function FlashSaleCard({ product }: { product: Product }) {
       <div className="p-4 sm:p-5">
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{product.storeName}</p>
         <Link to={`/product/${product.slug}`} className="block">
-          <h3 className="mt-1 font-display text-base font-black tracking-[-0.04em] leading-tight transition hover:text-[#D4AF37]">{product.name}</h3>
+          <h3 className="mt-1 font-display text-base font-black tracking-[-0.04em] leading-tight transition hover:text-[#5BA3CF]">{product.name}</h3>
         </Link>
         <div className="mt-3 flex items-center gap-2">
           <span className="font-display text-lg font-black tracking-[-0.04em]">{product.price.toLocaleString()} RWF</span>
@@ -514,7 +514,7 @@ function StoresPreview({ stores }: { stores: Store[] }) {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeader
             eyebrow="Verified boutiques"
-            title={<>Meet the makers of <span className="font-editorial text-[#D4AF37]">Kigali</span> style.</>}
+            title={<>Meet the makers of <span className="font-editorial text-[#5BA3CF]">Kigali</span> style.</>}
             className="max-w-2xl"
           />
           <Link to="/stores" className="group inline-flex items-center gap-2 text-sm font-bold text-[#111111] underline-grow">
@@ -532,12 +532,12 @@ function StoresPreview({ stores }: { stores: Store[] }) {
 function WhyChoose() {
   return (
     <section className="relative overflow-x-hidden bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-32">
-      <div aria-hidden className="luxury-orb -left-24 top-20 h-72 w-72 bg-[#D4AF37]/15" />
-      <div aria-hidden className="luxury-orb -right-28 bottom-20 h-80 w-80 bg-[#D4AF37]/30 [animation-delay:1s]" />
+      <div aria-hidden className="luxury-orb -left-24 top-20 h-72 w-72 bg-[#5BA3CF]/15" />
+      <div aria-hidden className="luxury-orb -right-28 bottom-20 h-80 w-80 bg-[#5BA3CF]/30 [animation-delay:1s]" />
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="Why choose GIHANGA"
-          title={<>Trust is <span className="font-editorial text-[#D4AF37]">designed</span> in.</>}
+          title={<>Trust is <span className="font-editorial text-[#5BA3CF]">designed</span> in.</>}
           copy="GIHANGA is not only a product catalog. It is a premium commerce layer for verified stores, confident customers and delivery transparency."
           align="center"
         />
@@ -548,7 +548,7 @@ function WhyChoose() {
               data-reveal
               className="group rounded-[1.5rem] border border-black/[0.08] bg-[#F8F9FA] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.05)] transition hover:-translate-y-1 hover:bg-white sm:rounded-[2rem] sm:p-7"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#111111] text-[#D4AF37] transition duration-500 group-hover:rotate-3 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-2xl">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#111111] text-[#5BA3CF] transition duration-500 group-hover:rotate-3 group-hover:scale-110 sm:h-14 sm:w-14 sm:rounded-2xl">
                 <item.icon className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.8} />
               </div>
               <h3 className="mt-4 font-display text-xl font-black tracking-[-0.06em] sm:mt-8 sm:text-2xl">{item.title}</h3>
@@ -569,12 +569,12 @@ function Testimonials() {
   }, []);
   const t = testimonials[active];
   return (
-    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#D4AF37]/30 via-[#F8F9FA] to-[#F8F9FA] px-5 py-16 sm:px-6 lg:px-8 lg:py-32">
-      <div aria-hidden className="luxury-orb left-1/2 top-0 h-80 w-80 -translate-x-1/2 bg-[#D4AF37]/15" />
+    <section className="relative overflow-x-hidden bg-gradient-to-b from-[#5BA3CF]/30 via-[#F8F9FA] to-[#F8F9FA] px-5 py-16 sm:px-6 lg:px-8 lg:py-32">
+      <div aria-hidden className="luxury-orb left-1/2 top-0 h-80 w-80 -translate-x-1/2 bg-[#5BA3CF]/15" />
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="Testimonials"
-          title={<>The marketplace Kigali can <span className="font-editorial text-[#D4AF37]">trust</span>.</>}
+          title={<>The marketplace Kigali can <span className="font-editorial text-[#5BA3CF]">trust</span>.</>}
           align="center"
         />
         <div data-reveal className="relative mx-auto mt-10 max-w-5xl sm:mt-16">
@@ -592,9 +592,9 @@ function Testimonials() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/42 to-transparent" />
               </div>
               <div className="flex flex-col justify-center p-4 sm:p-10 lg:p-12">
-                <Quote className="h-8 w-8 text-[#D4AF37] sm:h-10 sm:w-10" />
+                <Quote className="h-8 w-8 text-[#5BA3CF] sm:h-10 sm:w-10" />
                 <div className="mt-4 flex gap-1 sm:mt-6" aria-label="5 star review">
-                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-[#D4AF37] text-[#D4AF37] sm:h-5 sm:w-5" />)}
+                  {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-[#5BA3CF] text-[#5BA3CF] sm:h-5 sm:w-5" />)}
                 </div>
                 <p className="mt-4 font-display text-lg font-black leading-tight tracking-[-0.04em] text-[#111111] sm:mt-7 sm:text-2xl sm:leading-tight lg:text-3xl">"{t.quote}"</p>
                 <div className="mt-5 sm:mt-9">
@@ -621,12 +621,12 @@ function CtaBanner() {
       <div data-reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] bg-[#111111] p-5 text-white shadow-[0_36px_120px_rgba(0,0,0,0.18)] sm:rounded-[2.8rem] sm:p-12">
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(191,215,241,0.26),transparent_30%),radial-gradient(circle_at_78%_72%,rgba(255,213,234,0.12),transparent_32%)]" />
         <div aria-hidden className="absolute -right-24 -top-28 h-80 w-80 rounded-full border border-white/10" />
-        <div aria-hidden className="absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#D4AF37]/15 blur-3xl" />
+        <div aria-hidden className="absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#5BA3CF]/15 blur-3xl" />
         <div className="relative z-10 flex flex-col gap-6 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.36em] text-[#D4AF37]">Vendor invitation</p>
+            <p className="text-xs font-black uppercase tracking-[0.36em] text-[#5BA3CF]">Vendor invitation</p>
             <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.8rem,6vw,7rem)] font-black leading-[0.88] tracking-[-0.08em] sm:mt-5">
-              Start <span className="font-editorial text-[#D4AF37]">selling</span> on GIHANGA today.
+              Start <span className="font-editorial text-[#5BA3CF]">selling</span> on GIHANGA today.
             </h2>
           </div>
           <div className="lg:justify-self-end">
@@ -638,4 +638,5 @@ function CtaBanner() {
     </section>
   );
 }
+
 

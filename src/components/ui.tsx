@@ -36,11 +36,11 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     "bg-[#111111] text-white shadow-[0_4px_20px_rgba(17,17,17,0.2)] hover:shadow-[0_8px_32px_rgba(17,17,17,0.3)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
   secondary:
-    "bg-white text-[#111111] border border-[#111111]/20 hover:border-[#D4AF37] hover:text-[#D4AF37] shadow-[0_2px_12px_rgba(17,17,17,0.06)] hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)] hover:-translate-y-0.5 active:scale-[0.97]",
+    "bg-white text-[#111111] border border-[#111111]/20 hover:border-[#5BA3CF] hover:text-[#5BA3CF] shadow-[0_2px_12px_rgba(17,17,17,0.06)] hover:shadow-[0_8px_32px_rgba(91, 163, 207,0.15)] hover:-translate-y-0.5 active:scale-[0.97]",
   gold:
-    "bg-[#D4AF37] text-[#111111] shadow-[0_4px_24px_rgba(212,175,55,0.3)] hover:shadow-[0_8px_40px_rgba(212,175,55,0.4)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
+    "bg-[#5BA3CF] text-[#111111] shadow-[0_4px_24px_rgba(91, 163, 207,0.3)] hover:shadow-[0_8px_40px_rgba(91, 163, 207,0.4)] hover:-translate-y-0.5 active:scale-[0.97] border border-transparent",
   text:
-    "bg-transparent text-[#111111] hover:text-[#D4AF37] active:scale-[0.97] border border-transparent",
+    "bg-transparent text-[#111111] hover:text-[#5BA3CF] active:scale-[0.97] border border-transparent",
   ghost:
     "bg-transparent text-[#111111] border border-[#111111]/10 hover:bg-[#F8F9FA] hover:border-[#111111]/20 active:scale-[0.97]",
   danger:
@@ -57,7 +57,7 @@ export function Button(props: ButtonProps) {
   const { variant = "primary", size = "md", children, className, disabled, loading, icon, iconRight, fullWidth, ...rest } = props;
 
   const classes = cn(
-    "group relative inline-flex items-center justify-center font-bold tracking-[-0.01em] rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37] focus-visible:ring-offset-2",
+    "group relative inline-flex items-center justify-center font-bold tracking-[-0.01em] rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5BA3CF] focus-visible:ring-offset-2",
     variantClasses[variant],
     sizeClasses[size],
     (disabled || loading) && "pointer-events-none opacity-50",
@@ -137,7 +137,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={id}
             className={cn(
-              "w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]",
+              "w-full rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 text-sm text-[#111111] outline-none transition-all duration-200 placeholder:text-[#999999] focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
               icon && "pl-11",
               error && "border-[#EF4444] focus:border-[#EF4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]",
               props.disabled && "bg-[#F8F9FA] cursor-not-allowed opacity-60",
@@ -189,7 +189,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={id}
             className={cn(
-              "w-full appearance-none rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 focus:border-[#D4AF37] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]",
+              "w-full appearance-none rounded-xl border border-[#111111]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#111111] outline-none transition-all duration-200 focus:border-[#5BA3CF] focus:shadow-[0_0_0_3px_rgba(91, 163, 207,0.15)]",
               error && "border-[#EF4444] focus:border-[#EF4444] focus:shadow-[0_0_0_3px_rgba(239,68,68,0.15)]",
               props.disabled && "bg-[#F8F9FA] cursor-not-allowed opacity-60",
               className
@@ -224,7 +224,7 @@ type BadgeVariant = "gold" | "black" | "white" | "success" | "warning" | "error"
 
 export function Badge({ children, variant = "black", className, dot }: { children: ReactNode; variant?: BadgeVariant; className?: string; dot?: boolean }) {
   const classes: Record<BadgeVariant, string> = {
-    gold: "bg-[#D4AF37] text-[#111111]",
+    gold: "bg-[#5BA3CF] text-[#111111]",
     black: "bg-[#111111] text-white",
     white: "bg-white text-[#111111] border border-[#111111]/10",
     success: "bg-[#22C55E]/10 text-[#22C55E]",
@@ -318,8 +318,8 @@ export function MagneticButton(props: Record<string, any>) {
 
 export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.36em] text-[#D4AF37]", className)}>
-      <span className="h-px w-8 bg-[#D4AF37]" />
+    <span className={cn("inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.36em] text-[#5BA3CF]", className)}>
+      <span className="h-px w-8 bg-[#5BA3CF]" />
       {children}
     </span>
   );
@@ -356,7 +356,7 @@ export function Rating({ value, size = "sm" }: { value: number; size?: "sm" | "m
   const textMap = { sm: "text-xs", md: "text-sm", lg: "text-base" };
   return (
     <span className="inline-flex items-center gap-1 font-bold text-[#111111]">
-      <Star className={cn(sizeMap[size], "fill-[#D4AF37] text-[#D4AF37]")} />
+      <Star className={cn(sizeMap[size], "fill-[#5BA3CF] text-[#5BA3CF]")} />
       <span className={textMap[size]}>{value.toFixed(1)}</span>
     </span>
   );
@@ -435,7 +435,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md shadow-[0_2px_12px_rgba(17,17,17,0.1)] transition-all duration-300 hover:scale-110",
-              isWishlisted && "bg-[#D4AF37]"
+              isWishlisted && "bg-[#5BA3CF]"
             )}
           >
             <Heart
@@ -478,7 +478,7 @@ export function ProductCard({ product, variant = "default" }: { product: Product
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={(e) => { e.preventDefault(); addItem(product); }}
-            className="flex h-12 w-12 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition-all duration-300 hover:bg-[#D4AF37] hover:scale-105 active:scale-95"
+            className="flex h-12 w-12 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-white transition-all duration-300 hover:bg-[#5BA3CF] hover:scale-105 active:scale-95"
           >
             <ShoppingBag className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
           </button>
@@ -519,7 +519,7 @@ export function StoreCard({ store }: { store: Store }) {
         ) : null}
       </div>
       <div className={cn("p-4", store.avatar && "pt-10")}>
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">{store.category}</p>
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">{store.category}</p>
         <h3 className="mt-1 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.05em] text-[#111111] sm:text-2xl">{store.name}</h3>
         <p className="mt-1 text-xs text-[#666666]">{store.tagline}</p>
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -562,7 +562,7 @@ export function DashboardCard({
       )}
     >
       <div className="flex items-start justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F8F9FA] text-[#111111] transition-colors duration-300 group-hover:bg-[#D4AF37] group-hover:text-white">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F8F9FA] text-[#111111] transition-colors duration-300 group-hover:bg-[#5BA3CF] group-hover:text-white">
           {icon}
         </div>
         {trend ? (
@@ -624,12 +624,12 @@ export function EmptyState({
   return (
     <div className={cn("flex flex-col items-center gap-6 rounded-xl border border-dashed border-[#111111]/10 bg-white/60 px-6 py-16 sm:py-20 text-center", className)}>
       {icon ? (
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/10 text-[#D4AF37]">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#5BA3CF]/10 text-[#5BA3CF]">
           {icon}
         </div>
       ) : (
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/10">
-          <span className="font-editorial text-3xl text-[#D4AF37]">∅</span>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#5BA3CF]/10">
+          <span className="font-editorial text-3xl text-[#5BA3CF]">∅</span>
         </div>
       )}
       <div>
@@ -821,7 +821,7 @@ export function QuantitySelector({
         type="button"
         aria-label="Decrease quantity"
         disabled={value <= min}
-        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#D4AF37] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
+        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#5BA3CF] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
         onClick={() => onChange(value - 1)}
       >
         <Minus className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} />
@@ -831,7 +831,7 @@ export function QuantitySelector({
         type="button"
         aria-label="Increase quantity"
         disabled={value >= max}
-        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#D4AF37] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
+        className={cn("flex items-center justify-center transition text-[#111111] hover:text-[#5BA3CF] disabled:opacity-30 disabled:cursor-not-allowed", btnSize)}
         onClick={() => onChange(value + 1)}
       >
         <Plus className={size === "sm" ? "h-3 w-3" : "h-3.5 w-3.5"} />
@@ -1015,3 +1015,5 @@ export function Tooltip({ children, content }: { children: ReactNode; content: s
     </div>
   );
 }
+
+

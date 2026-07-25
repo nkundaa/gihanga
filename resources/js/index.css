@@ -4,9 +4,9 @@
 :root {
   --color-black: #111111;
   --color-white: #FFFFFF;
-  --color-gold: #D4AF37;
-  --color-gold-light: #E8C547;
-  --color-gold-dark: #B8962E;
+  --color-sky: #5BA3CF;
+  --color-sky-light: #6FC3DF;
+  --color-sky-dark: #4A90B0;
   --color-gray-soft: #F8F9FA;
   --color-gray-50: #F0F0F0;
   --color-gray-100: #E5E5E5;
@@ -26,8 +26,8 @@
   --shadow-md: 0 4px 16px rgba(17, 17, 17, 0.08);
   --shadow-lg: 0 12px 40px rgba(17, 17, 17, 0.1);
   --shadow-xl: 0 24px 80px rgba(17, 17, 17, 0.12);
-  --shadow-gold: 0 4px 24px rgba(212, 175, 55, 0.3);
-  --shadow-gold-lg: 0 12px 48px rgba(212, 175, 55, 0.35);
+  --shadow-sky: 0 4px 24px rgba(91, 163, 207, 0.3);
+  --shadow-sky-lg: 0 12px 48px rgba(91, 163, 207, 0.35);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -208,9 +208,9 @@ img { max-width: 100%; }
   100% { background-position: 200% 0; }
 }
 
-@keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(212, 175, 55, 0); }
+@keyframes pulse-sky {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(91, 163, 207, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(91, 163, 207, 0); }
 }
 
 @keyframes float {
@@ -231,7 +231,7 @@ img { max-width: 100%; }
   100% { transform: scale(1); }
 }
 
-@keyframes goldShine {
+@keyframes skyShine {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
@@ -266,25 +266,25 @@ img { max-width: 100%; }
   }
 }
 
-.gold-shine {
-  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light), var(--color-gold));
+.sky-shine {
+  background: linear-gradient(90deg, var(--color-sky-dark), var(--color-sky), var(--color-sky-light), var(--color-sky));
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: goldShine 4s linear infinite;
+  animation: skyShine 4s linear infinite;
 }
 
-.gold-border {
-  border: 1.5px solid var(--color-gold);
+.sky-border {
+  border: 1.5px solid var(--color-sky);
 }
 
-.glow-gold {
-  box-shadow: 0 0 24px rgba(212, 175, 55, 0.25);
+.glow-sky {
+  box-shadow: 0 0 24px rgba(91, 163, 207, 0.25);
 }
 
-.glow-gold-hover:hover {
-  box-shadow: 0 0 32px rgba(212, 175, 55, 0.35);
+.glow-sky-hover:hover {
+  box-shadow: 0 0 32px rgba(91, 163, 207, 0.35);
 }
 
 /* ===== Skeleton Loading ===== */
@@ -368,3 +368,4 @@ img { max-width: 100%; }
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-33.333%, 0, 0); }
 }
+

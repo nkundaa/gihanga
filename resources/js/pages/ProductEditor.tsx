@@ -245,16 +245,16 @@ export default function ProductEditor() {
       <div className={cn("flex flex-col gap-1.5", opts?.className)}>
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{label}{opts?.required ? " *" : ""}</label>
         {opts?.rows ? (
-          <textarea value={form[key] as string} onChange={(e) => set(key, e.target.value)} rows={opts.rows} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-24 w-full resize-y rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#D4AF37]" />
+          <textarea value={form[key] as string} onChange={(e) => set(key, e.target.value)} rows={opts.rows} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-24 w-full resize-y rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#5BA3CF]" />
         ) : (
-          <input type={opts?.type ?? "text"} value={form[key] as string} onChange={(e) => set(key, opts?.type === "number" ? e.target.value : e.target.value)} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" />
+          <input type={opts?.type ?? "text"} value={form[key] as string} onChange={(e) => set(key, opts?.type === "number" ? e.target.value : e.target.value)} maxLength={opts?.maxLength} placeholder={opts?.placeholder} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
         )}
       </div>
     );
     const sel = (key: string, label: string, options: { value: string; label: string }[]) => (
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">{label}</label>
-        <select value={form[key] as string} onChange={(e) => set(key, e.target.value)} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]">
+        <select value={form[key] as string} onChange={(e) => set(key, e.target.value)} className="min-h-11 w-full rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
           {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
@@ -271,7 +271,7 @@ export default function ProductEditor() {
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Brand</label>
                 <div className="flex gap-2">
-                  <select value={form.brand_id as string} onChange={(e) => set("brand_id", e.target.value)} className="min-h-11 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]">
+                  <select value={form.brand_id as string} onChange={(e) => set("brand_id", e.target.value)} className="min-h-11 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]">
                     <option value="">Select brand</option>
                     {brands.map((b) => <option key={b.id} value={b.id}>{b.name}</option>)}
                   </select>
@@ -281,7 +281,7 @@ export default function ProductEditor() {
                 </div>
                 {showNewBrand && (
                   <div className="flex gap-2 mt-2">
-                    <input value={newBrandName} onChange={(e) => setNewBrandName(e.target.value)} placeholder="New brand name" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddBrand())} />
+                    <input value={newBrandName} onChange={(e) => setNewBrandName(e.target.value)} placeholder="New brand name" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), handleAddBrand())} />
                     <button type="button" onClick={handleAddBrand} className="rounded-full bg-[#111111] px-4 text-xs font-bold text-white">Add</button>
                   </div>
                 )}
@@ -299,7 +299,7 @@ export default function ProductEditor() {
                 ))}
               </div>
               <div className="flex gap-2">
-                <input value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Type and press Enter" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTag())} />
+                <input value={tagInput} onChange={(e) => setTagInput(e.target.value)} placeholder="Type and press Enter" className="min-h-10 flex-1 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addTag())} />
                 <button type="button" onClick={addTag} className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10"><Plus className="h-4 w-4" /></button>
               </div>
             </div>
@@ -489,7 +489,7 @@ export default function ProductEditor() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
       </div>
     );
   }
@@ -565,21 +565,22 @@ function RenderVariantForm({ variant, index, updateVariant, inp: _inp }: {
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Color</label>
-        <input value={variant.attributes.color ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, color: e.target.value })} placeholder="e.g. Black" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" />
+        <input value={variant.attributes.color ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, color: e.target.value })} placeholder="e.g. Black" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
       </div>
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Size</label>
-        <input value={variant.attributes.size ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, size: e.target.value })} placeholder="e.g. M" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" />
+        <input value={variant.attributes.size ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, size: e.target.value })} placeholder="e.g. M" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
       </div>
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Material</label>
-        <input value={variant.attributes.material ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, material: e.target.value })} placeholder="e.g. Cotton" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" />
+        <input value={variant.attributes.material ?? ""} onChange={(e) => updateVariant(index, "attributes", { ...variant.attributes, material: e.target.value })} placeholder="e.g. Cotton" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
       </div>
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-bold uppercase tracking-[0.12em] text-[#666666]">Weight</label>
-        <input value={variant.weight} onChange={(e) => updateVariant(index, "weight", e.target.value)} placeholder="e.g. 0.5 kg" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#D4AF37]" />
+        <input value={variant.weight} onChange={(e) => updateVariant(index, "weight", e.target.value)} placeholder="e.g. 0.5 kg" className="min-h-10 rounded-full border border-black/10 bg-white px-4 py-2 text-sm outline-none transition focus:border-[#5BA3CF]" />
       </div>
     </div>
   );
 }
+
 

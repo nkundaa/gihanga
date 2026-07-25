@@ -141,7 +141,7 @@ export default function AdminDashboard() {
     }
   }, [loading, isAuthenticated, user, navigate]);
 
-  if (loading) return <div className="flex min-h-screen items-center justify-center bg-[#F5F6F8]"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" /></div>;
+  if (loading) return <div className="flex min-h-screen items-center justify-center bg-[#F5F6F8]"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div>;
   if (!isAuthenticated || user?.role !== "admin") return null;
 
   return (
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
         <div className={cn("flex h-16 items-center border-b border-black/[0.06] px-4", sidebarCollapsed ? "justify-center" : "justify-between")}>
           {!sidebarCollapsed && (
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111111] text-[10px] font-black tracking-tight text-[#D4AF37]">GM</div>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111111] text-[10px] font-black tracking-tight text-[#5BA3CF]">GM</div>
               <div>
                 <p className="text-sm font-bold leading-tight">GIHANGA</p>
                 <p className="text-[10px] font-semibold text-[#999] leading-tight">Control Center</p>
@@ -363,7 +363,7 @@ function DashboardView() {
             {weekData.map((d, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
                 <div className="relative w-full flex flex-col items-center justify-end h-32">
-                  <div className="w-full rounded-t-lg bg-gradient-to-t from-[#D4AF37]/60 to-[#D4AF37]/20 transition-all duration-500 hover:from-[#D4AF37] hover:to-[#D4AF37]/40" style={{ height: `${(d.revenue / maxRevenue) * 100}%` }} />
+                  <div className="w-full rounded-t-lg bg-gradient-to-t from-[#5BA3CF]/60 to-[#5BA3CF]/20 transition-all duration-500 hover:from-[#5BA3CF] hover:to-[#5BA3CF]/40" style={{ height: `${(d.revenue / maxRevenue) * 100}%` }} />
                   <div className="absolute -top-5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[9px] font-bold text-[#999] opacity-0 group-hover:opacity-100 transition">{formatRwf(d.revenue)}</div>
                 </div>
                 <span className="text-[10px] font-semibold text-[#999]">{d.label}</span>
@@ -891,7 +891,7 @@ function AnalyticsView() {
         <div className="rounded-2xl border border-black/[0.06] bg-white p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
           <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#999] mb-4">Marketplace Revenue</p>
           <div className="flex items-end gap-1.5 h-36">
-            {revenueData.map((d, i) => (<div key={i} className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t-lg bg-gradient-to-t from-[#D4AF37]/60 to-[#D4AF37]/20" style={{ height: `${(d.revenue / maxRev) * 100}%` }} /><span className="text-[9px] font-semibold text-[#999]">{d.label}</span></div>))}
+            {revenueData.map((d, i) => (<div key={i} className="flex flex-1 flex-col items-center gap-1"><div className="w-full rounded-t-lg bg-gradient-to-t from-[#5BA3CF]/60 to-[#5BA3CF]/20" style={{ height: `${(d.revenue / maxRev) * 100}%` }} /><span className="text-[9px] font-semibold text-[#999]">{d.label}</span></div>))}
           </div>
           <div className="mt-4 text-xs font-bold text-[#666]">Total: {formatRwf(revenueData.reduce((a, d) => a + d.revenue, 0))}</div>
         </div>
@@ -906,7 +906,7 @@ function AnalyticsView() {
 
 function SettingsView() {
   const fields = [
-    { section: "General", items: ["Marketplace Name: GIHANGA MARKET", "Logo: gihanga-logo.svg", "Primary Color: #111111", "Accent Color: #D4AF37", "Languages: English, Kinyarwanda, French", "Currencies: RWF"] },
+    { section: "General", items: ["Marketplace Name: GIHANGA MARKET", "Logo: gihanga-logo.svg", "Primary Color: #111111", "Accent Color: #5BA3CF", "Languages: English, Kinyarwanda, French", "Currencies: RWF"] },
     { section: "Commerce", items: ["Payment Methods: Mobile Money, Card", "Shipping Providers: Local Courier", "Commission Rate: 8%", "Tax Configuration: 18% VAT"] },
     { section: "Communication", items: ["Email Settings: SMTP configured", "SMS Settings: Twilio connected", "Notification Settings: Push enabled"] },
     { section: "Security", items: ["Maintenance Mode: Disabled", "Two-Factor Auth: Required for admins", "Session Timeout: 60 minutes"] },
@@ -1014,12 +1014,13 @@ function RightPanel() {
       </div>
 
       <div className="rounded-xl border border-black/[0.06] bg-[#111] p-4">
-        <p className="text-xs font-bold text-[#D4AF37]">GIHANGA MARKET</p>
+        <p className="text-xs font-bold text-[#5BA3CF]">GIHANGA MARKET</p>
         <p className="mt-1 text-[10px] text-white/60">Platform v2.0.0</p>
         <p className="text-[10px] text-white/60">All services operational</p>
-        <div className="mt-3 flex gap-2"><Link to="/" className="text-[10px] font-bold text-[#D4AF37] hover:underline">Documentation</Link><span className="text-white/30">·</span><Link to="/" className="text-[10px] font-bold text-[#D4AF37] hover:underline">Support</Link></div>
+        <div className="mt-3 flex gap-2"><Link to="/" className="text-[10px] font-bold text-[#5BA3CF] hover:underline">Documentation</Link><span className="text-white/30">·</span><Link to="/" className="text-[10px] font-bold text-[#5BA3CF] hover:underline">Support</Link></div>
       </div>
     </div>
   );
 }
+
 

@@ -36,7 +36,7 @@ export default function StoreDetail() {
   if (loading) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] items-center justify-center pt-36">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
       </div>
     );
   }
@@ -44,7 +44,7 @@ export default function StoreDetail() {
   if (!store) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <p className="font-editorial text-6xl text-[#D4AF37]">404</p>
+        <p className="font-editorial text-6xl text-[#5BA3CF]">404</p>
         <h1 className="font-display text-4xl font-black tracking-[-0.05em]">Boutique not found.</h1>
         <MagneticButton to="/stores" variant="gold" className="min-h-12 px-6 py-3 text-sm">Back to stores</MagneticButton>
       </div>
@@ -69,7 +69,7 @@ export default function StoreDetail() {
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-8 sm:px-6 lg:px-8 sm:pb-10">
           <div className="mx-auto flex max-w-7xl flex-wrap items-end justify-between gap-6 text-white">
             <div>
-              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">
+              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">
                 <BadgeCheck className="h-4 w-4" /> Verified boutique · {store.category}
               </p>
               <h1 className="mt-3 font-display text-[clamp(1.6rem,6vw,7rem)] font-black leading-[0.9] tracking-[-0.08em]">{store.name}</h1>
@@ -115,14 +115,14 @@ export default function StoreDetail() {
             </div>
             <div className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
               <ul className="space-y-4 text-sm">
-                <li className="flex gap-3"><MapPin className="h-5 w-5 shrink-0 text-[#D4AF37]" /> <span><strong>{store.location}</strong></span></li>
-                <li className="flex gap-3"><Clock className="h-5 w-5 shrink-0 text-[#D4AF37]" /> <span>{store.hours}</span></li>
-                <li className="flex gap-3"><Star className="h-5 w-5 shrink-0 fill-[#D4AF37] text-[#D4AF37]" /> <span>{store.rating.toFixed(1)} average rating</span></li>
+                <li className="flex gap-3"><MapPin className="h-5 w-5 shrink-0 text-[#5BA3CF]" /> <span><strong>{store.location}</strong></span></li>
+                <li className="flex gap-3"><Clock className="h-5 w-5 shrink-0 text-[#5BA3CF]" /> <span>{store.hours}</span></li>
+                <li className="flex gap-3"><Star className="h-5 w-5 shrink-0 fill-[#5BA3CF] text-[#5BA3CF]" /> <span>{store.rating.toFixed(1)} average rating</span></li>
               </ul>
               <MagneticButton to="/contact" variant="primary" className="mt-6 min-h-12 w-full justify-center px-6 py-3 text-sm">Contact boutique</MagneticButton>
             </div>
             <div className="rounded-[2rem] border border-black/[0.08] bg-[#111111] p-6 text-white">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Price range</p>
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Price range</p>
               {storeProducts.length > 0 ? (
                 <p className="mt-3 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em]">
                   {formatRwf(Math.min(...storeProducts.map((p) => p.price)))} — {formatRwf(Math.max(...storeProducts.map((p) => p.price)))}
@@ -139,8 +139,8 @@ export default function StoreDetail() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Keep browsing</p>
-              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Other <span className="font-editorial text-[#D4AF37]">boutiques</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Keep browsing</p>
+              <h2 className="mt-3 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.06em]">Other <span className="font-editorial text-[#5BA3CF]">boutiques</span></h2>
             </div>
             <Link to="/stores" className="text-sm font-bold underline-grow min-h-11 inline-flex items-center">All stores →</Link>
           </div>
@@ -152,4 +152,5 @@ export default function StoreDetail() {
     </div>
   );
 }
+
 

@@ -183,7 +183,7 @@ export function Navigation() {
               >
                 <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
                 {wishlistCount > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5BA3CF] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                     {wishlistCount}
                   </span>
                 ) : null}
@@ -201,7 +201,7 @@ export function Navigation() {
               >
                 <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
                 {count > 0 ? (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5BA3CF] px-1 text-[0.5rem] font-black text-white sm:h-5 sm:min-w-5 sm:text-[0.65rem]">
                     {count}
                   </span>
                 ) : null}
@@ -235,39 +235,39 @@ export function Navigation() {
                       </div>
                       <div className="p-2">
                         <Link to="/dashboard" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <LayoutDashboard className="h-4 w-4 text-[#D4AF37]" /> Dashboard
+                          <LayoutDashboard className="h-4 w-4 text-[#5BA3CF]" /> Dashboard
                         </Link>
                         <Link to="/orders" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <Package className="h-4 w-4 text-[#D4AF37]" /> Orders
+                          <Package className="h-4 w-4 text-[#5BA3CF]" /> Orders
                         </Link>
                         <Link to="/messages" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <MessageSquare className="h-4 w-4 text-[#D4AF37]" /> Messages
+                          <MessageSquare className="h-4 w-4 text-[#5BA3CF]" /> Messages
                         </Link>
                         <Link to="/profile" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                          <User className="h-4 w-4 text-[#D4AF37]" /> Profile
+                          <User className="h-4 w-4 text-[#5BA3CF]" /> Profile
                         </Link>
                         {user?.role === "customer" ? (
                           <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                            <Store className="h-4 w-4 text-[#D4AF37]" /> Open Seller Dashboard
+                            <Store className="h-4 w-4 text-[#5BA3CF]" /> Open Seller Dashboard
                           </Link>
                         ) : null}
                         {user?.role === "seller" ? (
                           <>
                             <Link to="/seller" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <Store className="h-4 w-4 text-[#D4AF37]" /> Seller panel
+                              <Store className="h-4 w-4 text-[#5BA3CF]" /> Seller panel
                             </Link>
                             <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <ShoppingBag className="h-4 w-4 text-[#D4AF37]" /> Switch to Shopping
+                              <ShoppingBag className="h-4 w-4 text-[#5BA3CF]" /> Switch to Shopping
                             </Link>
                           </>
                         ) : null}
                         {user?.role === "admin" ? (
                           <>
                             <Link to="/admin" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <Shield className="h-4 w-4 text-[#D4AF37]" /> Admin panel
+                              <Shield className="h-4 w-4 text-[#5BA3CF]" /> Admin panel
                             </Link>
                             <Link to="/?switch=customer" onClick={() => setUserMenu(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold transition hover:bg-[#F8F9FA]">
-                              <ShoppingBag className="h-4 w-4 text-[#D4AF37]" /> Switch to Shopping
+                              <ShoppingBag className="h-4 w-4 text-[#5BA3CF]" /> Switch to Shopping
                             </Link>
                           </>
                         ) : null}
@@ -415,13 +415,13 @@ export function Navigation() {
                         className={({ isActive }) =>
                           cn(
                             "flex min-h-12 items-center justify-between rounded-lg px-3 py-3 text-base font-semibold transition",
-                            isActive ? "bg-[#D4AF37]/10 text-[#111111]" : "text-[#111111] hover:bg-[#F8F9FA]"
+                            isActive ? "bg-[#5BA3CF]/10 text-[#111111]" : "text-[#111111] hover:bg-[#F8F9FA]"
                           )
                         }
                         onClick={() => setOpen(false)}
                       >
                         {link.label}
-                        <ChevronRight className="h-5 w-5 text-[#D4AF37]" />
+                        <ChevronRight className="h-5 w-5 text-[#5BA3CF]" />
                       </NavLink>
                     </motion.div>
                   ))}
@@ -461,9 +461,9 @@ export function Navigation() {
                 ) : (
                   <div className="space-y-2">
                     <Link to="/login" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-lg px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#F8F9FA]">
-                      <LogIn className="h-5 w-5 text-[#D4AF37]" /> Sign in
+                      <LogIn className="h-5 w-5 text-[#5BA3CF]" /> Sign in
                     </Link>
-                    <Link to="/register" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-lg bg-[#D4AF37] px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#111111] hover:text-white">
+                    <Link to="/register" onClick={() => setOpen(false)} className="flex min-h-12 items-center gap-3 rounded-lg bg-[#5BA3CF] px-3 py-3 text-base font-semibold text-[#111111] transition hover:bg-[#111111] hover:text-white">
                       <UserPlus className="h-5 w-5" /> Create Account
                     </Link>
                   </div>
@@ -512,14 +512,14 @@ export function BottomNav() {
           const content = (
             <div className="relative flex flex-col items-center gap-0.5 px-4 py-1.5">
               <div className="relative">
-                <Icon className={cn("h-5 w-5", isActive ? "text-[#D4AF37]" : "text-[#111111]/60")} />
+                <Icon className={cn("h-5 w-5", isActive ? "text-[#5BA3CF]" : "text-[#111111]/60")} />
                 {(item.badge ?? 0) > 0 ? (
-                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#D4AF37] px-1 text-[0.45rem] font-black text-white">
+                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#5BA3CF] px-1 text-[0.45rem] font-black text-white">
                     {item.badge}
                   </span>
                 ) : null}
               </div>
-              <span className={cn("text-[0.5rem] font-bold uppercase tracking-[0.1em]", isActive ? "text-[#D4AF37]" : "text-[#111111]/60")}>
+              <span className={cn("text-[0.5rem] font-bold uppercase tracking-[0.1em]", isActive ? "text-[#5BA3CF]" : "text-[#111111]/60")}>
                 {item.label}
               </span>
             </div>
@@ -574,7 +574,7 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-[#111111]/10 px-5 py-4">
               <div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-[#D4AF37]">Your bag</p>
+                <p className="text-xs font-black uppercase tracking-[0.3em] text-[#5BA3CF]">Your bag</p>
                 <h2 className="font-display text-xl font-black tracking-[-0.05em] sm:text-2xl">{count} item{count === 1 ? "" : "s"}</h2>
               </div>
               <button type="button" onClick={closeCart} aria-label="Close cart" className="flex h-11 w-11 items-center justify-center rounded-full border border-[#111111]/10 transition hover:bg-[#111111] hover:text-white">
@@ -585,8 +585,8 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-5 py-4">
               {lines.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#D4AF37]/10">
-                    <ShoppingBag className="h-8 w-8 text-[#D4AF37]" />
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#5BA3CF]/10">
+                    <ShoppingBag className="h-8 w-8 text-[#5BA3CF]" />
                   </div>
                   <p className="mt-4 font-display text-xl font-black tracking-[-0.04em] sm:text-2xl">Your bag is empty</p>
                   <p className="mt-2 text-sm text-[#666666]">Discover pieces from Kigali's verified boutiques.</p>
@@ -663,7 +663,7 @@ export function CartDrawer() {
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#111111] px-4 py-10 sm:px-6 lg:px-8">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent" />
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5BA3CF]/40 to-transparent" />
       <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr]">
@@ -678,7 +678,7 @@ export function Footer() {
             <form className="mt-5 flex flex-col sm:flex-row max-w-md gap-2 overflow-hidden rounded-xl border border-white/15 bg-white/5 p-1.5 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="newsletter-footer" className="sr-only">Email address</label>
               <input id="newsletter-footer" type="email" autoComplete="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:text-sm" />
-              <button type="submit" className="w-full rounded-lg bg-[#D4AF37] px-4 py-2.5 text-xs font-bold text-[#111111] transition hover:bg-[#E8C547] sm:w-auto sm:px-5 sm:text-sm">Join</button>
+              <button type="submit" className="w-full rounded-lg bg-[#5BA3CF] px-4 py-2.5 text-xs font-bold text-[#111111] transition hover:bg-[#6FC3DF] sm:w-auto sm:px-5 sm:text-sm">Join</button>
             </form>
           </div>
 
@@ -686,15 +686,15 @@ export function Footer() {
             <FooterColumn title="Explore" items={[{ label: "Shop", to: "/shop" }, { label: "Stores", to: "/stores" }, { label: "Plans", to: "/plans" }, { label: "Why GIHANGA", to: "/why-gihanga" }, { label: "Sell", to: "/sell-apply" }]} />
             <FooterColumn title="Categories" items={[{ label: "Shoes", to: "/shop?category=shoes" }, { label: "Clothes", to: "/shop?category=clothes" }, { label: "Bags", to: "/shop?category=bags" }, { label: "Accessories", to: "/shop?category=accessories" }]} />
             <div>
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#5BA3CF] sm:text-sm sm:tracking-[0.28em]">Contact</h3>
               <ul className="mt-3 space-y-2 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Mail className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
-                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Phone className="h-3.5 w-3.5 shrink-0 text-[#D4AF37] sm:h-5 sm:w-5" /> +250 799 576 704</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><MapPinned className="h-3.5 w-3.5 shrink-0 text-[#5BA3CF] sm:h-5 sm:w-5" /> Kicukiro, Kigali, Rwanda</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Mail className="h-3.5 w-3.5 shrink-0 text-[#5BA3CF] sm:h-5 sm:w-5" /> gihangamarket@gmail.com</li>
+                <li className="flex min-h-11 items-center justify-center gap-2 sm:justify-start"><Phone className="h-3.5 w-3.5 shrink-0 text-[#5BA3CF] sm:h-5 sm:w-5" /> +250 799 576 704</li>
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#5BA3CF] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
               <p className="mt-3 text-xs text-white/55 sm:mt-5 sm:text-sm">The Kigali edit, every Thursday. New stores, drops and stories.</p>
             </div>
           </div>
@@ -717,7 +717,7 @@ export function Footer() {
 function FooterColumn({ title, items }: { title: string; items: Array<{ label: string; to: string }> }) {
   return (
     <div>
-      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] sm:text-sm sm:tracking-[0.28em]">{title}</h3>
+      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#5BA3CF] sm:text-sm sm:tracking-[0.28em]">{title}</h3>
       <ul className="mt-3 space-y-1.5 text-xs text-white/60 sm:mt-5 sm:space-y-3 sm:text-sm">
         {items.map((item) => (
           <li key={item.label}>
@@ -746,10 +746,12 @@ export function Toast() {
           exit={{ opacity: 0, y: 20, scale: 0.96 }}
           className="fixed bottom-20 lg:bottom-6 left-1/2 z-[80] -translate-x-1/2 rounded-full border border-[#111111]/10 bg-white px-5 py-3 text-sm font-bold text-[#111111] shadow-[0_12px_40px_rgba(17,17,17,0.18)]"
         >
-          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#D4AF37]" />
+          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#5BA3CF]" />
           {toast}
         </motion.div>
       ) : null}
     </AnimatePresence>
   );
 }
+
+

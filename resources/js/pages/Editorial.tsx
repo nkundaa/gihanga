@@ -36,7 +36,7 @@ export default function Editorial() {
         <div className="relative mx-auto max-w-7xl">
           <Eyebrow className="text-white/80">Visual storytelling</Eyebrow>
           <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,8rem)] font-black uppercase leading-[0.88] tracking-[-0.08em] sm:mt-6">
-            The <span className="font-editorial normal-case text-[#D4AF37]">editorial</span><br /><span className="text-stroke text-white">lookbook</span>.
+            The <span className="font-editorial normal-case text-[#5BA3CF]">editorial</span><br /><span className="text-stroke text-white">lookbook</span>.
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-7 text-white/70 sm:mt-6 sm:text-lg sm:leading-8">
             Curated visual stories from Kigali's fashion scene. Discover new drops, seasonal inspirations and boutique stories.
@@ -66,7 +66,7 @@ export default function Editorial() {
                   <img src={entry.image} alt={entry.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/70" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Editorial</p>
+                    <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Editorial</p>
                     <h2 className="mt-2 font-display text-[clamp(1.1rem,3vw,1.5rem)] font-black leading-tight tracking-[-0.04em]">{entry.title}</h2>
                     <p className="mt-2 text-sm text-white/80">{entry.subtitle}</p>
                   </div>
@@ -81,8 +81,8 @@ export default function Editorial() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">Featured boutique</p>
-              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Behind the <span className="font-editorial text-[#D4AF37]">atelier</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">Featured boutique</p>
+              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Behind the <span className="font-editorial text-[#5BA3CF]">atelier</span></h2>
             </div>
             <Link to={`/store/${featuredStore.slug}`} className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Visit {featuredStore.name} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -94,7 +94,7 @@ export default function Editorial() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
             <div className="flex flex-col justify-center p-6 sm:p-12">
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">{featuredStore.category} · {featuredStore.location}</p>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">{featuredStore.category} · {featuredStore.location}</p>
               <h3 className="mt-4 font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black leading-[0.9] tracking-[-0.06em]">{featuredStore.name}</h3>
               <p className="mt-4 text-[#666666] leading-relaxed">{featuredStore.bio}</p>
               <div className="mt-6 flex flex-col gap-3 sm:flex-row">
@@ -110,8 +110,8 @@ export default function Editorial() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#D4AF37]">From the edit</p>
-              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Curated <span className="font-editorial text-[#D4AF37]">pieces</span></h2>
+              <p className="text-xs font-black uppercase tracking-[0.32em] text-[#5BA3CF]">From the edit</p>
+              <h2 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">Curated <span className="font-editorial text-[#5BA3CF]">pieces</span></h2>
             </div>
             <Link to="/shop" className="group inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-grow">
               Shop all <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -125,9 +125,9 @@ export default function Editorial() {
 
       <section className="overflow-x-hidden bg-[#111111] px-4 py-12 text-white sm:px-6 lg:px-8 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl text-center">
-          <Sparkles className="mx-auto h-8 w-8 text-[#D4AF37]" />
+          <Sparkles className="mx-auto h-8 w-8 text-[#5BA3CF]" />
           <h2 className="mt-6 font-display text-[clamp(1.5rem,4.5vw,4.5rem)] font-black leading-[0.95] tracking-[-0.06em]">
-            New drops every <span className="font-editorial text-[#D4AF37]">Thursday</span>.
+            New drops every <span className="font-editorial text-[#5BA3CF]">Thursday</span>.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-white/70">
             The Kigali edit lands weekly. Sign up for the newsletter to get first access to new collections, exclusive drops and boutique stories.
@@ -140,4 +140,5 @@ export default function Editorial() {
     </div>
   );
 }
+
 

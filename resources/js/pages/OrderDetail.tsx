@@ -39,7 +39,7 @@ export default function OrderDetail() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F8F9FA] pt-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
       </div>
     );
   }
@@ -67,7 +67,7 @@ export default function OrderDetail() {
           </Link>
           <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.36em] text-[#D4AF37]">Order</p>
+              <p className="text-xs font-black uppercase tracking-[0.36em] text-[#5BA3CF]">Order</p>
               <h1 className="mt-2 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.06em]">#{order.id}</h1>
               <p className="mt-1 text-sm text-[#666666]">{order.createdAt}</p>
             </div>
@@ -81,7 +81,7 @@ export default function OrderDetail() {
           </div>
         ) : (
           <div className="mb-8 rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Tracking</p>
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Tracking</p>
             <h2 className="mt-3 font-display text-lg font-black tracking-[-0.04em]">Order progress</h2>
             <div className="mt-6">
               <div className="flex items-start justify-between">
@@ -91,7 +91,7 @@ export default function OrderDetail() {
                   const Icon = step.icon;
                   return (
                     <div key={step.key} className="flex flex-col items-center">
-                      <div className={cn("flex h-10 w-10 items-center justify-center rounded-full transition", isActive ? "bg-[#111111] text-[#D4AF37]" : "bg-[#F8F9FA] text-[#666666]")}>
+                      <div className={cn("flex h-10 w-10 items-center justify-center rounded-full transition", isActive ? "bg-[#111111] text-[#5BA3CF]" : "bg-[#F8F9FA] text-[#666666]")}>
                         <Icon className="h-5 w-5" strokeWidth={1.8} />
                       </div>
                       <p className={cn("mt-2 text-[0.55rem] font-bold uppercase tracking-[0.15em] sm:text-xs", isActive ? "text-[#111111]" : "text-[#666666]")}>{step.label}</p>
@@ -108,10 +108,10 @@ export default function OrderDetail() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <section className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Delivery</p>
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Delivery</p>
             <div className="mt-4 space-y-3">
               <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 shrink-0 text-[#D4AF37]" />
+                <MapPin className="h-4 w-4 shrink-0 text-[#5BA3CF]" />
                 <div>
                   <p className="text-sm font-bold">{order.customer}</p>
                   <p className="text-xs text-[#666666]">{order.address}</p>
@@ -119,21 +119,21 @@ export default function OrderDetail() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4 shrink-0 text-[#D4AF37]" />
+                <Phone className="h-4 w-4 shrink-0 text-[#5BA3CF]" />
                 <p className="text-sm">{order.phone}</p>
               </div>
             </div>
           </section>
 
           <section className="rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Payment</p>
+            <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Payment</p>
             <div className="mt-4 space-y-3">
               <div className="flex items-center gap-3">
-                <CreditCard className="h-4 w-4 shrink-0 text-[#D4AF37]" />
+                <CreditCard className="h-4 w-4 shrink-0 text-[#5BA3CF]" />
                 <p className="text-sm font-bold capitalize">{order.payment?.replace("_", " ") ?? "N/A"}</p>
               </div>
               <div className="flex items-center gap-3">
-                <Truck className="h-4 w-4 shrink-0 text-[#D4AF37]" />
+                <Truck className="h-4 w-4 shrink-0 text-[#5BA3CF]" />
                 <p className="text-sm">{order.storeName}</p>
               </div>
             </div>
@@ -141,7 +141,7 @@ export default function OrderDetail() {
         </div>
 
         <section className="mt-6 rounded-[2rem] border border-black/[0.08] bg-white p-6 shadow-[0_12px_40px_rgba(0,0,0,0.04)] sm:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#D4AF37]">Items</p>
+          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Items</p>
           <div className="mt-4 space-y-3">
             {order.lines?.map((item, i) => (
               <div key={i} className="flex items-center gap-4 rounded-2xl bg-[#F8F9FA] p-4">
@@ -169,4 +169,5 @@ export default function OrderDetail() {
     </div>
   );
 }
+
 

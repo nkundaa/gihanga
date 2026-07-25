@@ -60,7 +60,7 @@ export default function SellerDashboard() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F7F8FA]">
         <div className="max-w-md rounded-2xl border border-black/[0.06] bg-white p-8 text-center shadow-lg">
-          <Store className="mx-auto h-10 w-10 text-[#D4AF37]" />
+          <Store className="mx-auto h-10 w-10 text-[#5BA3CF]" />
           <h2 className="mt-4 font-display text-2xl font-black tracking-[-0.04em]">Seller access required</h2>
           <p className="mt-2 text-sm text-[#999]">Sign in with a seller account to manage your store.</p>
           <Link to="/login" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#111111] px-8 text-sm font-bold text-white transition hover:bg-[#333]">Sign in</Link>
@@ -79,11 +79,11 @@ export default function SellerDashboard() {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex items-center gap-3 border-b border-black/[0.06] px-5 py-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-[#D4AF37] text-sm font-black">G</div>
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111111] text-[#5BA3CF] text-sm font-black">G</div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-1.5">
               <p className="truncate font-display text-sm font-black tracking-[-0.02em]">{user?.name ?? "My Store"}</p>
-              <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#D4AF37]"><CheckCircle2 className="h-2.5 w-2.5 text-white" /></span>
+              <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#5BA3CF]"><CheckCircle2 className="h-2.5 w-2.5 text-white" /></span>
             </div>
             <p className="truncate text-[0.5rem] font-bold uppercase tracking-[0.18em] text-[#999]">Verified Store</p>
           </div>
@@ -116,7 +116,7 @@ export default function SellerDashboard() {
 
           <div className="relative flex-1 max-w-md">
             <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#999]" />
-            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search orders, products, customers..." className="h-10 w-full rounded-full border border-black/10 bg-[#F7F8FA] pl-10 pr-4 text-sm outline-none transition focus:border-[#D4AF37] focus:bg-white" />
+            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search orders, products, customers..." className="h-10 w-full rounded-full border border-black/10 bg-[#F7F8FA] pl-10 pr-4 text-sm outline-none transition focus:border-[#5BA3CF] focus:bg-white" />
           </div>
 
           <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export default function SellerDashboard() {
             { id: "settings" as Tab, label: "Profile", icon: Settings },
           ].map((item) => (
             <button key={item.id} type="button" onClick={() => setTab(item.id)} className={cn("flex flex-col items-center gap-0.5 px-3 py-1", tab === item.id ? "text-[#111111]" : "text-[#999]")}>
-              <item.icon className={cn("h-5 w-5", tab === item.id ? "text-[#D4AF37]" : "")} />
+              <item.icon className={cn("h-5 w-5", tab === item.id ? "text-[#5BA3CF]" : "")} />
               <span className="text-[0.4rem] font-bold uppercase tracking-[0.12em]">{item.label}</span>
             </button>
           ))}
@@ -202,7 +202,7 @@ export default function SellerDashboard() {
           <div className="p-4 space-y-3 overflow-y-auto max-h-[calc(100vh-4rem)]">
             <div className="rounded-xl bg-[#F7F8FA] p-3">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#D4AF37]" />
+                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#5BA3CF]" />
                 <div>
                   <p className="text-xs font-bold">New order received</p>
                   <p className="text-[0.5rem] text-[#999] mt-0.5">Order #1023 needs confirmation</p>
@@ -222,7 +222,7 @@ export default function SellerDashboard() {
             </div>
             <div className="rounded-xl bg-[#F7F8FA] p-3">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#D4AF37]" />
+                <div className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-[#5BA3CF]" />
                 <div>
                   <p className="text-xs font-bold">New review</p>
                   <p className="text-[0.5rem] text-[#999] mt-0.5">★★★★★ on Atelier Silk Co-ord</p>
@@ -274,7 +274,7 @@ function DashboardTab() {
       {/* Welcome + Quick Actions */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Dashboard</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Dashboard</p>
           <h1 className="mt-1 font-display text-2xl font-black tracking-[-0.05em] sm:text-3xl">Good {new Date().getHours() < 12 ? "morning" : "afternoon"}, {user?.name?.split(" ")[0] ?? "Seller"} 👋</h1>
           <p className="mt-1 text-sm text-[#999]">Here's how your business is performing today.</p>
         </div>
@@ -289,16 +289,16 @@ function DashboardTab() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7">
         {[
           { label: "Today's Sales", value: formatRwf(Number(s.todaySales) || 0), icon: TrendingUp, color: "bg-[#111111] text-white", sub: `Yesterday ${formatRwf(Number(s.yesterdaySales) || 0)}` },
-          { label: "Revenue", value: formatRwf(Number(s.totalRevenue) || 0), icon: DollarSign, color: "bg-[#D4AF37] text-white", sub: `${s.monthSales ? formatRwf(Number(s.monthSales)) : "—"} this month` },
+          { label: "Revenue", value: formatRwf(Number(s.totalRevenue) || 0), icon: DollarSign, color: "bg-[#5BA3CF] text-white", sub: `${s.monthSales ? formatRwf(Number(s.monthSales)) : "—"} this month` },
           { label: "Orders", value: String(s.totalOrders ?? 0), icon: ShoppingBag, color: "bg-[#111111] text-white", sub: `${s.pendingOrders ?? 0} pending` },
           { label: "Products", value: String(s.activeProducts ?? 0), icon: Package, color: "bg-white text-[#111111] border border-black/10", sub: `${s.totalProducts ?? 0} total` },
           { label: "Visitors", value: String(s.visitors ?? 0), icon: Eye, color: "bg-[#F7F8FA] text-[#111111]" },
-          { label: "Rating", value: String(Number(s.averageRating ?? 0).toFixed(1)), icon: Star, color: "bg-[#D4AF37]/10 text-[#D4AF37]" },
+          { label: "Rating", value: String(Number(s.averageRating ?? 0).toFixed(1)), icon: Star, color: "bg-[#5BA3CF]/10 text-[#5BA3CF]" },
           { label: "Messages", value: String(s.unreadMessages ?? 0), icon: MessageSquare, color: "bg-white text-[#111111] border border-black/10" },
         ].map((c) => (
           <div key={c.label} className={cn("flex items-center gap-3 rounded-xl p-4", c.color.includes("bg-") ? c.color : "bg-white")}>
-            <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", c.color.includes("border") ? "bg-[#F7F8FA]" : c.color.includes("bg-[#111111]") ? "bg-white/10" : c.color.includes("bg-[#D4AF37]/10") ? "bg-[#D4AF37]/10" : c.color.includes("bg-[#D4AF37]") ? "bg-white/10" : "bg-white border border-black/10")}>
-              <c.icon className={cn("h-4 w-4", c.color.includes("bg-[#111111]") ? "text-[#D4AF37]" : c.color.includes("bg-[#D4AF37]") ? "text-white" : c.color === "bg-[#F7F8FA] text-[#111111]" ? "text-[#111111]" : c.color.includes("bg-[#D4AF37]/") ? "text-[#D4AF37]" : "text-[#999]")} />
+            <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", c.color.includes("border") ? "bg-[#F7F8FA]" : c.color.includes("bg-[#111111]") ? "bg-white/10" : c.color.includes("bg-[#5BA3CF]/10") ? "bg-[#5BA3CF]/10" : c.color.includes("bg-[#5BA3CF]") ? "bg-white/10" : "bg-white border border-black/10")}>
+              <c.icon className={cn("h-4 w-4", c.color.includes("bg-[#111111]") ? "text-[#5BA3CF]" : c.color.includes("bg-[#5BA3CF]") ? "text-white" : c.color === "bg-[#F7F8FA] text-[#111111]" ? "text-[#111111]" : c.color.includes("bg-[#5BA3CF]/") ? "text-[#5BA3CF]" : "text-[#999]")} />
             </div>
             <div className="min-w-0">
               <p className={cn("text-[0.5rem] font-bold uppercase tracking-[0.15em]", c.color.includes("text-white") ? "text-white/70" : "text-[#999]")}>{c.label}</p>
@@ -341,7 +341,7 @@ function DashboardTab() {
         <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="font-display text-base font-black tracking-[-0.03em]">Recent Orders</h3>
-            <button type="button" onClick={() => navigate("/seller?tab=orders")} className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#D4AF37]">View All</button>
+            <button type="button" onClick={() => navigate("/seller?tab=orders")} className="text-[0.5rem] font-bold uppercase tracking-[0.15em] text-[#5BA3CF]">View All</button>
           </div>
           {data.recentOrders.length === 0 ? <p className="py-6 text-center text-sm text-[#999]">No orders yet.</p> : (
             <div className="space-y-2">
@@ -416,7 +416,7 @@ function DashboardTab() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
                         <p className="text-sm font-bold">{ru?.name ?? "Anonymous"}</p>
-                        <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#D4AF37] text-[#D4AF37]" : "text-[#ddd]")} />)}</div>
+                        <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />)}</div>
                       </div>
                       <p className="mt-0.5 text-xs text-[#999]">{rp?.name as string ?? ""}</p>
                       <p className="mt-0.5 text-xs text-[#666666] line-clamp-2">{(r.text as string) ?? ""}</p>
@@ -471,13 +471,13 @@ function RevenueChart() {
           ))}
         </div>
       </div>
-      {loading ? <div className="flex h-40 items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" /></div> : data.length === 0 ? (
+      {loading ? <div className="flex h-40 items-center justify-center"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div> : data.length === 0 ? (
         <div className="flex h-40 items-center justify-center text-sm text-[#999]">No revenue data yet.</div>
       ) : (
         <div className="flex h-40 items-end gap-1 sm:gap-2">
           {data.map((r) => (
             <div key={r.date as string} className="flex flex-1 flex-col items-center gap-1">
-              <div className="w-full rounded-t bg-[#D4AF37] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, ((Number(r.total) || 0) / maxVal) * 140)}px` }} />
+              <div className="w-full rounded-t bg-[#5BA3CF] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, ((Number(r.total) || 0) / maxVal) * 140)}px` }} />
               <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#999]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
             </div>
           ))}
@@ -503,7 +503,7 @@ function OrdersTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Management</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Management</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Orders</h2>
         </div>
         <div className="flex gap-2">
@@ -569,13 +569,13 @@ function ProductsTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Catalog</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Catalog</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Products</h2>
         </div>
         <div className="flex flex-wrap gap-2">
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#999]" />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="h-10 w-48 rounded-xl border border-black/10 bg-white pl-10 pr-4 text-sm outline-none focus:border-[#D4AF37]" />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search products..." className="h-10 w-48 rounded-xl border border-black/10 bg-white pl-10 pr-4 text-sm outline-none focus:border-[#5BA3CF]" />
           </div>
           <button type="button" className="flex h-10 items-center gap-2 rounded-xl border border-black/10 px-4 text-xs font-bold transition hover:bg-[#F7F8FA]"><Upload className="h-3.5 w-3.5" /> Import</button>
           <button type="button" onClick={() => navigate("/seller/products/new")} className="flex h-10 items-center gap-2 rounded-xl bg-[#111111] px-5 text-xs font-bold text-white transition hover:bg-[#333]"><Plus className="h-3.5 w-3.5" /> Add Product</button>
@@ -631,7 +631,7 @@ function InventoryTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Stock</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Stock</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Inventory</h2>
       </div>
       {loading ? <Loader /> : (
@@ -676,7 +676,7 @@ function CustomersTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">People</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">People</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Customers</h2>
       </div>
       {loading ? <Loader /> : (
@@ -717,7 +717,7 @@ function MessagesTab() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Inbox</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Inbox</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Messages</h2>
       </div>
       {loading ? <Loader /> : conversations.length === 0 ? (
@@ -728,7 +728,7 @@ function MessagesTab() {
             <Link key={c.id as string} to={`/messages/${c.id}`} className="flex items-center gap-4 rounded-xl border border-black/[0.06] bg-white p-4 transition hover:bg-[#F7F8FA]">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F7F8FA] text-sm font-bold">{(c.customer_name as string)?.[0] ?? "C"}</div>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2"><p className="text-sm font-bold truncate">{(c.customer_name as string) ?? "Customer"}</p>{c.unread_count ? <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#D4AF37] text-[0.35rem] font-bold text-white">{String(c.unread_count)}</span> : null}</div>
+                <div className="flex items-center gap-2"><p className="text-sm font-bold truncate">{(c.customer_name as string) ?? "Customer"}</p>{c.unread_count ? <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#5BA3CF] text-[0.35rem] font-bold text-white">{String(c.unread_count)}</span> : null}</div>
                 <p className="truncate text-xs text-[#999]">{(c.last_message as Record<string, string>)?.content as string ?? "No messages yet"}</p>
               </div>
               <p className="shrink-0 text-[0.5rem] text-[#999]">{new Date(c.updated_at as string).toLocaleDateString()}</p>
@@ -752,7 +752,7 @@ function ReviewsTab() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Feedback</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Feedback</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Reviews</h2>
       </div>
       {loading ? <Loader /> : reviews.length === 0 ? (
@@ -769,7 +769,7 @@ function ReviewsTab() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <p className="font-bold text-sm">{ru?.name ?? "Anonymous"}</p>
-                      <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#D4AF37] text-[#D4AF37]" : "text-[#ddd]")} />)}</div>
+                      <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className={cn("h-3 w-3", Number(r.rating) > i ? "fill-[#5BA3CF] text-[#5BA3CF]" : "text-[#ddd]")} />)}</div>
                     </div>
                     <p className="mt-0.5 text-xs text-[#999]">on {rp?.name as string ?? "Product"}</p>
                     <p className="mt-2 text-sm text-[#666666]">{r.text as string ?? ""}</p>
@@ -790,7 +790,7 @@ function MarketingTab() {
   return (
     <div className="mx-auto max-w-7xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Promotions</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Promotions</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Marketing</h2>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -801,14 +801,14 @@ function MarketingTab() {
           { label: "Store Followers", value: "0", icon: Users },
         ].map((m) => (
           <div key={m.label} className="rounded-xl border border-black/[0.06] bg-white p-5">
-            <m.icon className="h-5 w-5 text-[#D4AF37]" />
+            <m.icon className="h-5 w-5 text-[#5BA3CF]" />
             <p className="mt-3 font-display text-2xl font-black">{m.value}</p>
             <p className="text-[0.5rem] font-bold uppercase tracking-[0.12em] text-[#999]">{m.label}</p>
           </div>
         ))}
       </div>
       <div className="rounded-xl border border-dashed border-black/10 bg-white p-8 text-center">
-        <Megaphone className="mx-auto h-8 w-8 text-[#D4AF37]" />
+        <Megaphone className="mx-auto h-8 w-8 text-[#5BA3CF]" />
         <p className="mt-3 font-display text-xl font-black tracking-[-0.04em]">Marketing Tools</p>
         <p className="mt-1 text-sm text-[#999]">Coupons, flash sales, and campaigns are coming soon.</p>
         <button type="button" className="mt-6 rounded-full bg-[#111111] px-6 py-3 text-[0.5rem] font-bold uppercase tracking-[0.15em] text-white transition hover:bg-[#333]">Create Campaign</button>
@@ -833,7 +833,7 @@ function AnalyticsTab() {
     <div className="mx-auto max-w-7xl space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Insights</p>
+          <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Insights</p>
           <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Analytics</h2>
         </div>
         <div className="flex gap-1 rounded-lg border border-black/10 bg-white p-0.5">
@@ -844,13 +844,13 @@ function AnalyticsTab() {
       </div>
       <div className="rounded-xl border border-black/[0.06] bg-white p-6">
         <h3 className="mb-6 font-display text-lg font-black tracking-[-0.03em]">Revenue — {period.charAt(0).toUpperCase() + period.slice(1)}</h3>
-        {loading ? <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" /></div> : revenueData.length === 0 ? (
+        {loading ? <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div> : revenueData.length === 0 ? (
           <div className="flex flex-col items-center py-12"><BarChart3 className="h-8 w-8 text-[#999]" /><p className="mt-3 text-sm text-[#999]">No revenue data yet.</p></div>
         ) : (
           <div className="flex items-end gap-1 sm:gap-2" style={{ height: 220 }}>
             {revenueData.map((r) => (
               <div key={r.date as string} className="flex flex-1 flex-col items-center gap-1">
-                <div className="w-full rounded-t bg-[#D4AF37] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, (Number(r.total) || 0) / maxVal * 200)}px` }} />
+                <div className="w-full rounded-t bg-[#5BA3CF] transition hover:bg-[#111111]" style={{ height: `${Math.max(4, (Number(r.total) || 0) / maxVal * 200)}px` }} />
                 <span className="text-[0.35rem] font-bold uppercase tracking-[0.1em] text-[#999] sm:text-[0.45rem]">{String(r.date).length > 7 ? String(r.date).slice(5) : r.date as string}</span>
               </div>
             ))}
@@ -876,7 +876,7 @@ function SettingsTab() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Configuration</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Configuration</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Store Settings</h2>
       </div>
       {loading ? <Loader /> : (
@@ -919,11 +919,11 @@ function HelpTab() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>
-        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#D4AF37]">Support</p>
+        <p className="text-[0.55rem] font-black uppercase tracking-[0.28em] text-[#5BA3CF]">Support</p>
         <h2 className="font-display text-2xl font-black tracking-[-0.04em]">Help Center</h2>
       </div>
       <div className="rounded-xl border border-black/[0.06] bg-white p-8 text-center">
-        <HelpCircle className="mx-auto h-10 w-10 text-[#D4AF37]" />
+        <HelpCircle className="mx-auto h-10 w-10 text-[#5BA3CF]" />
         <p className="mt-4 font-display text-xl font-black tracking-[-0.04em]">How can we help you?</p>
         <p className="mt-2 text-sm text-[#999]">Browse guides, contact support, or visit the seller community.</p>
         <div className="mt-6 flex justify-center gap-3">
@@ -937,10 +937,11 @@ function HelpTab() {
 
 /* ─── Shared ─── */
 function Loader() {
-  return <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" /></div>;
+  return <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div>;
 }
 
 function MenuIcon({ className }: { className?: string }) {
   return <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
 }
+
 

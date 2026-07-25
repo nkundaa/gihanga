@@ -34,7 +34,7 @@ export default function Messages() {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" /></div>
+          <div className="flex justify-center py-20"><div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" /></div>
         ) : conversations.length === 0 ? (
           <EmptyState title="No conversations yet" copy="Start a conversation with a store from their profile page."
             action={<MagneticButton to="/stores" variant="gold" className="min-h-12 px-6 py-3 text-sm">Browse stores</MagneticButton>} />
@@ -43,8 +43,8 @@ export default function Messages() {
             {conversations.map((c) => (
               <Link key={c.id} to={`/messages/${c.id}`}
                 className="flex items-center gap-4 rounded-2xl border border-black/[0.06] bg-white p-4 transition hover:bg-[#F8F9FA]">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#D4AF37]/20">
-                  <Store className="h-5 w-5 text-[#D4AF37]" />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#5BA3CF]/20">
+                  <Store className="h-5 w-5 text-[#5BA3CF]" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
@@ -64,4 +64,5 @@ export default function Messages() {
     </div>
   );
 }
+
 

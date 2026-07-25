@@ -13,16 +13,16 @@ export default function Wishlist() {
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.18),transparent_30%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.16),transparent_30%)]" />
         <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#D4AF37] sm:text-xs sm:tracking-[0.42em]">Your wishlist</p>
+          <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#5BA3CF] sm:text-xs sm:tracking-[0.42em]">Your wishlist</p>
           <h1 className="mt-3 max-w-5xl font-display text-[clamp(1.3rem,5vw,5.2rem)] font-black uppercase leading-[0.94] tracking-[-0.08em] sm:mt-4">
-            Saved <span className="font-editorial normal-case text-[#D4AF37]">pieces</span><br />
+            Saved <span className="font-editorial normal-case text-[#5BA3CF]">pieces</span><br />
             <span className="text-stroke text-white">you love</span>
           </h1>
           <p className="mt-2 max-w-xl text-xs text-white/70 sm:mt-4 sm:text-sm">
             {count} {count === 1 ? "piece" : "pieces"} saved for later.
           </p>
           {count > 0 ? (
-            <button type="button" onClick={clearWishlist} className="mt-3 min-h-11 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#D4AF37] underline-grow sm:mt-4 sm:text-xs sm:tracking-[0.2em]">
+            <button type="button" onClick={clearWishlist} className="mt-3 min-h-11 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-[#5BA3CF] underline-grow sm:mt-4 sm:text-xs sm:tracking-[0.2em]">
               Clear wishlist
             </button>
           ) : null}
@@ -48,7 +48,7 @@ export default function Wishlist() {
       {count > 0 ? (
         <section className="overflow-x-hidden bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
           <div className="mx-auto max-w-7xl text-center">
-            <Heart className="mx-auto h-8 w-8 text-[#D4AF37]" />
+            <Heart className="mx-auto h-8 w-8 text-[#5BA3CF]" />
             <h2 className="mt-4 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em]">Ready to checkout?</h2>
             <p className="mt-3 text-[#666666]">Your saved pieces are waiting. Add them to your bag and complete your order.</p>
             <div className="mt-8 flex justify-center gap-3">
@@ -60,4 +60,5 @@ export default function Wishlist() {
     </div>
   );
 }
+
 

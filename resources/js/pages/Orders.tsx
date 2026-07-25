@@ -54,7 +54,7 @@ export default function Orders() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#D4AF37] border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#5BA3CF] border-t-transparent" />
           </div>
         ) : filtered.length === 0 ? (
           <EmptyState title="No orders found" copy={statusFilter !== "all" ? `No orders with status "${statusFilter}".` : "You haven't placed any orders yet."}
@@ -79,4 +79,5 @@ export default function Orders() {
     </div>
   );
 }
+
 
