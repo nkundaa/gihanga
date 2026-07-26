@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { cn } from "../utils/cn";
 import { categories as mockCategories, heroImages, products as mockProducts, stores as mockStores, formatRwf, type Product, type Store, type Category } from "../data/catalog";
-import { Button, ProductCard, SectionHeader, StoreCard } from "../components/ui";
+import { Button, MagneticButton, ProductCard, SectionHeader, StoreCard } from "../components/ui";
 import Seo from "../components/Seo";
 
 const shopCategories = [
