@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn, Smartphone } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { Button, Input } from "../components/ui";
 import Seo from "../components/Seo";
@@ -17,6 +17,8 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    if (!email.trim()) { setError("Email is required"); return; }
+    if (!password) { setError("Password is required"); return; }
     setBusy(true);
     try {
       await login(email, password);
@@ -31,7 +33,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen items-center justify-center overflow-x-hidden bg-[#FAF9F5] px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:pb-0 lg:pt-32">
-      <Seo title="Sign In - Gihanga Market" description="Sign in to your GIHANGA account to shop, manage orders, and more." />
+      <Seo title="Sign In - Gihanga Market" description="Sign in to your GIHANGA account to shop and manage orders." />
       <div className="w-full max-w-md">
         <div className="rounded-xl border border-[#14171F]/[0.08] bg-white p-6 sm:p-8 shadow-[0_4px_24px_rgba(20,23,31,0.06)]">
           <div className="mb-8 text-center">
@@ -39,10 +41,10 @@ export default function Login() {
               <LogIn className="h-7 w-7 text-[#2C5A82]" />
             </div>
             <h1 className="mt-4 font-display text-2xl font-black tracking-[-0.05em] text-[#14171F]">Welcome back</h1>
-            <p className="mt-2 text-sm text-[#6D6D6D]">Sign in to your GIHANGA account</p>
+            <p className="mt-2 text-sm text-[#6D6D6D]">Sign in with your email or phone number</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
             {error && (
               <div className="rounded-lg bg-[#FEF2F2] border border-[#FECACA] p-4 text-sm text-[#EF4444]">
                 {error}
@@ -50,12 +52,12 @@ export default function Login() {
             )}
 
             <Input
-              label="Email"
-              type="email"
+              label="Email or phone"
+              type="text"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              placeholder="you@example.com or +250 788 000 000"
             />
 
             <div>
@@ -66,7 +68,7 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-xl border border-[#14171F]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#14171F] outline-none transition-all duration-200 placeholder:text-[#909090] focus:border-[#2C5A82] focus:shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
+                  className="w-full rounded-xl border border-[#14171F]/15 bg-white px-4 py-3.5 pr-11 text-sm text-[#14171F] outline-none transition-all duration-200 placeholder:text-[#909090] focus:border-[#2C5A82] focus:shadow-[0_0_0_3px_rgba(44,90,130,0.15)]"
                   placeholder="Your password"
                 />
                 <button type="button" onClick={() => setShow(!show)} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-[#909090] hover:text-[#14171F] transition">
@@ -80,10 +82,13 @@ export default function Login() {
             </Button>
           </form>
 
-          <div className="mt-4 text-center">
+          <div className="mt-4 text-center space-y-2">
             <Link to="/forgot-password" className="text-xs font-bold uppercase tracking-[0.18em] text-[#6D6D6D] underline-grow">
               Forgot password?
             </Link>
+            <p className="text-xs text-[#909090]">
+              <Smartphone className="mr-1 inline h-3 w-3" /> Phone-based sign in coming soon
+            </p>
           </div>
 
           <p className="mt-6 text-center text-sm text-[#6D6D6D]">

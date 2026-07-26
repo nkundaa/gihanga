@@ -110,15 +110,25 @@ export default function Checkout() {
     );
   }
 
-  if (!isAuthenticated) {
+  const [guestMode, setGuestMode] = useState(() => !!localStorage.getItem("guest_checkout"));
+  const enableGuest = () => { localStorage.setItem("guest_checkout", "1"); setGuestMode(true); };
+
+  if (!isAuthenticated && !guestMode) {
     return (
       <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
         <p className="font-editorial text-6xl text-[#2C5A82]">ðŸ”’</p>
-        <h1 className="font-display text-3xl font-black tracking-[-0.05em]">Sign in to checkout</h1>
-        <p className="max-w-sm text-[#6D6D6D]">You need to be signed in to place an order.</p>
+        <h1 className="font-display text-3xl font-black tracking-[-0.05em]">Checkout</h1>
+        <p className="max-w-sm text-[#6D6D6D]">Sign in for faster checkout or continue as a guest.</p>
         <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <MagneticButton to="/login" variant="gold" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Sign in</MagneticButton>
           <MagneticButton to="/register" variant="primary" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Create account</MagneticButton>
+        </div>
+        <div className="mt-4 w-full max-w-md border-t border-black/10 pt-6">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-[#6D6D6D]">Or continue as guest</p>
+          <MagneticButton variant="secondary" className="min-h-12 w-full justify-center px-6 py-3 text-sm" onClick={enableGuest}>
+            Guest checkout
+          </MagneticButton>
+          <p className="mt-2 text-xs text-[#909090]">Your order will be linked to your contact details. Create an account after checkout to track it.</p>
         </div>
       </div>
     );
@@ -194,6 +204,12 @@ export default function Checkout() {
               <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
                 <h2 className="font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Payment method</h2>
                 <p className="mt-2 text-sm text-[#6D6D6D]">Choose your preferred payment method.</p>
+                <div className="mt-4 rounded-2xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-4 text-sm">
+                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82]">
+                    <Lock className="h-4 w-4 shrink-0" /> Encrypted & Secure
+                  </div>
+                  <p className="mt-2 text-xs leading-5 text-[#6D6D6D]">Your payment info is encrypted (AES-256). We never store full card numbers or mobile money PINs. Mobile Money payments are processed through verified MTN/Airtel gateways.</p>
+                </div>
                 <div className="mt-6 grid gap-3">
                   {paymentOptions.map((opt) => (
                     <button key={opt.value} type="button" onClick={() => setPayment(opt.value)} className={cn("flex items-center gap-4 rounded-2xl border p-5 text-left transition min-h-[4.5rem]", payment === opt.value ? "border-[#2C5A82] bg-[#2C5A82]/10" : "border-black/10 bg-white hover:border-black/30")}>
@@ -284,8 +300,10 @@ export default function Checkout() {
                   <span className="font-display text-lg font-black tracking-[-0.03em]">{formatRwf(total)}</span>
                 </div>
               </div>
-              <div className="mt-3 flex items-center gap-2 text-xs text-[#6D6D6D]">
-                <Truck className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Free Kigali delivery included
+              <div className="mt-4 space-y-2 rounded-2xl bg-[#FAF9F5] p-4 text-xs">
+                <div className="flex items-center gap-2 font-bold text-[#14171F]"><Truck className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Kigali delivery</div>
+                <p className="text-[#6D6D6D]">Free delivery within Kigali (Kicukiro, Kacyiru, Remera, Kimihurura, Nyarutarama, Gikondo). Estimated 24-48 hours.</p>
+                <p className="text-[#6D6D6D]">Delivery beyond Kigali: contact the store for rates and timing.</p>
               </div>
             </div>
           </aside>

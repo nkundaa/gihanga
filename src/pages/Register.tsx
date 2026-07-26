@@ -5,36 +5,57 @@ import { useAuth } from "../context/AuthContext";
 import { Button, Input } from "../components/ui";
 import Seo from "../components/Seo";
 
+type FieldErrors = Record<string, string>;
+
+const validate = (f: { name: string; email: string; phone: string; password: string; confirm: string }): FieldErrors => {
+  const e: FieldErrors = {};
+  if (!f.name.trim()) e.name = "Full name is required";
+  if (!f.email.trim()) e.email = "Email is required";
+  else if (!/^\S+@\S+\.\S+$/.test(f.email)) e.email = "Enter a valid email address";
+  if (f.phone && !/^[\d\s\+\-\(\)]{7,}$/.test(f.phone)) e.phone = "Enter a valid phone number";
+  if (!f.password) e.password = "Password is required";
+  else if (f.password.length < 8) e.password = "Password must be at least 8 characters";
+  if (f.password !== f.confirm) e.confirm = "Passwords do not match";
+  return e;
+};
+
 export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [error, setError] = useState("");
+  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "", confirm: "" });
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [serverError, setServerError] = useState("");
   const [busy, setBusy] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+    if (errors[e.target.name]) setErrors((p) => { const n = { ...p }; delete n[e.target.name]; return n; });
+    if (serverError) setServerError("");
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setTouched((p) => ({ ...p, [e.target.name]: true }));
+    const fieldErrors = validate(form);
+    if (fieldErrors[e.target.name]) setErrors((p) => ({ ...p, [e.target.name]: fieldErrors[e.target.name] }));
+    else setErrors((p) => { const n = { ...p }; delete n[e.target.name]; return n; });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    if (password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
+    setServerError("");
+    const fieldErrors = validate(form);
+    setErrors(fieldErrors);
+    setTouched({ name: true, email: true, phone: true, password: true, confirm: true });
+    if (Object.keys(fieldErrors).length > 0) return;
     setBusy(true);
     try {
-      await register({ name, email, password, password_confirmation: confirm, phone: phone || undefined });
+      await register({ name: form.name, email: form.email, password: form.password, password_confirmation: form.confirm, phone: form.phone || undefined });
       navigate("/home");
     } catch (err: unknown) {
       const data = (err as { response?: { data?: Record<string, string[]> } })?.response?.data;
       const msg = data ? Object.values(data).flat().join(" ") : "Registration failed. Try again.";
-      setError(msg);
+      setServerError(msg);
     } finally {
       setBusy(false);
     }
@@ -53,55 +74,70 @@ export default function Register() {
             <p className="mt-2 text-sm text-[#6D6D6D]">Join GIHANGA as a customer</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {error && (
+          <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+            {serverError && (
               <div className="rounded-lg bg-[#FEF2F2] border border-[#FECACA] p-4 text-sm text-[#EF4444]">
-                {error}
+                {serverError}
               </div>
             )}
 
             <Input
               label="Full name"
+              name="name"
               type="text"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={form.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Jean Baptiste Mugabo"
+              error={touched.name ? errors.name : undefined}
             />
 
             <Input
               label="Email"
+              name="email"
               type="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="jean@example.com"
+              error={touched.email ? errors.email : undefined}
             />
 
             <Input
               label="Phone (optional)"
+              name="phone"
               type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={form.phone}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="+250 788 000 000"
+              error={touched.phone ? errors.phone : undefined}
             />
 
             <Input
               label="Password"
+              name="password"
               type="password"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={form.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Min 8 characters"
+              error={touched.password ? errors.password : undefined}
             />
 
             <Input
               label="Confirm password"
+              name="confirm"
               type="password"
               required
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
+              value={form.confirm}
+              onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Repeat your password"
+              error={touched.confirm ? errors.confirm : undefined}
             />
 
             <Button type="submit" variant="primary" fullWidth loading={busy} size="lg">

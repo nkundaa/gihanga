@@ -1,6 +1,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { motion, useReducedMotion } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
+import * as THREE from "three";
 import { Link, useNavigate } from "react-router-dom";
 import * as THREE from "three";
 import {
@@ -174,13 +175,13 @@ function HeroSection({ clothesProduct, shoesProduct }: { clothesProduct: Product
 
             <h1 className="mt-3 font-display text-[clamp(1.3rem,5.5vw,6rem)] font-black leading-[0.9] tracking-[-0.08em] text-white sm:mt-6">
               <motion.span initial={reduceMotion ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }} className="block">
-                Browse what <span className="font-editorial text-[#2C5A82]">you</span> love
+                Kigali's <span className="font-editorial text-[#2C5A82]">premium</span> fashion
               </motion.span>
             </h1>
 
             <motion.p className="mt-2 max-w-xl text-xs leading-6 text-white/80 sm:mt-6 sm:text-base sm:leading-8"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}>
-              Online Marketplace built in Rwanda.
+              Rwanda's marketplace for verified clothing, shoes, bags and accessory stores across Kigali.
             </motion.p>
 
             <motion.div className="mt-4 flex flex-col gap-2 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
@@ -191,6 +192,13 @@ function HeroSection({ clothesProduct, shoesProduct }: { clothesProduct: Product
               <Button to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
                 Explore Stores
               </Button>
+            </motion.div>
+
+            <motion.div className="mt-6 flex flex-wrap items-center gap-6 text-xs text-white/60"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">6+</span> verified stores</span>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">2,200+</span> products</span>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">4.8★</span> avg store rating</span>
             </motion.div>
           </div>
 
@@ -255,6 +263,7 @@ function HeroSection({ clothesProduct, shoesProduct }: { clothesProduct: Product
 
 function ParticleField() {
   const ref = useRef<THREE.Points>(null);
+  const timer = useRef(new THREE.Timer());
   const geometry = useMemo(() => {
     const positions = new Float32Array(300 * 3);
     for (let i = 0; i < 300; i += 1) { positions[i * 3] = (Math.random() - 0.5) * 8; positions[i * 3 + 1] = (Math.random() - 0.5) * 5; positions[i * 3 + 2] = (Math.random() - 0.5) * 4; }
@@ -262,9 +271,10 @@ function ParticleField() {
     g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     return g;
   }, []);
-  useFrame(({ clock, mouse }) => {
+  useFrame(({ mouse }) => {
     if (!ref.current) return;
-    ref.current.rotation.y = clock.elapsedTime * 0.035 + mouse.x * 0.08;
+    const elapsed = timer.current.getElapsed();
+    ref.current.rotation.y = elapsed * 0.035 + mouse.x * 0.08;
     ref.current.rotation.x = mouse.y * 0.045;
   });
   return (<points ref={ref} geometry={geometry}><pointsMaterial color="#2C5A82" size={0.025} transparent opacity={0.55} depthWrite={false} /></points>);
@@ -272,10 +282,12 @@ function ParticleField() {
 
 function Orb({ position, scale, color }: { position: [number, number, number]; scale: number; color: string }) {
   const ref = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
+  const timer = useRef(new THREE.Timer());
+  useFrame(() => {
     if (!ref.current) return;
-    ref.current.position.y = position[1] + Math.sin(clock.elapsedTime * 0.8 + position[0]) * 0.18;
-    ref.current.rotation.y = clock.elapsedTime * 0.16;
+    const elapsed = timer.current.getElapsed();
+    ref.current.position.y = position[1] + Math.sin(elapsed * 0.8 + position[0]) * 0.18;
+    ref.current.rotation.y = elapsed * 0.16;
   });
   return (<mesh ref={ref} position={position} scale={scale}><sphereGeometry args={[1, 32, 32]} /><meshBasicMaterial color={color} transparent opacity={0.08} depthWrite={false} /></mesh>);
 }

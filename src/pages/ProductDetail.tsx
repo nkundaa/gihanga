@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { BadgeCheck, Heart, MapPin, ShieldCheck, Star, Truck, CheckCircle2 } from "lucide-react";
+import { BadgeCheck, Heart, MapPin, ShieldCheck, Star, Truck, CheckCircle2, Info, Package, Clock, Sparkles } from "lucide-react";
 import { cn } from "../utils/cn";
 import { formatRwf, products as mockProducts, getProduct as mockGetProduct, getReviews as mockGetReviews, type Product, type Review } from "../data/catalog";
 import { api } from "../api";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
-import { Breadcrumb, MagneticButton, ProductCard } from "../components/ui";
+import { Breadcrumb, MagneticButton, ProductCard, Modal } from "../components/ui";
 import Seo from "../components/Seo";
 
 export default function ProductDetail() {
@@ -21,6 +21,7 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState(0);
   const [size, setSize] = useState<string | undefined>(undefined);
   const [color, setColor] = useState<string | undefined>(undefined);
+  const [verificationOpen, setVerificationOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -107,18 +108,39 @@ export default function ProductDetail() {
         </div>
 
         <div data-reveal className="lg:sticky lg:top-28 lg:self-start">
-          <Link to={storeLink} className="inline-flex min-h-11 items-center gap-2 text-xs font-black uppercase tracking-[0.28em] text-[#14171F]/60 underline-grow">
-            <BadgeCheck className="h-4 w-4 text-[#2C5A82]" /> {product.storeName}
-          </Link>
-          <h1 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.4rem)] font-black leading-[0.92] tracking-[-0.055em]">{product.name}</h1>
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-            <span className="inline-flex items-center gap-1 font-bold"><Star className="h-4 w-4 fill-[#2C5A82] text-[#2C5A82]" /> {product.rating.toFixed(1)} Â· {product.reviews} reviews</span>
-            <span className="text-[#6D6D6D]">Â· {product.category}</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="button" onClick={() => setVerificationOpen(true)} className="inline-flex min-h-9 items-center gap-1 rounded-full bg-[#22C55E]/10 px-3 py-1 text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#22C55E] transition hover:bg-[#22C55E]/20">
+              <BadgeCheck className="h-3 w-3" /> Verified
+            </button>
+            <Link to={storeLink} className="inline-flex min-h-9 items-center gap-1 text-xs font-bold text-[#14171F]/60 underline-grow">
+              {product.storeName}
+            </Link>
+          </div>
+          <h1 className="mt-3 font-display text-[clamp(1.5rem,4.5vw,4.4rem)] font-black leading-[0.92] tracking-[-0.055em]">{product.name}</h1>
+
+          <div className="mt-3 flex items-baseline gap-3">
+            <p className="font-display text-[clamp(1.5rem,4vw,2.5rem)] font-black tracking-[-0.05em]">{formatRwf(product.price)}</p>
+            {product.originalPrice ? <p className="text-base text-[#6D6D6D] line-through sm:text-lg">{formatRwf(product.originalPrice)}</p> : null}
+            {product.originalPrice ? (
+              <span className="rounded-full bg-[#FF6B6B]/10 px-2.5 py-0.5 text-[0.6rem] font-black text-[#FF6B6B]">
+                -{Math.round((1 - product.price / product.originalPrice) * 100)}%
+              </span>
+            ) : null}
           </div>
 
-          <div className="mt-4 flex items-baseline gap-4 sm:mt-8">
-            <p className="font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.05em]">{formatRwf(product.price)}</p>
-            {product.originalPrice ? <p className="text-base text-[#6D6D6D] line-through sm:text-lg">{formatRwf(product.originalPrice)}</p> : null}
+          <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
+            <span className="inline-flex items-center gap-1 font-bold"><Star className="h-4 w-4 fill-[#2C5A82] text-[#2C5A82]" /> {product.rating.toFixed(1)}</span>
+            <span className="text-[#6D6D6D]">· <button type="button" onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })} className="underline underline-offset-2 hover:text-[#14171F]">{product.reviews} review{product.reviews === 1 ? "" : "s"}</button></span>
+            <span className="text-[#6D6D6D]">· {product.category}</span>
+            <span className="inline-flex items-center gap-1 text-[#22C55E]"><CheckCircle2 className="h-3.5 w-3.5" /> In stock</span>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-3 rounded-2xl border border-[#14171F]/10 bg-[#FAF9F5] p-4 text-xs">
+            <span className="inline-flex items-center gap-1.5"><Truck className="h-3.5 w-3.5 text-[#2C5A82]" /> Delivery in Kigali: 24-48h</span>
+            <span className="text-[#14171F]/20">|</span>
+            <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-[#2C5A82]" /> Kicukiro, Kacyiru, Remera</span>
+            <span className="text-[#14171F]/20">|</span>
+            <span className="inline-flex items-center gap-1.5"><Package className="h-3.5 w-3.5 text-[#2C5A82]" /> Free Kigali delivery</span>
           </div>
 
           {product.sizes ? (
@@ -226,14 +248,26 @@ export default function ProductDetail() {
 
       <ProductReviews reviews={productReviews} />
 
-      <section className="overflow-x-hidden bg-[#14171F] px-4 py-8 text-white sm:px-6 lg:px-8 sm:py-10">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 text-sm">
-          <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Delivery in Kigali</span>
-          <span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Buyer protection</span>
-          <span className="inline-flex items-center gap-2"><BadgeCheck className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Verified boutique</span>
-          <span className="inline-flex items-center gap-2"><Star className="h-4 w-4 shrink-0 text-[#2C5A82]" /> 4.9 average rating</span>
+      <Modal open={verificationOpen} onClose={() => setVerificationOpen(false)} title="What verification means">
+        <div className="space-y-4 text-sm leading-6 text-[#6D6D6D]">
+          <div className="flex items-start gap-3">
+            <BadgeCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#22C55E]" />
+            <div><strong className="text-[#14171F]">Business registration verified</strong><br />Each store has submitted valid business registration documents that have been reviewed by our team.</div>
+          </div>
+          <div className="flex items-start gap-3">
+            <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-[#22C55E]" />
+            <div><strong className="text-[#14171F]">Identity check completed</strong><br />Store owners have completed KYC verification including government ID and in-person or video confirmation.</div>
+          </div>
+          <div className="flex items-start gap-3">
+            <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-[#22C55E]" />
+            <div><strong className="text-[#14171F]">Physical location confirmed</strong><br />We verify each boutique has a physical presence in Kigali through address confirmation and site visits.</div>
+          </div>
+          <div className="flex items-start gap-3">
+            <Star className="mt-0.5 h-5 w-5 shrink-0 text-[#22C55E]" />
+            <div><strong className="text-[#14171F]">Ongoing quality monitoring</strong><br />Stores are regularly reviewed for product quality, delivery reliability, and customer satisfaction.</div>
+          </div>
         </div>
-      </section>
+      </Modal>
     </div>
   );
 }
@@ -244,7 +278,7 @@ function ProductReviews({ reviews }: { reviews: Review[] }) {
   const avgRating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
 
   return (
-    <section className="overflow-x-hidden bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
+    <section id="reviews-section" className="overflow-x-hidden bg-white px-4 py-16 sm:px-6 lg:px-8 sm:py-20">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

@@ -10,6 +10,10 @@
   --gold: #C6912E;
   --clay: #B5502E;
   --clay-deep: #7A3319;
+  --umutima: #C24B3D;
+  --umutima-deep: #9A3529;
+  --ikibabi: #4A7C59;
+  --ikibabi-deep: #356244;
   --line: rgba(20, 23, 31, 0.10);
   --muted: rgba(20, 23, 31, 0.62);
   --success: #22C55E;
@@ -275,6 +279,14 @@ img { max-width: 100%; }
 
 .clay-text {
   color: var(--clay);
+}
+
+.umutima-text {
+  color: var(--umutima);
+}
+
+.ikibabi-text {
+  color: var(--ikibabi);
 }
 
 /* ===== Skeleton Loading ===== */

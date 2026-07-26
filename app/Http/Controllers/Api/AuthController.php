@@ -22,14 +22,31 @@ class AuthController extends Controller
             'role' => 'nullable|in:customer,seller',
         ];
 
+        $messages = [
+            'name.required' => 'Full name is required.',
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Enter a valid email address.',
+            'email.unique' => 'This email is already registered.',
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password must be at least 8 characters.',
+            'password.confirmed' => 'Passwords do not match.',
+            'phone.max' => 'Phone number is too long.',
+            'role.in' => 'Invalid account type.',
+        ];
+
         if ($request->role === 'seller') {
             $rules['store_name'] = 'required|string|max:255';
             $rules['business_name'] = 'required|string|max:255';
             $rules['payment_number'] = 'required|string|max:50';
             $rules['payment_provider'] = 'required|in:mtn,airtel,mixx_by_bank,cash';
+            $messages['store_name.required'] = 'Store name is required.';
+            $messages['business_name.required'] = 'Business name is required.';
+            $messages['payment_number.required'] = 'Mobile money number is required.';
+            $messages['payment_provider.required'] = 'Select a mobile money provider.';
+            $messages['payment_provider.in'] = 'Invalid payment provider. Choose MTN, Airtel, Mixx by Bank, or Cash.';
         }
 
-        $validated = $request->validate($rules);
+        $validated = $request->validate($rules, $messages);
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['role'] ??= 'customer';

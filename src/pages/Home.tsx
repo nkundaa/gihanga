@@ -159,7 +159,7 @@ function Hero({ products }: { products: Product[] }) {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="block"
               >
-                Browse what <span className="font-editorial text-[#2C5A82]">you</span> love
+                Kigali's <span className="font-editorial text-[#2C5A82]">premium</span> fashion
               </motion.span>
             </h1>
 
@@ -169,7 +169,7 @@ function Hero({ products }: { products: Product[] }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              Shop trending products, explore trusted stores, and connect with sellers across Rwanda.
+              Rwanda's marketplace for verified clothing, shoes, bags and accessory stores across Kigali.
             </motion.p>
 
             <motion.div
@@ -184,6 +184,13 @@ function Hero({ products }: { products: Product[] }) {
               <Button to="/stores" variant="ghost" className="w-full justify-center px-5 py-3 text-xs sm:w-auto">
                 Explore Stores
               </Button>
+            </motion.div>
+
+            <motion.div className="mt-6 flex flex-wrap items-center gap-6 text-xs text-white/60"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">6+</span> verified stores</span>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">2,200+</span> products</span>
+              <span className="inline-flex items-center gap-1.5"><span className="font-black text-[#2C5A82]">4.8★</span> avg store rating</span>
             </motion.div>
           </div>
 
@@ -267,6 +274,7 @@ function HeroScene() {
 
 function ParticleField() {
   const ref = useRef<THREE.Points>(null);
+  const timer = useRef(new THREE.Timer());
   const geometry = useMemo(() => {
     const positions = new Float32Array(300 * 3);
     for (let i = 0; i < 300; i += 1) {
@@ -278,9 +286,10 @@ function ParticleField() {
     g.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     return g;
   }, []);
-  useFrame(({ clock, mouse }) => {
+  useFrame(({ mouse }) => {
     if (!ref.current) return;
-    ref.current.rotation.y = clock.elapsedTime * 0.035 + mouse.x * 0.08;
+    const elapsed = timer.current.getElapsed();
+    ref.current.rotation.y = elapsed * 0.035 + mouse.x * 0.08;
     ref.current.rotation.x = mouse.y * 0.045;
   });
   return (
@@ -292,10 +301,12 @@ function ParticleField() {
 
 function Orb({ position, scale, color }: { position: [number, number, number]; scale: number; color: string }) {
   const ref = useRef<THREE.Mesh>(null);
-  useFrame(({ clock }) => {
+  const timer = useRef(new THREE.Timer());
+  useFrame(() => {
     if (!ref.current) return;
-    ref.current.position.y = position[1] + Math.sin(clock.elapsedTime * 0.8 + position[0]) * 0.18;
-    ref.current.rotation.y = clock.elapsedTime * 0.16;
+    const elapsed = timer.current.getElapsed();
+    ref.current.position.y = position[1] + Math.sin(elapsed * 0.8 + position[0]) * 0.18;
+    ref.current.rotation.y = elapsed * 0.16;
   });
   return (
     <mesh ref={ref} position={position} scale={scale}>
@@ -306,7 +317,7 @@ function Orb({ position, scale, color }: { position: [number, number, number]; s
 }
 
 function Marquee() {
-  const items = ["Verified Kigali boutiques", "Premium fashion discovery", "Live delivery tracking", "Mobile Money ready", "Buyer protection", "Luxury local commerce"];
+  const items = ["Kigali · Verified fashion", "6+ trusted boutiques", "2,200+ curated pieces", "Delivery across Kigali", "Mobile Money accepted", "4.8★ store rating"];
   return (
     <section aria-label="Highlights" className="overflow-hidden border-y border-black/[0.06] bg-[#FAF9F5] py-3 sm:py-8">
       <div className="marquee-track flex w-max gap-6 whitespace-nowrap text-[0.5rem] font-bold uppercase tracking-[0.24em] text-[#14171F]/45 sm:gap-10 sm:text-sm sm:tracking-[0.32em]">
@@ -613,14 +624,14 @@ function CtaBanner() {
         <div aria-hidden className="absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#2C5A82]/15 blur-3xl" />
         <div className="relative z-10 flex flex-col gap-6 lg:grid lg:grid-cols-[1.2fr_0.8fr] lg:items-end lg:gap-10">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.36em] text-[#2C5A82]">Vendor invitation</p>
+            <p className="text-xs font-black uppercase tracking-[0.36em] text-[#2C5A82]">Boutique registration</p>
             <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.8rem,6vw,7rem)] font-black leading-[0.88] tracking-[-0.08em] sm:mt-5">
-              Start <span className="font-editorial text-[#2C5A82]">selling</span> on GIHANGA today.
+              Put your <span className="font-editorial text-[#2C5A82]">store</span> on Kigali's map.
             </h2>
           </div>
           <div className="lg:justify-self-end">
-            <p className="mb-5 max-w-md text-sm leading-7 text-white/70 sm:mb-7 sm:text-lg sm:leading-8">Bring your store online with a premium marketplace experience made for Kigali's fashion economy.</p>
-            <MagneticButton to="/sell" variant="gold" className="w-full justify-center px-8 py-4 sm:w-auto">Create Store</MagneticButton>
+            <p className="mb-5 max-w-md text-sm leading-7 text-white/70 sm:mb-7 sm:text-lg sm:leading-8">Join Rwanda's premium fashion marketplace. Verified boutiques get discovery, delivery infrastructure and buyer trust — built in.</p>
+            <MagneticButton to="/sell" variant="gold" className="w-full justify-center px-8 py-4 sm:w-auto">Open your boutique</MagneticButton>
           </div>
         </div>
       </div>

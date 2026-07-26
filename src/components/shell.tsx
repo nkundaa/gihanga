@@ -127,8 +127,10 @@ export function Navigation() {
       )}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link to="/" className="group flex items-center gap-2 sm:gap-3" aria-label="GIHANGA home">
-          <img src="/images/logo.png" alt="" className={cn("h-8 w-auto sm:h-12 transition-all duration-500", (scrolled || !isHomePage) && "sm:h-10")} />
+        <Link to="/" className="group flex items-center gap-2 sm:gap-2.5" aria-label="GIHANGA home">
+          <span className="relative flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#2C5A82] text-white font-black text-xs sm:text-sm tracking-tight transition-all duration-500 group-hover:rounded-2xl">
+            G
+          </span>
           <span className={cn(
             "font-display text-lg sm:text-2xl font-black tracking-[-0.06em] transition-all duration-500",
             (scrolled || !isHomePage) ? "text-[#14171F]" : "text-white"
@@ -668,13 +670,18 @@ export function Footer() {
       <div className="relative mx-auto max-w-7xl">
         <div className="grid gap-8 text-center sm:text-left sm:grid-cols-2 lg:grid-cols-[1.1fr_1.4fr]">
           <div>
-            <Link to="/" className="inline-flex items-center gap-2">
-              <img src="/images/logo.png" alt="" className="h-8 w-auto sm:h-12" />
+            <Link to="/" className="inline-flex items-center gap-2.5">
+              <span className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#2C5A82] text-white font-black text-xs sm:text-sm">G</span>
               <span className="font-display text-xl font-black tracking-[-0.08em] text-white sm:text-3xl">GIHANGA</span>
             </Link>
             <p className="mt-2 max-w-md text-xs leading-5 text-white/60 sm:text-sm sm:leading-6">
-              Rwanda's premium fashion marketplace connecting customers with verified clothing, shoe, bag and accessory stores across Kigali.
+              Kigali's fashion marketplace — connecting verified clothing, shoe, bag and accessory boutiques with customers across Rwanda.
             </p>
+            <div className="mt-3 flex flex-wrap gap-4 text-xs text-white/40">
+              <span className="inline-flex items-center gap-1"><span className="font-black text-[#2C5A82]">6+</span> stores</span>
+              <span className="inline-flex items-center gap-1"><span className="font-black text-[#2C5A82]">2,200+</span> products</span>
+              <span className="inline-flex items-center gap-1"><span className="font-black text-[#2C5A82]">4.8★</span> rating</span>
+            </div>
             <form className="mt-5 flex flex-col sm:flex-row max-w-md gap-2 overflow-hidden rounded-xl border border-white/15 bg-white/5 p-1.5 backdrop-blur-xl" onSubmit={(e) => e.preventDefault()}>
               <label htmlFor="newsletter-footer" className="sr-only">Email address</label>
               <input id="newsletter-footer" type="email" autoComplete="email" placeholder="Email for launch updates" className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white outline-none placeholder:text-white/40 sm:px-4 sm:text-sm" />
@@ -695,7 +702,7 @@ export function Footer() {
             </div>
             <div>
               <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82] sm:text-sm sm:tracking-[0.28em]">Newsletter</h3>
-              <p className="mt-3 text-xs text-white/55 sm:mt-5 sm:text-sm">The Kigali edit, every Thursday. New stores, drops and stories.</p>
+              <p className="mt-3 text-xs text-white/55 sm:mt-5 sm:text-sm">The Kigali edit, every Thursday. New boutique drops, city style stories and member-only releases.</p>
             </div>
           </div>
         </div>

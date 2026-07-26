@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Camera, CheckCircle2, ShieldCheck, Smartphone, Upload, User } from "lucide-react";
 import { MagneticButton } from "../components/ui";
 import { api } from "../api";
 
+const STORAGE_KEY = "gihanga_seller_apply";
 const stepRequired: Record<number, string[]> = {
   0: ["fullName", "phone", "email", "storeName", "businessName"],
   1: ["paymentNumber", "paymentProvider"],
@@ -19,15 +20,33 @@ const initialForm: FormState = {
   agreeVerification: false, agreeSellerAgreement: false,
 };
 
+function loadDraft(): { step: number; form: FormState; touched: Record<string, boolean>; fileNames: Record<string, string> } | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function saveDraft(step: number, form: FormState, touched: Record<string, boolean>, fileNames: Record<string, string>) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step, form, touched, fileNames })); } catch {}
+}
+
+function clearDraft() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
+}
+
 export default function SellApply() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [step, setStep] = useState(0);
+  const draft = loadDraft();
+  const [step, setStep] = useState(draft?.step ?? 0);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [form, setForm] = useState<FormState>({ ...initialForm });
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [fileNames, setFileNames] = useState<Record<string, string>>({});
+  const [form, setForm] = useState<FormState>(draft?.form ?? { ...initialForm });
+  const [touched, setTouched] = useState<Record<string, boolean>>(draft?.touched ?? {});
+  const [fileNames, setFileNames] = useState<Record<string, string>>(draft?.fileNames ?? {});
   const [apiError, setApiError] = useState("");
+
+  useEffect(() => { saveDraft(step, form, touched, fileNames); }, [step, form, touched, fileNames]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target;
@@ -105,10 +124,12 @@ export default function SellApply() {
         phone: form.phone as string,
         role: "seller",
         store_name: form.storeName as string,
+        business_name: form.businessName as string,
         payment_number: form.paymentNumber as string,
         payment_provider: form.paymentProvider as string,
       });
 
+      clearDraft();
       setSubmitted(true);
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message ?? "Something went wrong. Please try again.";
@@ -314,9 +335,11 @@ export default function SellApply() {
                         {renderFileUpload("idFront", "Front of ID / Passport", <Upload className="h-5 w-5" />)}
                         {renderFileUpload("idBack", "Back of ID / Passport", <Upload className="h-5 w-5" />)}
                       </div>
+                      <p className="-mt-3 text-xs text-[#909090]">Accepted: Rwandan National ID, East African Passport, or Driver's License. Files must be clear, uncropped, and under 5MB each.</p>
                       {renderFileUpload("selfie", "Selfie (Face Verification)", <Camera className="h-5 w-5" />)}
-                      <div className="rounded-xl bg-[#FFF8E7] p-4 text-xs leading-6 text-[#886633]">
-                        Your documents are encrypted and used only for identity verification. We never share your data.
+                      <div className="rounded-xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-4 text-xs leading-6 text-[#6D6D6D]">
+                        <div className="flex items-center gap-2 text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#2C5A82]"><ShieldCheck className="h-3.5 w-3.5" /> Your data is encrypted</div>
+                        <p className="mt-1">Documents are encrypted (AES-256) in transit and at rest. They are used exclusively for KYC/KYB verification and never shared with third parties. Files are deleted within 90 days of verification completion.</p>
                       </div>
                       <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#888]">Agreement</p>
                       {renderCheckbox("agreeVerification", "I consent to KYC/KYB identity and business verification")}
