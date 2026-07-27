@@ -1,65 +1,48 @@
 import { useState } from "react";
-
-import { CheckCircle2, CreditCard, Lock, MapPin, Smartphone, Truck } from "lucide-react";
+import { CheckCircle2, CreditCard, Lock, MapPin, Smartphone, Truck, Wallet } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "../context/i18n";
 import { formatRwf } from "../data/catalog";
 import { api } from "../api";
 import { cn } from "../utils/cn";
-import { MagneticButton } from "../components/ui";
+import { Button, Skeleton } from "../components/ui";
 
-type PaymentMethod = "card" | "mobile_money";
-
-const paymentOptions: Array<{ value: PaymentMethod; label: string; icon: typeof CreditCard }> = [
-  { value: "card", label: "Card Payment", icon: CreditCard },
-  { value: "mobile_money", label: "Mobile Money", icon: Smartphone },
-];
+type PaymentMethod = "mobile_money" | "card" | "cod";
 
 export default function Checkout() {
-  const { lines, subtotal, count } = useCart();
+  const { lines, subtotal, count, clearCart } = useCart();
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
   const [payment, setPayment] = useState<PaymentMethod>("mobile_money");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [step, setStep] = useState<"details" | "payment" | "confirm">("details");
-  const [location, setLocation] = useState<{ lat: number; lng: number; address: string } | null>(null);
-  const [detecting, setDetecting] = useState(false);
-  const [locError, setLocError] = useState("");
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", notes: "" });
 
-  const detectLocation = () => {
-    if (!navigator.geolocation) { setLocError("Geolocation is not supported by your browser."); return; }
-    setDetecting(true); setLocError("");
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude: lat, longitude: lng } = pos.coords;
-        const mapsUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
-        setLocation({ lat, lng, address: mapsUrl });
-        setDetecting(false);
-      },
-      (err) => {
-        setLocError(err.code === 1 ? "Location access denied. Enable GPS and try again." : "Could not detect location. Try again.");
-        setDetecting(false);
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  };
+  const [guestMode, setGuestMode] = useState(() => !!localStorage.getItem("guest_checkout"));
+  const enableGuest = () => { localStorage.setItem("guest_checkout", "1"); setGuestMode(true); };
+
+  const delivery = 0;
+  const total = subtotal + delivery;
 
   const placeOrder = async () => {
+    if (!form.name || !form.phone || !form.address) {
+      setError("Please fill in your name, phone, and delivery address.");
+      return;
+    }
     setSubmitting(true);
     setError("");
     try {
-      const res = await api.orders.create({
+      await api.orders.create({
         customer_name: form.name,
         customer_phone: form.phone,
-        customer_email: form.email,
+        customer_email: form.email || null,
         customer_address: form.address,
         delivery_notes: form.notes || null,
         payment_method: payment,
-        latitude: location?.lat ?? null,
-        longitude: location?.lng ?? null,
       });
+      clearCart();
       setSubmitted(true);
     } catch (err: unknown) {
       const data = (err as { response?: { data?: Record<string, unknown> } })?.response?.data;
@@ -72,238 +55,159 @@ export default function Checkout() {
     }
   };
 
-  const delivery = 0;
-  const total = subtotal + delivery;
-
   if (count === 0 && !submitted) {
     return (
-      <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <p className="font-editorial text-6xl text-[#2C5A82]">âˆ…</p>
-        <h1 className="font-display text-3xl font-black tracking-[-0.05em]">Your bag is empty</h1>
-        <p className="max-w-sm text-[#6D6D6D]">Add some pieces before checking out.</p>
-        <MagneticButton to="/shop" variant="gold" className="min-h-12 px-6 py-3 text-sm">Browse shop</MagneticButton>
+      <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 text-center pt-28 lg:pt-32">
+        <p className="font-editorial text-5xl text-[#2C5A82]">∅</p>
+        <h1 className="font-display text-2xl font-black">{t("cart.empty")}</h1>
+        <Button to="/shop" variant="gold" className="min-h-12 px-6 py-3 text-sm">{t("cart.browse")}</Button>
       </div>
     );
   }
 
   if (submitted) {
     return (
-      <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#2C5A82]">
-          <CheckCircle2 className="h-10 w-10 text-[#14171F]" />
+      <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 text-center pt-28 lg:pt-32">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2C5A82]">
+          <CheckCircle2 className="h-8 w-8 text-white" />
         </div>
-        <h1 className="font-display text-[clamp(1.5rem,6vw,3rem)] font-black tracking-[-0.05em]">Order confirmed!</h1>
-        <p className="max-w-sm text-[#6D6D6D]">Your order has been placed. You will receive a confirmation via SMS and email with live Google Maps tracking for your delivery.</p>
-        <div className="mt-4 w-full rounded-2xl border border-black/10 bg-white p-6 text-left shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
-          <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">Order summary</p>
-          <p className="mt-2 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">{formatRwf(total)}</p>
-          <p className="text-sm text-[#6D6D6D]">{count} item{count === 1 ? "" : "s"} Â· {payment === "mobile_money" ? "Mobile Money" : "Card"} payment</p>
+        <h1 className="font-display text-2xl font-black tracking-[-0.05em]">Order confirmed!</h1>
+        <p className="max-w-sm text-sm text-[#6D6D6D]">You will receive a confirmation via SMS and email.</p>
+        <div className="flex gap-3">
+          <Button to="/shop" variant="primary" className="min-h-12 px-6 py-3 text-sm">{t("nav.shop")}</Button>
+          <Button to="/" variant="secondary" className="min-h-12 px-6 py-3 text-sm">Home</Button>
         </div>
-        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <MagneticButton to="/shop" variant="primary" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Continue shopping</MagneticButton>
-          <MagneticButton to="/" variant="secondary" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Back to home</MagneticButton>
-        </div>
-        <a href="https://maps.google.com/maps?q=Kigali+Rwanda" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-11 items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82] underline underline-offset-4 transition hover:text-[#111]">
-          <MapPin className="h-3.5 w-3.5" /> Track delivery on Google Maps
-        </a>
       </div>
     );
   }
 
-  const [guestMode, setGuestMode] = useState(() => !!localStorage.getItem("guest_checkout"));
-  const enableGuest = () => { localStorage.setItem("guest_checkout", "1"); setGuestMode(true); };
-
   if (!isAuthenticated && !guestMode) {
     return (
-      <div className="overflow-x-hidden flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 pt-36 text-center">
-        <p className="font-editorial text-6xl text-[#2C5A82]">ðŸ”’</p>
-        <h1 className="font-display text-3xl font-black tracking-[-0.05em]">Checkout</h1>
-        <p className="max-w-sm text-[#6D6D6D]">Sign in for faster checkout or continue as a guest.</p>
-        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <MagneticButton to="/login" variant="gold" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Sign in</MagneticButton>
-          <MagneticButton to="/register" variant="primary" className="min-h-12 w-full px-6 py-3 text-sm sm:w-auto">Create account</MagneticButton>
+      <div className="flex min-h-[80svh] flex-col items-center justify-center gap-6 px-4 text-center pt-28 lg:pt-32">
+        <h1 className="font-display text-2xl font-black">{t("checkout.title")}</h1>
+        <p className="max-w-sm text-sm text-[#6D6D6D]">Sign in for faster checkout or continue as a guest.</p>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Button to="/login" variant="gold" className="min-h-12 px-6 py-3 text-sm">{t("nav.signIn")}</Button>
+          <Button to="/register" variant="primary" className="min-h-12 px-6 py-3 text-sm">{t("nav.createAccount")}</Button>
         </div>
-        <div className="mt-4 w-full max-w-md border-t border-black/10 pt-6">
-          <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-[#6D6D6D]">Or continue as guest</p>
-          <MagneticButton variant="secondary" className="min-h-12 w-full justify-center px-6 py-3 text-sm" onClick={enableGuest}>
-            Guest checkout
-          </MagneticButton>
-          <p className="mt-2 text-xs text-[#909090]">Your order will be linked to your contact details. Create an account after checkout to track it.</p>
+        <div className="mt-4 w-full max-w-sm border-t border-black/10 pt-6">
+          <p className="mb-3 text-xs font-black uppercase tracking-[0.2em] text-[#6D6D6D]">{t("checkout.guest")}</p>
+          <Button variant="secondary" className="min-h-12 w-full justify-center px-6 py-3 text-sm" onClick={enableGuest}>
+            {t("checkout.guest")}
+          </Button>
+          <p className="mt-2 text-xs text-[#909090]">{t("checkout.guestInfo")}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-hidden bg-[#FAF9F5] pt-28 lg:pt-32">
+    <div className="bg-[#FAF9F5] pt-20 lg:pt-24">
       <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 sm:pb-24">
-        <div className="mb-10">
-          <p className="text-xs font-black uppercase tracking-[0.36em] text-[#2C5A82]">Checkout</p>
-          <h1 className="mt-3 font-display text-[clamp(1.4rem,4.5vw,4.5rem)] font-black leading-[0.92] tracking-[-0.06em]">Complete your order</h1>
-        </div>
+        <h1 className="font-display text-[clamp(1.3rem,4vw,3rem)] font-black tracking-[-0.06em]">{t("checkout.title")}</h1>
 
-        <div className="grid gap-10 lg:grid-cols-[1.3fr_0.9fr]">
-          <div className="space-y-8">
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {(["details", "payment", "confirm"] as const).map((s, i) => (
-                <button key={s} type="button" onClick={() => setStep(s)} className={cn("flex min-h-12 min-w-[5rem] items-center gap-2 rounded-full border px-3 py-2 text-[0.6rem] sm:px-4 sm:py-2 sm:text-xs font-bold uppercase tracking-[0.18em] transition whitespace-nowrap", step === s ? "border-[#14171F] bg-[#14171F] text-white" : "border-black/10 bg-white text-[#6D6D6D]")}>
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-current text-[0.5rem] sm:text-[0.55rem] font-black text-[#FAF9F5]">{i + 1}</span>
-                  {s === "details" ? "Details" : s === "payment" ? "Payment" : "Confirm"}
-                </button>
-              ))}
+        <div className="mt-6 grid gap-8 lg:grid-cols-[1.3fr_0.9fr]">
+          {/* Form - all on one page */}
+          <div className="space-y-6">
+            {/* Shipping */}
+            <div className="rounded-xl border border-black/[0.08] bg-white p-5">
+              <h2 className="font-display text-base font-black">{t("checkout.shipping")}</h2>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D]">{t("checkout.fullName")}</label>
+                  <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="min-h-12 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-[#2C5A82]" placeholder="Jean Baptiste Mugabo" />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D]">{t("checkout.phone")}</label>
+                  <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="min-h-12 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-[#2C5A82]" placeholder="+250 788 000 000" />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D]">{t("checkout.email")}</label>
+                  <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="min-h-12 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-[#2C5A82]" placeholder="jean@example.com" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D]">{t("checkout.address")}</label>
+                  <input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} className="min-h-12 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-[#2C5A82]" placeholder="Kacyiru, KG 123 St, Kigali" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#6D6D6D]">Delivery notes</label>
+                  <textarea rows={2} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} className="min-h-12 w-full resize-none rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-[#2C5A82]" placeholder="Landmark, instructions..." />
+                </div>
+              </div>
             </div>
 
-            {step === "details" && (
-              <form className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8" onSubmit={(e) => e.preventDefault()}>
-                <h2 className="font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Delivery details</h2>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                  <div className="sm:col-span-2">
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Full name</label>
-                    <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" placeholder="Jean Baptiste Mugabo" />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Phone</label>
-                    <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" placeholder="+250 788 000 000" />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Email</label>
-                    <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" placeholder="jean@example.com" />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Delivery address</label>
-                    <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} className="min-h-12 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" placeholder="Kacyiru, KG 123 St, Kigali" />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Your location</label>
-                    <div className="flex flex-col gap-2 sm:flex-row">
-                      <input readOnly value={location ? `${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}` : ""} className="min-h-12 flex-1 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82] placeholder:text-[#aaa]" placeholder="Auto-detected coordinates" />
-                      <button type="button" onClick={detectLocation} disabled={detecting} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-black/10 bg-[#FAF9F5] px-4 py-3 text-sm font-bold text-[#111] transition hover:bg-[#2C5A82]/20 hover:border-[#2C5A82] disabled:opacity-50">
-                        <MapPin className={cn("h-4 w-4 text-[#2C5A82]", detecting && "animate-bounce")} /> {detecting ? "Detectingâ€¦" : "Detect"}
-                      </button>
-                    </div>
-                    {locError && <p className="mt-1.5 text-xs text-red-500">{locError}</p>}
-                    {location && (
-                      <a href={location.address} target="_blank" rel="noopener noreferrer" className="mt-1.5 inline-flex min-h-11 items-center gap-1.5 text-xs text-[#2C5A82] underline underline-offset-2 transition hover:text-[#111]">
-                        <MapPin className="h-3 w-3" /> View on Google Maps
-                      </a>
-                    )}
-                    <p className="mt-1.5 text-xs text-[#888]">Click "Detect" to auto-detect your location via GPS. The delivery rider will use this exact pin.</p>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label className="mb-2 block text-xs font-black uppercase tracking-[0.28em] text-[#6D6D6D]">Delivery notes</label>
-                    <textarea rows={3} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="min-h-12 w-full resize-none rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-[#2C5A82]" placeholder="Landmark, gate number, instructions for the rider..." />
-                  </div>
-                </div>
-                <MagneticButton variant="gold" className="mt-6 min-h-12 w-full sm:w-auto px-6 py-3 text-sm" onClick={() => setStep("payment")}>
-                  Continue to payment
-                </MagneticButton>
-              </form>
-            )}
-
-            {step === "payment" && (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
-                <h2 className="font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Payment method</h2>
-                <p className="mt-2 text-sm text-[#6D6D6D]">Choose your preferred payment method.</p>
-                <div className="mt-4 rounded-2xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-4 text-sm">
-                  <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82]">
-                    <Lock className="h-4 w-4 shrink-0" /> Encrypted & Secure
-                  </div>
-                  <p className="mt-2 text-xs leading-5 text-[#6D6D6D]">Your payment info is encrypted (AES-256). We never store full card numbers or mobile money PINs. Mobile Money payments are processed through verified MTN/Airtel gateways.</p>
-                </div>
-                <div className="mt-6 grid gap-3">
-                  {paymentOptions.map((opt) => (
-                    <button key={opt.value} type="button" onClick={() => setPayment(opt.value)} className={cn("flex items-center gap-4 rounded-2xl border p-5 text-left transition min-h-[4.5rem]", payment === opt.value ? "border-[#2C5A82] bg-[#2C5A82]/10" : "border-black/10 bg-white hover:border-black/30")}>
-                      <span className={cn("flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl", payment === opt.value ? "bg-[#14171F] text-[#2C5A82]" : "bg-[#FAF9F5] text-[#6D6D6D]")}>
-                        <opt.icon className="h-5 w-5" strokeWidth={1.8} />
-                      </span>
-                      <div className="min-w-0">
-                        <p className="font-display text-base font-black tracking-[-0.03em] sm:text-lg">{opt.label}</p>
-                        <p className="text-sm text-[#6D6D6D]">{opt.value === "card" ? "Visa, Mastercard" : "MTN Mobile Money, Airtel Money"}</p>
-                      </div>
-                      {payment === opt.value ? <CheckCircle2 className="ml-auto shrink-0 h-5 w-5 text-[#2C5A82]" /> : null}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-6 rounded-2xl border border-black/10 bg-[#FAF9F5] p-4">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#6D6D6D]">
-                    <Lock className="h-4 w-4 shrink-0" /> Secure checkout
-                  </div>
-                  <p className="mt-2 text-sm text-[#6D6D6D]">Your payment information is encrypted and processed securely. We do not store card details.</p>
-                </div>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <MagneticButton variant="secondary" className="min-h-12 w-full sm:w-auto px-6 py-3 text-sm" onClick={() => setStep("details")}>Back</MagneticButton>
-                  <MagneticButton variant="gold" className="min-h-12 w-full sm:w-auto px-6 py-3 text-sm" onClick={() => setStep("confirm")}>Review order</MagneticButton>
-                </div>
+            {/* Payment */}
+            <div className="rounded-xl border border-black/[0.08] bg-white p-5">
+              <h2 className="font-display text-base font-black">{t("checkout.payment")}</h2>
+              <p className="mt-1 text-sm text-[#6D6D6D]">Choose your payment method.</p>
+              <div className="mt-4 grid gap-2">
+                <PaymentOption
+                  icon={<Smartphone className="h-5 w-5" />}
+                  label={t("checkout.mtn")}
+                  sublabel="MTN Mobile Money"
+                  selected={payment === "mobile_money"}
+                  onClick={() => setPayment("mobile_money")}
+                />
+                <PaymentOption
+                  icon={<Smartphone className="h-5 w-5" />}
+                  label={t("checkout.airtel")}
+                  sublabel="Airtel Money"
+                  selected={payment === "airtel_money"}
+                  onClick={() => setPayment("airtel_money")}
+                />
+                <PaymentOption
+                  icon={<CreditCard className="h-5 w-5" />}
+                  label={t("checkout.card")}
+                  sublabel="Visa, Mastercard"
+                  selected={payment === "card"}
+                  onClick={() => setPayment("card")}
+                />
+                <PaymentOption
+                  icon={<Wallet className="h-5 w-5" />}
+                  label={t("checkout.cod")}
+                  sublabel="Pay on delivery"
+                  selected={payment === "cod"}
+                  onClick={() => setPayment("cod")}
+                />
               </div>
-            )}
-
-            {step === "confirm" && (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)] sm:p-8">
-                <h2 className="font-display text-[clamp(1.1rem,3.5vw,1.5rem)] font-black tracking-[-0.04em]">Confirm order</h2>
-                <p className="mt-2 text-sm text-[#6D6D6D]">Please review your order before placing it.</p>
-                {error && (
-                  <div className="mt-4 rounded-2xl bg-red-50 p-4 text-sm text-red-600">{error}</div>
-                )}
-                <div className="mt-6 space-y-4">
-                  {lines.map((line) => (
-                    <div key={line.key} className="flex gap-4 rounded-2xl bg-[#FAF9F5] p-4">
-                      <img src={line.product.images[0]} alt={line.product.name} className="h-16 w-16 shrink-0 rounded-xl object-cover" />
-                      <div className="flex flex-1 items-center justify-between gap-3 min-w-0">
-                        <div className="min-w-0">
-                          <p className="font-display text-base font-black tracking-[-0.03em] truncate">{line.product.name}</p>
-                          <p className="mt-0.5 text-xs text-[#6D6D6D]">Qty {line.quantity}{line.size ? ` Â· ${line.size}` : ""}{line.color ? ` Â· ${line.color}` : ""}</p>
-                        </div>
-                        <p className="font-display font-black shrink-0">{formatRwf(line.product.price * line.quantity)}</p>
-                      </div>
-                    </div>
-                  ))}
+              <div className="mt-4 rounded-xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-3 text-xs">
+                <div className="flex items-center gap-2 text-[0.55rem] font-black uppercase tracking-[0.15em] text-[#2C5A82]">
+                  <Lock className="h-3.5 w-3.5 shrink-0" /> {t("checkout.secure")}
                 </div>
-                <div className="mt-6 rounded-2xl border border-black/10 bg-[#FAF9F5] p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">Payment</p>
-                  <p className="mt-1 font-display text-lg font-black tracking-[-0.03em]">{payment === "mobile_money" ? "Mobile Money" : "Card"}</p>
-                </div>
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <MagneticButton variant="secondary" className="min-h-12 w-full sm:w-auto px-6 py-3 text-sm" onClick={() => setStep("payment")}>Back</MagneticButton>
-                  <MagneticButton variant="gold" className="min-h-12 w-full sm:w-auto px-6 py-3 text-sm" onClick={placeOrder} disabled={submitting}>
-                    {submitting ? "Placing orderâ€¦" : "Place order"}
-                  </MagneticButton>
-                </div>
+                <p className="mt-1 text-[#6D6D6D]">Encrypted (AES-256). We never store full card numbers or PINs.</p>
               </div>
-            )}
+            </div>
+
+            {error && <div className="rounded-xl bg-red-50 p-4 text-sm text-red-600">{error}</div>}
+
+            <Button variant="gold" className="min-h-12 w-full justify-center py-3 text-sm" onClick={placeOrder} disabled={submitting}>
+              {submitting ? "Placing order..." : t("checkout.placeOrder")}
+            </Button>
           </div>
 
+          {/* Order Summary */}
           <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-[2rem] border border-black/[0.08] bg-white p-4 shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
-              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">Order summary</p>
+            <div className="rounded-xl border border-black/[0.08] bg-white p-5">
+              <p className="text-xs font-black uppercase tracking-[0.28em] text-[#2C5A82]">{t("checkout.orderSummary")}</p>
               <div className="mt-3 space-y-3 divide-y divide-black/[0.08]">
                 {lines.map((line) => (
                   <div key={line.key} className="flex items-center justify-between gap-3 pt-3 first:pt-0">
                     <div className="min-w-0">
                       <p className="truncate text-sm font-bold">{line.product.name}</p>
-                      <p className="text-xs text-[#6D6D6D]">Qty {line.quantity}</p>
+                      <p className="text-xs text-[#6D6D6D]">Qty {line.quantity}{line.size ? ` · ${line.size}` : ""}</p>
                     </div>
                     <p className="shrink-0 text-sm font-bold">{formatRwf(line.product.price * line.quantity)}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-3 space-y-2 border-t border-black/10 pt-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-[#6D6D6D]">Subtotal</span>
-                  <span className="font-bold">{formatRwf(subtotal)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6D6D6D]">Delivery</span>
-                  <span className="font-bold">{delivery === 0 ? "Free" : formatRwf(delivery)}</span>
-                </div>
-                <div className="flex justify-between border-t border-black/10 pt-2">
-                  <span className="font-display text-lg font-black tracking-[-0.03em]">Total</span>
-                  <span className="font-display text-lg font-black tracking-[-0.03em]">{formatRwf(total)}</span>
-                </div>
+              <div className="mt-3 space-y-1.5 border-t border-black/10 pt-3 text-sm">
+                <div className="flex justify-between"><span className="text-[#6D6D6D]">{t("checkout.subtotal")}</span><span className="font-bold">{formatRwf(subtotal)}</span></div>
+                <div className="flex justify-between"><span className="text-[#6D6D6D]">{t("checkout.delivery")}</span><span className="font-bold">{t("checkout.free")}</span></div>
+                <div className="flex justify-between border-t border-black/10 pt-2"><span className="font-display font-black">{t("checkout.total")}</span><span className="font-display font-black">{formatRwf(total)}</span></div>
               </div>
-              <div className="mt-4 space-y-2 rounded-2xl bg-[#FAF9F5] p-4 text-xs">
-                <div className="flex items-center gap-2 font-bold text-[#14171F]"><Truck className="h-4 w-4 shrink-0 text-[#2C5A82]" /> Kigali delivery</div>
-                <p className="text-[#6D6D6D]">Free delivery within Kigali (Kicukiro, Kacyiru, Remera, Kimihurura, Nyarutarama, Gikondo). Estimated 24-48 hours.</p>
-                <p className="text-[#6D6D6D]">Delivery beyond Kigali: contact the store for rates and timing.</p>
+              <div className="mt-4 rounded-xl bg-[#FAF9F5] p-3 text-xs">
+                <div className="flex items-center gap-2 font-bold"><Truck className="h-4 w-4 text-[#2C5A82]" /> Free Kigali delivery</div>
+                <p className="mt-1 text-[#6D6D6D]">Kicukiro, Kacyiru, Remera, Kimihurura, Nyarutarama. 24-48h.</p>
               </div>
             </div>
           </aside>
@@ -313,4 +217,15 @@ export default function Checkout() {
   );
 }
 
-
+function PaymentOption({ icon, label, sublabel, selected, onClick }: { icon: React.ReactNode; label: string; sublabel: string; selected: boolean; onClick: () => void }) {
+  return (
+    <button type="button" onClick={onClick} className={cn("flex items-center gap-3 rounded-xl border p-4 text-left transition min-h-[3.5rem]", selected ? "border-[#2C5A82] bg-[#2C5A82]/10" : "border-black/10 bg-white hover:border-black/30")}>
+      <span className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-xl", selected ? "bg-[#14171F] text-[#2C5A82]" : "bg-[#FAF9F5] text-[#6D6D6D]")}>{icon}</span>
+      <div className="min-w-0">
+        <p className="text-sm font-bold">{label}</p>
+        <p className="text-xs text-[#6D6D6D]">{sublabel}</p>
+      </div>
+      {selected && <CheckCircle2 className="ml-auto shrink-0 h-5 w-5 text-[#2C5A82]" />}
+    </button>
+  );
+}

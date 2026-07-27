@@ -1,5 +1,5 @@
-import { motion, useReducedMotion, useMotionValue, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Star, Heart, ShoppingBag, Check, ChevronDown, X, AlertCircle, Loader2, Trash2, Plus, Minus, Eye, Clock } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Star, Heart, ShoppingBag, ChevronDown, X, AlertCircle, Loader2, Plus, Minus, MapPin, BadgeCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { type MouseEvent, type ReactNode, type InputHTMLAttributes, type SelectHTMLAttributes, type ButtonHTMLAttributes, useState, useId, forwardRef } from "react";
 import { cn } from "../utils/cn";
@@ -366,124 +366,66 @@ export function Rating({ value, size = "sm" }: { value: number; size?: "sm" | "m
 // PRODUCT CARD
 // ============================================================
 
-export function ProductCard({ product, variant = "default" }: { product: Product; variant?: "default" | "editorial" }) {
+export function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
   const { toggleItem, hasItem } = useWishlist();
-  const reduceMotion = Boolean(useReducedMotion());
-  const tilt = useMotionValue("perspective(900px) rotateX(0deg) rotateY(0deg)");
   const [imgLoaded, setImgLoaded] = useState(false);
-  const [wishlistAnim, setWishlistAnim] = useState(false);
-
-  const handleMove = (event: MouseEvent<HTMLElement>) => {
-    if (reduceMotion || variant === "editorial") return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    tilt.set(`perspective(900px) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`);
-  };
-
-  const handleLeave = () => {
-    tilt.set("perspective(900px) rotateX(0deg) rotateY(0deg)");
-  };
-
-  const handleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleItem(product);
-    setWishlistAnim(true);
-    setTimeout(() => setWishlistAnim(false), 600);
-  };
-
   const isWishlisted = hasItem(product.slug);
 
   return (
-    <motion.article
+    <article
       data-reveal
-      className={cn(
-        "group flex w-full flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-[0_4px_24px_rgba(20,23,31,0.06)] transition-all duration-500 hover:shadow-[0_16px_48px_rgba(20,23,31,0.1)] hover:-translate-y-1",
-        variant === "editorial" && "rounded-[2.4rem]"
-      )}
-      style={{ transform: reduceMotion ? "none" : tilt }}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
+      className="group flex w-full flex-col overflow-hidden rounded-xl border border-[#14171F]/[0.08] bg-white shadow-sm transition hover:shadow-md hover:-translate-y-0.5"
     >
       <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#FAF9F5]">
         {!imgLoaded && <Skeleton className="absolute inset-0 !rounded-none" />}
         <img
           src={product.images[0]}
           alt={product.name}
-          className={cn(
-            "h-full w-full object-cover transition-all duration-700 group-hover:scale-105",
-            imgLoaded ? "opacity-100" : "opacity-0"
-          )}
+          className={cn("h-full w-full object-cover transition duration-500 group-hover:scale-105", imgLoaded ? "opacity-100" : "opacity-0")}
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
         />
-
-        <div className="absolute inset-x-3 top-3 flex items-start justify-between">
-          <div className="flex flex-col gap-1.5">
-            {product.discount ? (
-              <Badge variant="black">{product.discount}</Badge>
-            ) : null}
-            {product.tag ? (
-              <Badge variant="gold">{product.tag}</Badge>
-            ) : null}
-          </div>
-          <button
-            type="button"
-            onClick={handleWishlist}
-            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-            className={cn(
-              "flex h-10 w-10 items-center justify-center rounded-full bg-white/90 backdrop-blur-md shadow-[0_2px_12px_rgba(20,23,31,0.1)] transition-all duration-300 hover:scale-110",
-              isWishlisted && "bg-[#2C5A82]"
-            )}
-          >
-            <Heart
-              className={cn(
-                "h-4 w-4 transition-all duration-300",
-                isWishlisted ? "fill-white text-white" : "text-[#14171F]",
-                wishlistAnim && "animate-[heartBeat_0.6s_ease-in-out]"
-              )}
-            />
-          </button>
-        </div>
-
-        <div className="pointer-events-none absolute inset-x-3 bottom-3 flex items-center justify-center opacity-0 translate-y-4 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#14171F]/90 px-5 py-2.5 text-xs font-bold text-white backdrop-blur-md">
-            <Eye className="h-3.5 w-3.5" /> Quick view
-          </span>
-        </div>
+        <span className="absolute left-2 top-2 inline-flex items-center gap-0.5 rounded-full bg-white/90 px-2 py-0.5 text-[0.45rem] font-bold text-[#22C55E] backdrop-blur-sm sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[0.5rem]">
+          <BadgeCheck className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> Verified
+        </span>
+        <button
+          type="button"
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleItem(product); }}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+          className={cn(
+            "absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm transition hover:scale-110 sm:right-3 sm:top-3 sm:h-9 sm:w-9",
+            isWishlisted ? "bg-[#2C5A82]" : ""
+          )}
+        >
+          <Heart className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", isWishlisted ? "fill-white text-white" : "text-[#14171F]")} />
+        </button>
       </Link>
 
-      <div className="flex flex-1 flex-col p-3 sm:p-4">
-        <div className="flex items-center gap-2">
-          <Link to={`/store/${product.storeSlug}`} className="text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#14171F]/60 underline-grow">
-            {product.storeName}
-          </Link>
-        </div>
-
-        <Link to={`/product/${product.slug}`} className="mt-1.5 font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black leading-tight tracking-[-0.02em] text-[#14171F] sm:text-2xl">
+      <div className="flex flex-1 flex-col p-2.5 sm:p-3">
+        <Link to={`/product/${product.slug}`} className="font-display text-sm font-black leading-tight tracking-[-0.02em] text-[#14171F] sm:text-base">
           {product.name}
         </Link>
-
-        <div className="mt-auto flex items-end justify-between gap-3 pt-2">
-          <div>
-            <p className="font-display text-[clamp(0.875rem,2.5vw,1.5rem)] font-black tracking-[-0.04em] text-[#14171F] sm:text-2xl">{formatRwf(product.price)}</p>
-            {product.originalPrice ? (
-              <p className="text-[0.6rem] text-[#909090] line-through">{formatRwf(product.originalPrice)}</p>
-            ) : null}
+        <p className="mt-1 font-display text-base font-black tracking-[-0.03em] sm:text-lg">{formatRwf(product.price)}</p>
+        <div className="mt-auto flex items-center justify-between gap-2 pt-1.5">
+          <div className="flex items-center gap-1.5 text-[0.5rem] text-[#6D6D6D] sm:text-[0.55rem]">
+            <Star className="h-2.5 w-2.5 fill-[#2C5A82] text-[#2C5A82] sm:h-3 sm:w-3" />
+            <span>{product.rating.toFixed(1)}</span>
+            <span className="text-[#14171F]/20">·</span>
+            <MapPin className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+            <span className="truncate max-w-[60px] sm:max-w-[80px]">{product.storeName}</span>
           </div>
           <button
             type="button"
             aria-label={`Add ${product.name} to bag`}
             onClick={(e) => { e.preventDefault(); addItem(product); }}
-            className="flex h-12 w-12 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-[#14171F] text-white transition-all duration-300 hover:bg-[#2C5A82] hover:scale-105 active:scale-95"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#14171F] text-white transition hover:bg-[#2C5A82] active:scale-95 sm:h-10 sm:w-10"
           >
-            <ShoppingBag className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
+            <ShoppingBag className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           </button>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 

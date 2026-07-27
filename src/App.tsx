@@ -1,12 +1,11 @@
-import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { I18nProvider } from "./context/i18n";
 import { BottomNav, CartDrawer, Footer, Navigation, ScrollRestoration, Toast } from "./components/shell";
-import Opening from "./pages/Opening";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
@@ -16,14 +15,14 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Sell from "./pages/Sell";
 import SellApply from "./pages/SellApply";
-import Plans from "./pages/Plans";
-import WhyGihanga from "./pages/WhyGihanga";
 import Checkout from "./pages/Checkout";
-import Editorial from "./pages/Editorial";
 import Wishlist from "./pages/Wishlist";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import Orders from "./pages/Orders";
+import Dashboard from "./pages/Dashboard";
 
 function useRevealObserver() {
   useEffect(() => {
@@ -55,24 +54,19 @@ function useRevealObserver() {
   }, []);
 }
 
-function AnimatedRoutes() {
-  const location = useLocation();
+function AppLayout() {
   useRevealObserver();
+  const location = useLocation();
 
-  const isOpening = location.pathname === "/";
-  const authPages = ["/login", "/register"];
-
-  const showShell = !isOpening && !authPages.includes(location.pathname);
+  const hideShell = ["/login", "/register"].includes(location.pathname);
 
   return (
     <>
       <ScrollRestoration />
-      {showShell ? <Navigation /> : null}
-      <div className={showShell ? "pt-[80px] sm:pt-[96px]" : ""}>
-      <AnimatePresence mode="popLayout">
+      {!hideShell && <Navigation />}
+      <div className={!hideShell ? "pt-[72px] sm:pt-[80px]" : ""}>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Opening />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:slug" element={<ProductDetail />} />
           <Route path="/stores" element={<Stores />} />
@@ -81,22 +75,21 @@ function AnimatedRoutes() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/sell" element={<Sell />} />
           <Route path="/sell-apply" element={<SellApply />} />
-          <Route path="/plans" element={<Plans />} />
-          <Route path="/why-gihanga" element={<WhyGihanga />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/editorial" element={<Editorial />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Opening />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<Home />} />
         </Routes>
-      </AnimatePresence>
       </div>
-      {showShell ? <Footer /> : null}
-      {showShell ? <BottomNav /> : null}
-      {showShell ? <CartDrawer /> : null}
-      {showShell ? <Toast /> : null}
+      {!hideShell && <Footer />}
+      {!hideShell && <BottomNav />}
+      {!hideShell && <CartDrawer />}
+      {!hideShell && <Toast />}
     </>
   );
 }
@@ -107,11 +100,13 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <WishlistProvider>
-        <BrowserRouter>
-          <div className="min-h-screen overflow-x-hidden bg-[#FAF9F5] text-[#14171F] pb-16 lg:pb-0">
-            <AnimatedRoutes />
-          </div>
-        </BrowserRouter>
+          <I18nProvider>
+          <BrowserRouter>
+            <div className="min-h-screen overflow-x-hidden bg-[#FAF9F5] text-[#14171F] pb-16 lg:pb-0">
+              <AppLayout />
+            </div>
+          </BrowserRouter>
+          </I18nProvider>
         </WishlistProvider>
       </CartProvider>
     </AuthProvider>

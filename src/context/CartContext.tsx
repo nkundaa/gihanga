@@ -21,6 +21,7 @@ type CartContextValue = {
   addItem: (product: Product, options?: { size?: string; color?: string; quantity?: number }) => void;
   removeItem: (key: string) => void;
   setQuantity: (key: string, quantity: number) => void;
+  clearCart: () => void;
   count: number;
   subtotal: number;
   toast: string | null;
@@ -118,6 +119,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     });
   }, [isAuthenticated]);
 
+  const clearCart = useCallback(() => {
+    setLines([]);
+    if (isAuthenticated) {
+      api.cart.clear().catch(() => {});
+    }
+  }, [isAuthenticated]);
+
   const setQuantity = useCallback((key: string, quantity: number) => {
     setLines((prev) => {
       const item = prev.find((l) => l.key === key);
@@ -138,8 +146,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const subtotal = useMemo(() => lines.reduce((acc, l) => acc + l.quantity * l.product.price, 0), [lines]);
 
   const value = useMemo(
-    () => ({ lines, isOpen, openCart, closeCart, addItem, removeItem, setQuantity, count, subtotal, toast }),
-    [lines, isOpen, openCart, closeCart, addItem, removeItem, setQuantity, count, subtotal, toast]
+    () => ({ lines, isOpen, openCart, closeCart, addItem, removeItem, setQuantity, clearCart, count, subtotal, toast }),
+    [lines, isOpen, openCart, closeCart, addItem, removeItem, setQuantity, clearCart, count, subtotal, toast]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

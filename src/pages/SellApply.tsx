@@ -1,136 +1,67 @@
-import { useState, useEffect, useCallback } from "react";
-import { Camera, CheckCircle2, ShieldCheck, Smartphone, Upload, User } from "lucide-react";
-import { MagneticButton } from "../components/ui";
+import { useState, useEffect } from "react";
+import { CheckCircle2, ShieldCheck, Store } from "lucide-react";
+import { Button } from "../components/ui";
 import { api } from "../api";
+import Seo from "../components/Seo";
 
-const STORAGE_KEY = "gihanga_seller_apply";
-const stepRequired: Record<number, string[]> = {
-  0: ["fullName", "phone", "email", "storeName", "businessName"],
-  1: ["paymentNumber", "paymentProvider"],
-  2: ["idFront", "idBack", "agreeVerification", "agreeSellerAgreement"],
-};
-
-type FormState = Record<string, string | boolean>;
-
-const initialForm: FormState = {
-  fullName: "", phone: "", email: "",
-  storeName: "", businessName: "",
-  paymentNumber: "", paymentProvider: "",
-  idFront: "", idBack: "", selfie: "",
-  agreeVerification: false, agreeSellerAgreement: false,
-};
-
-function loadDraft(): { step: number; form: FormState; touched: Record<string, boolean>; fileNames: Record<string, string> } | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch { return null; }
-}
-
-function saveDraft(step: number, form: FormState, touched: Record<string, boolean>, fileNames: Record<string, string>) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step, form, touched, fileNames })); } catch {}
-}
-
-function clearDraft() {
-  try { localStorage.removeItem(STORAGE_KEY); } catch {}
-}
+const STORAGE_KEY = "gihanga_seller_draft";
 
 export default function SellApply() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const draft = loadDraft();
-  const [step, setStep] = useState(draft?.step ?? 0);
+  const [form, setForm] = useState({ name: "", phone: "", email: "", storeName: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [form, setForm] = useState<FormState>(draft?.form ?? { ...initialForm });
-  const [touched, setTouched] = useState<Record<string, boolean>>(draft?.touched ?? {});
-  const [fileNames, setFileNames] = useState<Record<string, string>>(draft?.fileNames ?? {});
   const [apiError, setApiError] = useState("");
+  const [successStore, setSuccessStore] = useState("");
 
-  useEffect(() => { saveDraft(step, form, touched, fileNames); }, [step, form, touched, fileNames]);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (saved.name || saved.phone || saved.email || saved.storeName) {
+          setForm(saved);
+        }
+      }
+    } catch {}
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? (target as HTMLInputElement).checked : target.value;
-    setForm((prev) => ({ ...prev, [target.id]: value }));
-    if (errors[target.id]) setErrors((prev) => { const n = { ...prev }; delete n[target.id]; return n; });
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(form)); } catch {}
+  }, [form]);
+
+  const validate = (): boolean => {
+    const e: Record<string, string> = {};
+    if (!form.name.trim()) e.name = "Your name is required";
+    if (!form.phone.trim()) e.phone = "Phone number is required";
+    else if (!/^[\d\s+\-()]{7,}$/.test(form.phone)) e.phone = "Enter a valid phone number";
+    if (!form.email.trim()) e.email = "Email is required";
+    else if (!/^\S+@\S+\.\S+$/.test(form.email)) e.email = "Enter a valid email";
+    if (!form.storeName.trim()) e.storeName = "Store name is required";
+    setErrors(e);
+    return Object.keys(e).length === 0;
   };
-
-  const handleFile = (id: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFileNames((prev) => ({ ...prev, [id]: file.name }));
-      setForm((prev) => ({ ...prev, [id]: URL.createObjectURL(file) }));
-    }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setTouched((prev) => ({ ...prev, [e.target.id]: true }));
-    const value = e.target.type === "checkbox" ? (e.target as HTMLInputElement).checked : e.target.value;
-    const err = validateField(e.target.id, value as string | boolean);
-    if (err) setErrors((prev) => ({ ...prev, [e.target.id]: err }));
-    else setErrors((prev) => { const n = { ...prev }; delete n[e.target.id]; return n; });
-  };
-
-  const validateField = (id: string, value: string | boolean): string => {
-    const v = typeof value === "string" ? value.trim() : value;
-    switch (id) {
-      case "fullName": return !v ? "Full name is required" : "";
-      case "phone": return !v ? "Phone number is required" : !/^[\d\s\+\-\(\)]{7,}$/.test(v.toString()) ? "Enter a valid phone number" : "";
-      case "email": return !v ? "Email is required" : !/^\S+@\S+\.\S+$/.test(v.toString()) ? "Enter a valid email address" : "";
-      case "storeName": return !v ? "Store name is required" : "";
-      case "businessName": return !v ? "Business name is required" : "";
-      case "paymentNumber": return !v ? "Mobile money number is required" : !/^[\d\s\+\-\(\)]{7,}$/.test(v.toString()) ? "Enter a valid phone number" : "";
-      case "paymentProvider": return !v ? "Select a mobile money provider" : "";
-      case "idFront": return !v ? "Upload front of ID / Passport" : "";
-      case "idBack": return !v ? "Upload back of ID / Passport" : "";
-      case "agreeVerification": return !v ? "You must agree to verification" : "";
-      case "agreeSellerAgreement": return !v ? "You must accept the seller agreement" : "";
-      default: return "";
-    }
-  };
-
-  const allRequired = (): string[] => ["fullName", "phone", "email", "storeName", "businessName", "paymentNumber", "paymentProvider", "idFront", "idBack", "agreeVerification", "agreeSellerAgreement"];
-
-  const validateStep = (s: number): boolean => {
-    const ids = stepRequired[s] || [];
-    const newErrors: Record<string, string> = {};
-    ids.forEach((id) => {
-      const val = typeof form[id] === "boolean" ? form[id] : (form[id] as string);
-      const err = validateField(id, val as string | boolean);
-      if (err) newErrors[id] = err;
-    });
-    setErrors((prev) => ({ ...prev, ...newErrors }));
-    setTouched((prev) => ({ ...prev, ...Object.fromEntries(ids.map((k) => [k, true])) }));
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const totalSteps = Object.keys(stepRequired).length;
-  const handleNext = () => { if (validateStep(step)) setStep((s) => Math.min(s + 1, totalSteps - 1)); };
-  const handleBack = () => setStep((s) => Math.max(s - 1, 0));
 
   const handleSubmit = async () => {
-    if (!validateStep(step)) return;
+    if (!validate()) return;
     setSubmitting(true);
     setApiError("");
 
     try {
       const password = Math.random().toString(36).slice(-12);
-
       await api.auth.register({
-        name: form.fullName as string,
-        email: form.email as string,
+        name: form.name,
+        email: form.email,
         password,
         password_confirmation: password,
-        phone: form.phone as string,
+        phone: form.phone,
         role: "seller",
-        store_name: form.storeName as string,
-        business_name: form.businessName as string,
-        payment_number: form.paymentNumber as string,
-        payment_provider: form.paymentProvider as string,
+        store_name: form.storeName,
+        business_name: form.storeName,
       });
-
-      clearDraft();
+      setSuccessStore(form.storeName);
       setSubmitted(true);
+      localStorage.removeItem(STORAGE_KEY);
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message ?? "Something went wrong. Please try again.";
       setApiError(msg);
@@ -139,244 +70,97 @@ export default function SellApply() {
     }
   };
 
-  const resetForm = () => {
-    setSubmitted(false);
-    setStep(0);
-    setForm({ ...initialForm });
-    setTouched({});
-    setErrors({});
-    setFileNames({});
-    setApiError("");
-  };
-
   const inputCls = (id: string) =>
     `min-h-12 w-full rounded-xl border px-4 py-3 text-sm outline-none transition ${
-      touched[id] && errors[id]
-        ? "border-red-400 focus:border-red-500"
-        : "border-black/10 focus:border-[#2C5A82]"
+      errors[id] ? "border-red-400 focus:border-red-500" : "border-black/10 focus:border-[#2C5A82]"
     } bg-white`;
 
-  const labelCls = "mb-1.5 block text-[10px] font-black uppercase tracking-[0.24em] text-[#888888]";
-
-  const autoCompleteFor = (id: string): string => {
-    const map: Record<string, string> = {
-      fullName: "name",
-      phone: "tel",
-      email: "email",
-      storeName: "organization",
-      businessName: "organization",
-      paymentNumber: "tel",
-      paymentProvider: "off",
-      idFront: "off",
-      idBack: "off",
-      selfie: "off",
-      agreeVerification: "off",
-      agreeSellerAgreement: "off",
-    };
-    return map[id] || "off";
-  };
-
-  const renderField = (id: string, label: string, opts?: { type?: string; placeholder?: string }) => {
-    const req = allRequired().includes(id);
-    return (
-      <div>
-        <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <input id={id} type={opts?.type || "text"} autoComplete={autoCompleteFor(id)} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)} placeholder={opts?.placeholder} />
-        {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
-      </div>
-    );
-  };
-
-  const renderSelect = (id: string, label: string, options: { value: string; label: string }[]) => {
-    const req = allRequired().includes(id);
-    return (
-      <div>
-        <label htmlFor={id} className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <select id={id} autoComplete={autoCompleteFor(id)} value={form[id] as string} onChange={handleChange} onBlur={handleBlur} className={inputCls(id)}>
-          <option value="">Select provider</option>
-          {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
-      </div>
-    );
-  };
-
-  const renderCheckbox = (id: string, label: string) => (
-    <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-[#555] min-h-12 py-2">
-      <input id={id} type="checkbox" autoComplete={autoCompleteFor(id)} checked={!!form[id]} onChange={handleChange} onBlur={handleBlur} className="mt-0.5 h-5 w-5 shrink-0 rounded border-black/20 accent-[#2C5A82]" />
-      <span>{label}</span>
-    </label>
-  );
-
-  const renderFileUpload = (id: string, label: string, icon: React.ReactNode) => {
-    const req = allRequired().includes(id);
-    return (
-      <div>
-        <label className={labelCls}>{label} {req ? <span className="text-red-400">*</span> : null}</label>
-        <label htmlFor={id} className={`flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed px-4 py-5 text-sm transition ${touched[id] && errors[id] ? "border-red-400 bg-red-50" : "border-black/15 bg-white hover:border-[#2C5A82] hover:bg-[#2C5A82]/5"}`}>
-          <span className="shrink-0 text-[#2C5A82]">{icon}</span>
-          <span className="text-[#888]">{fileNames[id] || "Click to upload"}</span>
-          {fileNames[id] ? <CheckCircle2 className="ml-auto h-4 w-4 shrink-0 text-green-500" /> : null}
-        </label>
-        <input id={id} type="file" accept="image/*" autoComplete="off" onChange={handleFile(id)} onBlur={() => setTouched((p) => ({ ...p, [id]: true }))} className="hidden" />
-        {touched[id] && errors[id] ? <p className="mt-1 text-xs font-bold text-red-500">{errors[id]}</p> : null}
-      </div>
-    );
-  };
+  const labelCls = "mb-1.5 block text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#888]";
 
   return (
-    <div className="overflow-x-hidden bg-[#FAF9F5]">
-      <section className="relative overflow-hidden bg-[#14171F] px-4 pb-16 pt-36 text-white sm:px-6 lg:px-8 lg:pb-20 lg:pt-44">
-        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(191,215,241,0.22),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(255,213,234,0.18),transparent_32%)]" />
-        <div aria-hidden className="luxury-orb right-[10%] top-[20%] h-72 w-72 bg-[#2C5A82]/20" />
-        <div aria-hidden className="noise-layer pointer-events-none absolute inset-0" />
-        <div className="relative mx-auto max-w-7xl">
-          <p className="inline-flex items-center gap-2 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#2C5A82] sm:gap-3 sm:text-xs sm:tracking-[0.42em]">
-            <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4" /> KYC/KYB verification
+    <div className="bg-[#FAF9F5]">
+      <Seo title="Sell - Gihanga Market" path="/sell-apply" description="Apply to sell on GIHANGA" />
+      <section className="relative bg-[#14171F] px-4 pb-12 pt-24 text-white sm:px-6 lg:px-8 lg:pb-16 lg:pt-32">
+        <div className="mx-auto max-w-7xl">
+          <p className="inline-flex items-center gap-2 text-[0.55rem] font-black uppercase tracking-[0.25em] text-[#2C5A82]">
+            <ShieldCheck className="h-3 w-3" /> Start selling
           </p>
-          <h1 className="mt-4 max-w-5xl font-display text-[clamp(1.5rem,7vw,9rem)] font-black uppercase leading-[0.82] tracking-[-0.08em] sm:mt-6">
-            Apply to sell on <span className="font-editorial normal-case text-[#2C5A82]">GIHANGA</span>
+          <h1 className="mt-4 max-w-4xl font-display text-[clamp(1.5rem,6vw,5rem)] font-black leading-[0.88] tracking-[-0.08em]">
+            Open your store on <span className="font-editorial text-[#2C5A82]">GIHANGA</span>
           </h1>
-          <p className="mt-4 max-w-xl text-sm leading-7 text-white/75 sm:mt-8 sm:text-base sm:leading-normal">
-            Three-step registration. Set up your store, add your mobile money payout details, and complete KYC verification.
-          </p>
+          <p className="mt-3 max-w-xl text-sm leading-6 text-white/70">Enter your details below. We'll create your seller account and guide you through the rest.</p>
         </div>
       </section>
 
-      <section id="form" className="px-4 py-16 sm:px-6 lg:px-8 sm:py-20 lg:py-28">
-        <div className="mx-auto max-w-7xl">
-          <div className="mx-auto max-w-4xl text-center" data-reveal>
-            <p className="text-xs font-black uppercase tracking-[0.32em] text-[#2C5A82]">
-              <ShieldCheck className="mr-1.5 inline h-3.5 w-3.5" /> KYC/KYB verification
-            </p>
-            <h2 className="mt-4 font-display text-[clamp(1.5rem,4.5vw,4.6rem)] font-black leading-[0.95] tracking-[-0.05em]">
-              Verify to <span className="font-editorial text-[#2C5A82]">sell</span>
-            </h2>
-          </div>
-
-          <div className="mx-auto mt-14 max-w-3xl" data-reveal>
-            {submitted ? (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-[#FAF9F5] p-6 text-center sm:p-12">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                  <CheckCircle2 className="h-8 w-8 text-green-600" />
-                </div>
-                <p className="mt-5 font-display text-[clamp(1.25rem,4vw,2rem)] font-black tracking-[-0.04em]">Application submitted for <span className="text-[#2C5A82]">{form.storeName as string}</span></p>
-                <p className="mt-2 text-[#6D6D6D]">A verification email has been sent to <b>{form.email as string}</b></p>
-                <p className="mt-1 text-sm text-[#888]">We will verify your documents and contact you within 2 business days.</p>
-                <div className="mx-auto mt-8 h-px max-w-xs bg-black/[0.06]" />
-                <div className="mt-6 grid gap-3 text-left text-sm sm:grid-cols-3">
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Name</dt><dd className="mt-1 font-bold">{form.fullName as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Store</dt><dd className="mt-1 font-bold">{form.storeName as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Phone</dt><dd className="mt-1 font-bold">{form.phone as string}</dd></div>
-                </div>
-                <div className="mx-auto mt-3 grid max-w-xs gap-3 text-left text-sm sm:grid-cols-2">
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Payment</dt><dd className="mt-1 font-bold">{form.paymentNumber as string}</dd></div>
-                  <div className="rounded-xl bg-white p-3"><dt className="text-[10px] font-black uppercase tracking-[0.16em] text-[#666]">Provider</dt><dd className="mt-1 font-bold capitalize">{form.paymentProvider as string}</dd></div>
-                </div>
-                <button onClick={resetForm} className="mt-6 min-h-11 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82] underline underline-offset-4 transition hover:text-[#111]">Submit another</button>
+      <section className="px-4 py-10 sm:px-6 lg:px-8 sm:py-16">
+        <div className="mx-auto max-w-lg">
+          {submitted ? (
+            <div className="rounded-xl border border-black/[0.08] bg-white p-8 text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+                <CheckCircle2 className="h-7 w-7 text-green-600" />
               </div>
-            ) : (
-              <div className="rounded-[2rem] border border-black/[0.08] bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
-                <div className="border-b border-black/[0.06] px-6 py-5 sm:px-10">
-                  <div className="flex items-center justify-between">
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#999]">Step {step + 1} of {totalSteps}</p>
-                    <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#2C5A82]">{Math.round(((step + 1) / totalSteps) * 100)}%</p>
+              <p className="mt-4 font-display text-xl font-black">Store created!</p>
+              <p className="mt-2 text-sm text-[#6D6D6D]">
+                <span className="font-bold text-[#2C5A82]">{successStore}</span> has been registered.
+              </p>
+              <p className="mt-1 text-xs text-[#888]">We've sent login details to your email. You can now complete your store profile — add your logo, banner, payment info, and verify your identity.</p>
+              <div className="mt-6 flex flex-col gap-2">
+                <Button to="/login" variant="gold" className="min-h-12 w-full justify-center py-3 text-sm">Sign in to your store</Button>
+                <Button to="/" variant="secondary" className="min-h-12 w-full justify-center py-3 text-sm">Back to home</Button>
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-black/[0.08] bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-white">01</span>
+                <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#2C5A82]"><Store className="h-3.5 w-3.5" /> Store details</span>
+              </div>
+              <p className="mb-6 text-sm text-[#6D6D6D]">Start with the basics. You can add your business documents, payment details, and store media later from your dashboard.</p>
+
+              <div className="space-y-4">
+                <div>
+                  <label className={labelCls}>Your full name *</label>
+                  <input id="name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className={inputCls("name")} placeholder="Jean Baptiste Mugabo" />
+                  {errors.name && <p className="mt-1 text-xs font-bold text-red-500">{errors.name}</p>}
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className={labelCls}>Phone *</label>
+                    <input id="phone" type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className={inputCls("phone")} placeholder="+250 7XX XXX XXX" />
+                    {errors.phone && <p className="mt-1 text-xs font-bold text-red-500">{errors.phone}</p>}
                   </div>
-                  <div className="mt-3 flex gap-1.5">
-                    {Array.from({ length: totalSteps }).map((_, i) => (
-                      <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-[#2C5A82]" : "bg-black/[0.08]"}`} />
-                    ))}
+                  <div>
+                    <label className={labelCls}>Email *</label>
+                    <input id="email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className={inputCls("email")} placeholder="you@example.com" />
+                    {errors.email && <p className="mt-1 text-xs font-bold text-red-500">{errors.email}</p>}
                   </div>
                 </div>
-
-                <form onSubmit={(e) => e.preventDefault()} noValidate className="p-6 sm:p-10">
-                  {step === 0 && <div>
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#111]">01</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><User className="h-3.5 w-3.5" /> Contact &amp; Store</span>
-                    </div>
-                    <div className="mt-6 space-y-5">
-                      <div className="grid gap-5 sm:grid-cols-2">
-                        {renderField("fullName", "Full Name", { placeholder: "Your full name" })}
-                        {renderField("phone", "Phone Number", { type: "tel", placeholder: "+250 7XX XXX XXX" })}
-                      </div>
-                      {renderField("email", "Email Address", { type: "email", placeholder: "you@example.com" })}
-                      <div className="grid gap-5 sm:grid-cols-2">
-                        {renderField("storeName", "Store Name", { placeholder: "As customers will see it" })}
-                        {renderField("businessName", "Business Name", { placeholder: "Registered or trading name" })}
-                      </div>
-                    </div>
-                  </div>}
-
-                  {step === 1 && <div>
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#111]">02</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><Smartphone className="h-3.5 w-3.5" /> Mobile Money Payout</span>
-                    </div>
-                    <p className="mt-4 text-sm leading-6 text-[#6D6D6D]">Set up your mobile money payout details. This is where you will receive payments from customer orders.</p>
-                    <div className="mt-6 space-y-5">
-                      {renderField("paymentNumber", "Mobile Money Number", { type: "tel", placeholder: "+250 7XX XXX XXX" })}
-                      {renderSelect("paymentProvider", "Mobile Money Provider", [
-                        { value: "mtn", label: "MTN Mobile Money" },
-                        { value: "airtel", label: "Airtel Money" },
-                        { value: "mixx_by_bank", label: "Mixx by Bank" },
-                        { value: "cash", label: "Cash on Delivery" },
-                      ])}
-                    </div>
-                  </div>}
-
-                  {step === 2 && <div>
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2C5A82] text-xs font-black text-[#111]">03</span>
-                      <span className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.22em] text-[#2C5A82]"><ShieldCheck className="h-3.5 w-3.5" /> KYC/KYB Verification</span>
-                    </div>
-                    <div className="mt-6 space-y-5">
-                      <div className="grid gap-5 sm:grid-cols-2">
-                        {renderFileUpload("idFront", "Front of ID / Passport", <Upload className="h-5 w-5" />)}
-                        {renderFileUpload("idBack", "Back of ID / Passport", <Upload className="h-5 w-5" />)}
-                      </div>
-                      <p className="-mt-3 text-xs text-[#909090]">Accepted: Rwandan National ID, East African Passport, or Driver's License. Files must be clear, uncropped, and under 5MB each.</p>
-                      {renderFileUpload("selfie", "Selfie (Face Verification)", <Camera className="h-5 w-5" />)}
-                      <div className="rounded-xl border border-[#2C5A82]/20 bg-[#2C5A82]/5 p-4 text-xs leading-6 text-[#6D6D6D]">
-                        <div className="flex items-center gap-2 text-[0.55rem] font-black uppercase tracking-[0.2em] text-[#2C5A82]"><ShieldCheck className="h-3.5 w-3.5" /> Your data is encrypted</div>
-                        <p className="mt-1">Documents are encrypted (AES-256) in transit and at rest. They are used exclusively for KYC/KYB verification and never shared with third parties. Files are deleted within 90 days of verification completion.</p>
-                      </div>
-                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#888]">Agreement</p>
-                      {renderCheckbox("agreeVerification", "I consent to KYC/KYB identity and business verification")}
-                      {renderCheckbox("agreeSellerAgreement", "I accept the GIHANGA Seller Agreement")}
-                    </div>
-                  </div>}
-
-                  {apiError ? (
-                    <div className="mt-6 rounded-xl bg-red-50 p-4 text-xs font-bold text-red-600">{apiError}</div>
-                  ) : null}
-
-                  <div className="mt-10 flex items-center justify-between border-t border-black/[0.06] pt-8">
-                    {step > 0 ? (
-                      <button type="button" onClick={handleBack} className="flex min-h-11 items-center gap-1.5 text-xs font-black uppercase tracking-[0.2em] text-[#666] transition hover:text-[#111]">
-                        â† Back
-                      </button>
-                    ) : <div />}
-                    {step < totalSteps - 1 ? (
-                      <button type="button" onClick={handleNext} className="min-h-12 rounded-full bg-[#2C5A82] px-8 py-3 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[0_10px_30px_rgba(191,215,241,0.3)] transition hover:rounded-2xl sm:px-10 sm:py-3.5">
-                        Next step â†’
-                      </button>
-                    ) : (
-                      <MagneticButton type="button" variant="gold" className="min-h-12 px-8 py-3.5" disabled={submitting} onClick={handleSubmit}>
-                        {submitting ? (
-                          <span className="flex items-center gap-2"><span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" /> Submittingâ€¦</span>
-                        ) : "Submit verification"}
-                      </MagneticButton>
-                    )}
-                  </div>
-                </form>
+                <div>
+                  <label className={labelCls}>Store name *</label>
+                  <input id="storeName" value={form.storeName} onChange={e => setForm({ ...form, storeName: e.target.value })} className={inputCls("storeName")} placeholder="As customers will see it" />
+                  {errors.storeName && <p className="mt-1 text-xs font-bold text-red-500">{errors.storeName}</p>}
+                </div>
               </div>
-            )}
-          </div>
+
+              {apiError && <div className="mt-4 rounded-xl bg-red-50 p-3 text-xs font-bold text-red-600">{apiError}</div>}
+
+              <div className="mt-6 rounded-xl bg-[#FAF9F5] p-3 text-xs text-[#6D6D6D]">
+                <p className="font-bold text-[#14171F]">What happens next?</p>
+                <ul className="mt-2 space-y-1">
+                  <li>• We'll create your seller account and send login details to your email</li>
+                  <li>• Sign in to complete your store profile (logo, banner, description)</li>
+                  <li>• Add your mobile money payout details</li>
+                  <li>• Complete KYC/KYB verification to start selling</li>
+                </ul>
+              </div>
+
+              <Button variant="gold" className="mt-6 min-h-12 w-full justify-center py-3 text-sm" onClick={handleSubmit} disabled={submitting}>
+                {submitting ? "Creating your store..." : "Create your store"}
+              </Button>
+            </div>
+          )}
         </div>
       </section>
     </div>
   );
 }
-
-
